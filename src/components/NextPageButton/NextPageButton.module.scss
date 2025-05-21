@@ -1,56 +1,34 @@
-.scrollPageIconContainer {
-    width: 100vw;
+.next-page-button {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 50px;
+  z-index: 996;
+
+  @media (max-width: 768px) {
+    bottom: 20px;
+    left: 0;
+  }
+
+  .button-container {
+    background: #ffffff99;
+    border-radius: 10px;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
-    position: fixed;
-    bottom: 50px;
-    z-index: 996;
+    border: none;
+    color: $secondary-color;
+    padding: 10px 20px;
+    // animation: showText 0.8s normal;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+    transition: 0.2s all cubic-bezier(0, 0, 0, 1);
 
-    .scrollPage {
-        background: #ffffff99;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        border: none;
-        color: #0c0c0c;
-        padding: 10px 20px;
-        animation: showText 0.8s normal;
-        animation-fill-mode: forwards;
-        animation-delay: 1s;
-        transition: 0.2s all cubic-bezier(0, 0, 0, 1);
-
-        .right-arrow, .left-arrow {
-            transition: 0.2s all cubic-bezier(0, 0, 0, 1);
-        }
-
-        svg {
-            margin-top: 10px;
-        }
-
-        p {
-            margin-top: 7px;
-        }
+    .right-arrow,
+    .left-arrow {
+      transition: 0.2s all cubic-bezier(0, 0, 0, 1);
     }
-}
-
-@media (max-width: 768px) {
-    .scrollPageIconContainer {
-        bottom: 20px;
-        left: 0;
-    }
-    
-}
-
-@keyframes showText {
-    from {
-        padding-top: 20px;
-        opacity: 0;
-    }
-
-    to {
-        padding-top: 0px;
-        opacity: 1;
-    }
+  }
 }

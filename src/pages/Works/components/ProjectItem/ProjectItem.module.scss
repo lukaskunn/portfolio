@@ -1,56 +1,48 @@
+@import "../../../../styles/variables";
+
 .project-item-container {
-    width: 100%;
-    height: 110px;
-    padding: 0 40px;
-    display: flex;
-    color: white;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    border-bottom: 1px solid white;
-    transition: .2s all cubic-bezier(0, 0, 0, 1);
+  width: 100%;
+  height: 110px;
+  padding: 0 40px;
+  display: flex;
+  color: $primary-color;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  border-bottom: 1px solid white;
+  transition: .2s all cubic-bezier(0, 0, 0, 1);
 
-    &:hover {
-        // opacity: 0.4;
-        color: #ffffffb0;
-        padding: 0 0px;
-        // border-bottom: 1px solid #ffffffb0;
+  @media (max-width: 768px) {
+    padding: 0 10px !important;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    height: 120px;
+  }
+
+  &:hover {
+    color: #ffffffb0;
+    padding: 0 0px;
+  }
+
+  .project-title {
+    font-size: 42px;
+    font-weight: 400;
+    font-family: $primary-font;
+
+    @media (max-width: 768px) {
+      font-size: 28px;
     }
+  }
 
-    .project-title {
-        font-size: 42px;
-        font-weight: 400;
-        font-family: "Roboto Mono", monospace;
-        
+  .project-description {
+    font-size: 24px;
+    font-weight: 300;
+    font-family: $primary-font;
+
+    @media (max-width: 768px) {
+      font-size: 18px;
+      text-align: end;
     }
-
-    .project-description {
-        font-size: 24px;
-        font-weight: 300;
-        font-family: "Roboto Mono", monospace;
-    }
-    
-}
-
-@media (max-width: 768px) {
-    .project-item-container {
-        padding: 0 10px !important;
-        // gap: 10px;
-        align-items: flex-start;
-        justify-content: center;
-        flex-direction: column;
-        height: 120px;
-
-        .project-title {
-            font-size: 28px;
-            // height: 100%;
-        }
-    
-        .project-description {
-            // height: 100%;
-            font-size: 18px;
-            text-align: end;
-            // padding-top: 7px;
-        }
-    }
+  }
 }

@@ -18,15 +18,15 @@ const NextPageButton = ({
   const [hover, setHover] = useState(false);
 
   const buttonContainerStyle = {
-    color: showBackground ? hover ? "#0c0c0c" : "#bebebe" : hover ? "white" : "#bebebe" ,
+    color: showBackground ? hover ? "#0c0c0c" : "#bebebe" : hover ? "white" : "#bebebe",
     background: showBackground ? hover ? "#ffffff" : "#414141" : "none",
   };
 
   return (
-    <div className={styles.scrollPageIconContainer}>
+    <div className={styles["next-page-button"]}>
       <Link
         href={link}
-        className={styles.scrollPage}
+        className={styles["button-container"]}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         style={buttonContainerStyle}
@@ -42,7 +42,7 @@ const NextPageButton = ({
             }}
           />
         )}
-        <p>{text} </p>
+        <p dangerouslySetInnerHTML={{ __html: text }} />
         {type === "forward" && (
           <GoArrowRight
             size={30}

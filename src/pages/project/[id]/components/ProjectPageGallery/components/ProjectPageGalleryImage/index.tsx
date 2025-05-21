@@ -1,9 +1,9 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 import styles from "../../../../ProjectPage.module.scss";
 import { useHover } from "usehooks-ts";
 
 interface IProjectPageGalleryImage {
-  images: { front: string; back: string; photoText: string};
+  images: { front: string; back: string; photoText: string };
   width: number;
   height: number;
   textSize: number
@@ -20,20 +20,20 @@ const ProjectPageGalleryImage = (props: IProjectPageGalleryImage) => {
   }
 
   return (
-    <div className={styles["gallery-image"]} ref={hoverRef} style={{width: `${width}px`, height: `${height}px`}}>
+    <div className={styles["gallery-image"]} ref={hoverRef} style={{ width: `${width}px`, height: `${height}px` }}>
       <img
         src={images.front}
         alt="front"
         className={styles["front-image"]}
         style={{ opacity: !isHover ? "1" : "0" }}
-        />
+      />
       <img
         src={images.back}
         alt="front"
         className={styles["back-image"]}
         style={{ opacity: isHover ? "1" : "0" }}
-        />
-        <p className={styles["photo-text"]} style={photoTextStyles}>{images.photoText}</p>
+      />
+      <p className={styles["photo-text"]} style={photoTextStyles} dangerouslySetInnerHTML={{ __html: images.photoText }} />
     </div>
   );
 };

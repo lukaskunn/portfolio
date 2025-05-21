@@ -16,7 +16,7 @@ function ProjectPageGallery(props: IProjectPageGallery) {
   const { width, height } = dimensions;
   return (
     <div className={styles["project-page-gallery"]}>
-      <h3 className={styles["gallery-title"]}>Gallery</h3>
+      <h3 className={styles["gallery-title"]} dangerouslySetInnerHTML={{ __html: "Gallery" }} />
       <div className={styles["project-gallery"]}>
         {galleryImages.map((row, index) => (
           <div key={index} className={styles["gallery-row"]}>

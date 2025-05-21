@@ -1,13 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;1,400&display=swap");
+@import "./variables";
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Roboto Mono", monospace;
+  font-family: $primary-font;
   scroll-behavior: smooth;
   justify-content: center;
   cursor: default;
@@ -37,7 +37,7 @@ a {
   }
 
   body {
-    color: white;
+    color: $primary-color;
     background: black;
   }
 }
@@ -45,7 +45,7 @@ a {
 
 .react-tabs {
   width: 100%;
-  font-family: "Roboto Mono", monospace;
+  font-family: $primary-font;
 
   &__tab-list {
     width: 100%;
@@ -56,7 +56,7 @@ a {
       width: fit-content;
       background: none;
       border-radius: 0;
-      color: white;
+      color: $primary-color;
 
       font-size: 1.8rem;
     }
@@ -67,7 +67,7 @@ a {
 
     &__tab--selected {
       background: white !important;
-      color: black !important;
+      color: $full-black !important;
     }
   }
 
@@ -91,5 +91,5 @@ a {
       }
     }
   }
-  
+
 }

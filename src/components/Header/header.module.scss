@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
+@import "../../styles/variables";
 
 .header {
-  color: white;
+  color: $primary-color;
   width: 100vw;
   height: 42px;
   background: transparent;
@@ -20,7 +20,7 @@
   // transition: 0.8s justify-content ease-in-out;
   transition: .2s all cubic-bezier(0, 0, 0, 1);
 
-  font-family: "Roboto Mono", monospace;
+  font-family: $primary-font;
 
   .title {
     font-size: 16px;
@@ -92,7 +92,7 @@
     }
 
     .switchLanguageSelected {
-      color: white;
+      color: $primary-color;
       // transition: .2s all cubic-bezier(0, 0, 0, 1);
     }
   }
@@ -223,7 +223,7 @@
       }
 
       .switchLanguageSelected {
-        color: white;
+        color: $primary-color;
         // transition: .2s all cubic-bezier(0, 0, 0, 1);
       }
     }

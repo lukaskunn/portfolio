@@ -1,9 +1,11 @@
+@import "../../../../styles/variables";
+
 .resumeCard {
   height: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  font-family: "Roboto Mono", monospace;
+  font-family: $primary-font;
   margin: 200px 0;
 
   &__title {
