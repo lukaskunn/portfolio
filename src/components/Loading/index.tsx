@@ -3,7 +3,7 @@ import { PageContext } from "../../contexts/PageContext";
 import loading from "../../styles/Loading.module.scss";
 
 function Loading(pageRoute: any) {
-  const { isLoaded, setFirstLoad, firstLoad } = React.useContext(
+  const { isLoaded } = React.useContext(
     PageContext
   ) as any;
   const [showLoading, setShowLoading] = useState(false);
@@ -27,7 +27,6 @@ function Loading(pageRoute: any) {
   useEffect(() => {
     setTimeout(() => {
       setShowLoading(true);
-      setFirstLoad(false);
 
       setTimeout(() => {
         setShowLoadingComponent(false);
@@ -36,11 +35,11 @@ function Loading(pageRoute: any) {
   }, [isLoaded]);
 
   const loadingStyles = {
-    top: showLoading && !firstLoad && pageRoute !== "/" ? "-2000px" : "0",
+    top: showLoading && pageRoute !== "/" ? "-2000px" : "0",
   };
 
   const loadingTextStyles = {
-    top: showLoading && !firstLoad && pageRoute !== "/" ? "-2000px" : "0",
+    top: showLoading && pageRoute !== "/" ? "-2000px" : "0",
   };
 
   if (!showLoadingComponent) {

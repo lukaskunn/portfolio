@@ -2,6 +2,9 @@ import "../styles/globals.scss";
 import React from "react";
 import type { AppProps } from "next/app";
 import { PageContextProvider } from "../contexts/PageContext";
+import { LanguageProvider } from "../contexts/LanguageContext";
+import { CursorProvider } from "../contexts/CursorContext";
+import { DeviceContextProvider } from "../contexts/DeviceContext";
 import { AnimatePresence } from "framer-motion";
 import Loading from "../components/Loading";
 import Header from "../components/Header";
@@ -18,7 +21,6 @@ import "../styles/header.module.scss";
 import "../styles/Home.module.scss";
 import "../styles/Loading.module.scss";
 import "../styles/ImageBackground.module.scss";
-import "../styles/InitialTransition.module.scss";
 import "../styles/NextPageButton.module.scss";
 import "../styles/ProjectCard.module.scss";
 import "../styles/Resume.module.scss";
@@ -30,23 +32,29 @@ import "../styles/ProjectModal.module.scss";
 import "../styles/ProjectPage.module.scss";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-  return (
-    <>
-      <SpeedInsights />
-      <Head>
-        <title>Lucas Oliveira - portfolio</title>
-        <meta name="description" content="My personal portfolio" />
-      </Head>
-      <PageContextProvider>
-        <Loading pageRoute={router.route} />
-        <CursorFollower />
-        <Header />
-        <AnimatePresence mode="wait" initial={false}>
-          <Component {...pageProps} key={router.route} />
-        </AnimatePresence>
-      </PageContextProvider>
-    </>
-  );
+    return (
+        <>
+            <SpeedInsights />
+            <Head>
+                <title>Lucas Oliveira - portfolio</title>
+                <meta name="description" content="My personal portfolio" />
+            </Head>
+            <PageContextProvider>
+                <DeviceContextProvider>
+                    <LanguageProvider>
+                        <CursorProvider>
+                            <Loading pageRoute={router.route} />
+                            <CursorFollower />
+                            <Header />
+                            <AnimatePresence mode="wait" initial={false}>
+                                <Component {...pageProps} key={router.route} />
+                            </AnimatePresence>
+                        </CursorProvider>
+                    </LanguageProvider>
+                </DeviceContextProvider>
+            </PageContextProvider>
+        </>
+    );
 }
 
 export default MyApp;
