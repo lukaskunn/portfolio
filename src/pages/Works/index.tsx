@@ -53,7 +53,6 @@ function Works() {
 
     React.useEffect(() => {
         setTimeout(() => {
-            console.log("1");
             setModal({
                 isActive: false, index: 0, projects: backgroundProjects.projects.map((project) => {
                     const { galleryBackground, galleryBackgroundColor, title } = project;
@@ -65,7 +64,6 @@ function Works() {
                 })
             });
         }, 100)
-        console.log(2)
     }, []);
 
 
