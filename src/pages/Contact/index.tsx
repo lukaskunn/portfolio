@@ -1,6 +1,6 @@
 import React from "react";
 import { useLanguage } from "../../contexts/LanguageContext";
-import styles from "../../styles/Contact.module.scss";
+import styles from "./Contact.module.scss";
 import Curve from "../../Layouts/Curve";
 
 function Contact() {

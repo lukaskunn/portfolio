@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import about from "../../styles/About.module.scss";
-import resumeStyles from "../../styles/Resume.module.scss";
-import styles from "../../styles/Skills.module.scss";
+import about from "./About.module.scss";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useCursor } from "../../contexts/CursorContext";
-import ResumeCard from "../../components/ResumeCard";
+import ResumeCard from "./components/ResumeCard";
 import Curve from "../../Layouts/Curve";
 import NextPageButton from "../../components/NextPageButton";
 import { useHover } from "usehooks-ts"
@@ -73,11 +71,11 @@ function About() {
                     </div>
                 </div>
             </section>
-            <section className={resumeStyles.container}>
-                <div className={resumeStyles.resume} id="resume">
-                    <div className={resumeStyles.resume__left}>
-                        <h2 className={resumeStyles["section-title"]}>{sectionTitleResume}</h2>
-                        <div className={resumeStyles.colletions} ref={resumeRef}>
+            <section className={about["resume-container"]}>
+                <div className={about.resume} id="resume">
+                    <div className={about.resume__left}>
+                        <h2 className={about["section-title"]}>{sectionTitleResume}</h2>
+                        <div className={about.colletions} ref={resumeRef}>
                             {cards.map((card: any, index: any) => {
                                 const { jobTitle, description, startDate, endDate, company } =
                                     card;
@@ -96,7 +94,7 @@ function About() {
                             })}
                         </div>
                     </div>
-                    <div className={resumeStyles.resume__right}>
+                    <div className={about.resume__right}>
                         <img
                             src="https://i.pinimg.com/originals/ab/e5/57/abe557b5780fc93e83447ac60987d000.gif"
                             alt=""
@@ -105,11 +103,11 @@ function About() {
                     </div>
                 </div>
             </section>
-            <section className={styles["skills-container"]}>
+            <section className={about["skills-container"]}>
                 <h2>{sectionTitleServices}</h2>
-                <div className={styles["skills-sub-container"]} ref={skillsRef}>
-                    <div className={styles["soft-skills"]}>
-                        <h3 className={styles["group-title"]}>{`[Soft Skills]`}</h3>
+                <div className={about["skills-sub-container"]} ref={skillsRef}>
+                    <div className={about["soft-skills"]}>
+                        <h3 className={about["group-title"]}>{`[Soft Skills]`}</h3>
                         {soft.map((skill: any, index: any) => {
                             return (
                                 <p className={skill["skill-list"]} key={`${skill}_${index}`}>
@@ -118,8 +116,8 @@ function About() {
                             );
                         })}
                     </div>
-                    <div className={styles["hard-skills"]}>
-                        <h3 className={styles["group-title"]}>{`[Hard Skills]`}</h3>
+                    <div className={about["hard-skills"]}>
+                        <h3 className={about["group-title"]}>{`[Hard Skills]`}</h3>
                         {hard.map((skill: any, index: any) => {
                             return (
                                 <p className={skill["skill-list"]} key={`${skill}_${index}`}>

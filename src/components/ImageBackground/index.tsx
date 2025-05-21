@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/ImageBackground.module.scss";
+import styles from "./ImageBackground.module.scss";
 import { useCursor } from "../../contexts/CursorContext";
 import Image from "next/image";
 function ImageBackground() {

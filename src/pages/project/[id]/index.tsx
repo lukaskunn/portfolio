@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import Curve from "../../../Layouts/Curve";
-import styles from "../../../styles/ProjectPage.module.scss";
-import ProjectPageGallery from "../../../components/ProjectPageGallery";
+import styles from "./ProjectPage.module.scss";
+import ProjectPageGallery from "./components/ProjectPageGallery";
 import NextPageButton from "../../../components/NextPageButton";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import { useCursor } from "../../../contexts/CursorContext";

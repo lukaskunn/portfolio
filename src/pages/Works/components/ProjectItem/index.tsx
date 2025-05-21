@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/ProjectItem.module.scss";
+import styles from "./ProjectItem.module.scss";
 import Link from "next/link";
 interface IProjectItem {
   title: string;

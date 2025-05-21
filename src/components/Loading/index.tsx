@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { PageContext } from "../../contexts/PageContext";
-import loading from "../../styles/Loading.module.scss";
+import loading from "./Loading.module.scss";
 
 function Loading(pageRoute: any) {
   const { isLoaded } = React.useContext(

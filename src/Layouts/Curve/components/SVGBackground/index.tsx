@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import getAnimationProps from "../../utils/getAnimationProps";
-import styles from "../../styles/Curve.module.scss";
+import getAnimationProps from "../../../../utils/getAnimationProps";
+import styles from "../../Curve.module.scss";
 import React from "react";
 interface ISVG {
   width: number;

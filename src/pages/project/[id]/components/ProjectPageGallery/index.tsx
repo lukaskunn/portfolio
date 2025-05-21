@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/ProjectPage.module.scss";
+import styles from "../../ProjectPage.module.scss";
 import ProjectPageImage from "./components/ProjectPageGalleryImage";
 
 interface IProjectPageGallery {

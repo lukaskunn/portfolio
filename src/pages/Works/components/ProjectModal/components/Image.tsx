@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from "../../../styles/ProjectModal.module.scss"
+import styles from "../ProjectModal.module.scss"
 
 interface IImage {
     src: string;

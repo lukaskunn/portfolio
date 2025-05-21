@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { MdClose, MdMenu } from "react-icons/md";
 
 import { useLanguage } from "../../contexts/LanguageContext";
-import headerStyles from "../../styles/header.module.scss";
+import headerStyles from "./header.module.scss";
 
 declare const window: any;
 

@@ -1,11 +1,14 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
-import styles from "../../styles/Curve.module.scss";
-import getAnimationProps from "../../utils/getAnimationProps";
-import SVG from "../../components/SVGBackground";
+
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useDeviceContext } from "../../contexts/DeviceContext";
+import getAnimationProps from "../../utils/getAnimationProps";
+import SVG from "./components/SVGBackground";
+
+import styles from "./Curve.module.scss";
+
 interface ICurve {
     children: React.ReactNode;
     isProjectPage?: boolean;

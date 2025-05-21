@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { useLanguage } from "../../contexts/LanguageContext";
-import styles from "../../styles/Works.module.scss";
+import styles from "./Works.module.scss";
 import Curve from "../../Layouts/Curve";
 import NextPageButton from "../../components/NextPageButton";
-import ProjectItem from "../../components/ProjectItem";
-import ProjectModal from "../../components/ProjectModal";
+import ProjectItem from "./components/ProjectItem";
+import ProjectModal from "./components/ProjectModal";
 
 function Works() {
     const { currentLanguage } = useLanguage();

@@ -1,7 +1,7 @@
 import React from "react";
 import type { NextPage } from "next";
 import Link from "next/link";
-import styles from "../styles/Home.module.scss";
+import styles from "./Home.module.scss";
 import { useLanguage } from "../contexts/LanguageContext";
 import ImageBackground from "../components/ImageBackground";
 import Curve from "../Layouts/Curve";
@@ -11,10 +11,6 @@ const Home: NextPage = () => {
 
   const { landing } = currentLanguage;
   const { sectionTitle, nextPageText, menuItems } = landing;
-
-  React.useEffect(() => {
-    document.body.style.overflowX = "hidden";
-  }, []);
 
   return (
     <Curve>

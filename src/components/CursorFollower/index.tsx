@@ -1,6 +1,6 @@
 import React from "react";
 import { useCursor } from "../../contexts/CursorContext"
-import cursorFollowerStyles from "../../styles/CursorFollower.module.scss";
+import cursorFollowerStyles from "./CursorFollower.module.scss";
 
 function CursorFollower() {
     const { hoverImportantText, position } = useCursor();
