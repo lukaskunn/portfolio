@@ -93,7 +93,7 @@ function Works() {
               </div>
             </TabPanel>
             <TabPanel>
-              <div className={styles.projectGrid}>
+              <div className={styles['project-grid']}>
                 {backgroundProjects.projects &&
                   backgroundProjects.projects.length < 1 ? (
                   <h2 dangerouslySetInnerHTML={{ __html: "nothing to show yet!" }} />

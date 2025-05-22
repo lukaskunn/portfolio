@@ -1,6 +1,8 @@
+@import "../../styles/variables";
+
 .curve {
     .curve-background {
-        background: #0c0c0c;
+        background: $secondary-color;
     }
     .route-name {
         pointer-events: none;
