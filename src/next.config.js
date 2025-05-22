@@ -1,10 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   typescript: {
     ignoreBuildErrors: false,
   },
+  transpilePackages: [
+    "gsap",
+    "gsap/all",
+    "gsap/SplitText",
+    "gsap/ScrollTrigger"
+  ],
 //   async rewrites() {
 //     return [
 //       {
@@ -23,5 +29,5 @@ const nextConfig = {
 //   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
 
