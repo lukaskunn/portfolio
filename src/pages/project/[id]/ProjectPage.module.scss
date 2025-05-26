@@ -100,11 +100,11 @@
 
           .photo-text {
             z-index: 3;
-            transition: .5s all cubic-bezier(0, 0, 0, 1);
+            transition: 0.5s all cubic-bezier(0, 0, 0, 1);
           }
 
           .front-image {
-            filter: brightness(0.5) grayscale(0.9)
+            filter: brightness(0.5) grayscale(0.9);
           }
 
           .front-image,
@@ -115,7 +115,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            transition: .5s all cubic-bezier(0, 0, 0, 1);
+            transition: 0.5s all cubic-bezier(0, 0, 0, 1);
           }
         }
       }
@@ -141,7 +141,6 @@
 
     .project-page-gallery {
       .project-gallery {
-
         .gallery-row {
           flex-direction: column;
 

@@ -1,4 +1,5 @@
 {
   "editor.tabSize": 2,
-  "commit-message-editor.view.tabSize": 2
+  "commit-message-editor.view.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

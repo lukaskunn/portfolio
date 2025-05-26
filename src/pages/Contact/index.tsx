@@ -17,7 +17,9 @@ function Contact() {
               return (
                 <p key={index}>
                   {contact.type}{" "}
-                  <a href={contact.urlLink} target="__blank"
+                  <a
+                    href={contact.urlLink}
+                    target="__blank"
                     dangerouslySetInnerHTML={{ __html: contact.linkText }}
                   />
                 </p>

@@ -10,8 +10,6 @@ import { useLanguage } from "../../contexts/LanguageContext";
 import styles from "./Works.module.scss";
 import "react-tabs/style/react-tabs.css";
 
-
-
 function Works() {
   const { currentLanguage } = useLanguage();
   const { works } = currentLanguage;
@@ -34,7 +32,7 @@ function Works() {
         galleryBackgroundColor,
       };
     }),
-  ]
+  ];
 
   const modalInitialState = {
     isActive: false,
@@ -45,7 +43,7 @@ function Works() {
   const [modal, setModal] = useState(modalInitialState);
 
   const changeModalList = (index: number) => {
-    const modalList = projectsList[index]
+    const modalList = projectsList[index];
 
     setModal({ isActive: false, index: 0, projects: modalList });
   };
@@ -58,7 +56,10 @@ function Works() {
     <Curve>
       <section className={styles.container} id="works">
         <div className={styles.works} id="works">
-          <h2 className={styles["section-title"]} dangerouslySetInnerHTML={{ __html: sectionTitle }} />
+          <h2
+            className={styles["section-title"]}
+            dangerouslySetInnerHTML={{ __html: sectionTitle }}
+          />
           <Tabs
             id={styles.controlledTabs}
             defaultIndex={1}
@@ -66,14 +67,20 @@ function Works() {
             onSelect={(index) => changeModalList(index)}
           >
             <TabList>
-              <Tab dangerouslySetInnerHTML={{ __html: personalProjects.title }} />
-              <Tab dangerouslySetInnerHTML={{ __html: backgroundProjects.title }} />
+              <Tab
+                dangerouslySetInnerHTML={{ __html: personalProjects.title }}
+              />
+              <Tab
+                dangerouslySetInnerHTML={{ __html: backgroundProjects.title }}
+              />
             </TabList>
             <TabPanel>
-              <div className={styles['project-grid']}>
+              <div className={styles["project-grid"]}>
                 {personalProjects.projects &&
-                  personalProjects.projects.length < 1 ? (
-                  <h2 dangerouslySetInnerHTML={{ __html: "nothing to show yet!" }} />
+                personalProjects.projects.length < 1 ? (
+                  <h2
+                    dangerouslySetInnerHTML={{ __html: "nothing to show yet!" }}
+                  />
                 ) : (
                   personalProjects.projects.map((project: any, index: any) => {
                     return (
@@ -93,10 +100,12 @@ function Works() {
               </div>
             </TabPanel>
             <TabPanel>
-              <div className={styles['project-grid']}>
+              <div className={styles["project-grid"]}>
                 {backgroundProjects.projects &&
-                  backgroundProjects.projects.length < 1 ? (
-                  <h2 dangerouslySetInnerHTML={{ __html: "nothing to show yet!" }} />
+                backgroundProjects.projects.length < 1 ? (
+                  <h2
+                    dangerouslySetInnerHTML={{ __html: "nothing to show yet!" }}
+                  />
                 ) : (
                   backgroundProjects.projects.map(
                     (project: any, index: any) => {
@@ -110,7 +119,7 @@ function Works() {
                           description={project.description}
                         />
                       );
-                    }
+                    },
                   )
                 )}
               </div>
@@ -130,4 +139,3 @@ function Works() {
 }
 
 export default Works;
-

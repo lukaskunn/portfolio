@@ -18,8 +18,14 @@ const NextPageButton = ({
   const [hover, setHover] = useState(false);
 
   const buttonContainerStyle = {
-    color: showBackground ? hover ? "#0c0c0c" : "#bebebe" : hover ? "white" : "#bebebe",
-    background: showBackground ? hover ? "#ffffff" : "#414141" : "none",
+    color: showBackground
+      ? hover
+        ? "#0c0c0c"
+        : "#bebebe"
+      : hover
+        ? "white"
+        : "#bebebe",
+    background: showBackground ? (hover ? "#ffffff" : "#414141") : "none",
   };
 
   return (
@@ -35,7 +41,15 @@ const NextPageButton = ({
         {type === "backward" && (
           <GoArrowLeft
             size={30}
-            color={showBackground ? hover ? "#0c0c0c" : "#bebebe" : hover ? "white" : "#bebebe"}
+            color={
+              showBackground
+                ? hover
+                  ? "#0c0c0c"
+                  : "#bebebe"
+                : hover
+                  ? "white"
+                  : "#bebebe"
+            }
             className={styles["left-arrow"]}
             style={{
               marginRight: !hover ? "20px" : "40px",
@@ -46,7 +60,15 @@ const NextPageButton = ({
         {type === "forward" && (
           <GoArrowRight
             size={30}
-            color={showBackground ? hover ? "#0c0c0c" : "#bebebe" : hover ? "white" : "#bebebe"}
+            color={
+              showBackground
+                ? hover
+                  ? "#0c0c0c"
+                  : "#bebebe"
+                : hover
+                  ? "white"
+                  : "#bebebe"
+            }
             className={styles["right-arrow"]}
             style={{
               marginLeft: !hover ? "20px" : "40px",

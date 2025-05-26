@@ -13,30 +13,29 @@ import WebsiteHead from "../components/Head";
 import Loading from "../components/Loading";
 
 import "../styles/globals.scss";
-import "../styles/allFiles.scss"
+import "../styles/allFiles.scss";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-    return (
-        <>
-            <SpeedInsights />
-            <WebsiteHead />
-            <PageContextProvider>
-                <DeviceContextProvider>
-                    <LanguageProvider>
-                        <CursorProvider>
-                            <Loading pageRoute={router.route} />
-                            <CursorFollower />
-                            <Header />
-                            <AnimatePresence mode="wait" initial={false}>
-                                <Component {...pageProps} key={router.route} />
-                            </AnimatePresence>
-                        </CursorProvider>
-                    </LanguageProvider>
-                </DeviceContextProvider>
-            </PageContextProvider>
-        </>
-    );
+  return (
+    <>
+      <SpeedInsights />
+      <WebsiteHead />
+      <PageContextProvider>
+        <DeviceContextProvider>
+          <LanguageProvider>
+            <CursorProvider>
+              {/* <Loading pageRoute={router.route} /> */}
+              <CursorFollower />
+              <Header />
+              {/* <AnimatePresence mode="wait" initial={false}> */}
+              <Component {...pageProps} key={router.route} />
+              {/* </AnimatePresence> */}
+            </CursorProvider>
+          </LanguageProvider>
+        </DeviceContextProvider>
+      </PageContextProvider>
+    </>
+  );
 }
 
 export default MyApp;
-

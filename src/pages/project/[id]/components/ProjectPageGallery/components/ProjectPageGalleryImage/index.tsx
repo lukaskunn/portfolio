@@ -6,7 +6,7 @@ interface IProjectPageGalleryImage {
   images: { front: string; back: string; photoText: string };
   width: number;
   height: number;
-  textSize: number
+  textSize: number;
 }
 
 const ProjectPageGalleryImage = (props: IProjectPageGalleryImage) => {
@@ -16,11 +16,15 @@ const ProjectPageGalleryImage = (props: IProjectPageGalleryImage) => {
 
   const photoTextStyles = {
     fontSize: `${textSize}px`,
-    opacity: !isHover ? "1" : "0"
-  }
+    opacity: !isHover ? "1" : "0",
+  };
 
   return (
-    <div className={styles["gallery-image"]} ref={hoverRef} style={{ width: `${width}px`, height: `${height}px` }}>
+    <div
+      className={styles["gallery-image"]}
+      ref={hoverRef}
+      style={{ width: `${width}px`, height: `${height}px` }}
+    >
       <img
         src={images.front}
         alt="front"
@@ -33,7 +37,11 @@ const ProjectPageGalleryImage = (props: IProjectPageGalleryImage) => {
         className={styles["back-image"]}
         style={{ opacity: isHover ? "1" : "0" }}
       />
-      <p className={styles["photo-text"]} style={photoTextStyles} dangerouslySetInnerHTML={{ __html: images.photoText }} />
+      <p
+        className={styles["photo-text"]}
+        style={photoTextStyles}
+        dangerouslySetInnerHTML={{ __html: images.photoText }}
+      />
     </div>
   );
 };

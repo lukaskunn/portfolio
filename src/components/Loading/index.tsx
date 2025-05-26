@@ -3,9 +3,7 @@ import { PageContext } from "../../contexts/PageContext";
 import loading from "./Loading.module.scss";
 
 function Loading(pageRoute: any) {
-  const { isLoaded } = React.useContext(
-    PageContext
-  ) as any;
+  const { isLoaded } = React.useContext(PageContext) as any;
   const [showLoading, setShowLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("");
   const [textIndex, setTextIndex] = useState(0);
@@ -57,4 +55,3 @@ function Loading(pageRoute: any) {
 }
 
 export default Loading;
-

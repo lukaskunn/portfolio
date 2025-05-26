@@ -12,12 +12,12 @@ import styles from "./ProjectPage.module.scss";
 const dimensionsInitialState = {
   height: 0,
   width: 0,
-}
+};
 
 const Project = () => {
   const router = useRouter();
   const { language } = useLanguage();
-  // const { setHoverImportantText } = useCursor(); 
+  // const { setHoverImportantText } = useCursor();
   const [dimensions, setDimensions] = React.useState(dimensionsInitialState);
   const [project, setProject] = React.useState<any>();
   const [projectTranslations, setProjectTranslations] = React.useState<any>();
@@ -84,16 +84,16 @@ const Project = () => {
             <h1
               className={styles["project-title"]}
               dangerouslySetInnerHTML={{ __html: project.title }}
-            // ref={projectTitleRef} 
+              // ref={projectTitleRef}
             />
             <p
               className={styles["project-description"]}
               dangerouslySetInnerHTML={{ __html: project.description }}
-            // ref={projectDescriptionRef}
+              // ref={projectDescriptionRef}
             />
             <p
               className={styles["project-brief-description"]}
-            // ref={projectBriefDescriptionRef}
+              // ref={projectBriefDescriptionRef}
             >
               {project.briefDescription
                 .split("</>")
@@ -109,7 +109,11 @@ const Project = () => {
               <p className={styles["technologies-title"]}>{`[technologies]`}</p>
               <div className={styles["project-technologies"]}>
                 {project.technologies.map((technology: any, index: any) => (
-                  <span key={index} className={styles["technology"]} dangerouslySetInnerHTML={{ __html: `/ ${technology}` }} />
+                  <span
+                    key={index}
+                    className={styles["technology"]}
+                    dangerouslySetInnerHTML={{ __html: `/ ${technology}` }}
+                  />
                 ))}
               </div>
             </div>

@@ -37,7 +37,12 @@ function ImageBackground() {
   }, []);
 
   React.useEffect(() => {
-    if (!imageBackgroundRef.current || dimensions.width === 0 || dimensions.height === 0) return;
+    if (
+      !imageBackgroundRef.current ||
+      dimensions.width === 0 ||
+      dimensions.height === 0
+    )
+      return;
 
     const left = -(position.x / dimensions.width - 0.5) * 30 - 40;
     const top = -(position.y / dimensions.height - 0.5) * 30 + 120;

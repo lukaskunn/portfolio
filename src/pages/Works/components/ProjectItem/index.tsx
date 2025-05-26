@@ -9,17 +9,18 @@ type LinkHandlerProps = {
   children: React.ReactNode;
 };
 
-const LinkHandler = ({ goToExternalPage, urlToProject, children, projectId }: LinkHandlerProps) => {
+const LinkHandler = ({
+  goToExternalPage,
+  urlToProject,
+  children,
+  projectId,
+}: LinkHandlerProps) => {
   return goToExternalPage ? (
-    <a href={urlToProject}>
-      {children}
-    </a>
+    <a href={urlToProject}>{children}</a>
   ) : (
-    <Link href={`/project/${projectId}`}>
-      {children}
-    </Link>
-  )
-}
+    <Link href={`/project/${projectId}`}>{children}</Link>
+  );
+};
 type IProjectItem = {
   title: string;
   index: number;
@@ -28,7 +29,7 @@ type IProjectItem = {
   goToExternalPage?: boolean;
   urlToProject?: string;
   updateModal: (index: number, modalIsActive: boolean) => void;
-}
+};
 
 const ProjectItem = (props: IProjectItem) => {
   const {
@@ -62,8 +63,7 @@ const ProjectItem = (props: IProjectItem) => {
         />
       </div>
     </LinkHandler>
-  )
+  );
 };
 
 export default ProjectItem;
-

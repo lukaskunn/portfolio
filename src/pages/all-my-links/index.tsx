@@ -44,7 +44,11 @@ const links = [
 const AllMyLinks = () => {
   return (
     <div className={styles.container}>
-        <img src="/images/general/6a0e989e927968f88f171e52418dafc6.jpg" alt="seki oyasumi punpun icon" className={styles["image-icon"]} />
+      <img
+        src="/images/general/6a0e989e927968f88f171e52418dafc6.jpg"
+        alt="seki oyasumi punpun icon"
+        className={styles["image-icon"]}
+      />
       <h2 className={styles["page-title"]}>Hi, find out my links here...</h2>
       <div className={styles["links-container"]}>
         {links.map((link, index) => {

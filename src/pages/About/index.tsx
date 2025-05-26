@@ -10,11 +10,7 @@ import SkillsSection from "./components/SkillsSection";
 function About() {
   const { currentLanguage } = useLanguage();
   const { aboutMe, resume, services } = currentLanguage;
-  const {
-    nextPageText,
-    sectionSubTitle,
-    content,
-  } = aboutMe;
+  const { nextPageText, sectionSubTitle, content } = aboutMe;
   const { sectionTitle: sectionTitleResume, cards } = resume;
   const { sectionTitle: sectionTitleServices, skills } = services;
   const { soft, hard } = skills;
@@ -27,8 +23,17 @@ function About() {
     <Curve>
       <AboutSection sectionSubTitle={sectionSubTitle} content={content} />
       <ResumeSection sectionTitleResume={sectionTitleResume} cards={cards} />
-      <SkillsSection sectionTitleServices={sectionTitleServices} hard={hard} soft={soft} />
-      <NextPageButton link="/Contact" text={nextPageText} type="forward" showBackground={true} />
+      <SkillsSection
+        sectionTitleServices={sectionTitleServices}
+        hard={hard}
+        soft={soft}
+      />
+      <NextPageButton
+        link="/Contact"
+        text={nextPageText}
+        type="forward"
+        showBackground={true}
+      />
     </Curve>
   );
 }

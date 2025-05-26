@@ -1,39 +1,39 @@
-import React, { useEffect } from 'react'
-import { useHover } from 'usehooks-ts'
-import ResumeCard from '../ResumeCard'
-import { useCursor } from '../../../../contexts/CursorContext'
-import styles from "../../About.module.scss"
+import React, { useEffect } from "react";
+import { useHover } from "usehooks-ts";
+import ResumeCard from "../ResumeCard";
+import { useCursor } from "../../../../contexts/CursorContext";
+import styles from "../../About.module.scss";
 
 type CardType = {
-  jobTitle: string,
-  description: string,
-  startDate: string,
-  endDate: string,
-  company: string
-}
+  jobTitle: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  company: string;
+};
 
 type ResumeSectionType = {
-  sectionTitleResume: string,
-  cards: CardType[]
-}
+  sectionTitleResume: string;
+  cards: CardType[];
+};
 
-const ResumeSection = ({
-  sectionTitleResume,
-  cards
-}: ResumeSectionType) => {
-  const { setHoverImportantText } = useCursor()
+const ResumeSection = ({ sectionTitleResume, cards }: ResumeSectionType) => {
+  const { setHoverImportantText } = useCursor();
   const resumeRef = React.useRef(null);
   const resumeIsHover = useHover(resumeRef);
 
   useEffect(() => {
-    setHoverImportantText(resumeIsHover)
-  }, [resumeIsHover])
+    setHoverImportantText(resumeIsHover);
+  }, [resumeIsHover]);
 
   return (
     <section className={styles["resume-container"]}>
       <div className={styles.resume} id="resume">
         <div className={styles.resume__left}>
-          <h2 className={styles["section-title"]} dangerouslySetInnerHTML={{ __html: sectionTitleResume }} />
+          <h2
+            className={styles["section-title"]}
+            dangerouslySetInnerHTML={{ __html: sectionTitleResume }}
+          />
           <div className={styles.colletions} ref={resumeRef}>
             {cards.map((card: any, index: any) => {
               const { jobTitle, description, startDate, endDate, company } =
@@ -60,7 +60,7 @@ const ResumeSection = ({
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default ResumeSection
+export default ResumeSection;

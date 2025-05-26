@@ -9,25 +9,24 @@ const nextConfig = {
     "gsap",
     "gsap/all",
     "gsap/SplitText",
-    "gsap/ScrollTrigger"
+    "gsap/ScrollTrigger",
   ],
-//   async rewrites() {
-//     return [
-//       {
-//         source: "/:path*",
-//         destination: "/:path*",
-//       },
-//       {
-//         source: "/my-stuff",
-//         destination: "https://personal-stuff.vercel.app/my-stuff",
-//       },
-//       {
-//         source: "/my-stuff/:path*",
-//         destination: "https://personal-stuff.vercel.app/my-stuff/:path*",
-//       }
-//     ];
-//   },
+  //   async rewrites() {
+  //     return [
+  //       {
+  //         source: "/:path*",
+  //         destination: "/:path*",
+  //       },
+  //       {
+  //         source: "/my-stuff",
+  //         destination: "https://personal-stuff.vercel.app/my-stuff",
+  //       },
+  //       {
+  //         source: "/my-stuff/:path*",
+  //         destination: "https://personal-stuff.vercel.app/my-stuff/:path*",
+  //       }
+  //     ];
+  //   },
 };
 
 export default nextConfig;
-

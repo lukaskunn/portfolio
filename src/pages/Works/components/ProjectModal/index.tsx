@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
@@ -17,7 +17,7 @@ type IProjectModal = {
     index: number;
     projects: ProjectModalProps[];
   };
-}
+};
 
 const scaleAnimation = {
   initial: {
@@ -70,7 +70,6 @@ const ProjectModal = (props: IProjectModal) => {
     moveContainerY(modalPosition.y + modalPosition.scrollY);
   }, [modalPosition]);
 
-
   useEffect(() => {
     addEventListener("mousemove", (event: MouseEvent) => {
       const { clientX, clientY } = event;
@@ -90,11 +89,11 @@ const ProjectModal = (props: IProjectModal) => {
         scrollX,
         scrollY,
       }));
-    })
+    });
 
     return () => {
-      removeEventListener("mousemove", () => { });
-      removeEventListener("scroll", () => { });
+      removeEventListener("mousemove", () => {});
+      removeEventListener("scroll", () => {});
     };
   }, []);
 
@@ -134,4 +133,3 @@ const ProjectModal = (props: IProjectModal) => {
 };
 
 export default ProjectModal;
-

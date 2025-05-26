@@ -5,7 +5,7 @@ import React from "react";
 interface ISVG {
   width: number;
   height: number;
-  isMobile: boolean
+  isMobile: boolean;
 }
 
 const SVG = ({ width, height, isMobile }: ISVG) => {

@@ -27,7 +27,6 @@
       padding: 0 20px;
     }
 
-
     &__left {
       width: 50%;
       // height: 90vh;
@@ -51,7 +50,6 @@
       width: 50%;
       height: 100%;
       color: $primary-color;
-      ;
       // padding: 125px 0 180px 0;
 
       display: flex;
@@ -73,16 +71,17 @@
         margin-bottom: 300px;
 
         div {
-          background: linear-gradient(to right,
-              rgb(255, 255, 255) 50%,
-              rgb(22, 22, 22) 0%);
+          background: linear-gradient(
+            to right,
+            rgb(255, 255, 255) 50%,
+            rgb(22, 22, 22) 0%
+          );
           background-size: 200% 100%;
           background-position-x: 100%;
           color: transparent;
           background-clip: text;
           -webkit-background-clip: text;
           font-size: 4.5vw;
-
         }
 
         @media (max-width: 768px) {
@@ -117,12 +116,10 @@
           margin-bottom: 50px;
           border-bottom: 2px solid $primary-color;
 
-
           @media (max-width: 768px) {
             font-size: 32px;
             margin-bottom: 50px;
             border-bottom: 2px solid $primary-color;
-
           }
         }
 
@@ -156,7 +153,6 @@
     width: 100%;
     background-color: $full-black;
     color: $primary-color;
-    ;
     z-index: 3;
     // padding-top: 10vh;
 
@@ -173,7 +169,6 @@
 
     @media (max-width: 768px) {
       padding: 0;
-
     }
 
     &__left {
@@ -193,7 +188,6 @@
 
         @media (max-width: 768px) {
           margin-bottom: 40px;
-
         }
       }
 
@@ -216,7 +210,6 @@
 
       @media (max-width: 768px) {
         display: none;
-
       }
 
       img {
