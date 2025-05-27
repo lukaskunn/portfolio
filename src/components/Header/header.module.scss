@@ -1,44 +1,78 @@
-@import "../../styles/variables";
+@import "../../styles/scss/variables";
 
 .header {
   color: $primary-color;
-  width: 100vw;
-  height: 42px;
+  width: 100%;
   background: transparent;
 
-  display: grid;
-  grid-template-columns: repeat(3, minmax(10%, 1fr));
-  flex-direction: row;
-  align-items: center;
-
-  padding: 0 8%;
   position: fixed;
-  top: 0;
+  top: 50px;
   z-index: 996;
 
-  // transition: 0.2s background ease-in-out;
-  // transition: 0.8s justify-content ease-in-out;
-  transition: .2s all cubic-bezier(0, 0, 0, 1);
+  display: flex;
+  justify-content: center;
 
-  font-family: $primary-font;
+  // transition: 0.2s all cubic-bezier(0, 0, 0, 1);
+  opacity: 0;
 
-  .title {
-    font-size: 16px;
-    text-align: left;
-    margin: 0;
-    // transition: .2s all cubic-bezier(0, 0, 0, 1);
-  }
+  .header-container {
+    width: 100%;
+    max-width: 1300px;
 
-  .title-desktop {
-    display: block;
-  }
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 
-  .title-mobile {
-    display: none;
-  }
+    @media screen and (max-width: 1340px) {
+      max-width: 1340px;
+      padding: 0 20px;
+    }
 
-  .spacing {
-    display: none;
+    .navigation-container {
+      gap: 50px;
+      display: flex;
+    }
+
+    .buttons-container {
+      gap: 38px;
+      display: flex;
+      align-items: center;
+
+      .header-button {
+        width: 180px;
+        height: 40px;
+        border-radius: 4px;
+        background: #fff;
+        color: #202020;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        font-weight: 500;
+        transition: 0.2s background cubic-bezier(0, 0, 0, 1);
+
+        &:hover {
+          background: #dbdbdb;
+        }
+      }
+    }
+
+    .menu-item-container {
+      overflow: hidden;
+      height: 27px;
+      .menu-item {
+        font-weight: 300;
+        font-size: 18px;
+        height: 27px;
+        display: block;
+        overflow: hidden;
+
+        &__bold {
+          font-weight: 500;
+        }
+      }
+    }
   }
 
   .menu {
@@ -48,20 +82,6 @@
     font-weight: 100;
     font-size: 14px;
     opacity: 1;
-
-    a {
-      white-space: normal;
-      flex-wrap: nowrap;
-      transition: .2s all cubic-bezier(0, 0, 0, 1);
-    }
-    a + a {
-      margin-left: 30px;
-      // transition: .2s all cubic-bezier(0, 0, 0, 1);
-    }
-
-    a:hover {
-      opacity: 0.8;
-    }
   }
 
   .menuHamburger {
@@ -73,7 +93,7 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    cursor: pointer;
+    // cursor: pointer;
     font-size: 16px;
 
     // transition: .2s all cubic-bezier(0, 0, 0, 1);
@@ -112,6 +132,7 @@
   .header-bottom-border {
     display: none;
   }
+
   .header {
     padding: 0 30px;
     width: 100%;
@@ -142,7 +163,6 @@
       display: flex;
       flex-direction: row-reverse;
 
-
       button {
         background: #fff;
         position: relative;
@@ -156,7 +176,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: .2s all cubic-bezier(0, 0, 0, 1);
+        transition: 0.2s all cubic-bezier(0, 0, 0, 1);
       }
 
       .handleMenuHamburger {
@@ -175,7 +195,7 @@
       }
 
       .menuHamburgerMenu {
-        transition: .2s all cubic-bezier(0,0, 0, 1);
+        transition: 0.2s all cubic-bezier(0, 0, 0, 1);
         transition-delay: 0.1s;
         position: fixed;
         top: 0;
@@ -200,15 +220,17 @@
         }
       }
     }
+
     .switchLanguageDesktop {
       display: none !important;
     }
+
     .switchLanguageMobile {
       display: flex;
       flex-direction: row;
       margin-top: 100px;
       align-items: center;
-      cursor: pointer;
+      // cursor: pointer;
 
       h3 {
         height: 30px;

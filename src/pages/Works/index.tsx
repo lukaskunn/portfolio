@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-
+import gsap from "gsap";
 import NextPageButton from "../../components/NextPageButton";
 import ProjectItem from "./components/ProjectItem";
 import ProjectModal from "./components/ProjectModal";
-import Curve from "../../Layouts/Curve";
 
 import { useLanguage } from "../../contexts/LanguageContext";
-import styles from "./Works.module.scss";
+import type { TransitionContextType } from "../../Layouts/TransitionProvider";
+import { TransitionContext } from "../../Layouts/TransitionProvider";
+import styles from "./Works.module.css";
 import "react-tabs/style/react-tabs.css";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
 
 function Works() {
+  const { timeline } = React.useContext(
+    TransitionContext,
+  ) as TransitionContextType;
+  const el = React.useRef<HTMLDivElement>(null);
   const { currentLanguage } = useLanguage();
   const { works } = currentLanguage;
   const { sectionTitle, nextPageText, personalProjects, backgroundProjects } =
@@ -52,9 +58,29 @@ function Works() {
     setModal({ isActive: modalIsActive, index, projects: modal.projects });
   };
 
+  useIsomorphicLayoutEffect(() => {
+    // intro animation will play immediately
+    setTimeout(() => {
+      gsap.to(el.current, {
+        opacity: 1,
+        duration: 1,
+      }),
+        8000;
+    });
+
+    // add outro animation to top-level outro animation timeline
+    timeline.add(
+      gsap.to(el.current, {
+        opacity: 0,
+        duration: 0.5,
+      }),
+      0,
+    );
+  }, []);
+
   return (
-    <Curve>
-      <section className={styles.container} id="works">
+    <>
+      <section className={styles.container} id="works" ref={el}>
         <div className={styles.works} id="works">
           <h2
             className={styles["section-title"]}
@@ -134,7 +160,7 @@ function Works() {
         type="forward"
         showBackground={true}
       />
-    </Curve>
+    </>
   );
 }
 

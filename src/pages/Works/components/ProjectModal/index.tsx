@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import Image from "./components/Image";
-import styles from "./ProjectModal.module.scss";
+import styles from "./ProjectModal.module.css";
 
 type ProjectModalProps = {
   imageAlt: string;

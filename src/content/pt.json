@@ -4,6 +4,10 @@
     "nextPageText": "Meus Projetos",
     "menuItems": [
       {
+        "text": "/Home",
+        "href": "/"
+      },
+      {
         "text": "/ Projetos",
         "href": "/Works"
       },

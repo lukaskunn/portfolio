@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from 'next/navigation'
-import { MdClose, MdMenu } from "react-icons/md";
-
+import { usePathname } from "next/navigation";
+import MenuItem from "./components/MenuItem";
+import { useCursor } from "../../contexts/CursorContext";
 import { useLanguage } from "../../contexts/LanguageContext";
-import headerStyles from "./header.module.scss";
-
+import styles from "./header.module.css";
+import { PageContext } from "../../contexts/PageContext";
+import gsap from "gsap";
+import { TransitionContext } from "../../Layouts/TransitionProvider";
+import type { TransitionContextType } from "../../Layouts/TransitionProvider";
 declare const window: any;
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
+import AnimatePosOpacity from "../../utils/AnimatePosOpacity";
+import { useRouter } from "next/router";
 
 function Header() {
+  const router = useRouter();
+  const { timeline } = React.useContext(
+    TransitionContext,
+  ) as TransitionContextType;
+  const { isLoaded } = React.useContext(PageContext) as any;
   const [headerBackground, setHeaderBackground] = useState("none");
+  const [currentRoute, setCurrentRoute] = useState(router.asPath);
   const [menuHamburgerIsOpen, setMenuHamburgerIsOpen] = useState(false);
-
-  const { changeLanguage, currentLanguage, language } = useLanguage()
+  const { handleModalPropsEnter, handleModalPropsLeave } = useCursor();
+  const { changeLanguage, currentLanguage, language } = useLanguage();
 
   const { header } = currentLanguage;
   const { headerTitle, menuItems } = header;
-  const pathName = usePathname()
+  const pathName = usePathname();
 
   const listenScrollEvent = () => {
     if (window.scrollY < 150 || window.innerWidth < 768) {
@@ -26,9 +38,21 @@ function Header() {
     }
   };
 
-  const handleMenuHamburger = () => {
-    setMenuHamburgerIsOpen(!menuHamburgerIsOpen);
-  };
+  // const handleMenuHamburger = () => {
+  //   setMenuHamburgerIsOpen(!menuHamburgerIsOpen);
+  // };
+
+  useIsomorphicLayoutEffect(() => {
+    timeline.add(
+      gsap.to(`.${styles.header}`, {
+        top: -100,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.inOut",
+      }),
+      0,
+    );
+  }, [router.asPath]);
 
   useEffect(() => {
     window.addEventListener("scroll", listenScrollEvent);
@@ -36,128 +60,64 @@ function Header() {
     return () => window.removeEventListener("scroll", listenScrollEvent);
   }, []);
 
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    setTimeout(() => {
+      gsap.to(`.${styles.header}`, {
+        top: 70,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+    }, router.asPath !== currentRoute ? 1200 : 1000);
+
+    setCurrentRoute(router.asPath);
+  }, [router.asPath, isLoaded]);
+
   const renderHeader = pathName !== "/all-my-links";
 
   return (
     renderHeader && (
       <header
-        className={headerStyles.header}
+        className={styles.header}
         style={{
-          opacity: "1",
           background: headerBackground,
-          justifyContent: "space-between",
         }}
       >
-        <Link
-          href="/"
-          className={`${headerStyles.title} ${headerStyles["title-desktop"]}`}
-          style={{ opacity: "1" }}
-          scroll={false}
-          dangerouslySetInnerHTML={{ __html: headerTitle }}
-        >
-        </Link>
-        <div className={headerStyles["spacing"]} />
-        <div className={headerStyles.menu}>
-          {menuItems.map((item: any, index: any) => {
-            const { text, href } = item;
-            return (
-              <Link
-                href={href}
-                key={`${text}_${index}`}
-                className={headerStyles.menuItem}
-                dangerouslySetInnerHTML={{ __html: text }}
-              />
-            );
-          })}
-        </div>
-        <div
-          className={headerStyles.switchLanguageDesktop}
-          style={{ opacity: "1" }}
-        >
-          <h3
-            onClick={() => changeLanguage("en")}
-            className={
-              language === "en" ? headerStyles.switchLanguageSelected : ""
-            }
-          >
-            EN
-          </h3>
-          <h3
-            onClick={() => changeLanguage("pt")}
-            className={
-              language === "pt" ? "" : headerStyles.switchLanguageSelected
-            }
-          >
-            PT
-          </h3>
-        </div>
-        <div className={headerStyles.menuHamburger}>
-          <button
-            className={headerStyles.handleMenuHamburger}
-            onClick={handleMenuHamburger}
-            style={{ background: menuHamburgerIsOpen ? "none" : "#ffffff" }}
-          >
-            {menuHamburgerIsOpen ? (
-              <MdClose style={{ color: "white" }} size="2em" />
-            ) : (
-              <MdMenu style={{ color: "black" }} size="2em" />
-            )}
-          </button>
-
-          <div
-            className={`${headerStyles.menuHamburgerMenu}`}
-            style={{
-              left: menuHamburgerIsOpen ? "50px" : "115vw",
-              transitionDelay: menuHamburgerIsOpen ? "0.2s" : "0s",
-            }}
-            onClick={handleMenuHamburger}
-          >
-            <Link
-              href="/"
-              className={`${headerStyles.title} ${headerStyles["title-mobile"]}`}
-              style={{ opacity: "1" }}
-              scroll={false}
-            >
-              {headerTitle}
-            </Link>
-            {menuItems.map((item: any, index: any) => {
+        <div className={styles["header-container"]}>
+          <div className={styles["navigation-container"]}>
+            {/* {menuItems.map((item: any, index: any) => { */}
+            {menuItems.map((item: any) => {
               const { text, href } = item;
-              return (
-                <Link
-                  href={href}
-                  key={`${text}_${index}`}
-                  className={headerStyles.menuItem}
-                >
-                  {text}
+              return pathName !== href ? (
+                <Link href={href} className={styles["menu-item"]}>
+                  <MenuItem
+                    text={text}
+                    // key={`${text}_${index}`}
+                    cursorSize="medium"
+                  />
                 </Link>
-              );
+              ) : null;
             })}
-            <div className={headerStyles.switchLanguageMobile}>
-              <h3
-                onClick={() => changeLanguage("en")}
-                className={
-                  language === "en" ? headerStyles.switchLanguageSelected : ""
-                }
-              >
-                EN
-              </h3>
-              <h3
-                onClick={() => changeLanguage("pt")}
-                className={
-                  language === "pt" ? "" : headerStyles.switchLanguageSelected
-                }
-              >
-                PT
-              </h3>
-            </div>
           </div>
-          <div
-            className={`${headerStyles.menuHamburgerBackground}`}
-            style={{
-              left: menuHamburgerIsOpen ? "0" : "115vw",
-              transitionDelay: menuHamburgerIsOpen ? "0s" : "0.2s",
-            }}
-          />
+          <div className={styles["buttons-container"]}>
+            <a
+              href="/resume"
+              className={styles["menu-item__bold"]}
+              onMouseEnter={() => {
+                handleModalPropsEnter("download my resume", true);
+              }}
+              onMouseLeave={() => {
+                handleModalPropsLeave("download my resume");
+              }}
+            >
+              <MenuItem text="/My resume" />
+            </a>
+            <a href="/contact" className={styles["header-button"]}>
+              /Contact Me
+            </a>
+          </div>
         </div>
       </header>
     )
@@ -165,4 +125,3 @@ function Header() {
 }
 
 export default Header;
-
