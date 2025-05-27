@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useLanguage } from "../../contexts/LanguageContext";
 import NextPageButton from "../../components/NextPageButton";
-import Curve from "../../Layouts/Curve";
 
 import AboutSection from "./components/AboutSection";
 import ResumeSection from "./components/ResumeSection";
@@ -20,7 +19,7 @@ function About() {
   }, []);
 
   return (
-    <Curve>
+    <>
       <AboutSection sectionSubTitle={sectionSubTitle} content={content} />
       <ResumeSection sectionTitleResume={sectionTitleResume} cards={cards} />
       <SkillsSection
@@ -34,7 +33,7 @@ function About() {
         type="forward"
         showBackground={true}
       />
-    </Curve>
+    </>
   );
 }
 

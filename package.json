@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
+    "sass": "concurrently \"sass --watch --no-source-map src:src --style compressed\" \"sass --watch --no-source-map styles/scss:styles/css --style compressed\"",
     "type-check": "tsc --noEmit",
     "build": "next build",
     "start": "next start",
@@ -13,6 +14,7 @@
   "dependencies": {
     "@vercel/blob": "^0.23.2",
     "@vercel/speed-insights": "^1.0.14",
+    "concurrently": "^9.1.2",
     "framer-motion": "^11.1.7",
     "gsap": "3.13.0",
     "next": "14.2.3",

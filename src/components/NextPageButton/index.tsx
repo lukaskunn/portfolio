@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./NextPageButton.module.scss";
+import styles from "./NextPageButton.module.css";
 import Link from "next/link";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 interface INextPageButton {

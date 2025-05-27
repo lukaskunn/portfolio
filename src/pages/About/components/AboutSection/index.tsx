@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useHover } from "usehooks-ts";
 import { useCursor } from "../../../../contexts/CursorContext";
-import styles from "../../About.module.scss";
+import styles from "../../About.module.css";
 import gsap from "gsap";
 import { SplitText } from "gsap/dist/SplitText";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";

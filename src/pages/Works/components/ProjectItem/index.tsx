@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ProjectItem.module.scss";
+import styles from "./ProjectItem.module.css";
 import Link from "next/link";
 
 type LinkHandlerProps = {

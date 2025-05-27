@@ -1,14 +1,13 @@
 import React from "react";
 import { useLanguage } from "../../contexts/LanguageContext";
-import styles from "./Contact.module.scss";
-import Curve from "../../Layouts/Curve";
+import styles from "./Contact.module.css";
 
 function Contact() {
   const { currentLanguage } = useLanguage();
   const { contact } = currentLanguage;
 
   return (
-    <Curve>
+    <>
       <section className={styles.contactContainer}>
         <div className={styles.contact} id="contact">
           <div className={styles.contactSide}>
@@ -32,7 +31,7 @@ function Contact() {
           />
         </div>
       </section>
-    </Curve>
+    </>
   );
 }
 

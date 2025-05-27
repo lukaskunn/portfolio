@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useHover } from "usehooks-ts";
 import { useCursor } from "../../../../contexts/CursorContext";
-import styles from "../../About.module.scss";
+import styles from "../../About.module.css";
 
 type SkillsSectionType = {
   sectionTitleServices: string;

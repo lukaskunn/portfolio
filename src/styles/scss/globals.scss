@@ -28,6 +28,10 @@ a {
   cursor: none;
 }
 
+button {
+  cursor: none;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -42,7 +46,6 @@ a {
     background: black;
   }
 }
-
 
 .react-tabs {
   width: 100%;
@@ -62,7 +65,7 @@ a {
       font-size: 1.8rem;
     }
 
-    li+li {
+    li + li {
       text-align: end;
     }
 
@@ -92,5 +95,4 @@ a {
       }
     }
   }
-
 }

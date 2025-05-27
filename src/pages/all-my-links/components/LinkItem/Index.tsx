@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../AllMyLinks.module.scss";
+import styles from "../../AllMyLinks.module.css";
 import { useHover } from "usehooks-ts";
 
 type LinkItemProps = {

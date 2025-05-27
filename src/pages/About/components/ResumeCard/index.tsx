@@ -1,6 +1,6 @@
 import React from "react";
 
-import resumeCard from "./resumeCard.module.scss";
+import resumeCard from "./resumeCard.module.css";
 
 function ResumeCard(props: any) {
   return (

@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 // import { useHover } from "usehooks-ts";
-import Curve from "../../../Layouts/Curve";
 import ProjectPageGallery from "./components/ProjectPageGallery";
 import NextPageButton from "../../../components/NextPageButton";
 import { useLanguage } from "../../../contexts/LanguageContext";
 // import { useCursor } from "../../../contexts/CursorContext";
 import loadProjectData from "../../../utils/loadProjectData";
-import styles from "./ProjectPage.module.scss";
+import styles from "./ProjectPage.module.css";
 
 const dimensionsInitialState = {
   height: 0,
@@ -77,7 +76,7 @@ const Project = () => {
   }, []);
 
   return (
-    <Curve isProjectPage={true}>
+    <>
       {!!project ? (
         <>
           <div className={styles["project-page-container"]}>
@@ -130,7 +129,7 @@ const Project = () => {
           />
         </>
       ) : null}
-    </Curve>
+    </>
   );
 };
 

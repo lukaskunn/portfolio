@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ImageBackground.module.scss";
+import styles from "./ImageBackground.module.css";
 import { useCursor } from "../../contexts/CursorContext";
 import Image from "next/image";
 import gsap from "gsap";
@@ -44,8 +44,8 @@ function ImageBackground() {
     )
       return;
 
-    const left = -(position.x / dimensions.width - 0.5) * 30 - 40;
-    const top = -(position.y / dimensions.height - 0.5) * 30 + 120;
+    const left = -(position.x / dimensions.width - 0.5) * 60 - 40;
+    const top = -(position.y / dimensions.height - 0.5) * 60 + 170;
     const rotateX = (position.y / dimensions.height - 0.5) * -10;
     const rotateY = (position.x / dimensions.width - 0.5) * 7;
 

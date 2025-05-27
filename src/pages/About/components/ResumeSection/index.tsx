@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useHover } from "usehooks-ts";
 import ResumeCard from "../ResumeCard";
 import { useCursor } from "../../../../contexts/CursorContext";
-import styles from "../../About.module.scss";
+import styles from "../../About.module.css";
 
 type CardType = {
   jobTitle: string;

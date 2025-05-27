@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import styles from "../../../../ProjectPage.module.scss";
+import styles from "../../../../ProjectPage.module.css";
 import { useHover } from "usehooks-ts";
 
 interface IProjectPageGalleryImage {

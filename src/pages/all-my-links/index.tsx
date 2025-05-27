@@ -1,6 +1,6 @@
 import React from "react";
 import LinkItem from "./components/LinkItem/Index";
-import styles from "../all-my-links/AllMyLinks.module.scss";
+import styles from "../all-my-links/AllMyLinks.module.css";
 
 const links = [
   {
