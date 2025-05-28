@@ -9,6 +9,8 @@
   align-items: center;
   background-color: $full-black;
 
+  contain: paint;
+
   @media (max-width: 768px) {
     padding: 0 40px;
   }

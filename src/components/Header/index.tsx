@@ -10,7 +10,7 @@ import gsap from "gsap";
 import { TransitionContext } from "../../Layouts/TransitionProvider";
 import type { TransitionContextType } from "../../Layouts/TransitionProvider";
 declare const window: any;
-import { useIsomorphicLayoutEffect } from "usehooks-ts";
+import { useIsomorphicLayoutEffect, useHover } from "usehooks-ts";
 import AnimatePosOpacity from "../../utils/AnimatePosOpacity";
 import { useRouter } from "next/router";
 
@@ -22,6 +22,7 @@ function Header() {
   const { isLoaded } = React.useContext(PageContext) as any;
   const [headerBackground, setHeaderBackground] = useState("none");
   const [currentRoute, setCurrentRoute] = useState(router.asPath);
+  const [currentPath, setCurrentPath] = useState(router.asPath);
   const [menuHamburgerIsOpen, setMenuHamburgerIsOpen] = useState(false);
   const { handleModalPropsEnter, handleModalPropsLeave } = useCursor();
   const { changeLanguage, currentLanguage, language } = useLanguage();
@@ -29,6 +30,9 @@ function Header() {
   const { header } = currentLanguage;
   const { headerTitle, menuItems } = header;
   const pathName = usePathname();
+  const headerRef = React.useRef<HTMLDivElement>(null);
+  const isHoveringHeader = useHover(headerRef);
+  const languageSelectorRef = React.useRef<HTMLDivElement>(null);
 
   const listenScrollEvent = () => {
     if (window.scrollY < 150 || window.innerWidth < 768) {
@@ -37,10 +41,6 @@ function Header() {
       return setHeaderBackground("black");
     }
   };
-
-  // const handleMenuHamburger = () => {
-  //   setMenuHamburgerIsOpen(!menuHamburgerIsOpen);
-  // };
 
   useIsomorphicLayoutEffect(() => {
     timeline.add(
@@ -59,48 +59,6 @@ function Header() {
 
     return () => window.removeEventListener("scroll", listenScrollEvent);
   }, []);
-
-  // const [prevScrollY, setPrevScrollY] = useState(0);
-  // const [hideHeader, setHideHeader] = useState(false);
-
-  // const handleScroll = () => {
-  //   const currentScrollY = window.scrollY;
-
-  //   if (currentScrollY > prevScrollY) {
-  //     // Scrolling down
-  //     setHideHeader(true);
-  //   } else {
-  //     // Scrolling up
-  //     setHideHeader(false);
-  //   }
-
-  //   setPrevScrollY(currentScrollY);
-  //   listenScrollEvent();
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [prevScrollY]);
-
-  // useEffect(() => {
-  //   if (hideHeader) {
-  //     gsap.to(`.${styles.header}`, {
-  //       top: -100,
-  //       duration: 0.5,
-  //       ease: "power3.out",
-  //     });
-  //   } else {
-  //     gsap.to(`.${styles.header}`, {
-  //       top: 70,
-  //       duration: 0.5,
-  //       ease: "power3.out",
-  //     });
-  //   }
-  // }, [hideHeader]);
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -125,12 +83,21 @@ function Header() {
   return (
     renderHeader && (
       <header className={styles.header}>
-        <div className={styles["header-container"]}>
+        <div
+          className={styles["header-container"]}
+          ref={headerRef}
+          style={{ background: pathName === "/" ? "none" : "#0a0a0a" }}
+        >
           <div className={styles["navigation-container"]}>
             {menuItems.map((item: any, index: any) => {
               const { text, href } = item;
               return pathName !== href ? (
-                <Link scroll={false} href={href} className={styles["menu-item"]} key={index}>
+                <Link
+                  scroll={false}
+                  href={href}
+                  className={styles["menu-item"]}
+                  key={index}
+                >
                   <MenuItem
                     text={text}
                     key={`${text}_${index}`}

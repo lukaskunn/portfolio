@@ -21,24 +21,24 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     <>
       <SpeedInsights />
       <WebsiteHead />
-      <TransitionProvider>
-        <TransitionLayout>
-          <PageContextProvider>
-            <DeviceContextProvider>
-              <LanguageProvider>
-                <CursorProvider>
+      <CursorProvider>
+        <TransitionProvider>
+          <TransitionLayout>
+            <PageContextProvider>
+              <DeviceContextProvider>
+                <LanguageProvider>
                   <Loading pageRoute={router.route} />
                   <CursorFollower />
                   <Header />
                   {/* <AnimatePresence mode="wait" initial={false}> */}
                   <Component {...pageProps} />
                   {/* </AnimatePresence> */}
-                </CursorProvider>
-              </LanguageProvider>
-            </DeviceContextProvider>
-          </PageContextProvider>
-        </TransitionLayout>
-      </TransitionProvider>
+                </LanguageProvider>
+              </DeviceContextProvider>
+            </PageContextProvider>
+          </TransitionLayout>
+        </TransitionProvider>
+      </CursorProvider>
     </>
   );
 }

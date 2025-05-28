@@ -25,82 +25,84 @@ const SkillsSection = ({
 
   return (
     <section className={styles["skills-container"]}>
-      <AnimePosOpacity
-        from={{ y: 20, opacity: 0 }}
-        to={{ y: 0, opacity: 1 }}
-        durationIn={0.8}
-        durationOut={0.6}
-        delay={1}
-        set={{ y: "200px", opacity: 0 }}
-      >
-        <h2 dangerouslySetInnerHTML={{ __html: sectionTitleServices }} />
-      </AnimePosOpacity>
-      <div className={styles["skills-sub-container"]} ref={skillsRef}>
-        <div className={styles["soft-skills"]}>
-          <AnimePosOpacity
-            from={{ y: 20, opacity: 0 }}
-            to={{ y: 0, opacity: 1 }}
-            durationIn={0.8}
-            durationOut={0.6}
-            delay={1}
-            set={{ y: "200px", opacity: 0 }}
-          >
-            <h3
-              className={styles["group-title"]}
-              dangerouslySetInnerHTML={{ __html: "[Soft Skills]" }}
-            />
-          </AnimePosOpacity>
-          {soft.map((skill: any, index: any) => {
-            return (
-              <AnimePosOpacity
-                from={{ y: 20, opacity: 0 }}
-                to={{ y: 0, opacity: 1 }}
-                durationIn={0.8}
-                durationOut={0.6}
-                delay={1 + index * 0.1}
-                set={{ y: "200px", opacity: 0 }}
-              >
-                <p
-                  className={skill["skill-list"]}
-                  key={`${skill}_${index}`}
-                  dangerouslySetInnerHTML={{ __html: `/ ${skill}` }}
-                />
-              </AnimePosOpacity>
-            );
-          })}
-        </div>
-        <div className={styles["hard-skills"]}>
-          <AnimePosOpacity
-            from={{ y: 20, opacity: 0 }}
-            to={{ y: 0, opacity: 1 }}
-            durationIn={0.8}
-            durationOut={0.6}
-            delay={1}
-            set={{ y: "200px", opacity: 0 }}
-          >
-            <h3
-              className={styles["group-title"]}
-              dangerouslySetInnerHTML={{ __html: "[Hard Skills]" }}
-            />
-          </AnimePosOpacity>
-          {hard.map((skill: any, index: any) => {
-            return (
-              <AnimePosOpacity
-                from={{ y: 20, opacity: 0 }}
-                to={{ y: 0, opacity: 1 }}
-                durationIn={0.8}
-                durationOut={0.6}
-                delay={1 + index * 0.1}
-                set={{ y: "200px", opacity: 0 }}
-              >
-                <p
-                  className={skill["skill-list"]}
-                  key={`${skill}_${index}`}
-                  dangerouslySetInnerHTML={{ __html: `/ ${skill}` }}
-                />
-              </AnimePosOpacity>
-            );
-          })}
+      <div className={styles["skills"]}>
+        <AnimePosOpacity
+          from={{ y: 20, opacity: 0 }}
+          to={{ y: 0, opacity: 1 }}
+          durationIn={0.8}
+          durationOut={0.6}
+          delay={1}
+          set={{ y: "200px", opacity: 0 }}
+        >
+          <h2 dangerouslySetInnerHTML={{ __html: sectionTitleServices }} />
+        </AnimePosOpacity>
+        <div className={styles["skills-sub-container"]} ref={skillsRef}>
+          <div className={styles["soft-skills"]}>
+            <AnimePosOpacity
+              from={{ y: 20, opacity: 0 }}
+              to={{ y: 0, opacity: 1 }}
+              durationIn={0.8}
+              durationOut={0.6}
+              delay={1}
+              set={{ y: "200px", opacity: 0 }}
+            >
+              <h3
+                className={styles["group-title"]}
+                dangerouslySetInnerHTML={{ __html: "[Soft Skills]" }}
+              />
+            </AnimePosOpacity>
+            {soft.map((skill: any, index: any) => {
+              return (
+                <AnimePosOpacity
+                  from={{ y: 20, opacity: 0 }}
+                  to={{ y: 0, opacity: 1 }}
+                  durationIn={0.8}
+                  durationOut={0.6}
+                  delay={1 + index * 0.1}
+                  set={{ y: "200px", opacity: 0 }}
+                >
+                  <p
+                    className={skill["skill-list"]}
+                    key={`${skill}_${index}`}
+                    dangerouslySetInnerHTML={{ __html: `/ ${skill}` }}
+                  />
+                </AnimePosOpacity>
+              );
+            })}
+          </div>
+          <div className={styles["hard-skills"]}>
+            <AnimePosOpacity
+              from={{ y: 20, opacity: 0 }}
+              to={{ y: 0, opacity: 1 }}
+              durationIn={0.8}
+              durationOut={0.6}
+              delay={1}
+              set={{ y: "200px", opacity: 0 }}
+            >
+              <h3
+                className={styles["group-title"]}
+                dangerouslySetInnerHTML={{ __html: "[Hard Skills]" }}
+              />
+            </AnimePosOpacity>
+            {hard.map((skill: any, index: any) => {
+              return (
+                <AnimePosOpacity
+                  from={{ y: 20, opacity: 0 }}
+                  to={{ y: 0, opacity: 1 }}
+                  durationIn={0.8}
+                  durationOut={0.6}
+                  delay={1 + index * 0.1}
+                  set={{ y: "200px", opacity: 0 }}
+                >
+                  <p
+                    className={skill["skill-list"]}
+                    key={`${skill}_${index}`}
+                    dangerouslySetInnerHTML={{ __html: `/ ${skill}` }}
+                  />
+                </AnimePosOpacity>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

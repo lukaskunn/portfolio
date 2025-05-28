@@ -29,10 +29,13 @@
     margin-bottom: 50px;
   }
 
-  p {
+  .contact-item {
     font-size: 1.5rem;
     font-weight: 100;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 
     a {
       font-weight: 600;

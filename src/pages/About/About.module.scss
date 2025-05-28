@@ -147,6 +147,7 @@
   z-index: 3;
   padding-top: 160px;
   justify-content: center;
+  contain: paint;
 
   @media (max-width: 768px) {
     padding: 30px 30px 60px;
@@ -231,20 +232,34 @@
 
 .skills-container {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: $secondary-color;
+  display: flex;
+}
+
+.skills {
+  width: 100%;
+  max-width: 1300px;
   color: $primary-color;
   z-index: 3;
   justify-content: center;
   height: fit-content;
-  padding: 40px 100px 150px;
+  padding: 40px 0px 150px;
   font-family: $primary-font;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
+
+  @media screen and (max-width: 1340px) {
+    max-width: 1340px;
+    padding: 40px 20px 150px;
+  }
 
   @media (max-width: 768px) {
-    padding: 40px 20px 120px;
+    padding: 40px 20px 10px;
   }
 
   h2 {
@@ -252,7 +267,6 @@
     margin-bottom: 40px;
     width: 100%;
     max-width: 1920px;
-    padding: 0 100px;
 
     @media screen and (max-width: 1440px) {
       padding: 0;
@@ -270,7 +284,6 @@
     width: 100%;
     max-width: 1920px;
     height: 100%;
-    padding: 0 100px;
 
     @media screen and (max-width: 1440px) {
       padding: 0;

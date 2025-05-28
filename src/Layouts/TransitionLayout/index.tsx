@@ -7,9 +7,11 @@ import type { TransitionContextType } from "../TransitionProvider";
 type TransitionLayoutProps = {
   children: React.ReactNode;
 };
+import { useCursor } from "../../contexts/CursorContext";
 import { useRouter } from "next/router";
 
 export default function TransitionLayout({ children }: TransitionLayoutProps) {
+  const { setHoverImportantText } = useCursor();
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState({
     route: router.asPath,
@@ -39,6 +41,11 @@ export default function TransitionLayout({ children }: TransitionLayoutProps) {
       }
     }
   }, [router.asPath]);
+
+  React.useEffect(() => {
+    scrollTo({ top: 0, left: 0, behavior: "instant" });
+    setHoverImportantText(false);
+  }, [currentPage.route]);
 
   return <div ref={el}>{currentPage.children}</div>;
 }
