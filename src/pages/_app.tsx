@@ -15,7 +15,6 @@ import WebsiteHead from "../components/Head";
 import Loading from "../components/Loading";
 
 import "../styles/scss/globals.css";
-import "../styles/scss/allFiles.scss";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (
