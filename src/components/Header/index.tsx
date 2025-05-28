@@ -60,6 +60,48 @@ function Header() {
     return () => window.removeEventListener("scroll", listenScrollEvent);
   }, []);
 
+  // const [prevScrollY, setPrevScrollY] = useState(0);
+  // const [hideHeader, setHideHeader] = useState(false);
+
+  // const handleScroll = () => {
+  //   const currentScrollY = window.scrollY;
+
+  //   if (currentScrollY > prevScrollY) {
+  //     // Scrolling down
+  //     setHideHeader(true);
+  //   } else {
+  //     // Scrolling up
+  //     setHideHeader(false);
+  //   }
+
+  //   setPrevScrollY(currentScrollY);
+  //   listenScrollEvent();
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [prevScrollY]);
+
+  // useEffect(() => {
+  //   if (hideHeader) {
+  //     gsap.to(`.${styles.header}`, {
+  //       top: -100,
+  //       duration: 0.5,
+  //       ease: "power3.out",
+  //     });
+  //   } else {
+  //     gsap.to(`.${styles.header}`, {
+  //       top: 70,
+  //       duration: 0.5,
+  //       ease: "power3.out",
+  //     });
+  //   }
+  // }, [hideHeader]);
+
   useEffect(() => {
     if (!isLoaded) return;
 
@@ -82,18 +124,13 @@ function Header() {
 
   return (
     renderHeader && (
-      <header
-        className={styles.header}
-        style={{
-          background: headerBackground,
-        }}
-      >
+      <header className={styles.header}>
         <div className={styles["header-container"]}>
           <div className={styles["navigation-container"]}>
             {menuItems.map((item: any, index: any) => {
               const { text, href } = item;
               return pathName !== href ? (
-                <Link href={href} className={styles["menu-item"]} key={index}>
+                <Link scroll={false} href={href} className={styles["menu-item"]} key={index}>
                   <MenuItem
                     text={text}
                     key={`${text}_${index}`}

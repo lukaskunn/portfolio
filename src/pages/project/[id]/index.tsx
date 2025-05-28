@@ -60,7 +60,7 @@ const Project = () => {
           durationIn={1}
           durationOut={0.6}
           delay={0.4}
-          set={{ opacity: 0, y: 100 }}
+          set={{ opacity: 0, y: 100, x: "0%" }}
         >
           <h1
             className={styles["project-title"]}
@@ -73,7 +73,7 @@ const Project = () => {
           durationIn={1}
           durationOut={0.6}
           delay={0.6}
-          set={{ opacity: 0, y: 100 }}
+          set={{ opacity: 0, y: 100, x: "0%" }}
         >
           <p
             className={styles["project-description"]}
@@ -91,7 +91,7 @@ const Project = () => {
                 durationOut={0.6}
                 delay={0.6 + index * 0.2} // stagger effect based on index
                 key={index}
-                set={{ opacity: 0, y: 100 }}
+                set={{ opacity: 0, y: 100, x: "0%" }}
               >
                 <span key={index}>
                   {text}
@@ -108,7 +108,7 @@ const Project = () => {
             durationIn={1}
             durationOut={0.6}
             delay={0.6}
-            set={{ opacity: 0, y: 100 }}
+            set={{ opacity: 0, y: 100, x: "0%" }}
           >
             <p className={styles["technologies-title"]}>{`[technologies]`}</p>
           </AnimatePosOpacity>

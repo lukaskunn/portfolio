@@ -2,13 +2,14 @@
 
 .container {
   width: 100%;
-  background-color: $secondary-color;
+  background-color: $mono-gray;
   color: $primary-color;
   z-index: 3;
-  padding-top: 250px;
+  padding-top: 210px;
   padding-bottom: 200px;
   justify-content: center;
   height: fit-content;
+  contain: paint;
 
   .about {
     width: 100%;
@@ -18,8 +19,6 @@
     display: flex;
     justify-content: center;
     gap: 40px;
-
-    background-color: $secondary-color;
     color: $full-black;
 
     @media screen and (max-width: 1340px) {
@@ -65,23 +64,27 @@
         left: 0;
       }
 
+      .title-container {
+        width: 100%;
+      }
+
       .about-title {
         font-weight: 400;
-        font-size: 4rem;
-        margin-bottom: 300px;
+        font-size: 64px;
+        margin-bottom: 200px;
 
         div {
-          background: linear-gradient(
-            to right,
-            rgb(255, 255, 255) 50%,
-            rgb(22, 22, 22) 0%
-          );
-          background-size: 200% 100%;
-          background-position-x: 100%;
-          color: transparent;
+          // background: linear-gradient(
+          //   to right,
+          //   rgb(255, 255, 255) 50%,
+          //   rgb(22, 22, 22) 0%
+          // );
+          // background-size: 200% 100%;
+          // background-position-x: 100%;
+          // color: transparent;
           background-clip: text;
           -webkit-background-clip: text;
-          font-size: 4.5vw;
+          font-size: 64px;
         }
 
         @media (max-width: 768px) {
@@ -92,7 +95,7 @@
       }
 
       &__aboutMe {
-        margin-top: 1100px;
+        // margin-top: 1100px;
         margin-bottom: 200px;
       }
 

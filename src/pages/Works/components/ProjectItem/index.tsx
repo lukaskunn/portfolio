@@ -23,7 +23,9 @@ const LinkHandler = ({
   return goToExternalPage ? (
     <a href={urlToProject}>{children}</a>
   ) : (
-    <Link href={`/project/${projectId}`}>{children}</Link>
+    <Link href={`/project/${projectId}`} scroll={false}>
+      {children}
+    </Link>
   );
 };
 type IProjectItem = {
