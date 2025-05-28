@@ -38,6 +38,7 @@ type IProjectItem = {
 
 const ProjectItem = (props: IProjectItem) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const seeProjectTextRef = React.useRef<HTMLSpanElement>(null);
   // const { timeline } = React.useContext(
   //   TransitionContext,
   // ) as TransitionContextType;
@@ -92,9 +93,23 @@ const ProjectItem = (props: IProjectItem) => {
         duration: 0.2,
         ease: "power3.out",
       });
+
+      gsap.to(seeProjectTextRef.current, {
+        height: "100%",
+        opacity: 1,
+        duration: 0.2,
+        ease: "power3.out",
+      });
     } else {
       gsap.to(containerRef.current, {
         padding: "36px 0",
+        duration: 0.2,
+        ease: "power3.out",
+      });
+
+      gsap.to(seeProjectTextRef.current, {
+        height: 0,
+        opacity: 0,
         duration: 0.2,
         ease: "power3.out",
       });
@@ -120,10 +135,18 @@ const ProjectItem = (props: IProjectItem) => {
           className={styles["project-index"]}
         />
         <div className={styles["project-description-container"]}>
-          <h2
-            className={styles["project-title"]}
-            dangerouslySetInnerHTML={{ __html: title }}
-          />
+          <div className={styles["project-title-container"]}>
+            <h2
+              className={styles["project-title"]}
+              dangerouslySetInnerHTML={{ __html: title }}
+            />
+            <span
+              className={styles["see-project-text"]}
+              ref={seeProjectTextRef}
+            >
+              Click to see project
+            </span>
+          </div>
           <p
             className={styles["project-description"]}
             dangerouslySetInnerHTML={{ __html: description }}

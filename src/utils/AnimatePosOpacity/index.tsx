@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
 import { TransitionContext } from "../../Layouts/TransitionProvider";
 import type { TransitionContextType } from "../../Layouts/TransitionProvider";
+import { PageContext } from "../../contexts/PageContext";
 
 type AnimatePosOpacityProps = {
   children: React.ReactNode;
@@ -30,18 +31,9 @@ const AnimatePosOpacity = ({
 }: AnimatePosOpacityProps) => {
   const { timeline } = useContext(TransitionContext) as TransitionContextType;
   const el = useRef<HTMLDivElement>(null);
+  const { isLoaded } = useContext(PageContext) as any;
 
   useIsomorphicLayoutEffect(() => {
-    // intro animation
-    if (set) {
-      gsap.set(el.current, { ...set });
-    }
-    gsap.to(el.current, {
-      ...to,
-      delay: delay || 0,
-      duration: durationIn,
-    });
-
     // outro animation
     if (!skipOutro) {
       timeline.add(
@@ -49,17 +41,30 @@ const AnimatePosOpacity = ({
           ...from,
           delay: delayOut || 0,
           duration: durationOut,
+          ease: "power4.in",
         }),
         0,
       );
     }
   }, []);
 
-  return (
-    <div ref={el}>
-      {children}
-    </div>
-  );
+  useIsomorphicLayoutEffect(() => {
+    // intro animation
+    if (!isLoaded) return;
+
+    if (set) {
+      gsap.set(el.current, set);
+    }
+
+    gsap.to(el.current, {
+      ...to,
+      delay: delay || 0,
+      duration: durationIn,
+      ease: "power4.out",
+    });
+  }, [isLoaded]);
+
+  return <div ref={el}>{children}</div>;
 };
 
 export default React.memo(AnimatePosOpacity);
