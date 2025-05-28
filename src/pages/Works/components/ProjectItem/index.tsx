@@ -1,6 +1,11 @@
 import React from "react";
 import styles from "./ProjectItem.module.css";
 import Link from "next/link";
+import { PageContext } from "../../../../contexts/PageContext";
+import gsap from "gsap";
+import { useIsomorphicLayoutEffect, useHover } from "usehooks-ts";
+// import { TransitionContext } from "../../../../Layouts/TransitionProvider";
+// import type { TransitionContextType } from "../../../../Layouts/TransitionProvider";
 
 type LinkHandlerProps = {
   goToExternalPage?: boolean;
@@ -32,6 +37,13 @@ type IProjectItem = {
 };
 
 const ProjectItem = (props: IProjectItem) => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  // const { timeline } = React.useContext(
+  //   TransitionContext,
+  // ) as TransitionContextType;
+  const isHovering = useHover(containerRef);
+  const [canHover, setCanHover] = React.useState(false);
+  const { isLoaded } = React.useContext(PageContext) as any;
   const {
     title,
     index,
@@ -42,6 +54,53 @@ const ProjectItem = (props: IProjectItem) => {
     urlToProject,
   } = props;
 
+  useIsomorphicLayoutEffect(() => {
+    if (isLoaded) {
+      setTimeout(() => {
+        gsap.to(containerRef.current, {
+          y: 0,
+          padding: "36px 0",
+          duration: 0.8,
+          ease: "power3.out",
+          delay: index * 0.2,
+          onComplete: () => {
+            setCanHover(true);
+          },
+        });
+      }, 1400);
+    }
+  }, [isLoaded]);
+
+  // useIsomorphicLayoutEffect(() => {
+  //   timeline.add(
+  //     gsap.to(containerRef.current, {
+  //       y: "20px",
+  //       opacity: 0,
+  //       padding: "120px 0",
+  //       duration: 0.8,
+  //       ease: "power3.out",
+  //       delay: index * 0.2,
+  //     }),
+  //   );
+  // }, []);
+
+  React.useEffect(() => {
+    if (!canHover) return;
+    if (isHovering) {
+      gsap.to(containerRef.current, {
+        padding: "72px 0",
+        duration: 0.2,
+        ease: "power3.out",
+      });
+    } else {
+      gsap.to(containerRef.current, {
+        padding: "36px 0",
+        duration: 0.2,
+        ease: "power3.out",
+      });
+    }
+  }, [isHovering, canHover]);
+
   return (
     <LinkHandler
       goToExternalPage={goToExternalPage}
@@ -50,17 +109,26 @@ const ProjectItem = (props: IProjectItem) => {
     >
       <div
         className={styles["project-item-container"]}
+        ref={containerRef}
         onMouseEnter={() => updateModal(index, true)}
         onMouseLeave={() => updateModal(index, false)}
       >
-        <h2
-          className={styles["project-title"]}
-          dangerouslySetInnerHTML={{ __html: title }}
-        />
         <p
-          className={styles["project-description"]}
-          dangerouslySetInnerHTML={{ __html: description }}
+          dangerouslySetInnerHTML={{
+            __html: index < 10 ? `0${index + 1}` : index + 1,
+          }}
+          className={styles["project-index"]}
         />
+        <div className={styles["project-description-container"]}>
+          <h2
+            className={styles["project-title"]}
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
+          <p
+            className={styles["project-description"]}
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
+        </div>
       </div>
     </LinkHandler>
   );

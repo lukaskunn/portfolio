@@ -36,15 +36,15 @@ const Home: NextPage = () => {
   const titleContainerRef = React.useRef<HTMLHeadingElement>(null);
 
   useIsomorphicLayoutEffect(() => {
-    // timeline.add(
-    //   gsap.to(`.${styles["language-selector-container"]}`, {
-    //     opacity: 0,
-    //     y: 50,
-    //     duration: 0.5,
-    //     ease: "power2.inOut",
-    //   }),
-    //   0,
-    // );
+    timeline.add(
+      gsap.to(`.${styles["language-selector-container"]}`, {
+        opacity: 0,
+        y: 50,
+        duration: 0.5,
+        ease: "power2.inOut",
+      }),
+      0,
+    );
 
     timeline.add(
       gsap.to(`.${styles["social-media-icons"]}`, {
@@ -281,7 +281,7 @@ const Home: NextPage = () => {
               <FaMedium />
             </a>
           </div>
-          <AnimateInOut
+          {/* <AnimateInOut
             durationIn={0.5}
             durationOut={0.5}
             from={{ opacity: 0, y: 50 }}
@@ -290,39 +290,39 @@ const Home: NextPage = () => {
             delayOut={0.5}
             set={{ opacity: 0, y: 50 }}
             // skipOutro={true}
-          >
-            <div className={styles["language-selector-container"]}>
-              <button
-                className={`${styles["language-selector"]} ${language === "en" ? styles.selected : ""}`}
-                onClick={() => {
-                  changeLanguage("en");
-                }}
-                onMouseEnter={() => {
-                  handleModalPropsEnter("Switch language to English", false);
-                }}
-                onMouseLeave={() => {
-                  handleModalPropsLeave("Switch language to English");
-                }}
-              >
-                EN
-              </button>
-              /
-              <button
-                className={`${styles["language-selector"]} ${language === "pt" ? styles.selected : ""}`}
-                onClick={() => {
-                  changeLanguage("pt");
-                }}
-                onMouseEnter={() => {
-                  handleModalPropsEnter("Switch language to Portuguese", false);
-                }}
-                onMouseLeave={() => {
-                  handleModalPropsLeave("Switch language to Portuguese");
-                }}
-              >
-                PT
-              </button>
-            </div>
-          </AnimateInOut>
+          > */}
+          <div className={styles["language-selector-container"]}>
+            <button
+              className={`${styles["language-selector"]} ${language === "en" ? styles.selected : ""}`}
+              onClick={() => {
+                changeLanguage("en");
+              }}
+              onMouseEnter={() => {
+                handleModalPropsEnter("Switch language to English", false);
+              }}
+              onMouseLeave={() => {
+                handleModalPropsLeave("Switch language to English");
+              }}
+            >
+              EN
+            </button>
+            /
+            <button
+              className={`${styles["language-selector"]} ${language === "pt" ? styles.selected : ""}`}
+              onClick={() => {
+                changeLanguage("pt");
+              }}
+              onMouseEnter={() => {
+                handleModalPropsEnter("Switch language to Portuguese", false);
+              }}
+              onMouseLeave={() => {
+                handleModalPropsLeave("Switch language to Portuguese");
+              }}
+            >
+              PT
+            </button>
+          </div>
+          {/* </AnimateInOut> */}
         </div>
       </div>
       <ImageBackground />
