@@ -63,14 +63,17 @@ function Header() {
   useEffect(() => {
     if (!isLoaded) return;
 
-    setTimeout(() => {
-      gsap.to(`.${styles.header}`, {
-        top: 70,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power3.out",
-      });
-    }, router.asPath !== currentRoute ? 1200 : 1000);
+    setTimeout(
+      () => {
+        gsap.to(`.${styles.header}`, {
+          top: 70,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+        });
+      },
+      router.asPath !== currentRoute ? 1200 : 1000,
+    );
 
     setCurrentRoute(router.asPath);
   }, [router.asPath, isLoaded]);
@@ -90,7 +93,7 @@ function Header() {
             {menuItems.map((item: any, index: any) => {
               const { text, href } = item;
               return pathName !== href ? (
-                <Link href={href} className={styles["menu-item"]}>
+                <Link href={href} className={styles["menu-item"]} key={index}>
                   <MenuItem
                     text={text}
                     key={`${text}_${index}`}
