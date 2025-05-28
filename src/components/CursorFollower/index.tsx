@@ -89,13 +89,13 @@ function CursorFollower() {
   }, []);
 
   React.useEffect(() => {
-    moveCursorX.current?.(cursorPosition.x);
-    moveCursorY.current?.(cursorPosition.y);
+    moveCursorX.current?.(cursorPosition.x + cursorPosition.scrollX);
+    moveCursorY.current?.(cursorPosition.y + cursorPosition.scrollY);
   }, [cursorPosition]);
 
   React.useEffect(() => {
-    moveModalX.current?.(modalPosition.x);
-    moveModalY.current?.(modalPosition.y);
+    moveModalX.current?.(modalPosition.x + modalPosition.scrollX);
+    moveModalY.current?.(modalPosition.y + modalPosition.scrollY);
   }, [modalPosition]);
 
   React.useEffect(() => {
