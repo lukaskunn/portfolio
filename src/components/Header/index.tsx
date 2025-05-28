@@ -67,8 +67,8 @@ function Header() {
       gsap.to(`.${styles.header}`, {
         top: 70,
         opacity: 1,
-        duration: 0.5,
-        ease: "power2.inOut",
+        duration: 0.8,
+        ease: "power3.out",
       });
     }, router.asPath !== currentRoute ? 1200 : 1000);
 
@@ -87,14 +87,13 @@ function Header() {
       >
         <div className={styles["header-container"]}>
           <div className={styles["navigation-container"]}>
-            {/* {menuItems.map((item: any, index: any) => { */}
-            {menuItems.map((item: any) => {
+            {menuItems.map((item: any, index: any) => {
               const { text, href } = item;
               return pathName !== href ? (
                 <Link href={href} className={styles["menu-item"]}>
                   <MenuItem
                     text={text}
-                    // key={`${text}_${index}`}
+                    key={`${text}_${index}`}
                     cursorSize="medium"
                   />
                 </Link>
