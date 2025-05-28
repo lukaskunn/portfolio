@@ -3,10 +3,16 @@ import styles from "./ImageBackground.module.css";
 import { useCursor } from "../../contexts/CursorContext";
 import Image from "next/image";
 import gsap from "gsap";
+import { useIsomorphicLayoutEffect } from "usehooks-ts";
+import { TransitionContext } from "../../Layouts/TransitionProvider";
+import type { TransitionContextType } from "../../Layouts/TransitionProvider";
 
 function ImageBackground() {
   const [imagesLoaded, setImagesLoaded] = React.useState(0);
   const imageBackgroundRef = React.useRef<HTMLDivElement>(null);
+  const { timeline } = React.useContext(
+    TransitionContext,
+  ) as TransitionContextType; // TransitionContextType
 
   const images = [
     "/images/general/20210803_031452-scaled.jpg",
@@ -60,6 +66,18 @@ function ImageBackground() {
       duration: 1,
     });
   }, [position, dimensions]);
+
+  useIsomorphicLayoutEffect(() => {
+    timeline.add(
+      gsap.to(`.${styles["img-bg-container"]}`, {
+        delay: 0.5,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.inOut",
+      }),
+      0,
+    );
+  }, []);
 
   return (
     <div
