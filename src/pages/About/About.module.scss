@@ -11,6 +11,10 @@
   height: fit-content;
   contain: paint;
 
+  @media screen and (max-width: 768px) {
+    padding-bottom: 40px;
+  }
+
   .about {
     width: 100%;
     max-width: 1300px;
@@ -21,9 +25,9 @@
     gap: 40px;
     color: $full-black;
 
-    @media screen and (max-width: 1340px) {
-      max-width: 1340px;
-      padding: 0 20px;
+    @media screen and (max-width: 1360px) {
+      max-width: 1360px;
+      padding: 0 30px;
     }
 
     &__left {
@@ -56,12 +60,14 @@
       align-items: center;
 
       font-family: $primary-font;
+      margin-top: 16px;
 
       @media (max-width: 768px) {
         width: 100%;
         align-items: flex-start;
-        padding: 30px 30px 60px;
+        padding: 30px 0px 60px;
         left: 0;
+        margin-top: 0px;
       }
 
       .title-container {
@@ -85,6 +91,10 @@
           background-clip: text;
           -webkit-background-clip: text;
           font-size: 64px;
+
+          @media screen and (max-width: 768px) {
+            font-size: 42px;
+          }
         }
 
         @media (max-width: 768px) {
@@ -199,6 +209,14 @@
         font-weight: 300;
         font-size: 1.2rem;
       }
+
+      .collections {
+        @media screen and (max-width: 768px) {
+          gap: 50px;
+          display: flex;
+          flex-direction: column;
+        }
+      }
     }
 
     &__right {
@@ -259,7 +277,7 @@
   }
 
   @media (max-width: 768px) {
-    padding: 40px 20px 10px;
+    padding: 40px 20px 150px;
   }
 
   h2 {

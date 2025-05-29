@@ -111,7 +111,7 @@ const ResumeSection = ({ sectionTitleResume, cards }: ResumeSectionType) => {
               dangerouslySetInnerHTML={{ __html: sectionTitleResume }}
             />
           </AnimatePosOpacity>
-          <div className={styles.colletions} ref={resumeRef}>
+          <div className={styles.collections} ref={resumeRef}>
             {cards.map((card: any, index: any) => {
               const { jobTitle, description, startDate, endDate, company } =
                 card;

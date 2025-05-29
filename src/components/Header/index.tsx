@@ -16,6 +16,7 @@ import MenuItem from "./components/MenuItem";
 import styles from "./header.module.css";
 import useDevice from "../../hooks/useDevice";
 declare const window: any;
+import useScroll from "../../hooks/useScroll";
 
 function Header() {
   const router = useRouter();
@@ -31,6 +32,7 @@ function Header() {
   const { handleModalPropsEnter, handleModalPropsLeave } = useCursor();
   const { changeLanguage, currentLanguage, language } = useLanguage();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const { hasScrolled } = useScroll(100);
 
   const { header } = currentLanguage;
   const { headerTitle, menuItems } = header;
@@ -38,6 +40,22 @@ function Header() {
   const headerRef = React.useRef<HTMLDivElement>(null);
   const isHoveringHeader = useHover(headerRef);
   const languageSelectorRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (hasScrolled) {
+      gsap.to(`.${styles.header}`, {
+        top: 30,
+        ease: "power3.out",
+        duration: 0.5,
+      });
+    } else {
+      gsap.to(`.${styles.header}`, {
+        top: isMobile || isSmallTablet ? 30 : 70,
+        ease: "power3.out",
+        duration: 0.5,
+      });
+    }
+  }, [hasScrolled]);
 
   const listenScrollEvent = () => {
     if (window.scrollY < 150 || window.innerWidth < 768) {
@@ -60,7 +78,7 @@ function Header() {
     timeline.add(
       gsap.to(`.${styles["header-mobile-background"]}`, {
         left: "-100%",
-        duration: 0.7,
+        duration: 0.4,
         ease: "power3.in",
       }),
       0,
@@ -68,8 +86,11 @@ function Header() {
     timeline.add(
       gsap.to(`.${styles["header-mobile"]}`, {
         left: "-100%",
-        duration: 0.5,
+        duration: 0.4,
         ease: "power3.in",
+        onComplete: () => {
+          setMenuIsOpen(false);
+        },
       }),
       0,
     );
@@ -103,13 +124,13 @@ function Header() {
     if (menuIsOpen) {
       gsap.to(`.${styles["header-mobile-background"]}`, {
         left: 0,
-        duration: 0.5,
+        duration: 0.6,
         ease: "power3.out",
       });
       gsap.to(`.${styles["header-mobile"]}`, {
         left: 0,
         duration: 0.9,
-        ease: "power3.out",
+        ease: "power3.inOut",
       });
     } else {
       gsap.to(`.${styles["header-mobile-background"]}`, {
@@ -138,7 +159,7 @@ function Header() {
           <div className={styles["navigation-container"]}>
             {menuItems.map((item: any, index: any) => {
               const { text, href } = item;
-              return pathName !== href ? (
+              return (
                 <Link
                   scroll={false}
                   href={href}
@@ -151,7 +172,7 @@ function Header() {
                     cursorSize="medium"
                   />
                 </Link>
-              ) : null;
+              );
             })}
           </div>
           <div className={styles["buttons-container"]}>
@@ -176,7 +197,7 @@ function Header() {
           className={styles["open-close-menu"]}
           onClick={() => setMenuIsOpen(!menuIsOpen)}
         >
-          <FaBars size={32} />
+          <FaBars size={28} />
         </button>
         <div className={styles["header-mobile-container"]}>
           <div
@@ -234,7 +255,7 @@ function Header() {
             <div className={styles["navigation-container"]}>
               {menuItems.map((item: any, index: any) => {
                 const { text, href } = item;
-                return pathName !== href ? (
+                return (
                   <Link
                     scroll={false}
                     href={href}
@@ -244,7 +265,7 @@ function Header() {
                   >
                     {text}
                   </Link>
-                ) : null;
+                );
               })}
             </div>
             <div className={styles["menu-footer"]}>
