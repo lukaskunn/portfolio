@@ -4,14 +4,21 @@ import loading from "./Loading.module.css";
 import gsap from "gsap";
 import { DeviceContext } from "../../contexts/DeviceContext";
 const texts = ["LOADING", "LOADING.", "LOADING..", "LOADING..."];
-
+import useDevice from "../../hooks/useDevice";
 function Loading(pageRoute: any) {
   const { setIsLoaded } = React.useContext(PageContext) as any;
   const [showLoading, setShowLoading] = useState(false);
   const [loadingText, setLoadingText] = useState(texts[0]);
   const [textIndex, setTextIndex] = useState(0);
   const [showLoadingComponent, setShowLoadingComponent] = useState(true);
-  const { isMobile, isSmallTablet } = React.useContext(DeviceContext) as any;
+  const { isMobile, isSmallTablet } = useDevice();
+  const [progressBarWidth, setProgressBarWidth] = useState("200px");
+
+  React.useEffect(() => {
+    setProgressBarWidth(isMobile || isSmallTablet ? "200px" : "400px");
+  }, [isMobile, isSmallTablet]);
+
+  console.log(isMobile, isSmallTablet);
 
   React.useEffect(() => {
     const intervalId = setInterval(() => {
@@ -36,7 +43,7 @@ function Loading(pageRoute: any) {
 
       progressBarTimeout = setTimeout(() => {
         gsap.to(`.${loading.progressBar}`, {
-          width: isMobile || isSmallTablet ? "200px" : "400px",
+          width: progressBarWidth,
           duration: 6,
           ease: "power2.inOut",
         });
