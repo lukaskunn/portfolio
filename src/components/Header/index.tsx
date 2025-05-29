@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from "react";
+import gsap from "gsap";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import MenuItem from "./components/MenuItem";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { FaBars } from "react-icons/fa6";
+import { FaInstagram, FaLinkedin, FaMedium, FaXTwitter } from "react-icons/fa6";
+import { useHover, useIsomorphicLayoutEffect } from "usehooks-ts";
 import { useCursor } from "../../contexts/CursorContext";
 import { useLanguage } from "../../contexts/LanguageContext";
-import styles from "./header.module.css";
 import { PageContext } from "../../contexts/PageContext";
-import gsap from "gsap";
-import { TransitionContext } from "../../Layouts/TransitionProvider";
 import type { TransitionContextType } from "../../Layouts/TransitionProvider";
-declare const window: any;
-import { useIsomorphicLayoutEffect, useHover } from "usehooks-ts";
+import { TransitionContext } from "../../Layouts/TransitionProvider";
 import AnimatePosOpacity from "../../utils/AnimatePosOpacity";
-import { useRouter } from "next/router";
+import MenuItem from "./components/MenuItem";
+import styles from "./header.module.css";
+declare const window: any;
 
 function Header() {
   const router = useRouter();
@@ -26,6 +28,7 @@ function Header() {
   const [menuHamburgerIsOpen, setMenuHamburgerIsOpen] = useState(false);
   const { handleModalPropsEnter, handleModalPropsLeave } = useCursor();
   const { changeLanguage, currentLanguage, language } = useLanguage();
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const { header } = currentLanguage;
   const { headerTitle, menuItems } = header;
@@ -46,9 +49,25 @@ function Header() {
     timeline.add(
       gsap.to(`.${styles.header}`, {
         top: -100,
-        opacity: 0,
         duration: 0.5,
         ease: "power2.inOut",
+      }),
+      0,
+    );
+
+    timeline.add(
+      gsap.to(`.${styles["header-mobile-background"]}`, {
+        left: "-100%",
+        duration: 0.7,
+        ease: "power3.in",
+      }),
+      0,
+    );
+    timeline.add(
+      gsap.to(`.${styles["header-mobile"]}`, {
+        left: "-100%",
+        duration: 0.5,
+        ease: "power3.in",
       }),
       0,
     );
@@ -77,6 +96,32 @@ function Header() {
 
     setCurrentRoute(router.asPath);
   }, [router.asPath, isLoaded]);
+
+  useEffect(() => {
+    if (menuIsOpen) {
+      gsap.to(`.${styles["header-mobile-background"]}`, {
+        left: 0,
+        duration: 0.5,
+        ease: "power3.out",
+      });
+      gsap.to(`.${styles["header-mobile"]}`, {
+        left: 0,
+        duration: 0.9,
+        ease: "power3.out",
+      });
+    } else {
+      gsap.to(`.${styles["header-mobile-background"]}`, {
+        left: "-100%",
+        duration: 0.7,
+        ease: "power3.in",
+      });
+      gsap.to(`.${styles["header-mobile"]}`, {
+        left: "-100%",
+        duration: 0.5,
+        ease: "power3.in",
+      });
+    }
+  }, [menuIsOpen]);
 
   const renderHeader = pathName !== "/all-my-links";
 
@@ -123,6 +168,130 @@ function Header() {
             <a href="/contact" className={styles["header-button"]}>
               /Contact Me
             </a>
+          </div>
+        </div>
+        <button
+          className={styles["open-close-menu"]}
+          onClick={() => setMenuIsOpen(!menuIsOpen)}
+        >
+          <FaBars />
+        </button>
+        <div className={styles["header-mobile-container"]}>
+          <div
+            className={styles["header-mobile-background"]}
+            onClick={() => setMenuIsOpen(false)}
+            // style={{
+            //   left: menuIsOpen ? 0 : "-100%",
+            // }}
+          />
+          <div
+            className={styles["header-mobile"]}
+            // style={{
+            //   left: menuIsOpen ? 0 : "-100%",
+            // }}
+          >
+            <div className={styles["switch-language-container"]}>
+              <span className={styles["switch-language-text"]}>
+                switch language
+              </span>
+              <div className={styles["language-selector-container"]}>
+                <button
+                  className={`${styles["language-selector"]} ${language === "en" ? styles.selected : ""}`}
+                  onClick={() => {
+                    changeLanguage("en");
+                  }}
+                  onMouseEnter={() => {
+                    handleModalPropsEnter("Switch language to English", false);
+                  }}
+                  onMouseLeave={() => {
+                    handleModalPropsLeave("Switch language to English");
+                  }}
+                >
+                  EN
+                </button>
+                /
+                <button
+                  className={`${styles["language-selector"]} ${language === "pt" ? styles.selected : ""}`}
+                  onClick={() => {
+                    changeLanguage("pt");
+                  }}
+                  onMouseEnter={() => {
+                    handleModalPropsEnter(
+                      "Switch language to Portuguese",
+                      false,
+                    );
+                  }}
+                  onMouseLeave={() => {
+                    handleModalPropsLeave("Switch language to Portuguese");
+                  }}
+                >
+                  PT
+                </button>
+              </div>
+            </div>
+            <div className={styles["navigation-container"]}>
+              {menuItems.map((item: any, index: any) => {
+                const { text, href } = item;
+                return pathName !== href ? (
+                  <Link
+                    scroll={false}
+                    href={href}
+                    className={styles["menu-item"]}
+                    key={index}
+                    // onClick={() => setMenuIsOpen(false)}
+                  >
+                    {text}
+                  </Link>
+                ) : null;
+              })}
+            </div>
+            <div className={styles["menu-footer"]}>
+              <a
+                href="/resume"
+                className={styles["menu-item__bold"]}
+                onMouseEnter={() => {
+                  handleModalPropsEnter("download my resume", true);
+                }}
+                onMouseLeave={() => {
+                  handleModalPropsLeave("download my resume");
+                }}
+              >
+                My Resume
+              </a>
+              <a href="/contact" className={styles["header-button"]}>
+                /Contact Me
+              </a>
+              <div className={styles["social-media-icons"]}>
+                <a
+                  href="https://www.linkedin.com/in/lucas-oliveira-0b1a1b1b8/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaLinkedin />
+                </a>
+                <a
+                  href="https://www.instagram.com/lucas_oliveira.dev/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaInstagram />
+                </a>
+                <a
+                  href="https://twitter.com/lucas_oliveira_"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaXTwitter />
+                </a>
+                <a
+                  href="https://medium.com/@lucas_oliveira"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaMedium />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </header>

@@ -34,6 +34,10 @@
       padding: 0 20px;
     }
 
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+
     .navigation-container {
       gap: 50px;
       display: flex;
@@ -100,6 +104,150 @@
 
         &__bold {
           font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .open-close-menu {
+    position: absolute;
+    left: 40px;
+    top: 0;
+  }
+
+  .header-mobile-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+
+    .header-mobile-background {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: $mono-gray;
+      background: opacity(0.9);
+    }
+
+    .header-mobile {
+      width: 80%;
+      height: 100%;
+      background: #d9d9d9;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px;
+
+      .switch-language-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .switch-language-text {
+          font-size: 14px;
+          font-weight: 300;
+          color: $full-black;
+        }
+
+        .language-selector-container {
+          font-size: 24px;
+          font-weight: 600;
+          color: $full-black;
+          gap: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .language-selector {
+            font-size: 24px;
+            font-weight: 600;
+            color: $full-black;
+            opacity: 0.2;
+            transition: 0.2s all cubic-bezier(.79, .01, .69, 1);
+            &.selected {
+              opacity: 1;
+              transition: 0.1s all cubic-bezier(0, .72, .82, .99);
+            }
+          }
+        }
+      }
+
+      .navigation-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+        .menu-item {
+          font-weight: 300;
+          font-size: 32px;
+          display: block;
+          color: $full-black;
+          font-weight: 600;
+
+          &__bold {
+            font-weight: 500;
+          }
+        }
+      }
+
+      .menu-footer {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 30px;
+
+        .menu-item__bold {
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $mono-black;
+          border: $mono-black 2px solid;
+          border-radius: 4px;
+          font-weight: 500;
+        }
+
+        .header-button {
+          width: 100%;
+          height: 50px;
+          border-radius: 4px;
+          background: $mono-black;
+          color: $mono-white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 18px;
+          font-weight: 500;
+          transition: 0.2s background cubic-bezier(0, 0, 0, 1);
+
+          &:hover {
+            background: #202020e1;
+          }
+        }
+
+        .social-media-icons {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+
+          a {
+            color: $full-black;
+            font-size: 32px;
+            transition: 0.2s all cubic-bezier(0, 0, 0, 1);
+          }
         }
       }
     }
@@ -196,9 +344,7 @@
       button {
         background: #fff;
         position: relative;
-        // padding-top: 5px;
         top: 16px;
-        // right: 20px;
         background: #fff;
         border-radius: 50%;
         padding: 5px;
@@ -236,8 +382,6 @@
         flex-direction: column;
         justify-content: center;
         padding: 40% 0;
-        // transition: 0.3s all cubic-bezier(0.19, 0.76, 0.27, 0.88);
-        // transition-delay: 0.3s;
 
         a.menuItem {
           font-size: 18px;
@@ -276,19 +420,7 @@
 
       .switchLanguageSelected {
         color: $primary-color;
-        // transition: .2s all cubic-bezier(0, 0, 0, 1);
       }
     }
   }
 }
-
-// @keyframes showText {
-//   from {
-//     padding-top: 20px;
-//     opacity: 0;
-//   }
-//   to {
-//     padding-top: 0px;
-//     opacity: 1;
-//   }
-// }
