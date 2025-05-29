@@ -18,6 +18,7 @@ import { TransitionContext } from "../Layouts/TransitionProvider";
 import type { TransitionContextType } from "../Layouts/TransitionProvider";
 import AnimateInOut from "../utils/AnimateInOut";
 const textsList = ["Web Developer", "Art Enthusiast", "Creative Thinker"];
+import NextPageButton from "../components/NextPageButton";
 
 const Home: NextPage = () => {
   const { timeline } = React.useContext(
@@ -281,16 +282,6 @@ const Home: NextPage = () => {
               <FaMedium />
             </a>
           </div>
-          {/* <AnimateInOut
-            durationIn={0.5}
-            durationOut={0.5}
-            from={{ opacity: 0, y: 50 }}
-            to={{ opacity: 1, y: 0 }}
-            delay={0.5}
-            delayOut={0.5}
-            set={{ opacity: 0, y: 50 }}
-            // skipOutro={true}
-          > */}
           <div className={styles["language-selector-container"]}>
             <button
               className={`${styles["language-selector"]} ${language === "en" ? styles.selected : ""}`}
@@ -322,9 +313,14 @@ const Home: NextPage = () => {
               PT
             </button>
           </div>
-          {/* </AnimateInOut> */}
         </div>
       </div>
+      <NextPageButton
+        link="/works"
+        text="See my projects"
+        showBackground={false}
+        type="forward"
+      />
       <ImageBackground />
       <NoiseFilter />
     </section>

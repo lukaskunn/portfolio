@@ -1,6 +1,5 @@
 import React from "react";
 import type { AppProps } from "next/app";
-// import { AnimatePresence } from "framer-motion";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { DeviceContextProvider } from "../contexts/DeviceContext";
@@ -30,9 +29,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
                   <Loading pageRoute={router.route} />
                   <CursorFollower />
                   <Header />
-                  {/* <AnimatePresence mode="wait" initial={false}> */}
                   <Component {...pageProps} />
-                  {/* </AnimatePresence> */}
                 </LanguageProvider>
               </DeviceContextProvider>
             </PageContextProvider>

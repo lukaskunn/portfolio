@@ -6,13 +6,15 @@ import gsap from "gsap";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
 import { TransitionContext } from "../../Layouts/TransitionProvider";
 import type { TransitionContextType } from "../../Layouts/TransitionProvider";
+import { DeviceContext } from "../../contexts/DeviceContext";
 
 function ImageBackground() {
+  const { isMobile } = React.useContext(DeviceContext);
   const [imagesLoaded, setImagesLoaded] = React.useState(0);
   const imageBackgroundRef = React.useRef<HTMLDivElement>(null);
   const { timeline } = React.useContext(
     TransitionContext,
-  ) as TransitionContextType; // TransitionContextType
+  ) as TransitionContextType;
 
   const images = [
     "/images/general/20210803_031452-scaled.jpg",
@@ -51,7 +53,7 @@ function ImageBackground() {
       return;
 
     const left = -(position.x / dimensions.width - 0.5) * 60 - 40;
-    const top = -(position.y / dimensions.height - 0.5) * 60 + 170;
+    const top = -(position.y / dimensions.height - 0.5) * 60 + (isMobile ? 100 : 170);
     const rotateX = (position.y / dimensions.height - 0.5) * -10;
     const rotateY = (position.x / dimensions.width - 0.5) * 7;
 
@@ -61,7 +63,6 @@ function ImageBackground() {
       rotateX,
       rotateY,
       perspective: 800,
-      // transformPerspective: 800,
       ease: "power2",
       duration: 1,
     });
@@ -83,7 +84,7 @@ function ImageBackground() {
     <div
       className={styles["img-bg-container"]}
       ref={imageBackgroundRef}
-      style={{ position: "absolute" }} // Ensure absolute positioning
+      style={{ position: "absolute" }}
     >
       {images.map((image: any, index: any) => (
         <Image
