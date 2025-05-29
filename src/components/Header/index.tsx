@@ -14,6 +14,7 @@ import { TransitionContext } from "../../Layouts/TransitionProvider";
 import AnimatePosOpacity from "../../utils/AnimatePosOpacity";
 import MenuItem from "./components/MenuItem";
 import styles from "./header.module.css";
+import useDevice from "../../hooks/useDevice";
 declare const window: any;
 
 function Header() {
@@ -22,6 +23,7 @@ function Header() {
     TransitionContext,
   ) as TransitionContextType;
   const { isLoaded } = React.useContext(PageContext) as any;
+  const { isMobile, isSmallTablet } = useDevice();
   const [headerBackground, setHeaderBackground] = useState("none");
   const [currentRoute, setCurrentRoute] = useState(router.asPath);
   const [currentPath, setCurrentPath] = useState(router.asPath);
@@ -85,7 +87,7 @@ function Header() {
     setTimeout(
       () => {
         gsap.to(`.${styles.header}`, {
-          top: 70,
+          top: isMobile || isSmallTablet ? 30 : 70,
           opacity: 1,
           duration: 0.8,
           ease: "power3.out",
@@ -174,7 +176,7 @@ function Header() {
           className={styles["open-close-menu"]}
           onClick={() => setMenuIsOpen(!menuIsOpen)}
         >
-          <FaBars />
+          <FaBars size={32} />
         </button>
         <div className={styles["header-mobile-container"]}>
           <div
