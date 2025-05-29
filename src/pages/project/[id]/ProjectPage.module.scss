@@ -8,7 +8,6 @@
   .project-page-container {
     width: 100%;
     min-height: 100vh;
-    // background-color: $secondary-color;
     color: $primary-color;
     padding: 210px 0 100px;
     max-width: 1300px;
@@ -25,8 +24,6 @@
       margin-bottom: 5px;
       width: fit-content;
       font-family: $primary-font;
-      // opacity: 0;
-      // transform: translateY(100px);
     }
 
     .project-description {
@@ -99,7 +96,6 @@
           justify-content: center;
           align-items: center;
           position: relative;
-          // margin-bottom: 20px;
 
           @media screen and (max-width: 768px) {
             flex-direction: column;
@@ -120,8 +116,6 @@
             position: relative;
             opacity: 0;
             scale: 0.8;
-            // position: absolute;
-            // margin-right: 20px;
 
             .photo-text {
               z-index: 3;

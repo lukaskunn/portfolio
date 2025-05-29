@@ -34,14 +34,9 @@ export const useScroll = (threshold = 50): ScrollState => {
       
       lastScrollY = currentScrollY;
     };
-
-    // Initial check
     updateScrollPosition();
-
-    // Add event listener
     window.addEventListener('scroll', updateScrollPosition, { passive: true });
 
-    // Clean up
     return () => {
       window.removeEventListener('scroll', updateScrollPosition);
     };

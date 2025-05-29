@@ -34,7 +34,6 @@ const AnimatePosOpacity = ({
   const { isLoaded } = useContext(PageContext) as any;
 
   useIsomorphicLayoutEffect(() => {
-    // outro animation
     if (!skipOutro) {
       timeline.add(
         gsap.to(el.current, {
@@ -49,7 +48,6 @@ const AnimatePosOpacity = ({
   }, []);
 
   useIsomorphicLayoutEffect(() => {
-    // intro animation
     if (!isLoaded) return;
 
     if (set) {

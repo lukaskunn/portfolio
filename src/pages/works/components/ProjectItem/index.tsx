@@ -4,8 +4,6 @@ import Link from "next/link";
 import { PageContext } from "../../../../contexts/PageContext";
 import gsap from "gsap";
 import { useIsomorphicLayoutEffect, useHover } from "usehooks-ts";
-// import { TransitionContext } from "../../../../Layouts/TransitionProvider";
-// import type { TransitionContextType } from "../../../../Layouts/TransitionProvider";
 
 type LinkHandlerProps = {
   goToExternalPage?: boolean;
@@ -41,9 +39,6 @@ type IProjectItem = {
 const ProjectItem = (props: IProjectItem) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const seeProjectTextRef = React.useRef<HTMLSpanElement>(null);
-  // const { timeline } = React.useContext(
-  //   TransitionContext,
-  // ) as TransitionContextType;
   const isHovering = useHover(containerRef);
   const [canHover, setCanHover] = React.useState(false);
   const { isLoaded } = React.useContext(PageContext) as any;
@@ -73,19 +68,6 @@ const ProjectItem = (props: IProjectItem) => {
       }, 1400);
     }
   }, [isLoaded]);
-
-  // useIsomorphicLayoutEffect(() => {
-  //   timeline.add(
-  //     gsap.to(containerRef.current, {
-  //       y: "20px",
-  //       opacity: 0,
-  //       padding: "120px 0",
-  //       duration: 0.8,
-  //       ease: "power3.out",
-  //       delay: index * 0.2,
-  //     }),
-  //   );
-  // }, []);
 
   React.useEffect(() => {
     if (!canHover) return;

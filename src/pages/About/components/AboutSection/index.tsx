@@ -29,7 +29,6 @@ const AboutSection = ({ content, sectionSubTitle }: AboutSectionType) => {
   const aboutTitleRef = React.useRef(null);
   const imageref = React.useRef<HTMLImageElement>(null);
   const leftSideRef = React.useRef<HTMLDivElement>(null);
-  // const rightSideRef = React.useRef<HTMLDivElement>(null);
   const aboutMeTextRef = React.useRef<HTMLDivElement>(null);
   const aboutMeRef = React.useRef(null);
   const aboutBackgroundRef = React.useRef(null);
@@ -80,7 +79,6 @@ const AboutSection = ({ content, sectionSubTitle }: AboutSectionType) => {
         );
       });
 
-      // Animation for the image with mask transition
       if (imageref.current) {
         gsap.fromTo(
           imageref.current,
@@ -125,9 +123,8 @@ const AboutSection = ({ content, sectionSubTitle }: AboutSectionType) => {
         x: "-130%",
         duration: 1,
         ease: "power3.inOut",
-
-      })
-    }, 0)
+      });
+    }, 0);
 
     timeline.add(() => {
       gsap.to(aboutContainerRef.current, {
@@ -145,7 +142,7 @@ const AboutSection = ({ content, sectionSubTitle }: AboutSectionType) => {
         ease: "power3.inOut",
       });
     }, 1);
-  }, [])
+  }, []);
 
   return (
     <section className={styles.container}>

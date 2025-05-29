@@ -65,9 +65,6 @@ const ResumeSection = ({ sectionTitleResume, cards }: ResumeSectionType) => {
     const ctx = gsap.context(() => {
       if (!isLoaded) return;
 
-
-      // Animation for the image with mask transition
-      // Create mask animation from top right to bottom left
       gsap.fromTo(imageref.current, 
         { 
           clipPath: "polygon(100% 0%, 100% 0%, 100% 0%, 100% 0%)",
@@ -82,7 +79,6 @@ const ResumeSection = ({ sectionTitleResume, cards }: ResumeSectionType) => {
         }
       );
 
-      // Optional scale effect to enhance the transition
       gsap.from(imageref.current, {
         scale: 1.1,
         duration: 1.6,

@@ -203,16 +203,8 @@ function Header() {
           <div
             className={styles["header-mobile-background"]}
             onClick={() => setMenuIsOpen(false)}
-            // style={{
-            //   left: menuIsOpen ? 0 : "-100%",
-            // }}
           />
-          <div
-            className={styles["header-mobile"]}
-            // style={{
-            //   left: menuIsOpen ? 0 : "-100%",
-            // }}
-          >
+          <div className={styles["header-mobile"]}>
             <div className={styles["switch-language-container"]}>
               <span className={styles["switch-language-text"]}>
                 switch language
@@ -261,7 +253,6 @@ function Header() {
                     href={href}
                     className={styles["menu-item"]}
                     key={index}
-                    // onClick={() => setMenuIsOpen(false)}
                   >
                     {text}
                   </Link>

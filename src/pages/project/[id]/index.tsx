@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-// import { useHover } from "usehooks-ts";
 import ProjectPageGallery from "./components/ProjectPageGallery";
 import NextPageButton from "../../../components/NextPageButton";
 import { useLanguage } from "../../../contexts/LanguageContext";
-// import { useCursor } from "../../../contexts/CursorContext";
 import loadProjectData from "../../../utils/loadProjectData";
 import styles from "./ProjectPage.module.css";
 import AnimatePosOpacity from "../../../utils/AnimatePosOpacity";
@@ -89,7 +87,7 @@ const Project = () => {
                 to={{ y: 0, opacity: 1 }}
                 durationIn={1}
                 durationOut={0.6}
-                delay={0.6 + index * 0.2} // stagger effect based on index
+                delay={0.6 + index * 0.2}
                 key={index}
                 set={{ opacity: 0, y: 100, x: "0%" }}
               >
@@ -119,7 +117,7 @@ const Project = () => {
                 to={{ y: 0, opacity: 1 }}
                 durationIn={1}
                 durationOut={0.6}
-                delay={0.6 + index * 0.2} // stagger effect based on index
+                delay={0.6 + index * 0.2}
                 key={index}
                 set={{ opacity: 0, y: 100 }}
               >

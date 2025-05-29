@@ -8,7 +8,7 @@ import type { TransitionContextType } from "../../Layouts/TransitionProvider";
 const NoiseFilter = () => {
   const { timeline } = React.useContext(
     TransitionContext,
-  ) as TransitionContextType; // TransitionContextType
+  ) as TransitionContextType;
   
   useIsomorphicLayoutEffect(() => {
     timeline.add(

@@ -32,7 +32,6 @@ const AnimateInOut = ({
   const el = useRef<HTMLDivElement>(null);
 
   useIsomorphicLayoutEffect(() => {
-    // intro animation
     if (set) {
       gsap.set(el.current, { ...set });
     }
@@ -42,7 +41,6 @@ const AnimateInOut = ({
       duration: durationIn,
     });
 
-    // outro animation
     if (!skipOutro) {
       timeline.add(
         gsap.to(el.current, {

@@ -5,7 +5,6 @@
   width: 20px;
   height: 20px;
   z-index: 999;
-  // background: red;
   pointer-events: none;
   mix-blend-mode: difference;
   width: 20px;
@@ -32,14 +31,14 @@
   mix-blend-mode: normal;
   z-index: 997;
   position: relative;
-  transition: .2s opacity cubic-bezier(.79,.01,.69,1);
+  transition: .2s opacity cubic-bezier(.79, .01, .69, 1);
 
   @media screen and (max-width: 768px) {
     display: none;
   }
 
   &.hover-important-text {
-    transition: .2s opacity cubic-bezier(0,.72,.82,.99);
+    transition: .2s opacity cubic-bezier(0, .72, .82, .99);
   }
 
   .modal-content {
@@ -63,30 +62,12 @@
 
     &.top {
       bottom: 20px;
-      // transform: translateX(-50%);
     }
 
     &.bottom {
       top: 20px;
-      // transform: translateX(-50%);
     }
   }
-
-  // &.right {
-  //   translate: translateX(50%) !important;
-  // }
-
-  // &.left {
-  //   transform: translateX(-100%) !important;
-  // }
-
-  // &.top {
-  //   transform: translateY(-100%) !important;
-  // }
-
-  // &.bottom {
-  //   transform: translateY(50%) !important;
-  // }
 }
 
 @media only screen and (max-width: 768px) {

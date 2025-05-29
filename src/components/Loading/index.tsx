@@ -18,8 +18,6 @@ function Loading(pageRoute: any) {
     setProgressBarWidth(isMobile || isSmallTablet ? "200px" : "400px");
   }, [isMobile, isSmallTablet]);
 
-  console.log(isMobile, isSmallTablet);
-
   React.useEffect(() => {
     const intervalId = setInterval(() => {
       setTextIndex((prevIndex) => {

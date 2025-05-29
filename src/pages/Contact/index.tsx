@@ -17,7 +17,7 @@ function Contact() {
               to={{ y: 0, opacity: 1 }}
               durationIn={0.8}
               durationOut={0.6}
-              delay={1} // stagger effect based on index
+              delay={1} 
               set={{ y: "200px", opacity: 0 }}
             >
               <h2 dangerouslySetInnerHTML={{ __html: contact.title }} />
@@ -29,7 +29,7 @@ function Contact() {
                   to={{ y: 0, opacity: 1 }}
                   durationIn={0.8}
                   durationOut={0.6}
-                  delay={1.2 + index * 0.1} // stagger effect based on index
+                  delay={1.2 + index * 0.1} 
                   set={{ y: "200px", opacity: 0 }}
                 >
                   <div key={index} className={styles["contact-item"]}>
@@ -49,7 +49,7 @@ function Contact() {
             to={{ y: 0, opacity: 1 }}
             durationIn={0.8}
             durationOut={0.6}
-            delay={0.8} // stagger effect based on index
+            delay={0.8} 
             set={{ y: "200px", opacity: 0 }}
           >
             <img

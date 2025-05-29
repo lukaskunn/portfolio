@@ -15,7 +15,9 @@
     "incremental": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "allowUnusedLabels": false
+    
   },
   "compileOnSave": true,
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

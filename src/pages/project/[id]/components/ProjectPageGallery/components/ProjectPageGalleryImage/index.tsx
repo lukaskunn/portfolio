@@ -31,7 +31,7 @@ const ProjectPageGalleryImage = (props: IProjectPageGalleryImage) => {
         duration: 0.8,
         scale: 0.8,
         ease: "power4.inOut",
-        delay: parseInt(imageIndex + "") * 0.1, // stagger effect based on key
+        delay: parseInt(imageIndex + "") * 0.1,
         onStart: () => {
           gsap.set(hoverRef.current, { opacity: 0 });
         },
@@ -46,7 +46,7 @@ const ProjectPageGalleryImage = (props: IProjectPageGalleryImage) => {
         opacity: 1,
         scale: 1,
         duration: 0.8,
-        delay: parseInt(imageIndex + "") * 0.1 + 1, // stagger effect based on key
+        delay: parseInt(imageIndex + "") * 0.1 + 1,
         ease: "power4.out",
       });
     }

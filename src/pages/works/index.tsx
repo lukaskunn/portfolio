@@ -36,7 +36,6 @@ function Works() {
   };
 
   useIsomorphicLayoutEffect(() => {
-    // intro animation will play immediately
     setTimeout(() => {
       gsap.to(el.current, {
         opacity: 1,
@@ -45,7 +44,6 @@ function Works() {
         8000;
     });
 
-    // add outro animation to top-level outro animation timeline
     timeline.add(
       gsap.to(el.current, {
         y: "100px",

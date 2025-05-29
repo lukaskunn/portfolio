@@ -66,7 +66,7 @@ export const CursorProvider = ({ children }: { children: ReactNode }) => {
     handleMouseMove({
       clientX: position.x,
       clientY: position.y,
-    } as MouseEvent); // Trigger the function once to set initial position
+    } as MouseEvent);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
