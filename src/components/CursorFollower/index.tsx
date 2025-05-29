@@ -52,14 +52,12 @@ function CursorFollower() {
   });
   const { content, isOpen } = modalProps;
 
-  // Helper to create gsap.quickTo only when refs are ready
   const createQuickTo =
     (ref: React.RefObject<HTMLDivElement>, prop: string) => () =>
       ref.current
         ? gsap.quickTo(ref.current, prop, { duration: 0.2, ease: "power4" })
         : () => {};
 
-  // Store quickTo functions in refs to avoid recreating on every render
   const moveCursorX = React.useRef<ReturnType<typeof gsap.quickTo>>();
   const moveCursorY = React.useRef<ReturnType<typeof gsap.quickTo>>();
   const moveModalX = React.useRef<ReturnType<typeof gsap.quickTo>>();

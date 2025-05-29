@@ -34,6 +34,10 @@
   position: relative;
   transition: .2s opacity cubic-bezier(.79,.01,.69,1);
 
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+
   &.hover-important-text {
     transition: .2s opacity cubic-bezier(0,.72,.82,.99);
   }
