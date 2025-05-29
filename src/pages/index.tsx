@@ -19,8 +19,10 @@ import type { TransitionContextType } from "../Layouts/TransitionProvider";
 import AnimateInOut from "../utils/AnimateInOut";
 const textsList = ["Web Developer", "Art Enthusiast", "Creative Thinker"];
 import NextPageButton from "../components/NextPageButton";
+import useDevice from "../hooks/useDevice";
 
 const Home: NextPage = () => {
+  const { isMobile, isSmallTablet } = useDevice();
   const { timeline } = React.useContext(
     TransitionContext,
   ) as TransitionContextType; // TransitionContextType
@@ -315,12 +317,14 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-      <NextPageButton
-        link="/works"
-        text="See my projects"
-        showBackground={false}
-        type="forward"
-      />
+      {isMobile || isSmallTablet ? (
+        <NextPageButton
+          link="/works"
+          text="See my projects"
+          showBackground={false}
+          type="forward"
+        />
+      ) : null}
       <ImageBackground />
       <NoiseFilter />
     </section>
