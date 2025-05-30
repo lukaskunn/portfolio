@@ -1,17 +1,8 @@
 import englishContent from "../content/en.json";
 import portugueseContent from "../content/pt.json";
+import type {LocalizedProjects, Project} from "../pages/project/[id]/types"
 
-interface Project {
-  projectId: string;
-  [key: string]: any; // For other project properties
-}
-
-interface LocalizedProjects {
-  pt: Project | undefined;
-  en: Project | undefined;
-}
-
-type ContentType = {
+export type ContentType = {
   works: {
     projects: Project[];
   }
@@ -22,16 +13,12 @@ type ContentType = {
  * @param projectId The unique identifier of the project
  * @returns Object containing the project in both languages or error message
  */
-const loadProjectData = (projectId: string): LocalizedProjects | { message: string } => {
+const loadProjectData = (projectId: string): LocalizedProjects => {
   const projectInPortuguese = (portugueseContent as ContentType).works.projects
     .find(project => project.projectId === projectId);
 
   const projectInEnglish = (englishContent as ContentType).works.projects
     .find(project => project.projectId === projectId);
-
-  if (!projectInPortuguese || !projectInEnglish) {
-    return { message: "Project not found" };
-  }
 
   return {
     pt: projectInPortuguese,
