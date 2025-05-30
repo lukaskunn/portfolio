@@ -13,6 +13,7 @@ import { TransitionProvider } from "../Layouts/TransitionProvider";
 
 import "../styles/scss/globals.css";
 import "../styles/scss/allFiles.css";
+import "../styles/scss/_transitions.scss";
 
 const SpeedInsights = dynamic(
   () => import("@vercel/speed-insights/next").then((mod) => mod.SpeedInsights),
@@ -27,6 +28,8 @@ const SpeedInsights = dynamic(
  * global state management, transitions, and shared components like the header and cursor follower.
  */
 function MyApp({ Component, pageProps }: AppProps) {
+  console.log(pageProps)
+  console.log(Component)
   return (
     <>
       <SpeedInsights />

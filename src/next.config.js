@@ -5,6 +5,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  experimental: {
+    optimizeCss: true,
+  },
   transpilePackages: [
     "gsap",
     "gsap/all",
