@@ -30,7 +30,7 @@
     .loading-text {
       font-weight: 600;
       font-size: 22px;
-      transform: rotateX('90deg') translateY(-20px);
+      transform: rotateX(90deg) translateY(-20px); /* Fixed: removed quotes around '90deg' */
       opacity: 0;
     }
 

@@ -1,37 +1,35 @@
-import { gsap } from "gsap";
-import React from "react";
-import { TransitionContext } from "../TransitionProvider";
-import { useState, useContext, useRef } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useRef, useState } from "react";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
-import type { TransitionContextType } from "../TransitionProvider";
+import { useCursor } from "../../contexts/CursorContext";
+import { useTransition } from "../TransitionProvider";
+
 type TransitionLayoutProps = {
   children: React.ReactNode;
 };
-import { useCursor } from "../../contexts/CursorContext";
-import { useRouter } from "next/router";
 
 export default function TransitionLayout({ children }: TransitionLayoutProps) {
-  const { setHoverImportantText } = useCursor();
   const router = useRouter();
+  const { setHoverImportantText } = useCursor();
+  const { timeline } = useTransition();
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   const [currentPage, setCurrentPage] = useState({
     route: router.asPath,
     children,
   });
 
-  const { timeline } = useContext(TransitionContext) as TransitionContextType;
-  const el = useRef<HTMLDivElement>(null);
-
   useIsomorphicLayoutEffect(() => {
     if (currentPage.route !== router.asPath) {
       if (timeline.duration() === 0) {
-        /* There are no outro animations, so immediately transition */
+        // There are no outro animations, so immediately transition
         setCurrentPage({
           route: router.asPath,
           children,
         });
       } else {
         timeline.play().then(() => {
-          /* outro complete so reset to an empty paused timeline */
+          // Outro complete so reset to an empty paused timeline
           timeline.pause().clear();
           setCurrentPage({
             route: router.asPath,
@@ -40,12 +38,12 @@ export default function TransitionLayout({ children }: TransitionLayoutProps) {
         });
       }
     }
-  }, [router.asPath]);
+  }, [router.asPath, children, timeline, currentPage.route]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     scrollTo({ top: 0, left: 0, behavior: "instant" });
     setHoverImportantText(false);
-  }, [currentPage.route]);
+  }, [currentPage.route, setHoverImportantText]);
 
-  return <div ref={el}>{currentPage.children}</div>;
+  return <div ref={containerRef}>{currentPage.children}</div>;
 }

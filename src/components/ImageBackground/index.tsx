@@ -1,37 +1,43 @@
-import React from "react";
-import styles from "./ImageBackground.module.css";
-import { useCursor } from "../../contexts/CursorContext";
-import Image from "next/image";
 import gsap from "gsap";
+import Image from "next/image";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
-import { TransitionContext } from "../../Layouts/TransitionProvider";
-import type { TransitionContextType } from "../../Layouts/TransitionProvider";
-import { DeviceContext } from "../../contexts/DeviceContext";
+import { useTransition } from "../../Layouts/TransitionProvider";
+import { useCursor } from "../../contexts/CursorContext";
+import { useDeviceContext } from "../../contexts/DeviceContext";
+import styles from "./ImageBackground.module.css";
 
-function ImageBackground() {
-  const { isMobile } = React.useContext(DeviceContext);
-  const [imagesLoaded, setImagesLoaded] = React.useState(0);
-  const imageBackgroundRef = React.useRef<HTMLDivElement>(null);
-  const { timeline } = React.useContext(
-    TransitionContext,
-  ) as TransitionContextType;
+// Move data outside component to avoid re-creation on rerenders
+const IMAGES = [
+  "/images/general/20210803_031452-scaled.jpg",
+  "/images/general/27159639._SX540_.jpg",
+  "/images/general/4c7ff6256079957c2770ea922741815e.jpg",
+  "/images/general/7108634.png",
+  "/images/general/Ghost-in-the-shell_ButWhyTho.png",
+  "/images/general/alita-.png",
+  "/images/general/images.jpg",
+];
 
-  const images = [
-    "/images/general/20210803_031452-scaled.jpg",
-    "/images/general/27159639._SX540_.jpg",
-    "/images/general/4c7ff6256079957c2770ea922741815e.jpg",
-    "/images/general/7108634.png",
-    "/images/general/Ghost-in-the-shell_ButWhyTho.png",
-    "/images/general/alita-.png",
-    "/images/general/images.jpg",
-  ];
-  const { position } = useCursor();
-  const [dimensions, setDimensions] = React.useState({
-    width: 0,
-    height: 0,
+const IMAGE_DESCRIPTIONS: Record<string, string> = {
+  "20210803_031452-scaled.jpg": "Cyberpunk cityscape",
+  "27159639._SX540_.jpg": "Sci-fi book cover",
+  "4c7ff6256079957c2770ea922741815e.jpg": "Digital artwork",
+  "7108634.png": "Futuristic character",
+  "Ghost-in-the-shell_ButWhyTho.png": "Ghost in the Shell artwork",
+  "alita-.png": "Alita Battle Angel character",
+  "images.jpg": "Abstract digital composition"
+};
+
+// Custom hook for window dimensions
+const useWindowDimensions = () => {
+  const [dimensions, setDimensions] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    height: typeof window !== 'undefined' ? window.innerHeight : 0,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const resize = () => {
       setDimensions({
         width: window.innerWidth,
@@ -39,18 +45,46 @@ function ImageBackground() {
       });
     };
 
+    let timeoutId: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(resize, 100);
+    };
+
+    // Initial size
     resize();
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
-  React.useEffect(() => {
+  return dimensions;
+};
+
+const ImageBackground = () => {
+  const { isMobile } = useDeviceContext();
+  const [imagesLoaded, setImagesLoaded] = useState(0);
+  const imageBackgroundRef = useRef<HTMLDivElement>(null);
+  const { timeline } = useTransition();
+  const { position } = useCursor();
+  const dimensions = useWindowDimensions();
+
+  // Get the image name from path for alt text
+  const getImageName = useMemo(() => (path: string): string => {
+    const filename = path.split('/').pop() || '';
+    return IMAGE_DESCRIPTIONS[filename] || `Image ${filename}`;
+  }, []);
+
+  // Handle parallax effect based on cursor position
+  useEffect(() => {
     if (
       !imageBackgroundRef.current ||
       dimensions.width === 0 ||
       dimensions.height === 0
-    )
-      return;
+    ) return;
 
     const left = -(position.x / dimensions.width - 0.5) * 60 - 40;
     const top = -(position.y / dimensions.height - 0.5) * 60 + (isMobile ? 100 : 170);
@@ -66,39 +100,49 @@ function ImageBackground() {
       ease: "power2",
       duration: 1,
     });
-  }, [position, dimensions]);
+  }, [position, dimensions, isMobile]);
 
+  // Handle page transition animation
   useIsomorphicLayoutEffect(() => {
-    timeline.add(
-      gsap.to(`.${styles["img-bg-container"]}`, {
-        delay: 0.5,
-        opacity: 0,
-        duration: 0.5,
-        ease: "power2.inOut",
-      }),
-      0,
-    );
-  }, []);
+    const fadeAnimation = gsap.to(`.${styles["img-bg-container"]}`, {
+      delay: 0.5,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.inOut",
+    });
+
+    timeline.add(fadeAnimation, 0);
+
+    return () => {
+      fadeAnimation.kill();
+    };
+  }, [timeline]);
+
+  const handleImageLoad = () => {
+    setImagesLoaded(prev => prev + 1);
+  };
 
   return (
     <div
       className={styles["img-bg-container"]}
       ref={imageBackgroundRef}
       style={{ position: "absolute" }}
+      aria-hidden="true"
     >
-      {images.map((image: any, index: any) => (
+      {IMAGES.map((image: string, index: number) => (
         <Image
-          alt={`image_${index + 1}`}
+          key={`bg-image-${index}`}
+          alt={getImageName(image)}
           src={image}
           className={`${styles[`image_${index + 1}`]} ${styles["single-image"]}`}
           width={200}
           height={200}
-          key={index}
-          onLoad={() => setImagesLoaded(imagesLoaded + 1)}
+          onLoad={handleImageLoad}
+          priority={index < 2}
         />
       ))}
     </div>
   );
-}
+};
 
 export default ImageBackground;

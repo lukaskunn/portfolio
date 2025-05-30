@@ -25,13 +25,13 @@ const SpeedInsights = dynamic(
  * It wraps the entire application with necessary providers and layouts, ensuring
  * global state management, transitions, and shared components like the header and cursor follower.
  */
-function MyApp({ Component, pageProps, router }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <SpeedInsights />
       <WebsiteHead />
       <AppProviders>
-        <Loading pageRoute={router.route || "/"} />
+        <Loading />
         <CursorFollower />
         <Header />
         <Component {...pageProps} />

@@ -1,101 +1,95 @@
-"use client";
-import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "./components/Image";
 import styles from "./ProjectModal.module.css";
 
-type ProjectModalProps = {
+type Project = {
   imageAlt: string;
   galleryBackground: string;
   galleryBackgroundColor: string;
 };
 
-type IProjectModal = {
+type ProjectModalProps = {
   modal: {
     isActive: boolean;
     index: number;
-    projects: ProjectModalProps[];
+    projects: Project[];
   };
 };
 
 const scaleAnimation = {
-  initial: {
-    scale: 0,
-    x: "-50%",
-    y: "-50%",
-  },
+  initial: { scale: 0, x: "-50%", y: "-50%" },
   open: {
     scale: 1,
     x: "-50%",
     y: "-50%",
-    transition: {
-      duration: 0.4,
-      ease: [0.76, 0, 0.24, 1],
-    },
+    transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] },
   },
   close: {
     scale: 0,
     x: "-50%",
     y: "-50%",
-    transition: {
-      duration: 0.4,
-      ease: [0.76, 0, 0.24, 1],
-    },
+    transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] },
   },
 };
 
-const ProjectModal = (props: IProjectModal) => {
-  const { modal } = props;
+const ProjectModal = ({ modal }: ProjectModalProps) => {
   const { isActive, index, projects } = modal;
-  const containerRef = useRef(null);
-  const [modalPosition, setModalPosition] = React.useState({
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({
     x: 0,
     y: 0,
     scrollY: 0,
     scrollX: 0,
   });
 
-  const moveContainerX = gsap.quickTo(containerRef.current, "left", {
-    duration: 0.4,
-    ease: "power3",
-  });
-  const moveContainerY = gsap.quickTo(containerRef.current, "top", {
-    duration: 0.4,
-    ease: "power3",
-  });
+  const moveContainerX = useRef<gsap.QuickToFunc>();
+  const moveContainerY = useRef<gsap.QuickToFunc>();
 
   useEffect(() => {
-    moveContainerX(modalPosition.x + modalPosition.scrollX);
-    moveContainerY(modalPosition.y + modalPosition.scrollY);
-  }, [modalPosition]);
+    if (containerRef.current) {
+      moveContainerX.current = gsap.quickTo(containerRef.current, "left", {
+        duration: 0.4,
+        ease: "power3",
+      });
+      
+      moveContainerY.current = gsap.quickTo(containerRef.current, "top", {
+        duration: 0.4,
+        ease: "power3",
+      });
+    }
+  }, []);
 
   useEffect(() => {
-    addEventListener("mousemove", (event: MouseEvent) => {
-      const { clientX, clientY } = event;
-      setModalPosition((prev) => ({
-        ...prev,
-        x: clientX,
-        y: clientY,
-      }));
-    });
+    if (moveContainerX.current && moveContainerY.current) {
+      moveContainerX.current(position.x + position.scrollX);
+      moveContainerY.current(position.y + position.scrollY);
+    }
+  }, [position]);
 
-    addEventListener("scroll", () => {
-      const scrollY = window.scrollY;
-      const scrollX = window.scrollX;
+  const handleMouseMove = useCallback((event: MouseEvent) => {
+    const { clientX, clientY } = event;
+    setPosition((prev) => ({ ...prev, x: clientX, y: clientY }));
+  }, []);
 
-      setModalPosition((prev) => ({
-        ...prev,
-        scrollX,
-        scrollY,
-      }));
-    });
+  const handleScroll = useCallback(() => {
+    setPosition((prev) => ({
+      ...prev,
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    }));
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      removeEventListener("mousemove", () => {});
-      removeEventListener("scroll", () => {});
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [handleMouseMove, handleScroll]);
 
   return (
     <motion.div
@@ -109,24 +103,21 @@ const ProjectModal = (props: IProjectModal) => {
         className={styles["modal-slider"]}
         style={{ top: `${index * -100}%` }}
       >
-        {projects.map((project, index) => {
-          const { galleryBackground, galleryBackgroundColor } = project;
-          return (
-            <div
-              className={styles["project-modal"]}
-              key={index}
-              style={{ backgroundColor: galleryBackgroundColor }}
-            >
-              <Image
-                src={galleryBackground}
-                color={galleryBackgroundColor}
-                height={0}
-                width={300}
-                alt={project.imageAlt}
-              />
-            </div>
-          );
-        })}
+        {projects.map((project, i) => (
+          <div
+            className={styles["project-modal"]}
+            key={i}
+            style={{ backgroundColor: project.galleryBackgroundColor }}
+          >
+            <Image
+              src={project.galleryBackground}
+              color={project.galleryBackgroundColor}
+              height={0}
+              width={300}
+              alt={project.imageAlt}
+            />
+          </div>
+        ))}
       </div>
     </motion.div>
   );

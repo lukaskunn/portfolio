@@ -4,10 +4,8 @@
   width: 100%;
   height: fit-content;
   min-height: 100vh;
-
   display: flex;
   justify-content: center;
-
   padding-top: 210px;
   padding-bottom: 200px;
   background-color: $full-black;
@@ -47,7 +45,6 @@
         margin-bottom: 90px;
       }
 
-
       .section-title {
         transform: translateY(-10px);
         opacity: 0;
@@ -78,7 +75,6 @@
       background-color: $primary-color;
       opacity: 1;
     }
-
 
     .project-grid {
       display: flex;

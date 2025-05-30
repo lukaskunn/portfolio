@@ -1,19 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useContext, createContext } from "react";
 
-export const PageContext = React.createContext({});
+interface PageContextType {
+  isLoaded: boolean;
+  setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const PageContext = createContext<PageContextType | undefined>(undefined);
 
 interface PageContextProviderProps {
   children: React.ReactNode;
 }
 
-export const PageContextProvider = (props: PageContextProviderProps) => {
-  const { children } = props;
+export const PageContextProvider: React.FC<PageContextProviderProps> = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const values = {
+  const value: PageContextType = {
     isLoaded,
     setIsLoaded,
   };
 
-  return <PageContext.Provider value={values}>{children}</PageContext.Provider>;
+  return <PageContext.Provider value={value}>{children}</PageContext.Provider>;
+};
+
+export const usePageContext = (): PageContextType => {
+  const context = useContext(PageContext);
+  
+  if (context === undefined) {
+    throw new Error("usePageContext must be used within a PageContextProvider");
+  }
+  
+  return context;
 };

@@ -1,112 +1,120 @@
-import React, { useState, useEffect } from "react";
-import { PageContext } from "../../contexts/PageContext";
-import loading from "./Loading.module.css";
 import gsap from "gsap";
-import { DeviceContext } from "../../contexts/DeviceContext";
-const texts = ["LOADING", "LOADING.", "LOADING..", "LOADING..."];
-import useDevice from "../../hooks/useDevice";
-function Loading(pageRoute: any) {
-  const { setIsLoaded } = React.useContext(PageContext) as any;
-  const [showLoading, setShowLoading] = useState(false);
-  const [loadingText, setLoadingText] = useState(texts[0]);
+import { useState, useEffect, useCallback } from "react";
+import { useDeviceContext } from "../../contexts/DeviceContext";
+import { usePageContext } from "../../contexts/PageContext";
+
+import styles from "./Loading.module.css";
+
+const LOADING_TEXTS = ["LOADING", "LOADING.", "LOADING..", "LOADING..."];
+const ANIMATION_DURATION = 6; // seconds
+const TEXT_CHANGE_INTERVAL = 1000; // ms
+
+function Loading() {
+  const { setIsLoaded } = usePageContext();
+  const { isMobile, isSmallTablet } = useDeviceContext();
+
   const [textIndex, setTextIndex] = useState(0);
   const [showLoadingComponent, setShowLoadingComponent] = useState(true);
-  const { isMobile, isSmallTablet } = useDevice();
-  const [progressBarWidth, setProgressBarWidth] = useState("200px");
 
-  React.useEffect(() => {
-    setProgressBarWidth(isMobile || isSmallTablet ? "200px" : "400px");
-  }, [isMobile, isSmallTablet]);
+  // Get progress bar width based on device size
+  const getProgressBarWidth = useCallback(() =>
+    isMobile || isSmallTablet ? "200px" : "400px",
+    [isMobile, isSmallTablet]
+  );
 
-  React.useEffect(() => {
+  // Control loading text animation
+  useEffect(() => {
     const intervalId = setInterval(() => {
       setTextIndex((prevIndex) => {
-        const nextIndex = (prevIndex + 1) % texts.length;
-        setLoadingText(texts[nextIndex]);
+        const nextIndex = (prevIndex + 1) % LOADING_TEXTS.length;
         return nextIndex;
       });
-    }, 1000);
+    }, TEXT_CHANGE_INTERVAL);
 
-    return () => {
-      clearInterval(intervalId);
-    };
+    return () => clearInterval(intervalId);
   }, []);
 
-  React.useEffect(() => {
+  // Handle loading animations
+  useEffect(() => {
+    const progressBarWidth = getProgressBarWidth();
+
     const ctx = gsap.context(() => {
-      let intervalId: NodeJS.Timeout;
-      let timeoutId: NodeJS.Timeout;
-      let progressBarTimeout: NodeJS.Timeout;
-      let backgroundTimeout: NodeJS.Timeout;
+      // Initial animations setup
+      const progressBarAnimation = gsap.to(`.${styles.progressBar}`, {
+        width: progressBarWidth,
+        duration: ANIMATION_DURATION,
+        ease: "power2.inOut",
+        paused: true,
+      });
 
-      progressBarTimeout = setTimeout(() => {
-        gsap.to(`.${loading.progressBar}`, {
-          width: progressBarWidth,
-          duration: 6,
-          ease: "power2.inOut",
-        });
+      const textAnimation = gsap.to(`.${styles["loading-text"]}`, {
+        rotateX: 0,
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power2.inOut",
+        paused: true,
+      });
 
-        gsap.to(`.${loading["loading-text"]}`, {
-          rotateX: 0,
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "power2.inOut",
-        });
+      // Start animations
+      setTimeout(() => {
+        progressBarAnimation.play();
+        textAnimation.play();
       }, 1);
 
-      timeoutId = setTimeout(() => {
-        gsap.to(`.${loading["loading-text"]}`, {
+      // Hide elements animation
+      const hideElementsTimeout = setTimeout(() => {
+        gsap.to(`.${styles["loading-text"]}`, {
           y: -10,
           opacity: 0,
           duration: 0.8,
           ease: "power2.inOut",
         });
 
-        gsap.to(`.${loading.progressBar}`, {
+        gsap.to(`.${styles.progressBar}`, {
           y: "10px",
           height: 0,
           duration: 0.8,
           ease: "power2.inOut",
         });
-      }, 6000);
+      }, ANIMATION_DURATION * 1000);
 
-      backgroundTimeout = setTimeout(() => {
-        gsap.to(`.${loading.loadingContainer}`, {
+      // Final fade out animation
+      const fadeBackgroundTimeout = setTimeout(() => {
+        gsap.to(`.${styles.loadingContainer}`, {
           background: "rgba(0, 0, 0, 0)",
           duration: 0.8,
           ease: "power2.inOut",
           onComplete: () => {
             setIsLoaded(true);
+            setShowLoadingComponent(false);
           },
         });
-      }, 6500);
+      }, (ANIMATION_DURATION + 0.5) * 1000);
 
       return () => {
-        clearTimeout(timeoutId);
-        clearTimeout(progressBarTimeout);
-        clearTimeout(backgroundTimeout);
+        clearTimeout(hideElementsTimeout);
+        clearTimeout(fadeBackgroundTimeout);
       };
-    }, loading.loadingContainer);
+    }, `.${styles.loadingContainer}`);
 
-    return () => {
-      ctx.revert();
-    };
-  }, []);
-
-  const loadingStyles: React.CSSProperties = {
-    top: showLoading && pageRoute !== "/" ? "-2000px" : "0",
-  };
+    return () => ctx.revert();
+  }, [getProgressBarWidth, setIsLoaded]);
 
   if (!showLoadingComponent) {
     return null;
   }
 
   return (
-    <div className={loading.loadingContainer} style={loadingStyles}>
-      <div className={loading.loadingTextContainer}>
-        <p className={loading["loading-text"]}>{loadingText}</p>
-        <div className={loading.progressBar} />
+    <div
+      className={styles.loadingContainer}
+      // style={{ top: pageRoute !== "/" ? "-2000px" : "0" }}
+      role="progressbar"
+      aria-valuetext={LOADING_TEXTS[textIndex]}
+    >
+      <div className={styles.loadingTextContainer}>
+        <p className={styles["loading-text"]}>{LOADING_TEXTS[textIndex]}</p>
+        <div className={styles.progressBar} />
       </div>
     </div>
   );

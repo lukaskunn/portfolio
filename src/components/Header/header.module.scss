@@ -88,20 +88,30 @@
       }
     }
 
-    .menu-item-container {
+
+
+    .menu-item {
       overflow: hidden;
       height: 27px;
 
-      .menu-item {
+      &.menu-item-bold {
+        font-weight: 500;
+
+        .menu-item-container {
+          font-weight: 300;
+          font-size: 18px;
+          height: 27px;
+          display: block;
+          overflow: hidden;
+        }
+      }
+
+      .menu-item-container {
         font-weight: 300;
         font-size: 18px;
         height: 27px;
         display: block;
         overflow: hidden;
-
-        &__bold {
-          font-weight: 500;
-        }
       }
     }
   }
@@ -187,6 +197,7 @@
             color: $full-black;
             opacity: 0.2;
             transition: 0.2s all cubic-bezier(.79, .01, .69, 1);
+
             &.selected {
               opacity: 1;
               transition: 0.1s all cubic-bezier(0, .72, .82, .99);

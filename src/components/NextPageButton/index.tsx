@@ -3,6 +3,13 @@ import styles from "./NextPageButton.module.css";
 import Link from "next/link";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import AnimatePosOpacity from "../../utils/AnimatePosOpacity";
+
+type ArrowIconProps = {
+  type: "forward" | "backward";
+  hover: boolean;
+  getColor: () => string;
+};
+
 interface INextPageButton {
   link: string;
   text: string;
@@ -10,22 +17,43 @@ interface INextPageButton {
   showBackground?: boolean;
 }
 
-const NextPageButton = ({
+const ArrowIcon = ({ type, getColor, hover }: ArrowIconProps) => {
+  const ArrowIcon = type === "backward" ? GoArrowLeft : GoArrowRight;
+  const className =
+    type === "backward" ? styles["left-arrow"] : styles["right-arrow"];
+
+  const arrowStyle = {
+    marginLeft: type === "forward" ? (!hover ? "20px" : "40px") : undefined,
+    marginRight: type === "backward" ? (!hover ? "20px" : "40px") : undefined,
+  };
+
+  return (
+    <ArrowIcon
+      size={30}
+      color={getColor()}
+      className={className}
+      style={arrowStyle}
+    />
+  );
+};
+
+const NextPageButton: React.FC<INextPageButton> = ({
   link,
   text,
-  type,
-  showBackground,
-}: INextPageButton) => {
+  type = "forward",
+  showBackground = false,
+}) => {
   const [hover, setHover] = useState(false);
 
+  const getColor = () => {
+    if (showBackground) {
+      return hover ? "#0c0c0c" : "#bebebe";
+    }
+    return hover ? "white" : "#bebebe";
+  };
+
   const buttonContainerStyle = {
-    color: showBackground
-      ? hover
-        ? "#0c0c0c"
-        : "#bebebe"
-      : hover
-        ? "white"
-        : "#bebebe",
+    color: getColor(),
     background: showBackground ? (hover ? "#ffffff" : "#414141") : "none",
   };
 
@@ -48,41 +76,11 @@ const NextPageButton = ({
           scroll={false}
         >
           {type === "backward" && (
-            <GoArrowLeft
-              size={30}
-              color={
-                showBackground
-                  ? hover
-                    ? "#0c0c0c"
-                    : "#bebebe"
-                  : hover
-                    ? "white"
-                    : "#bebebe"
-              }
-              className={styles["left-arrow"]}
-              style={{
-                marginRight: !hover ? "20px" : "40px",
-              }}
-            />
+            <ArrowIcon type="backward" getColor={getColor} hover={hover} />
           )}
           <p dangerouslySetInnerHTML={{ __html: text }} />
           {type === "forward" && (
-            <GoArrowRight
-              size={30}
-              color={
-                showBackground
-                  ? hover
-                    ? "#0c0c0c"
-                    : "#bebebe"
-                  : hover
-                    ? "white"
-                    : "#bebebe"
-              }
-              className={styles["right-arrow"]}
-              style={{
-                marginLeft: !hover ? "20px" : "40px",
-              }}
-            />
+            <ArrowIcon type="forward" getColor={getColor} hover={hover} />
           )}
         </Link>
       </AnimatePosOpacity>

@@ -1,9 +1,8 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef } from "react";
 import { gsap } from "gsap";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
-import { TransitionContext } from "../../Layouts/TransitionProvider";
-import type { TransitionContextType } from "../../Layouts/TransitionProvider";
-import { PageContext } from "../../contexts/PageContext";
+import { useTransition } from "../../Layouts/TransitionProvider";
+import { usePageContext } from "../../contexts/PageContext";
 
 type AnimatePosOpacityProps = {
   children: React.ReactNode;
@@ -29,9 +28,9 @@ const AnimatePosOpacity = ({
   set,
   skipOutro,
 }: AnimatePosOpacityProps) => {
-  const { timeline } = useContext(TransitionContext) as TransitionContextType;
+  const { timeline } = useTransition()
   const el = useRef<HTMLDivElement>(null);
-  const { isLoaded } = useContext(PageContext) as any;
+  const { isLoaded } = usePageContext()
 
   useIsomorphicLayoutEffect(() => {
     if (!skipOutro) {

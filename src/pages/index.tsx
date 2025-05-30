@@ -5,14 +5,13 @@ import type { NextPage } from "next";
 import { FaMedium } from "react-icons/fa";
 import { FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
-import type { TransitionContextType } from "../Layouts/TransitionProvider";
-import { TransitionContext } from "../Layouts/TransitionProvider";
+import { useTransition } from "../Layouts/TransitionProvider";
 import ImageBackground from "../components/ImageBackground";
 import NextPageButton from "../components/NextPageButton";
 import NoiseFilter from "../components/NoiseFilter";
 import { useCursor } from "../contexts/CursorContext";
 import { useLanguage } from "../contexts/LanguageContext";
-import { PageContext } from "../contexts/PageContext";
+import { usePageContext } from "../contexts/PageContext";
 import useDevice from "../hooks/useDevice";
 
 import styles from "./Home.module.css";
@@ -87,10 +86,8 @@ const LanguageSelector = ({
 
 const Home: NextPage = () => {
   const { isMobile, isSmallTablet } = useDevice();
-  const { timeline } = React.useContext(
-    TransitionContext,
-  ) as TransitionContextType;
-  const { isLoaded } = React.useContext(PageContext) as any;
+  const { timeline } = useTransition()
+  const { isLoaded } = usePageContext()
   const { language, changeLanguage } = useLanguage();
   const { handleModalPropsEnter, handleModalPropsLeave } = useCursor();
   const [titleIsReadyToAnimate, setTitleIsReadyToAnimate] =

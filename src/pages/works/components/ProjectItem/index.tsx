@@ -1,9 +1,9 @@
-import React from "react";
-import styles from "./ProjectItem.module.css";
-import Link from "next/link";
-import { PageContext } from "../../../../contexts/PageContext";
 import gsap from "gsap";
-import { useIsomorphicLayoutEffect, useHover } from "usehooks-ts";
+import Link from "next/link";
+import React, { useRef, useState, useEffect } from "react";
+import { useHover, useIsomorphicLayoutEffect } from "usehooks-ts";
+import { usePageContext } from "../../../../contexts/PageContext";
+import styles from "./ProjectItem.module.css";
 
 type LinkHandlerProps = {
   goToExternalPage?: boolean;
@@ -15,18 +15,19 @@ type LinkHandlerProps = {
 const LinkHandler = ({
   goToExternalPage,
   urlToProject,
-  children,
   projectId,
-}: LinkHandlerProps) => {
-  return goToExternalPage ? (
+  children,
+}: LinkHandlerProps) => (
+  goToExternalPage ? (
     <a href={urlToProject}>{children}</a>
   ) : (
     <Link href={`/project/${projectId}`} scroll={false}>
       {children}
     </Link>
-  );
-};
-type IProjectItem = {
+  )
+);
+
+type ProjectItemProps = {
   title: string;
   index: number;
   description: string;
@@ -36,62 +37,65 @@ type IProjectItem = {
   updateModal: (index: number, modalIsActive: boolean) => void;
 };
 
-const ProjectItem = (props: IProjectItem) => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const seeProjectTextRef = React.useRef<HTMLSpanElement>(null);
+const ProjectItem = ({
+  title,
+  index,
+  updateModal,
+  description,
+  projectId,
+  goToExternalPage,
+  urlToProject,
+}: ProjectItemProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const seeProjectTextRef = useRef<HTMLSpanElement>(null);
   const isHovering = useHover(containerRef);
-  const [canHover, setCanHover] = React.useState(false);
-  const { isLoaded } = React.useContext(PageContext) as any;
-  const {
-    title,
-    index,
-    updateModal,
-    description,
-    projectId,
-    goToExternalPage,
-    urlToProject,
-  } = props;
+  const [canHover, setCanHover] = useState(false);
+  const { isLoaded } = usePageContext();
 
   useIsomorphicLayoutEffect(() => {
-    if (isLoaded) {
-      setTimeout(() => {
-        gsap.to(containerRef.current, {
-          y: 0,
-          padding: "36px 0",
-          duration: 0.8,
-          ease: "power3.out",
-          delay: index * 0.2,
-          onComplete: () => {
-            setCanHover(true);
-          },
-        });
-      }, 1400);
-    }
-  }, [isLoaded]);
-
-  React.useEffect(() => {
-    if (!canHover) return;
-    if (isHovering) {
+    if (!isLoaded) return;
+    
+    const timer = setTimeout(() => {
       gsap.to(containerRef.current, {
+        y: 0,
+        padding: "36px 0",
+        duration: 0.8,
+        ease: "power3.out",
+        delay: index * 0.2,
+        onComplete: () => setCanHover(true),
+      });
+    }, 1400);
+    
+    return () => clearTimeout(timer);
+  }, [isLoaded, index]);
+
+  useEffect(() => {
+    if (!canHover) return;
+    
+    const container = containerRef.current;
+    const textElement = seeProjectTextRef.current;
+    
+    if (isHovering) {
+      gsap.to(container, {
         padding: "72px 0",
         duration: 0.2,
         ease: "power3.out",
       });
 
-      gsap.to(seeProjectTextRef.current, {
+      gsap.to(textElement, {
         height: "100%",
         opacity: 1,
         duration: 0.2,
         ease: "power3.out",
       });
     } else {
-      gsap.to(containerRef.current, {
+      gsap.to(container, {
         padding: "36px 0",
         duration: 0.2,
         ease: "power3.out",
       });
 
-      gsap.to(seeProjectTextRef.current, {
+      gsap.to(textElement, {
         height: 0,
         opacity: 0,
         duration: 0.2,
@@ -99,6 +103,8 @@ const ProjectItem = (props: IProjectItem) => {
       });
     }
   }, [isHovering, canHover]);
+
+  const formattedIndex = index < 10 ? `0${index + 1}` : `${index + 1}`;
 
   return (
     <LinkHandler
@@ -113,9 +119,7 @@ const ProjectItem = (props: IProjectItem) => {
         onMouseLeave={() => updateModal(index, false)}
       >
         <p
-          dangerouslySetInnerHTML={{
-            __html: index < 10 ? `0${index + 1}` : index + 1,
-          }}
+          dangerouslySetInnerHTML={{ __html: formattedIndex }}
           className={styles["project-index"]}
         />
         <div className={styles["project-description-container"]}>

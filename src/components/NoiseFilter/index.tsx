@@ -1,26 +1,26 @@
 import React from "react";
-import styles from "./NoiseFilter.module.css";
 import gsap from "gsap";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
-import { TransitionContext } from "../../Layouts/TransitionProvider";
-import type { TransitionContextType } from "../../Layouts/TransitionProvider";
+import { useTransition } from "../../Layouts/TransitionProvider";
+import styles from "./NoiseFilter.module.css";
 
-const NoiseFilter = () => {
-  const { timeline } = React.useContext(
-    TransitionContext,
-  ) as TransitionContextType;
+const NoiseFilter: React.FC = () => {
+  const { timeline } = useTransition();
   
   useIsomorphicLayoutEffect(() => {
+    const noiseFilterElement = `.${styles["noise-filter"]}`;
+    
     timeline.add(
-      gsap.to(`.${styles["noise-filter"]}`, {
+      gsap.to(noiseFilterElement, {
         delay: 0.5,
         opacity: 0,
         duration: 0.5,
         ease: "power2.inOut",
       }),
-      0,
+      0
     );
-  }, []);
+  }, [timeline]);
+
   return <div className={styles["noise-filter"]} />;
 };
 

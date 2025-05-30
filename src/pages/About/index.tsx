@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { useLanguage } from "../../contexts/LanguageContext";
+import React from "react";
 import NextPageButton from "../../components/NextPageButton";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 import AboutSection from "./components/AboutSection";
 import ResumeSection from "./components/ResumeSection";
@@ -13,10 +13,6 @@ function About() {
   const { sectionTitle: sectionTitleResume, cards } = resume;
   const { sectionTitle: sectionTitleServices, skills } = services;
   const { soft, hard } = skills;
-
-  useEffect(() => {
-    document.body.style.overflowX = "auto";
-  }, []);
 
   return (
     <>

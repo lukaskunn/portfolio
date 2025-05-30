@@ -1,11 +1,10 @@
 import React, { useRef } from "react";
 import styles from "../../../../ProjectPage.module.css";
 import { useHover } from "usehooks-ts";
-import { TransitionContext } from "../../../../../../../Layouts/TransitionProvider";
-import type { TransitionContextType } from "../../../../../../../Layouts/TransitionProvider";
+import { useTransition } from "../../../../../../../Layouts/TransitionProvider";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
 import gsap from "gsap";
-import { PageContext } from "../../../../../../../contexts/PageContext";
+import { usePageContext } from "../../../../../../../contexts/PageContext";
 
 interface IProjectPageGalleryImage {
   images: { front: string; back: string; photoText: string };
@@ -19,10 +18,8 @@ const ProjectPageGalleryImage = (props: IProjectPageGalleryImage) => {
   const { images, width, height, textSize, imageIndex } = props;
   const hoverRef = useRef(null);
   const isHover = useHover(hoverRef);
-  const { isLoaded } = React.useContext(PageContext) as any;
-  const { timeline } = React.useContext(
-    TransitionContext,
-  ) as TransitionContextType;
+  const { isLoaded } = usePageContext()
+  const { timeline } = useTransition()
 
   useIsomorphicLayoutEffect(() => {
     timeline.add(
