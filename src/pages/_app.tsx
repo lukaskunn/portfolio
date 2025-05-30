@@ -10,6 +10,7 @@ import { LanguageProvider } from "../contexts/LanguageContext";
 import { PageContextProvider } from "../contexts/PageContext";
 import TransitionLayout from "../Layouts/TransitionLayout";
 import { TransitionProvider } from "../Layouts/TransitionProvider";
+import { AnimatePresence } from "framer-motion";
 
 import "../styles/scss/globals.css";
 import "../styles/scss/allFiles.css";
@@ -19,7 +20,7 @@ const SpeedInsights = dynamic(
   () => import("@vercel/speed-insights/next").then((mod) => mod.SpeedInsights),
   {
     ssr: process.env.NODE_ENV === "production",
-  }
+  },
 );
 
 /**
@@ -27,9 +28,9 @@ const SpeedInsights = dynamic(
  * It wraps the entire application with necessary providers and layouts, ensuring
  * global state management, transitions, and shared components like the header and cursor follower.
  */
-function MyApp({ Component, pageProps }: AppProps) {
-  console.log(pageProps)
-  console.log(Component)
+function MyApp({ Component, pageProps, router }: AppProps) {
+  console.log(pageProps);
+  console.log(Component);
   return (
     <>
       <SpeedInsights />
@@ -38,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Loading />
         <CursorFollower />
         <Header />
-        <Component {...pageProps} />
+        <Component {...pageProps} key={router.route}/>
       </AppProviders>
     </>
   );
@@ -46,17 +47,19 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 function AppProviders({ children }: { children: React.ReactNode }) {
   return (
-    <CursorProvider>
-      <TransitionProvider>
-        <TransitionLayout>
-          <PageContextProvider>
-            <DeviceContextProvider>
-              <LanguageProvider>{children}</LanguageProvider>
-            </DeviceContextProvider>
-          </PageContextProvider>
-        </TransitionLayout>
-      </TransitionProvider>
-    </CursorProvider>
+    <AnimatePresence mode="wait">
+      <CursorProvider>
+        <TransitionProvider>
+          <TransitionLayout>
+            <PageContextProvider>
+              <DeviceContextProvider>
+                <LanguageProvider>{children}</LanguageProvider>
+              </DeviceContextProvider>
+            </PageContextProvider>
+          </TransitionLayout>
+        </TransitionProvider>
+      </CursorProvider>
+    </AnimatePresence>
   );
 }
 
