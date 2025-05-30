@@ -7,7 +7,6 @@ import { useCursor } from "../../contexts/CursorContext";
 import { useDeviceContext } from "../../contexts/DeviceContext";
 import styles from "./ImageBackground.module.css";
 
-// Move data outside component to avoid re-creation on rerenders
 const IMAGES = [
   "/images/general/20210803_031452-scaled.jpg",
   "/images/general/27159639._SX540_.jpg",
@@ -27,8 +26,6 @@ const IMAGE_DESCRIPTIONS: Record<string, string> = {
   "alita-.png": "Alita Battle Angel character",
   "images.jpg": "Abstract digital composition"
 };
-
-// Custom hook for window dimensions
 const useWindowDimensions = () => {
   const [dimensions, setDimensions] = useState({
     width: typeof window !== 'undefined' ? window.innerWidth : 0,
@@ -51,7 +48,6 @@ const useWindowDimensions = () => {
       timeoutId = setTimeout(resize, 100);
     };
 
-    // Initial size
     resize();
     window.addEventListener("resize", handleResize);
 
@@ -66,19 +62,15 @@ const useWindowDimensions = () => {
 
 const ImageBackground = () => {
   const { isMobile } = useDeviceContext();
-  const [imagesLoaded, setImagesLoaded] = useState(0);
   const imageBackgroundRef = useRef<HTMLDivElement>(null);
   const { timeline } = useTransition();
   const { position } = useCursor();
   const dimensions = useWindowDimensions();
 
-  // Get the image name from path for alt text
   const getImageName = useMemo(() => (path: string): string => {
     const filename = path.split('/').pop() || '';
     return IMAGE_DESCRIPTIONS[filename] || `Image ${filename}`;
   }, []);
-
-  // Handle parallax effect based on cursor position
   useEffect(() => {
     if (
       !imageBackgroundRef.current ||
@@ -118,10 +110,6 @@ const ImageBackground = () => {
     };
   }, [timeline]);
 
-  const handleImageLoad = () => {
-    setImagesLoaded(prev => prev + 1);
-  };
-
   return (
     <div
       className={styles["img-bg-container"]}
@@ -137,7 +125,6 @@ const ImageBackground = () => {
           className={`${styles[`image_${index + 1}`]} ${styles["single-image"]}`}
           width={200}
           height={200}
-          onLoad={handleImageLoad}
           priority={index < 2}
         />
       ))}
