@@ -5,8 +5,8 @@ import NextPageButton from "../../components/NextPageButton";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { usePageContext } from "../../contexts/PageContext";
 import { useTransition } from "../../Layouts/TransitionProvider";
-import ProjectItem from "./components/ProjectItem";
-import ProjectModal from "./components/ProjectModal";
+import ProjectItem from "../../components/ProjectItem";
+import ProjectModal from "../../components/ProjectModal";
 import styles from "./Works.module.css";
 
 type ProjectType = {

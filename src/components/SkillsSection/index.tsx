@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useHover } from "usehooks-ts";
-import { useCursor } from "../../../../contexts/CursorContext";
-import AnimatePosOpacity from "../../../../utils/AnimatePosOpacity";
-import styles from "../../About.module.css";
+import { useCursor } from "../../contexts/CursorContext";
+import AnimatePosOpacity from "../../utils/AnimatePosOpacity";
+import styles from "../../pages/About/About.module.css";
 
 type SkillCategory = {
   title: string;

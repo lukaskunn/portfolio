@@ -1,7 +1,8 @@
 import React from "react";
-import styles from "../../ProjectPage.module.css";
+import styles from "../../pages/project/[id]/ProjectPage.module.css";
 import ProjectPageImage from "./components/ProjectPageGalleryImage";
-import AnimatePosOpacity from "../../../../../utils/AnimatePosOpacity";
+import AnimatePosOpacity from "../../utils/AnimatePosOpacity";
+
 interface IProjectPageGallery {
   galleryImages: Array<
     Array<{ front: string; back: string; photoText: string }>

@@ -2,9 +2,9 @@ import React from "react";
 import NextPageButton from "../../components/NextPageButton";
 import { useLanguage } from "../../contexts/LanguageContext";
 
-import AboutSection from "./components/AboutSection";
-import ResumeSection from "./components/ResumeSection";
-import SkillsSection from "./components/SkillsSection";
+import AboutSection from "../../components/AboutSection";
+import ResumeSection from "../../components/ResumeSection";
+import SkillsSection from "../../components/SkillsSection";
 
 function About() {
   const { currentLanguage } = useLanguage();

@@ -2,7 +2,7 @@ import gsap from "gsap";
 import Link from "next/link";
 import React, { useRef, useState, useEffect } from "react";
 import { useHover, useIsomorphicLayoutEffect } from "usehooks-ts";
-import { usePageContext } from "../../../../contexts/PageContext";
+import { usePageContext } from "../../contexts/PageContext";
 import styles from "./ProjectItem.module.css";
 
 type LinkHandlerProps = {
@@ -54,7 +54,7 @@ const ProjectItem = ({
 
   useIsomorphicLayoutEffect(() => {
     if (!isLoaded) return;
-    
+
     const timer = setTimeout(() => {
       gsap.to(containerRef.current, {
         y: 0,
@@ -65,16 +65,16 @@ const ProjectItem = ({
         onComplete: () => setCanHover(true),
       });
     }, 1400);
-    
+
     return () => clearTimeout(timer);
   }, [isLoaded, index]);
 
   useEffect(() => {
     if (!canHover) return;
-    
+
     const container = containerRef.current;
     const textElement = seeProjectTextRef.current;
-    
+
     if (isHovering) {
       gsap.to(container, {
         padding: "72px 0",

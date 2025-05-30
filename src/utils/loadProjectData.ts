@@ -1,6 +1,28 @@
 import englishContent from "../content/en.json";
 import portugueseContent from "../content/pt.json";
-import type {LocalizedProjects, Project} from "../pages/project/[id]/types"
+
+export type LocalizedProjects = Record<LanguageKey, Project | undefined>;
+
+interface GalleryImage {
+  front: string;
+  back: string;
+  photoText: string;
+}
+
+export interface Project {
+  projectId: string;
+  title: string;
+  description: string;
+  briefDescription?: string;
+  urlToProject: string;
+  galleryBackground: string;
+  galleryBackgroundColor: string;
+  technologies?: string[];
+  galleryImages?: GalleryImage[][];
+  goToExternalPage?: boolean;
+}
+
+type LanguageKey = 'en' | 'pt';
 
 export type ContentType = {
   works: {

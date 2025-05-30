@@ -4,11 +4,11 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { SplitText } from "gsap/dist/SplitText";
 import React, { useEffect, useRef } from "react";
 import { useHover, useIsomorphicLayoutEffect } from "usehooks-ts";
-import { useCursor } from "../../../../contexts/CursorContext";
-import { usePageContext } from "../../../../contexts/PageContext";
-import { useTransition } from "../../../../Layouts/TransitionProvider";
-import AnimatePosOpacity from "../../../../utils/AnimatePosOpacity";
-import styles from "../../About.module.css";
+import { useCursor } from "../../contexts/CursorContext";
+import { usePageContext } from "../../contexts/PageContext";
+import { useTransition } from "../../Layouts/TransitionProvider";
+import AnimatePosOpacity from "../../utils/AnimatePosOpacity";
+import styles from "../../pages/About/About.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 

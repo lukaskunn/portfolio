@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
-import styles from "../../../../ProjectPage.module.css";
+import styles from "../../../../pages/project/[id]/ProjectPage.module.css";
 import { useHover } from "usehooks-ts";
-import { useTransition } from "../../../../../../../Layouts/TransitionProvider";
+import { useTransition } from "../../../../Layouts/TransitionProvider"
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
 import gsap from "gsap";
-import { usePageContext } from "../../../../../../../contexts/PageContext";
+import { usePageContext } from "../../../../contexts/PageContext";
 
 interface IProjectPageGalleryImage {
   images: { front: string; back: string; photoText: string };

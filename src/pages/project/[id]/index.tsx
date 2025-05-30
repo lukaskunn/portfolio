@@ -4,16 +4,36 @@ import NextPageButton from "../../../components/NextPageButton";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import AnimatePosOpacity from "../../../utils/AnimatePosOpacity";
 import loadProjectData from "../../../utils/loadProjectData";
-import ProjectPageGallery from "./components/ProjectPageGallery";
+import ProjectPageGallery from "../../../components/ProjectPageGallery";
 import styles from "./ProjectPage.module.css";
 
-import type { LocalizedProjects, Project } from "./types";
+export type LocalizedProjects = Record<LanguageKey, Project | undefined>;
+
+interface GalleryImage {
+  front: string;
+  back: string;
+  photoText: string;
+}
+
+export interface Project {
+  projectId: string;
+  title: string;
+  description: string;
+  briefDescription?: string;
+  urlToProject: string;
+  galleryBackground: string;
+  galleryBackgroundColor: string;
+  technologies?: string[];
+  galleryImages?: GalleryImage[][];
+  goToExternalPage?: boolean;
+}
+
+type LanguageKey = 'en' | 'pt';
 
 interface Dimensions {
   height: number;
   width: number;
 }
-
 
 
 const Project: React.FC = () => {

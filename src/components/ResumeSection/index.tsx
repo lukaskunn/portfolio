@@ -1,11 +1,11 @@
 import gsap from "gsap";
 import React, { useEffect, useRef } from "react";
 import { useHover, useIsomorphicLayoutEffect } from "usehooks-ts";
-import { useCursor } from "../../../../contexts/CursorContext";
-import { usePageContext } from "../../../../contexts/PageContext";
-import { useTransition } from "../../../../Layouts/TransitionProvider";
-import AnimatePosOpacity from "../../../../utils/AnimatePosOpacity";
-import styles from "../../About.module.css";
+import { useCursor } from "../../contexts/CursorContext";
+import { usePageContext } from "../../contexts/PageContext";
+import { useTransition } from "../../Layouts/TransitionProvider";
+import AnimatePosOpacity from "../../utils/AnimatePosOpacity";
+import styles from "../../pages/About/About.module.css";
 import ResumeCard from "../ResumeCard";
 
 type CardType = {
