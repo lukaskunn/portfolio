@@ -12,6 +12,7 @@ import TransitionLayout from "../Layouts/TransitionLayout";
 import { TransitionProvider } from "../Layouts/TransitionProvider";
 
 import "../styles/scss/globals.css";
+import "../styles/scss/allFiles.css";
 
 const SpeedInsights = dynamic(
   () => import("@vercel/speed-insights/next").then((mod) => mod.SpeedInsights),
