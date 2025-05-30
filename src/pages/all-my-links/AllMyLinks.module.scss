@@ -1,3 +1,5 @@
+@import url("../../styles/scss/_variables.scss");
+
 .container {
   width: 100%;
   display: flex;
@@ -23,7 +25,7 @@
 }
 
 .page-title {
-  color: $primary-color;
+  color: #fff;
   margin-bottom: 50px;
 }
 
@@ -46,7 +48,7 @@
   height: 80px;
   font-weight: bold;
   background: white;
-  color: $full-black;
+  color: #000;
 }
 
 .single-item + .single-item {
