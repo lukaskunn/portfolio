@@ -52,11 +52,11 @@ function CursorFollower() {
   });
   const { content, isOpen } = modalProps;
 
-  const createQuickTo =
-    (ref: React.RefObject<HTMLDivElement>, prop: string) => () =>
-      ref.current
-        ? gsap.quickTo(ref.current, prop, { duration: 0.2, ease: "power4" })
-        : () => {};
+  // const createQuickTo =
+  //   (ref: React.RefObject<HTMLDivElement>, prop: string) => () =>
+  //     ref.current
+  //       ? gsap.quickTo(ref.current, prop, { duration: 0.2, ease: "power4" })
+  //       : () => {};
 
   const moveCursorX = React.useRef<ReturnType<typeof gsap.quickTo>>();
   const moveCursorY = React.useRef<ReturnType<typeof gsap.quickTo>>();
