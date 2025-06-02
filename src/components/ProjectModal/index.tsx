@@ -1,3 +1,4 @@
+'use client';
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { useEffect, useRef, useState, useCallback } from "react";

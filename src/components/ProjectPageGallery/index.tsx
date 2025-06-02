@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 import styles from "../../pages/project/[id]/ProjectPage.module.css";
 import ProjectPageImage from "./components/ProjectPageGalleryImage";

@@ -1,3 +1,4 @@
+'use client';
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import CursorFollower from "../components/CursorFollower";

@@ -1,3 +1,4 @@
+'use client';
 import gsap from "gsap";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

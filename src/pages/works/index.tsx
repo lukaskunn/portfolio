@@ -1,3 +1,4 @@
+'use client';
 import gsap from "gsap";
 import React, { useState, useRef } from "react";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";

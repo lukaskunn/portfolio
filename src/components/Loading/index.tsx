@@ -1,3 +1,4 @@
+'use client';
 import gsap from "gsap";
 import { useState, useEffect, useCallback } from "react";
 import { useDeviceContext } from "../../contexts/DeviceContext";

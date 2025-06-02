@@ -1,3 +1,4 @@
+'use client';
 import { useLanguage } from "../../contexts/LanguageContext";
 import AnimatePosOpacity from "../../utils/AnimatePosOpacity";
 import styles from "./Contact.module.css"; // Updated extension if using SCSS

@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect } from "react";
 import { useHover } from "usehooks-ts";
 import { useCursor } from "../../contexts/CursorContext";
