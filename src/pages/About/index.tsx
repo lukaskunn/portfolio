@@ -6,6 +6,8 @@ import AboutSection from "../../components/AboutSection";
 import ResumeSection from "../../components/ResumeSection";
 import SkillsSection from "../../components/SkillsSection";
 
+import Inner from "../../components/Inner";
+
 function About() {
   const { currentLanguage } = useLanguage();
   const { aboutMe, resume, services } = currentLanguage;
@@ -15,7 +17,7 @@ function About() {
   const { soft, hard } = skills;
 
   return (
-    <>
+    <Inner backgroundColor="#ff00ff">
       <AboutSection sectionSubTitle={sectionSubTitle} content={content} />
       <ResumeSection sectionTitleResume={sectionTitleResume} cards={cards} />
       <SkillsSection
@@ -29,7 +31,7 @@ function About() {
         type="forward"
         showBackground={true}
       />
-    </>
+    </Inner>
   );
 }
 

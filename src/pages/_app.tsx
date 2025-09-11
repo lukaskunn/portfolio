@@ -40,7 +40,9 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         <Loading />
         <CursorFollower />
         <Header />
-        <Component {...pageProps} key={router.route}/>
+        <AnimatePresence mode="wait">
+          <Component {...pageProps} key={router.route} />
+        </AnimatePresence>
       </AppProviders>
     </>
   );
@@ -48,19 +50,17 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 
 function AppProviders({ children }: { children: React.ReactNode }) {
   return (
-    <AnimatePresence mode="wait">
-      <CursorProvider>
-        <TransitionProvider>
-          <TransitionLayout>
-            <PageContextProvider>
-              <DeviceContextProvider>
-                <LanguageProvider>{children}</LanguageProvider>
-              </DeviceContextProvider>
-            </PageContextProvider>
-          </TransitionLayout>
-        </TransitionProvider>
-      </CursorProvider>
-    </AnimatePresence>
+    <CursorProvider>
+      <TransitionProvider>
+        <TransitionLayout>
+          <PageContextProvider>
+            <DeviceContextProvider>
+              <LanguageProvider>{children}</LanguageProvider>
+            </DeviceContextProvider>
+          </PageContextProvider>
+        </TransitionLayout>
+      </TransitionProvider>
+    </CursorProvider>
   );
 }
 

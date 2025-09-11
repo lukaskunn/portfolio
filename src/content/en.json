@@ -5,7 +5,7 @@
     "menuItems": [
       {
         "text": "/ Projects",
-        "href": "/Works"
+        "href": "/works"
       },
       {
         "text": "/ About Me",
@@ -26,7 +26,7 @@
       },
       {
         "text": "/Projects",
-        "href": "/Works"
+        "href": "/works"
       },
       {
         "text": "/About Me",
@@ -41,7 +41,7 @@
   "transitionsText": {
     "routesTexts": {
       "/": "Home",
-      "/Works": "My Projects",
+      "/works": "My Projects",
       "/About": "About Me",
       "/Contact": "Contact"
     },

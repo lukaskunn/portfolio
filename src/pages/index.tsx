@@ -14,6 +14,7 @@ import { useCursor } from "../contexts/CursorContext";
 import { useLanguage } from "../contexts/LanguageContext";
 import { usePageContext } from "../contexts/PageContext";
 import useDevice from "../hooks/useDevice";
+import Inner from "../components/Inner";
 
 import styles from "./Home.module.css";
 
@@ -214,6 +215,7 @@ const Home: NextPage = () => {
   }, [titleIsReadyToAnimate]);
 
   return (
+    <Inner backgroundColor="#000">
     <section className={styles.container}>
       <div className={styles["content-container"]}>
         <div className={styles["location-container"]}>
@@ -273,6 +275,7 @@ const Home: NextPage = () => {
       <ImageBackground />
       <NoiseFilter />
     </section>
+    </Inner>
   );
 };
 

@@ -89,7 +89,7 @@ const Project: React.FC = () => {
       <NextPageButton
         text="Return to works"
         type="backward"
-        link="/Works"
+        link="/works"
         showBackground={true}
       />
     </div>
