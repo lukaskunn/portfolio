@@ -29,7 +29,7 @@ const SpeedInsights = dynamic(
  * It wraps the entire application with necessary providers and layouts, ensuring
  * global state management, transitions, and shared components like the header and cursor follower.
  */
-function MyApp({ Component, pageProps, router }: AppProps) {
+function MyApp({ Component, pageProps}: AppProps) {
   console.log(pageProps);
   console.log(Component);
   return (
@@ -41,7 +41,6 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         <CursorFollower />
         <AnimatePresence mode="wait">
           <motion.div
-            key={router.route}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
