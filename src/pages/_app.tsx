@@ -9,7 +9,7 @@ import { CursorProvider } from "../contexts/CursorContext";
 import { DeviceContextProvider } from "../contexts/DeviceContext";
 import { LanguageProvider } from "../contexts/LanguageContext";
 import { PageContextProvider } from "../contexts/PageContext";
-import TransitionLayout from "../Layouts/TransitionLayout";
+// import TransitionLayout from "../Layouts/TransitionLayout";
 import { TransitionProvider } from "../Layouts/TransitionProvider";
 import { AnimatePresence, motion } from "framer-motion";
 
