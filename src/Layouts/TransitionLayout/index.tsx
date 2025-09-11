@@ -1,8 +1,8 @@
-import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
-import { useIsomorphicLayoutEffect } from "usehooks-ts";
-import { useCursor } from "../../contexts/CursorContext";
-import { useTransition } from "../TransitionProvider";
+// import { useRouter } from "next/router";
+// import React, { useEffect, useRef, useState } from "react";
+// import { useIsomorphicLayoutEffect } from "usehooks-ts";
+// import { useCursor } from "../../contexts/CursorContext";
+// import { useTransition } from "../TransitionProvider";
 import { motion, AnimatePresence } from "framer-motion";
 
 type TransitionLayoutProps = {

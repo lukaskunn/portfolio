@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { slide, opacity, perspective } from './anim';
 import styles from "./styles.module.css"
 
-const anim = (variants) => {
+const anim = (variants: any) => {
   return {
     initial: "initial",
     animate: "enter",
