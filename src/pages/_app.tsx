@@ -11,7 +11,7 @@ import { LanguageProvider } from "../contexts/LanguageContext";
 import { PageContextProvider } from "../contexts/PageContext";
 import TransitionLayout from "../Layouts/TransitionLayout";
 import { TransitionProvider } from "../Layouts/TransitionProvider";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import "../styles/scss/globals.css";
 import "../styles/scss/allFiles.css";
@@ -39,11 +39,19 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       <AppProviders>
         <Loading />
         <CursorFollower />
-        <Header />
         <AnimatePresence mode="wait">
-          <Component {...pageProps} key={router.route} />
+          <motion.div
+            key={router.route}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Header />
+            <Component {...pageProps} />
+          </motion.div>
         </AnimatePresence>
-      </AppProviders>
+      </AppProviders >
     </>
   );
 }
@@ -52,13 +60,13 @@ function AppProviders({ children }: { children: React.ReactNode }) {
   return (
     <CursorProvider>
       <TransitionProvider>
-        <TransitionLayout>
+        {/* <TransitionLayout> */}
           <PageContextProvider>
             <DeviceContextProvider>
               <LanguageProvider>{children}</LanguageProvider>
             </DeviceContextProvider>
           </PageContextProvider>
-        </TransitionLayout>
+        {/* </TransitionLayout> */}
       </TransitionProvider>
     </CursorProvider>
   );
