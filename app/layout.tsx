@@ -11,7 +11,6 @@ import { TransitionProvider } from "../src/contexts/TransitionContext";
 import AnimatePresenceContainer from "../src/Layouts/AnimatePresenceContainer";
 
 import "../src/styles/scss/globals.css";
-import "../src/styles/scss/allFiles.css";
 
 import type { Metadata } from "next";
 import generateMetadata from "../src/utils/generateMetadata";
