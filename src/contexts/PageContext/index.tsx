@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useContext, createContext } from "react";
 
 interface PageContextType {

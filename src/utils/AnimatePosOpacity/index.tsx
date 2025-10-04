@@ -1,7 +1,8 @@
+'use client'
 import React, { useRef } from "react";
 import { gsap } from "gsap";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
-import { useTransition } from "../../Layouts/TransitionProvider";
+import { useTransition } from "../../contexts/TransitionContext";
 import { usePageContext } from "../../contexts/PageContext";
 
 type AnimatePosOpacityProps = {

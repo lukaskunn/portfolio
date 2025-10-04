@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "sass": "concurrently \"sass --watch --no-source-map src:src --style compressed\" \"sass --watch --no-source-map styles/scss:styles/css --style compressed\"",
+    "sass": "concurrently \"sass --watch --no-source-map . --style compressed\"",
     "type-check": "tsc --noEmit",
     "build": "next build",
     "start": "next start",
@@ -18,7 +18,7 @@
     "critters": "^0.0.25",
     "framer-motion": "^11.1.7",
     "gsap": "3.13.0",
-    "next": "14.2.3",
+    "next": "14.2.33",
     "prettier-eslint": "^16.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",

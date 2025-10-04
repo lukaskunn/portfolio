@@ -8,10 +8,15 @@
   position: fixed;
   bottom: 50px;
   z-index: 995;
+  pointer-events: none;
 
   @media (max-width: 768px) {
     bottom: 20px;
     left: 0;
+  }
+
+  @media screen and (max-width: 1024px) {
+    display: none;
   }
 
   .button-container {
@@ -26,6 +31,7 @@
     animation-fill-mode: forwards;
     animation-delay: 1s;
     transition: 0.2s all cubic-bezier(0, 0, 0, 1);
+    pointer-events: all;
 
     .right-arrow,
     .left-arrow {

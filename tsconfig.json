@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -16,10 +20,21 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "skipLibCheck": true,
-    "allowUnusedLabels": false
-    
+    "allowUnusedLabels": false,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "compileOnSave": true,
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

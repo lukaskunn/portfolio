@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import gsap from "gsap";
 import { ScrambleTextPlugin } from "gsap/dist/ScrambleTextPlugin";

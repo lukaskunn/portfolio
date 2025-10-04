@@ -1,30 +1,31 @@
-import { useRouter } from "next/router";
+'use client'
+import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { useIsomorphicLayoutEffect } from "usehooks-ts";
 import { useCursor } from "../../contexts/CursorContext";
-import { useTransition } from "../TransitionProvider";
+import { useTransition } from "../../contexts/TransitionContext";
 
 type TransitionLayoutProps = {
   children: React.ReactNode;
 };
 
 export default function TransitionLayout({ children }: TransitionLayoutProps) {
-  const router = useRouter();
+  const pathname = usePathname();
   const { setHoverImportantText } = useCursor();
   const { timeline } = useTransition();
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const [currentPage, setCurrentPage] = useState({
-    route: router.asPath,
+    route: pathname,
     children,
   });
 
   useIsomorphicLayoutEffect(() => {
-    if (currentPage.route !== router.asPath) {
+    if (currentPage.route !== pathname) {
       if (timeline.duration() === 0) {
         // There are no outro animations, so immediately transition
         setCurrentPage({
-          route: router.asPath,
+          route: pathname,
           children,
         });
       } else {
@@ -32,13 +33,13 @@ export default function TransitionLayout({ children }: TransitionLayoutProps) {
           // Outro complete so reset to an empty paused timeline
           timeline.pause().clear();
           setCurrentPage({
-            route: router.asPath,
+            route: pathname,
             children,
           });
         });
       }
     }
-  }, [router.asPath, children, timeline, currentPage.route]);
+  }, [pathname, children, timeline, currentPage.route]);
 
   useEffect(() => {
     scrollTo({ top: 0, left: 0, behavior: "instant" });

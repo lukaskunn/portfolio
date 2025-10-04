@@ -5,19 +5,19 @@
     "menuItems": [
       {
         "text": "/Home",
-        "href": "/"
+        "href": "/home"
       },
       {
         "text": "/ Projetos",
-        "href": "/Works"
+        "href": "/projects"
       },
       {
         "text": "/ Sobre Mim",
-        "href": "/About"
+        "href": "/about"
       },
       {
         "text": "/ Contato",
-        "href": "/Contact"
+        "href": "/contact"
       }
     ]
   },
@@ -47,15 +47,15 @@
     "menuItems": [
       {
         "text": "/Home",
-        "href": "/"
+        "href": "/home"
       },
       {
         "text": "/Projetos",
-        "href": "/Works"
+        "href": "/projects"
       },
       {
         "text": "/Sobre Mim",
-        "href": "/About"
+        "href": "/about"
       },
       {
         "text": "/Blog",
@@ -67,10 +67,12 @@
     "sectionTitle": "Trabalhos",
     "nextPageText": "Sobre Mim",
     "seeMoreText": "ver projeto",
+    "backToProjectsText": "Voltar para projetos",
     "projects": [
       {
         "projectId": "6",
         "title": "Personal Stuff",
+        "imageAlt": "Personal Stuff Project Image",
         "description": "Next.js / Three.js / GSAP / Framer Motion",
         "urlToProject": "/my-stuff",
         "galleryBackground": "/images/projects/myStuff/glass-effect-background.png",
@@ -80,6 +82,7 @@
       {
         "projectId": "5",
         "title": "[Motorola Europe]",
+        "imageAlt":"Motorola Europe Project Image",
         "description": "Vtex IO + React",
         "briefDescription": "No meu atual cargo na Motorola Europa, estou liderando o desenvolvimento de um layout rebrandizado inovador para a loja de e-commerce da Motorola Europa. Colaborando de perto com uma equipe de desenvolvedores e designers qualificados, nossa missão é elevar a experiência de compras online para os clientes da Motorola em toda a Europa.</>Aproveitando tecnologias de ponta como Vtex IO, React, TypeScript e Node.js, não apenas estamos reformulando a estética da loja, mas também aprimorando seu desempenho e usabilidade. Meu papel envolve conceituar e implementar recursos inovadores que se integram perfeitamente ao novo layout, garantindo uma jornada do usuário suave e intuitiva.</>Um aspecto crucial deste projeto tem sido meu envolvimento com a API da Vtex, permitindo-me introduzir novas funcionalidades e otimizar o desempenho da loja. Ao aproveitar o poder desta API, conseguimos desbloquear novas possibilidades e ultrapassar os limites do que a plataforma de e-commerce pode alcançar.</>Uma das conquistas mais gratificantes desta empreitada foi a criação do novo layout das páginas Motoverse. Ao desenvolver um construtor personalizado de \"no-code\" para cada página, capacitamos a equipe de marketing a gerar novas páginas dinâmicas autonomamente, sem a necessidade de um desenvolvedor. Essa inovação não apenas simplifica o processo de criação de conteúdo, mas também promove agilidade e flexibilidade dentro da organização.</>À medida que continuamos a refinar e evoluir a loja de e-commerce da Motorola Europa, estou animado por estar na vanguarda na entrega de uma experiência digital verdadeiramente transformadora para nossos clientes.",
         "urlToProject": "https://www.motorola.co.uk",
@@ -126,6 +129,7 @@
       {
         "projectId": "1",
         "title": "[Motorola India]",
+        "imageAlt":"Motorola India Project Image",
         "description": "Ecommerce + React",
         "briefDescription": "Durante meu período na equipe da Motorola Índia, atuei como desenvolvedor principal em um projeto crucial: o desenvolvimento da Loja de E-commerce da Motorola Índia. Nessa capacidade, assumi o papel tanto de desenvolvedor quanto de mentor, orientando colegas de equipe enquanto enfrentávamos os desafios mais complexos de frente.</>Este projeto me proporcionou oportunidades inestimáveis de crescimento pessoal e profissional. Notavelmente, aprimorei minhas habilidades de liderança, fomentando um ambiente mais acessível e colaborativo dentro de nossa equipe. Através da experiência prática com tecnologias de ponta como React e Vtex IO, expandi significativamente minha experiência técnica.</>Ao longo do ciclo de desenvolvimento, desempenhei um papel fundamental na implementação de inúmeras funcionalidades e na resolução de problemas críticos. Um destaque foi a otimização de uma função de preenchimento automático durante o processo de checkout, reduzindo drasticamente o tempo necessário de aproximadamente 15 segundos para apenas 2 segundos. Esse aprimoramento simplificou a experiência do usuário e aumentou significativamente a eficiência.</>Além das realizações técnicas, meu tempo na Motorola Índia também proporcionou oportunidades para o desenvolvimento linguístico. Participando de reuniões diárias com o Gerente de Projeto da Motorola Índia, aprimorei minhas habilidades na língua inglesa enquanto garantia o alinhamento contínuo do projeto e o acompanhamento do progresso.",
         "urlToProject": "https://www.motorola.in",
@@ -150,6 +154,7 @@
       {
         "projectId": "2",
         "title": "[Motorola US]",
+        "imageAlt":"Motorola US Project Image",
         "description": "Ecommerce + React",
         "briefDescription": "Meu primeiro projeto utilizando Vtex IO marcou um momento crucial em minha jornada profissional. Encarregado de desenvolver componentes-chave para o lançamento da página do produto Edge 30 Pro, colaborei em um ambiente de equipe dedicado.</>Este projeto me proporcionou a oportunidade única de interagir diretamente com a equipe de marketing da Motorola USA. Esta exposição não apenas enriqueceu minha compreensão do desenvolvimento web, mas também forneceu insights valiosos sobre a interseção entre tecnologia e estratégias de marketing.</>Trabalhando ao lado de desenvolvedores experientes, mergulhei nas complexidades do desenvolvimento web, aprimorando minhas habilidades e técnicas. Além disso, este projeto serviu como catalisador para minha proficiência na língua inglesa, à medida que eu abraçava o desafio de me comunicar eficazmente com partes interessadas internacionais.",
         "urlToProject": "https://www.motorola.com/us/",
@@ -174,6 +179,7 @@
       {
         "projectId": "3",
         "title": "Karsten / Trussardi",
+        "imageAlt":"Karsten / Trussardi Project Image",
         "description": "Ecommerce + React",
         "briefDescription": "Minha experiência nesta loja em particular se mostrou uma das mais desafiadoras, porém gratificantes, em minha jornada profissional. Ao longo de dois intensos meses, mergulhei no mundo do ReactJS, explorando suas características avançadas e ampliando os limites do meu conjunto de habilidades técnicas.</>Durante meu tempo, concebi e desenvolvi um componente inovador semelhante a uma história do Instagram. Este recurso inovador integrou perfeitamente um provador virtual com uma prateleira personalizável, capacitando os clientes a visualizar produtos de forma dinâmica e envolvente, ao mesmo tempo facilitando decisões de compra sem esforço.</>Aproveitando o poder do legado da Vtex junto com HTML e CSS, criei soluções personalizadas adaptadas aos requisitos exclusivos da loja. Além disso, utilizei minha experiência recém-adquirida em ReactJS para criar componentes personalizados que elevaram a experiência do usuário a novos patamares.</>Meu tempo nesta loja não apenas aprofundou minha compreensão do desenvolvimento front-end, mas também destacou a importância da inovação e da adaptabilidade no cenário em constante evolução do desenvolvimento de e-commerce. Através da perseverança e da resolução criativa de problemas, superei desafios formidáveis e emergi com uma nova confiança e proficiência em ReactJS e desenvolvimento de e-commerce.",
         "urlToProject": "https://www.karsten.com.br",
@@ -196,6 +202,7 @@
       {
         "projectId": "4",
         "title": "BabadoTop",
+        "imageAlt":"BabadoTop Project Image",
         "description": "Ecommerce + React",
         "briefDescription": "Projeto mais difícil em que atuei. Trabalhei por 2 meses e aprendi bastante sobre desenvolvimento avançado de componentes com ReactJS. Nesse projeto criei um componente que funcionava como um stories do Instagram porem ainda mostrava uma prateleira de produtos para que o cliente que estivesse vendo já pudesse comprar direto do 'storie'. Trabalhei utilizando Vtex legacy com HTML e CSS e desenvolvendo componentes customizados com React JS",
         "galleryBackground": "/images/projects/babadotop/babadotop_image_1.png",

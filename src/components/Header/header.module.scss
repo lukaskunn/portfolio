@@ -88,13 +88,11 @@
       }
     }
 
-
-
     .menu-item {
       overflow: hidden;
       height: 27px;
 
-      &.menu-item-bold {
+      &__bold {
         font-weight: 500;
 
         .menu-item-container {
@@ -442,6 +440,22 @@
       .switchLanguageSelected {
         color: $primary-color;
       }
+    }
+  }
+
+  .content-desktop {
+    display: block;
+
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .content-mobile {
+    display: none;
+
+    @media screen and (max-width: 768px) {
+      display: block;
     }
   }
 }

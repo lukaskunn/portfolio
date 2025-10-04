@@ -1,4 +1,6 @@
+"use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
+import { LanguageContentType } from "../../types/projectContentType";
 
 import langEN from "../../content/en.json";
 import langPT from "../../content/pt.json";
@@ -12,7 +14,7 @@ type Language = "en" | "pt";
 
 type LanguageContextType = {
   language: Language;
-  currentLanguage: typeof langEN | typeof langPT;
+  currentLanguage: LanguageContentType;
   changeLanguage: (lang: Language) => void;
   setLanguage: (lang: Language) => void;
 };
