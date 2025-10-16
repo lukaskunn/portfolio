@@ -11,6 +11,7 @@ import Title from "./Title";
 import CurrentPosition from "./CurrentPosition";
 import SocialMediaLinks from "./SocialMediaLinks";
 import AnimationContainer from "./AnimationContainer";
+import Jobs from "./Jobs";
 import styles from "./Home.module.css";
 
 const Page: NextPage = () => {
@@ -18,10 +19,15 @@ const Page: NextPage = () => {
     <AnimationContainer>
       <section className={styles.container}>
         <div className={styles["content-container"]}>
-          <LocationTime />
-          <Title />
+          <div className={styles["title-jobs-container"]}>
+            <Title />
+            <Jobs />
+          </div>
           <Subtitle />
-          <CurrentPosition />
+          <div className={styles["local-time-location-container"]}>
+            <CurrentPosition />
+            <LocationTime />
+          </div>
         </div>
 
         <div className={styles["footer-row-container"]}>
@@ -30,7 +36,7 @@ const Page: NextPage = () => {
             <LanguageSelector />
           </div>
         </div>
-        
+
         <NextPageButtonContainer />
         <ImageBackground />
         <NoiseFilter />

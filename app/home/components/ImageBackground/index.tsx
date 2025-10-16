@@ -7,6 +7,7 @@ import { useTransition } from "../../../../src/contexts/TransitionContext";
 import { useCursor } from "../../../../src/contexts/CursorContext";
 import { useDeviceContext } from "../../../../src/contexts/DeviceContext";
 import styles from "./ImageBackground.module.css";
+import { usePageContext } from "../../../../src/contexts/PageContext";
 
 const IMAGES = [
   "/images/general/20210803_031452-scaled.jpg",
@@ -64,14 +65,18 @@ const useWindowDimensions = () => {
 const ImageBackground = () => {
   const { isMobile } = useDeviceContext();
   const imageBackgroundRef = useRef<HTMLDivElement>(null);
+  const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
   const { timeline } = useTransition();
   const { position } = useCursor();
   const dimensions = useWindowDimensions();
+  const { isLoaded } = usePageContext();
+  
 
   const getImageName = useMemo(() => (path: string): string => {
     const filename = path.split('/').pop() || '';
     return IMAGE_DESCRIPTIONS[filename] || `Image ${filename}`;
   }, []);
+
   useEffect(() => {
     if (
       !imageBackgroundRef.current ||
@@ -79,8 +84,10 @@ const ImageBackground = () => {
       dimensions.height === 0
     ) return;
 
-    const left = -(position.x / dimensions.width - 0.5) * 60 - 40;
-    const top = -(position.y / dimensions.height - 0.5) * 60 + (isMobile ? 100 : 170);
+    // const left = -(position.x / dimensions.width - 0.5) * 60 - 40;
+    // const top = -(position.y / dimensions.height - 0.5) * 60 + (isMobile ? 100 : 170);
+    const left = -(position.x / dimensions.width - 0.5) * 60;
+    const top = -(position.y / dimensions.height - 0.5) * 60 + 70;
     const rotateX = (position.y / dimensions.height - 0.5) * -10;
     const rotateY = (position.x / dimensions.width - 0.5) * 7;
 
@@ -90,6 +97,7 @@ const ImageBackground = () => {
       rotateX,
       rotateY,
       perspective: 800,
+      transformOrigin: "center center",
       ease: "power2",
       duration: 1,
     });
@@ -111,6 +119,35 @@ const ImageBackground = () => {
     };
   }, [timeline]);
 
+  useIsomorphicLayoutEffect(() => {
+    if (!isLoaded) return;
+
+    const ctx = gsap.context(() => {
+      imageRefs.current.forEach((imageRef, index) => {
+        if (imageRef) {
+          gsap.fromTo(
+            imageRef,
+            {
+              clipPath: "polygon(0% 0%, 0% 0%, 0% 0%)",
+              opacity: 0,
+              scale: 0.9,
+            },
+            {
+              clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+              opacity: 1,
+              scale: 1,
+              duration: 1.5,
+              delay: 0.3 + (index * 0.1),
+              ease: "power3.inOut",
+            },
+          );
+        }
+      });
+    }, imageBackgroundRef);
+
+    return () => ctx.revert();
+  }, [isLoaded]);
+
   return (
     <div
       className={styles["img-bg-container"]}
@@ -127,6 +164,9 @@ const ImageBackground = () => {
           width={200}
           height={200}
           priority={index < 2}
+          ref={(el) => {
+            imageRefs.current[index] = el;
+          }}
         />
       ))}
     </div>

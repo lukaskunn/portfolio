@@ -26,7 +26,7 @@ const LocationTime = () => {
   return (
     <div className={styles["location-container"]}>
           <p className={styles["location"]}>
-            Based in São Paulo, <span>{currentLocalTime}</span>
+            / Based in São Paulo, <span>{currentLocalTime}</span>
           </p>
         </div>
   )
