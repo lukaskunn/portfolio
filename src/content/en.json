@@ -25,19 +25,19 @@
     "headerTitle": "<Lucas Oliveira />",
     "menuItems": [
       {
-        "text": "/Home",
+        "text": "/ Home",
         "href": "/home"
       },
       {
-        "text": "/Projects",
+        "text": "/ Projects",
         "href": "/projects"
       },
       {
-        "text": "/About Me",
+        "text": "/ About Me",
         "href": "/about"
       },
       {
-        "text": "/Blog",
+        "text": "/ Blog",
         "href": "/blog"
       }
     ]
