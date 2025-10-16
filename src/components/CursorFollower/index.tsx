@@ -67,11 +67,11 @@ function CursorFollower() {
   React.useEffect(() => {
     if (cursorRef.current) {
       moveCursorX.current = gsap.quickTo(cursorRef.current, "left", {
-        duration: 0.3,
+        duration: 0.2,
         ease: "power4",
       });
       moveCursorY.current = gsap.quickTo(cursorRef.current, "top", {
-        duration: 0.3,
+        duration: 0.2,
         ease: "power4",
       });
     }
