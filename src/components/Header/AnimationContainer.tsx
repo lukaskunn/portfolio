@@ -58,6 +58,7 @@ const AnimationContainer = ({ children }: { children: React.ReactNode }) => {
         top: isMobileView ? 30 : 70,
         opacity: 1,
         duration: ANIMATION_TIMING.HEADER_SLIDE_IN,
+        delay: 2.3,
         ease: "power3.out",
       });
     }, 100);

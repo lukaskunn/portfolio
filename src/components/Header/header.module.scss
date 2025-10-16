@@ -210,12 +210,20 @@
         flex-direction: column;
         gap: 32px;
 
+        @media screen and (max-width: 768px) {
+          gap: 28px;
+        }
+
         .menu-item {
           font-weight: 300;
           font-size: 32px;
           display: block;
           color: $full-black;
           font-weight: 600;
+
+          @media screen and (max-width: 768px) {
+            font-size: 32px;
+          }
 
           &__bold {
             font-weight: 500;

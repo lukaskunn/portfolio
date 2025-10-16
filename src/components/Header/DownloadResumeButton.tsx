@@ -13,9 +13,9 @@ const DownloadResumeButton = () => {
       onMouseLeave={() => handleModalPropsLeave("download my resume")}
     >
       <span className={styles["content-desktop"]}>
-        <MenuItem text="/My resume" />
+        <MenuItem text="/ My resume" />
       </span>
-      <span className={styles["content-mobile"]}>/My resume</span>
+      <span className={styles["content-mobile"]}>/ My resume</span>
     </a>
   );
 };
