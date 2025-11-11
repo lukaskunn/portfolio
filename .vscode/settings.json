@@ -1,8 +1,0 @@
-{
-  "editor.tabSize": 2,
-  "commit-message-editor.view.tabSize": 2,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-  }
-}
