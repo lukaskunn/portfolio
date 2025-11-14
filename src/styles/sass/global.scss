@@ -1,0 +1,10 @@
+@import "references";
+
+html {
+  background-color: $background-color-main;
+  color: $primary-color;
+  font-family: $primary-text-font;
+
+  padding: 40px;
+  margin: 0;
+}

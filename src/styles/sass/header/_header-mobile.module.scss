@@ -1,0 +1,15 @@
+.header-mobile {
+  display: none;
+
+  @media screen and (max-width: 769px) {
+    display: flex;
+  }
+}
+
+.mobile-menu-overlay {
+  display: none;
+
+  @media screen and (max-width: 769px) {
+    display: flex;
+  }
+}
