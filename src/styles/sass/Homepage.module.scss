@@ -1,1 +1,3 @@
-@import "./homepage/homepage.module.scss";
+@use "./homepage/homepage.module.scss";
+@use "./homepage/title-component.module.scss";
+@use "./homepage/home-image.module.scss";

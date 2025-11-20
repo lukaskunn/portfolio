@@ -1,0 +1,32 @@
+@use "../references" as ref;
+
+.menu-item {
+  @include ref.menu-item;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  text-decoration: none;
+
+  &:hover {
+    color: ref.$secondary-color;
+    cursor: pointer;
+  }
+
+  &:hover {
+    .text {
+      transition: gap 0.2s cubic-bezier(0, 0, 0, 1);
+      gap: 8px;
+    }
+  }
+  
+  .text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: gap 0.2s ease-in-out;
+  
+    gap: 4px;
+  }
+}

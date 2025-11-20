@@ -1,0 +1,57 @@
+@use "../references" as ref;
+
+.footer-container {
+  width: 100%;
+  padding: 40px 0;
+  // background-color: #f5f5f5;
+
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 1360px;
+
+  .social-links-container {
+    display: flex;
+    flex-direction: row;
+    gap: 61px;
+    width: 100%; 
+
+    .social-link {
+      @include ref.text-box-text;
+      font-size: 12px;
+      text-decoration: none;
+
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+
+      gap: 8px;
+      transition: gap 0.4s ease;
+      
+      &:hover {
+        gap: 16px;
+        transition: gap 0.2s cubic-bezier(0, 0, 0, 1);
+      }
+    }
+  }
+
+  .work-message-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    .work-message-text {
+      @include ref.text-box-text;
+
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+}

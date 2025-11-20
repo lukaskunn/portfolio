@@ -1,6 +1,6 @@
 'use client'
 import { usePathname } from "next/navigation";
-import HeaderDesktop from "@/components/Header/components/HeaderDesktop";
+import HeaderDesktop from "@/components/Header/components/HeaderDesktop/HeaderDesktop";
 import HeaderMobile from "@/components/Header/components/HeaderMobile";
 import styles from "@/styles/css/header.module.css";
 

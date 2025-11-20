@@ -1,13 +1,33 @@
+@use "../references" as ref;
+
 .header-mobile {
   display: none;
+  width: 100%;
+  padding: 0 20px;
 
   @media screen and (max-width: 769px) {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .open-menu-button {
+    @include ref.menu-item;
+
+    background: none;
+    border: none;
   }
 }
 
 .mobile-menu-overlay {
   display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: red;
+  z-index: 999;
 
   @media screen and (max-width: 769px) {
     display: flex;

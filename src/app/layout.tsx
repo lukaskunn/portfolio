@@ -7,6 +7,7 @@ import { DeviceContextProvider } from "@/contexts/DeviceContext";
 import CursorFollower from "@/components/CursorFollower";
 import Header from "@/components/Header";
 import "@/styles/css/global.css";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,6 +27,7 @@ export default function RootLayout({
           <CursorFollower />
           <Header />
           {children}
+          <Footer />
         </AppProviders>
         <SpeedInsights />
       </body>

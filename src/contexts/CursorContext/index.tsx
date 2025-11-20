@@ -69,7 +69,7 @@ export const CursorProvider = ({ children }: { children: ReactNode }) => {
       clientY: position.y,
     } as MouseEvent);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [position.x, position.y]);
 
   return (
     <CursorContext.Provider

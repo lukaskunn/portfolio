@@ -1,9 +1,5 @@
-import styles from "@/styles/css/Homepage.module.css";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      {/* <h1>Welcome to My Portfolio</h1> */}
-    </main>
-  );
+  redirect("/home");
 }

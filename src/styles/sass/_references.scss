@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Akshar:wght@300..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+/* Self-hosted font-face declarations replacing Google Fonts import */
+/* Adjust the URLs to where you store the font files in your project */
 
 $background-color-main: #E5E5DD;
 $primary-color: #000000;
@@ -8,4 +9,39 @@ $title-font: 'Akshar', sans-serif;
 $primary-text-font: 'Roboto Mono', monospace;
 $secondary-text-font: 'Roboto', sans-serif;
 
+@mixin title-style($font-size, $line-height, $letter-spacing) {
+  font-family: $title-font;
+  font-weight: bold;
+  font-size: $font-size;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  color: $primary-color;
+}
+
+@mixin subtitle-style($font-size, $line-height, $letter-spacing) {
+  font-family: $secondary-text-font;
+  font-weight: 500;
+  font-size: $font-size;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  color: $primary-color;
+}
+
+@mixin text-box-text {
+  font-family: $primary-text-font;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: $primary-color;
+}
+
+@mixin menu-item {
+  font-family: $primary-text-font;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 100%;
+  color: $primary-color;
+  letter-spacing: -0.02rem;
+}
 

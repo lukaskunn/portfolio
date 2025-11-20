@@ -1,3 +1,5 @@
-@import "./header/header.module.scss";
-@import "./header/header-desktop.module.scss";
-@import "./header/header-mobile.module.scss";
+@use "./header/header.module.scss";
+@use "./header/header-desktop.module.scss";
+@use "./header/header-mobile.module.scss";
+@use "./header/header-item.module.scss";
+@use "./header/contact-me-button.module.scss";

@@ -1,15 +1,12 @@
 'use client'
 import React from "react";
 import { usePathname } from "next/navigation";
-// import { useLanguage } from "@/contexts/LanguageContext";
 import styles from "@/styles/css/header.module.css";
 
 
 const HeaderMobile = () => {
   const pathName = usePathname();
-  // const { currentLanguage } = useLanguage();
-  // const { menuItems } = currentLanguage.header;
-  const [menuIsOpen, setMenuIsOpen] = React.useState(false);
+  const [menuIsOpen, setMenuIsOpen] = React.useState(true);
 
   if (pathName === "/all-my-links") {
     return null;

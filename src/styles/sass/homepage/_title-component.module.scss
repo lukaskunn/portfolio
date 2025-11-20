@@ -1,0 +1,55 @@
+@use "../references" as ref;
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  // gap: 16px;
+  max-width: 1360px;
+  width: 100%;
+
+  position: relative;
+  top: 136px;
+
+  
+  
+  
+  .title-text {
+    @include ref.title-style(185px, 185px, -1rem);
+    text-align: center;
+    margin: 0;
+    line-height: 80%;
+    
+    position: relative;
+    left: -8px;
+    z-index: 1;
+    
+    pointer-events: none;
+    user-select: none;
+    cursor: default;
+  }
+
+  .subtitle-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    z-index: 2;
+
+    .subtitle-text {
+      @include ref.subtitle-style(18px, auto, -0.02rem);
+      margin: 0;
+
+      a {
+        text-decoration: none;
+        color: ref.$primary-color;
+      }
+
+      strong {
+        font-weight: bold;
+      }
+    }
+  }
+}
