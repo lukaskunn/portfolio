@@ -10,7 +10,7 @@
   background: transparent;
   margin-bottom: 156px;
 
-  @include respond-to(mb) {
+  @include respond-to(mobile-768) {
     margin-bottom: 80px;
   }
 }
@@ -19,7 +19,7 @@
   @include text-box-text;
   margin: 0;
 
-  @include respond-to(mb) {
+  @include respond-to(mobile-768) {
     font-size: 16px;
     line-height: 1.5;
   }

@@ -7,7 +7,7 @@
   border-top: 2px solid $primary-color;
   padding: 16px 0 0;
 
-  @include respond-to(mb) {
+  @include respond-to(mobile-768) {
     border-top: none;
   }
 }
@@ -18,7 +18,7 @@
   gap: 60px;
   width: 100%;
 
-  @include respond-to(tb) {
+  @include respond-to(tablet-1024) {
     grid-template-columns: 1fr;
     gap: 24px;
   }
@@ -29,7 +29,7 @@
   margin: 0;
   font-weight: 600;
 
-  @include respond-to(mb) {
+  @include respond-to(mobile-768) {
     font-size: 24px;
     border-bottom: 2px solid $primary-color;
     padding: 0 0 8px;
@@ -47,7 +47,7 @@
   gap: 20px;
   padding: 0px 0 32px;
 
-  @include respond-to(mb) {
+  @include respond-to(mobile-768) {
     border-top: none;
     padding: 0px 0 8px;
     grid-template-columns: 1fr 120px;
@@ -76,7 +76,7 @@
     padding: 8px 0 0;
   }
 
-  @include respond-to(mb) {
+  @include respond-to(mobile-768) {
     grid-template-columns: 1fr 120px;
     gap: 16px;
     padding: 8px 0 32px;
@@ -84,6 +84,7 @@
 
   &>.cell-text {
     font-weight: normal;
+    text-align: right;
   }
 }
 
@@ -102,9 +103,9 @@
   font-weight: bold;
   line-height: 1.5;
   color: $primary-color;
-  text-align: right;
+  text-align: left;
 
-  @include respond-to(mb) {
+  @include respond-to(mobile-768) {
     font-size: 16px;
   }
 }
