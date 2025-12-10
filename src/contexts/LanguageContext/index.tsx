@@ -1,22 +1,11 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { LanguageContentType } from "../../types/projectContentType";
+import { LanguageContentType } from "@/utils/types";
 
-import langEN from "@/content/en.json";
-import langPT from "@/content/pt.json";
-
-const languages = {
-  en: langEN,
-  pt: langPT,
-};
-
-type Language = "en" | "pt";
+import content from "@/content/en.json";
 
 type LanguageContextType = {
-  language: Language;
-  currentLanguage: LanguageContentType;
-  changeLanguage: (lang: Language) => void;
-  setLanguage: (lang: Language) => void;
+  currentContent: LanguageContentType;
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(
@@ -24,19 +13,11 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 );
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<"en" | "pt">("en");
-  const [currentLanguage, setCurrentLanguage] = useState(
-    languages[language as keyof typeof languages],
-  );
+  const [currentContent, setCurrentContent] = useState<LanguageContentType>(content);
 
-  const changeLanguage = (lang: "en" | "pt") => {
-    setLanguage(lang);
-    setCurrentLanguage(languages[lang as keyof typeof languages]);
-  };
-
-  return (
+    return (
     <LanguageContext.Provider
-      value={{ language, setLanguage, currentLanguage, changeLanguage }}
+      value={{ currentContent }}
     >
       {children}
     </LanguageContext.Provider>
