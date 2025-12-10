@@ -14,6 +14,10 @@
   width: 100%;
   max-width: 1360px;
 
+  @include ref.respond-to(mb) {
+    display: none;
+  }
+
   .social-links-container {
     display: flex;
     flex-direction: row;
@@ -22,7 +26,7 @@
 
     .social-link {
       @include ref.text-box-text;
-      font-size: 12px;
+      font-size: 18px;
       text-decoration: none;
 
       display: flex;
@@ -46,7 +50,7 @@
     justify-content: flex-end;
 
     .work-message-text {
-      @include ref.text-box-text;
+      @include ref.footer-text-box-text;
 
       text-align: right;
       display: flex;

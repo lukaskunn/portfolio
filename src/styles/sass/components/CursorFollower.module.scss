@@ -33,7 +33,7 @@
   position: relative;
   transition: .2s opacity cubic-bezier(.79, .01, .69, 1);
 
-  @media screen and (max-width: 768px) {
+  @include ref.respond-to(mb) {
     display: none;
   }
 
@@ -70,8 +70,8 @@
   }
 }
 
-@media only screen and (max-width: 768px) {
-  .white-circle {
+.white-circle {
+  @include ref.respond-to(mb) {
     display: none;
   }
 }

@@ -5,16 +5,61 @@ $background-color-main: #E5E5DD;
 $primary-color: #000000;
 $secondary-color: #111111;
 
-$title-font: 'Akshar', sans-serif;
-$primary-text-font: 'Roboto Mono', monospace;
-$secondary-text-font: 'Roboto', sans-serif;
+// $title-font: 'Akshar', sans-serif;
+// $primary-text-font: 'Roboto Mono', monospace;
+// $secondary-text-font: 'Roboto', sans-serif;
+
+$title-font: var(--font-akshar);
+$primary-text-font: var(--font-roboto-mono);
+$secondary-text-font: var(--font-roboto);
+$gloock-font: var(--font-gloock);
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint ==xs {
+    @media screen and (max-width: 375px) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint ==xm {
+    @media screen and (max-width: 480px) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint ==mb {
+    @media screen and (max-width: 768px) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint ==tb {
+    @media screen and (max-width: 1024px) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint ==dt {
+    @media screen and (max-width: 1440px) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint ==lg {
+    @media screen and (min-width: 1920px) {
+      @content;
+    }
+  }
+}
 
 @mixin title-style($font-size, $line-height, $letter-spacing) {
-  font-family: $title-font;
+  font-family: $gloock-font;
   font-weight: bold;
   font-size: $font-size;
   line-height: $line-height;
-  letter-spacing: $letter-spacing;
+  // line-height: 1;
+  // text-align: center;
+  // letter-spacing: $letter-spacing;
   color: $primary-color;
 }
 
@@ -27,21 +72,29 @@ $secondary-text-font: 'Roboto', sans-serif;
   color: $primary-color;
 }
 
-@mixin text-box-text {
-  font-family: $primary-text-font;
+@mixin footer-text-box-text {
+  font-family: $gloock-font;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
-  letter-spacing: -0.02em;
+  font-size: 28px;
+  line-height: normal;
+  // letter-spacing: -0.02rem;
+  color: $primary-color;
+}
+
+@mixin text-box-text {
+  font-family: $secondary-text-font;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: normal;
+  letter-spacing: -0.02rem;
   color: $primary-color;
 }
 
 @mixin menu-item {
   font-family: $primary-text-font;
-  font-weight: normal;
-  font-size: 16px;
+  font-weight: 300;
+  font-size: 18px;
   line-height: 100%;
   color: $primary-color;
   letter-spacing: -0.02rem;
 }
-
