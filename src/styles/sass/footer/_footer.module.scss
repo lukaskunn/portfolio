@@ -1,4 +1,4 @@
-@use "../references" as ref;
+@use "../references" as *;
 
 .footer-container {
   width: 100%;
@@ -12,9 +12,9 @@
   justify-content: space-between;
 
   width: 100%;
-  max-width: 1360px;
+  max-width: 1440px;
 
-  @include ref.respond-to(mb) {
+  @include respond-to(mobile-768) {
     display: none;
   }
 
@@ -22,10 +22,14 @@
     display: flex;
     flex-direction: row;
     gap: 61px;
-    width: 100%; 
+    width: 100%;
+
+    @include respond-to(tablet-1024) {
+      gap: 40px;
+    }
 
     .social-link {
-      @include ref.text-box-text;
+      @include text-box-text;
       font-size: 18px;
       text-decoration: none;
 
@@ -35,7 +39,12 @@
 
       gap: 8px;
       transition: gap 0.4s ease;
-      
+
+      @include respond-to(tablet-1024) {
+        font-size: 16px;
+        gap: 6px;
+      }
+
       &:hover {
         gap: 16px;
         transition: gap 0.2s cubic-bezier(0, 0, 0, 1);
@@ -50,12 +59,16 @@
     justify-content: flex-end;
 
     .work-message-text {
-      @include ref.footer-text-box-text;
+      @include footer-text-box-text;
 
       text-align: right;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+
+      @include respond-to(tablet-1024) {
+        font-size: 20px;
+      }
     }
   }
 }
