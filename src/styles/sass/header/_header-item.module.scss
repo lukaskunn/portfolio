@@ -9,6 +9,8 @@
   
   text-decoration: none;
 
+  mix-blend-mode: difference;
+
   &:hover {
     color: ref.$secondary-color;
     cursor: pointer;

@@ -11,8 +11,7 @@ const LINK_ITEMS = [
   { title: "Home", link: "/home" },
   { title: "Projects", link: "/projects" },
   { title: "About Me", link: "/about-me" },
-  { title: "Blog", link: "/blog" },
-  { title: "My Resume", link: "/my-resume" },
+  { title: "Blog", link: "/blog" }
 ];
 
 const HeaderDesktop = () => {
@@ -22,7 +21,7 @@ const HeaderDesktop = () => {
 
   return (
     <div className={styles["header-desktop"]}>
-      <Link href="/home" className={styles["name-logo"]}>LUCAS OLIVEIRA</Link>
+      <Link href="/home" className={styles["name-logo"]}>Lucas Oliveira</Link>
       <div className={styles["header-desktop__header-menu"]}>
         {LINK_ITEMS.map((item) => (
           <HeaderItem key={item.title} title={item.title} link={item.link} />

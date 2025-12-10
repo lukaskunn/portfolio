@@ -4,7 +4,7 @@ import styles from "../../../../styles/css/header.module.css";
 
 const DownloadResumeButton = () => {
   return (
-    <HeaderItem link='/temp-link' title='My Resume'/>
+    <HeaderItem link='https://drive.google.com/file/d/12EiJ8H6GPwLhGk97YTjIdE1g1W3HkZ44/view' title='My Resume'/>
   )
 }
 

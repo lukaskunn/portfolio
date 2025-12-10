@@ -1,10 +1,20 @@
+@use "../references" as ref;
+
 .header {
   position: fixed;
-  width: 100%;
+  width: 100vw;
 
   display: flex;
   justify-content: center;
 
   left: 0px;
-  top: 40px;
+  top: 12px;
+  // padding: 28px 0;
+
+  z-index: 999;
+
+  @include ref.respond-to(mb) {
+    top: 0px;
+    // padding: 16px 0;
+  }
 }

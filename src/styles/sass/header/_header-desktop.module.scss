@@ -3,22 +3,33 @@
 .header-desktop {
   display: flex;
   width: 100%;
-  max-width: 1360px;
+  max-width: 1400px;
 
   justify-content: space-between;
   align-items: center;
 
-  @media screen and (max-width: 769px) {
+  background: #e5e5dd00;
+  // background: white;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  // mix-blend-mode: difference;
+
+
+  padding: 28px 20px;
+  border-radius: 16px;
+
+  @include ref.respond-to(mb) {
     display: none;
   }
 
   .name-logo {
-    font-family: ref.$title-font;
-    font-weight: bold;
+    font-family: ref.$gloock-font;
+    font-weight: 500;
     font-size: 24px;
     line-height: 100%;
     color: ref.$primary-color;
-    letter-spacing: -0.07rem;
+    // letter-spacing: -0.07rem;
 
     text-decoration: none;
   }
