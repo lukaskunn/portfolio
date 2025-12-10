@@ -1,4 +1,4 @@
-@use "references" as ref;
+@use "references" as *;
 
 @font-face {
   font-family: 'Akshar';
@@ -47,9 +47,9 @@
 }
 
 html {
-  background-color: ref.$background-color-main;
-  color: ref.$primary-color;
-  font-family: ref.$primary-text-font;
+  background-color: $background-color-main;
+  color: $primary-color;
+  font-family: $primary-text-font;
   font-size: 16px; // Base font size
   line-height: 1.5; // Improved readability
   -webkit-text-size-adjust: 100%; // Prevent font scaling in landscape on iOS
@@ -67,8 +67,13 @@ body {
   padding: 0;
   min-height: 100vh;
   width: 100%;
+  padding: 0 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-rendering: optimizeSpeed; // Improve rendering performance
+
+  @include respond-to(mobile-768) {
+    padding: 0 20px;
+  }
 }

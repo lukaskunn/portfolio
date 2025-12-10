@@ -33,7 +33,7 @@
   position: relative;
   transition: .2s opacity cubic-bezier(.79, .01, .69, 1);
 
-  @include ref.respond-to(mb) {
+  @include ref.respond-to(mobile-768) {
     display: none;
   }
 
@@ -71,7 +71,7 @@
 }
 
 .white-circle {
-  @include ref.respond-to(mb) {
+  @include ref.respond-to(mobile-768) {
     display: none;
   }
 }

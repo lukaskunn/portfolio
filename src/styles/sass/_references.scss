@@ -15,37 +15,37 @@ $secondary-text-font: var(--font-roboto);
 $gloock-font: var(--font-gloock);
 
 @mixin respond-to($breakpoint) {
-  @if $breakpoint ==xs {
+  @if $breakpoint ==mobile-375 {
     @media screen and (max-width: 375px) {
       @content;
     }
   }
 
-  @else if $breakpoint ==xm {
+  @else if $breakpoint ==mobile-480 {
     @media screen and (max-width: 480px) {
       @content;
     }
   }
 
-  @else if $breakpoint ==mb {
+  @else if $breakpoint ==mobile-768 {
     @media screen and (max-width: 768px) {
       @content;
     }
   }
 
-  @else if $breakpoint ==tb {
+  @else if $breakpoint ==tablet-1024 {
     @media screen and (max-width: 1024px) {
       @content;
     }
   }
 
-  @else if $breakpoint ==dt {
+  @else if $breakpoint ==desktop-1440 {
     @media screen and (max-width: 1440px) {
       @content;
     }
   }
 
-  @else if $breakpoint ==lg {
+  @else if $breakpoint ==desktop-1920 {
     @media screen and (min-width: 1920px) {
       @content;
     }
@@ -82,7 +82,7 @@ $gloock-font: var(--font-gloock);
 }
 
 @mixin text-box-text {
-  font-family: $secondary-text-font;
+  font-family: $primary-text-font;
   font-weight: 400;
   font-size: 26px;
   line-height: normal;
