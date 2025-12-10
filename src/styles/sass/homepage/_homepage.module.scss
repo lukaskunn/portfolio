@@ -1,7 +1,13 @@
+@use "../references" as ref;
+
 .main {
   display: flex;
   flex-direction: column;
   align-items: center;
 
   flex: 1 0 auto;
+
+  @include ref.respond-to(mb) {
+    padding: 0 20px;
+  }
 }

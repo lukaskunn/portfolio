@@ -1,0 +1,50 @@
+@use "../references" as *;
+
+$border-color: rgba(43, 43, 43, 0.05);
+$alternate-background-color: #e2e2dd;
+
+.grid-container {
+  background: #000000;
+  background: radial-gradient(circle, rgba(43, 43, 43, 0.336) 0%, rgba( $background-color-main, 1) 53%);
+  width: 100vw;
+  height: 100vh;
+
+  position: fixed;
+  z-index: -1;
+
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1px;
+
+  .grid-item {
+    background: $background-color-main;
+
+    &.grid-2, &.grid-7, &.grid-9, &.grid-12, &.grid-16, &.grid-21 {
+      background: $alternate-background-color;
+    }
+
+    &.grid-2, &.grid-3, .grid-20, &.grid-21 {
+      border-left: 1px solid $border-color;
+      border-right: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+    }
+
+    &.grid-12, &.grid-13 {
+      border-top: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+    }
+
+    &.grid-12, &.grid-16 {
+      border-right: 1px solid $border-color;
+    }
+
+    &.grid-16, &.grid-17 {
+      border-top: 1px solid $border-color;
+    }
+
+    &.grid-16 {
+      border-bottom: 1px solid $border-color;
+    }
+  }
+}

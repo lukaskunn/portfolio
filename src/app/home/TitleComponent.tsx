@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import styles from "@/styles/css/Homepage.module.css";
 import Clock from './Clock';
@@ -12,6 +13,17 @@ const TitleComponent = () => {
         </span>
         <span className={`${styles["subtitle-text"]} ${styles["current-location"]}`}>
           / Based in São Paulo, Brazil. <strong><Clock /></strong>
+        </span>
+      </div>
+      <div className={styles["subtitle-container-mobile"]}>
+        <span className={styles["subtitle-text"]}>
+          / WEB DESIGN (UI/UX)
+        </span>
+        <span className={styles["subtitle-text"]}>
+          / WEB DEVELOPER
+        </span>
+        <span className={styles["subtitle-text"]}>
+          / SOFTWARE ENGINEER
         </span>
       </div>
     </div>

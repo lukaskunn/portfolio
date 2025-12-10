@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import Image from 'next/image';
 import styles from '@/styles/css/Homepage.module.css';
@@ -33,12 +34,12 @@ const HomeImage: React.FC<HomeImageProps> = ({
         className={styles['home-image']}
         priority
       />
-      <div className={styles['block-box']} />
+      {/* <div className={styles['block-box']} />
       <div className={styles['text-block']}>
         {lines.map((line) => (
           <span key={line} className={styles['text']}>{line}</span>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

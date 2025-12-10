@@ -9,19 +9,35 @@ $box-text-bottom: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
   max-width: 1360px;
 
-  position: relative;
-  top: 80px;
-  left: 80px;
+  position: absolute;
+  top: 670px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-  z-index: 0;
+  z-index: 1;
+
+  @include ref.respond-to(mb) {
+    position: absolute;
+    bottom: 46px;
+    top: auto;
+    left: 20px;
+    // display: none;
+  }
 
   .home-image {
     max-width: 100%;
+    width: 500px;
+    border-radius: 50%;
     height: auto;
     z-index: 2;
+
+    @include ref.respond-to(mb) {
+      width: 100%;
+      max-width: 322px;
+    }
   }
 
   .block-box {
@@ -32,8 +48,15 @@ $box-text-bottom: 56px;
     height: 345px;
     background: #D0D0D0;
     z-index: 1;
+
+    @include ref.respond-to(mb) {
+      left: 0px;
+      bottom: $box-bottom;
+      width: 384px;
+      height: 239px;
+    }
   }
-  
+
   .text-block {
     position: absolute;
     bottom: calc($box-bottom + $box-text-bottom);
@@ -42,6 +65,10 @@ $box-text-bottom: 56px;
 
     display: flex;
     flex-direction: column;
+
+    @include ref.respond-to(mb) {
+      display: none
+    }
 
     .text {
       @include ref.text-box-text;
