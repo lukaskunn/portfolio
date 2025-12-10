@@ -10,21 +10,21 @@ $box-text-bottom: 56px;
   align-items: center;
   justify-content: center;
   width: 100vw;
-  max-width: 1360px;
+  max-width: 1440px;
 
   position: absolute;
   top: 600px;
-  left: 50%;
+  left: 51.5%;
   transform: translate(-50%, -50%);
 
   z-index: 1;
 
-  @include respond-to(dt) {
+  @include respond-to(desktop-1440) {
     top: 540px;
     left: 52%;
   }
 
-  @include respond-to(mb) {
+ @include respond-to(mobile-768) {
     position: absolute;
     bottom: 30px;
     top: auto;
@@ -39,12 +39,12 @@ $box-text-bottom: 56px;
     border-radius: 50%;
     height: auto;
     z-index: 2;
-    
-    @include respond-to(dt) {
+
+    @include respond-to(desktop-1440) {
       width: 380px;
     }
-    
-    @include respond-to(mb) {
+
+    @include respond-to(mobile-768) {
       width: 100%;
       max-width: 297px;
       height: 305px;
@@ -55,6 +55,7 @@ $box-text-bottom: 56px;
   }
 
   .block-box {
+    display: none;
     position: absolute;
     left: $box-left;
     bottom: $box-bottom;
@@ -63,7 +64,8 @@ $box-text-bottom: 56px;
     background: #D0D0D0;
     z-index: 1;
 
-    @include respond-to(mb) {
+    @include respond-to(mobile-768) {
+      display: flex;
       left: 0px;
       bottom: $box-bottom;
       width: 384px;
@@ -80,7 +82,7 @@ $box-text-bottom: 56px;
     display: flex;
     flex-direction: column;
 
-    @include respond-to(mb) {
+    @include respond-to(mobile-768) {
       display: none
     }
 

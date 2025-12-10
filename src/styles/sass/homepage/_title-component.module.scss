@@ -6,20 +6,25 @@
   align-items: flex-start;
   justify-content: center;
   // gap: 16px;
-  max-width: 1360px;
+  max-width: 1440px;
   width: 100%;
 
   position: relative;
   top: 120px;
 
-  @include respond-to(dt) {
+  @include respond-to(desktop-1440) {
+     padding: 0 40px
+  }
+
+  @include respond-to(tablet-1024) {
     max-width: 1200px;
+    padding: 0;
     top: 120px;
   }
 
 
   .title-text {
-    @include title-style(226px, 0.95, 0);
+    @include title-style(240px, 0.95, 0);
     text-align: center;
     margin: 0;
 
@@ -30,11 +35,15 @@
     user-select: none;
     cursor: default;
 
-    @include respond-to(dt) {
-      @include title-style(200px, 0.95, 0);
+    @include respond-to(desktop-1440) {
+      @include title-style(225px, 0.95, 0);
     }
 
-    @include respond-to(mb) {
+    @include respond-to(tablet-1024) {
+      @include title-style(156px, 0.95, 0);
+    }
+
+    @include respond-to(mobile-768) {
       @include title-style(58px, 1, 0);
       text-align: left;
     }
@@ -47,10 +56,10 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    z-index: 2;
+    z-index: 1;
     margin-top: -10px;
 
-    @include respond-to(mb) {
+    @include respond-to(mobile-768) {
       display: none;
       flex-direction: column;
       align-items: flex-start;
@@ -58,11 +67,11 @@
     }
 
     .subtitle-text {
-      @include subtitle-style(18px, 1, -0.02rem);
+      @include subtitle-style(16px, 1, -0.02rem);
       margin: 0;
 
-      @include respond-to(mb) {
-        @include subtitle-style(16px, 1, -0.02rem);
+      @include respond-to(mobile-768) {
+        @include subtitle-style(14px, 1, -0.02rem);
         font-weight: 300;
       }
 
@@ -80,7 +89,7 @@
   .subtitle-container-mobile {
     display: none;
 
-    @include respond-to(mb) {
+    @include respond-to(mobile-768) {
       margin-top: 8px;
       display: flex;
       flex-direction: column;
