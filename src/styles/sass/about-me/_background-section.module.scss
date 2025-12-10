@@ -1,0 +1,55 @@
+@use '../references' as *;
+
+// Background Section
+.background-section {
+  width: 100%;
+  margin-bottom: 80px;
+  border-top: 2px solid $primary-color;
+  padding: 16px 0 0;
+
+  @include respond-to(mb) {
+    border-top: none;
+  }
+}
+
+.section-layout {
+  display: grid;
+  grid-template-columns: 1fr 742px;
+  gap: 60px;
+  width: 100%;
+
+  @include respond-to(tb) {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.section-title {
+  @include title-style(28px, 1.2, -0.01em);
+  margin: 0;
+  font-weight: 600;
+
+  @include respond-to(mb) {
+    font-size: 24px;
+    border-bottom: 2px solid $primary-color;
+    padding: 0 0 8px;
+  }
+}
+
+.section-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.content-paragraph {
+  @include text-box-text;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: $secondary-color;
+
+  @include respond-to(mb) {
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,26 @@
+@use '../references' as *;
+
+// Intro Section
+.intro-section {
+  width: 100%;
+}
+
+.intro-box {
+  max-width: 900px;
+  background: transparent;
+  margin-bottom: 156px;
+
+  @include respond-to(mb) {
+    margin-bottom: 80px;
+  }
+}
+
+.intro-text {
+  @include text-box-text;
+  margin: 0;
+
+  @include respond-to(mb) {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}

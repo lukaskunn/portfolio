@@ -1,0 +1,20 @@
+@use '../references' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+
+  width: 100%;
+  max-width: 1360px;
+  padding: 330px 0px 120px;
+  margin: 0 auto;
+
+  @include respond-to(mb) {
+    padding: 150px 40px 80px;
+  }
+
+  @include respond-to(xm) {
+    padding: 120px 20px 60px;
+  }
+}

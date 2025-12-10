@@ -1,0 +1,110 @@
+@use '../references' as *;
+
+// Certifications Section
+.certifications-section {
+  width: 100%;
+  margin-bottom: 80px;
+  border-top: 2px solid $primary-color;
+  padding: 16px 0 0;
+
+  @include respond-to(mb) {
+    border-top: none;
+  }
+}
+
+.section-layout {
+  display: grid;
+  grid-template-columns: 1fr 742px;
+  gap: 60px;
+  width: 100%;
+
+  @include respond-to(tb) {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.section-title {
+  @include title-style(28px, 1.2, -0.01em);
+  margin: 0;
+  font-weight: 600;
+
+  @include respond-to(mb) {
+    font-size: 24px;
+    border-bottom: 2px solid $primary-color;
+    padding: 0 0 8px;
+  }
+}
+
+.certifications-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 20px;
+  padding: 0px 0 32px;
+
+  @include respond-to(mb) {
+    border-top: none;
+    padding: 0px 0 8px;
+    grid-template-columns: 1fr 120px;
+    gap: 16px;
+  }
+}
+
+.header-cell {
+  @include subtitle-style(16px, 1.4, -0.01em);
+  font-weight: 400;
+
+  &:last-child {
+    text-align: right;
+  }
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 20px;
+  padding: 8px 0 32px;
+  border-top: 2px solid $primary-color;
+
+  &:last-child {
+    border-bottom: none;
+    padding: 8px 0 0;
+  }
+
+  @include respond-to(mb) {
+    grid-template-columns: 1fr 120px;
+    gap: 16px;
+    padding: 8px 0 32px;
+  }
+
+  &>.cell-text {
+    font-weight: normal;
+  }
+}
+
+.row-content {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.cell-text {
+  font-family: $secondary-text-font;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.5;
+  color: $primary-color;
+  text-align: right;
+
+  @include respond-to(mb) {
+    font-size: 16px;
+  }
+}
