@@ -1,4 +1,4 @@
-@use "../references" as ref;
+@use "../references" as *;
 
 $box-left: 80px;
 $box-bottom: 24px;
@@ -13,31 +13,45 @@ $box-text-bottom: 56px;
   max-width: 1360px;
 
   position: absolute;
-  top: 670px;
+  top: 600px;
   left: 50%;
   transform: translate(-50%, -50%);
 
   z-index: 1;
 
-  @include ref.respond-to(mb) {
+  @include respond-to(dt) {
+    top: 540px;
+    left: 52%;
+  }
+
+  @include respond-to(mb) {
     position: absolute;
-    bottom: 46px;
+    bottom: 30px;
     top: auto;
-    left: 20px;
+    left: 14px;
+    transform: none;
     // display: none;
   }
 
   .home-image {
     max-width: 100%;
-    width: 500px;
+    width: 450px;
     border-radius: 50%;
     height: auto;
     z-index: 2;
-
-    @include ref.respond-to(mb) {
-      width: 100%;
-      max-width: 322px;
+    
+    @include respond-to(dt) {
+      width: 380px;
     }
+    
+    @include respond-to(mb) {
+      width: 100%;
+      max-width: 297px;
+      height: 305px;
+      object-fit: cover;
+      border-radius: 0%;
+    }
+
   }
 
   .block-box {
@@ -49,7 +63,7 @@ $box-text-bottom: 56px;
     background: #D0D0D0;
     z-index: 1;
 
-    @include ref.respond-to(mb) {
+    @include respond-to(mb) {
       left: 0px;
       bottom: $box-bottom;
       width: 384px;
@@ -66,12 +80,12 @@ $box-text-bottom: 56px;
     display: flex;
     flex-direction: column;
 
-    @include ref.respond-to(mb) {
+    @include respond-to(mb) {
       display: none
     }
 
     .text {
-      @include ref.text-box-text;
+      @include text-box-text;
     }
   }
 }

@@ -1,4 +1,4 @@
-@use "../references" as ref;
+@use "../references" as *;
 
 .title-container {
   display: flex;
@@ -10,25 +10,35 @@
   width: 100%;
 
   position: relative;
-  top: 200px ;
+  top: 120px;
 
-  
+  @include respond-to(dt) {
+    max-width: 1200px;
+    top: 120px;
+  }
+
+
   .title-text {
-    @include ref.title-style(226px, 0.95, 0);
+    @include title-style(226px, 0.95, 0);
     text-align: center;
     margin: 0;
-    
+
     position: relative;
     z-index: 1;
-    
+
     pointer-events: none;
     user-select: none;
     cursor: default;
 
-    @include ref.respond-to(mb) {
-      @include ref.title-style(72px, 72px, -0.4rem);
+    @include respond-to(dt) {
+      @include title-style(200px, 0.95, 0);
+    }
+
+    @include respond-to(mb) {
+      @include title-style(58px, 1, 0);
       text-align: left;
     }
+
   }
 
   .subtitle-container {
@@ -40,25 +50,25 @@
     z-index: 2;
     margin-top: -10px;
 
-    @include ref.respond-to(mb) {
-      // display: none
+    @include respond-to(mb) {
+      display: none;
       flex-direction: column;
       align-items: flex-start;
       gap: 8px
     }
 
     .subtitle-text {
-      @include ref.subtitle-style(18px, auto, -0.02rem);
+      @include subtitle-style(18px, 1, -0.02rem);
       margin: 0;
-      
-      @include ref.respond-to(mb) {
-        @include ref.subtitle-style(16px, auto, -0.02rem);
+
+      @include respond-to(mb) {
+        @include subtitle-style(16px, 1, -0.02rem);
         font-weight: 300;
       }
 
       a {
         text-decoration: none;
-        color: ref.$primary-color;
+        color: $primary-color;
       }
 
       strong {
@@ -70,15 +80,15 @@
   .subtitle-container-mobile {
     display: none;
 
-    @include ref.respond-to(mb) {
-      margin-top: 24px;
+    @include respond-to(mb) {
+      margin-top: 8px;
       display: flex;
       flex-direction: column;
     }
 
     .subtitle-text {
-      @include ref.subtitle-style(18px, auto, -0.02rem);
-      margin: 0 0 8px 0;
+      @include subtitle-style(18px, 1.2, -0.02rem);
+      margin: 0 0 4px 0;
       font-weight: normal;
     }
   }

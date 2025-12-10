@@ -64,7 +64,7 @@ $gloock-font: var(--font-gloock);
 }
 
 @mixin subtitle-style($font-size, $line-height, $letter-spacing) {
-  font-family: $secondary-text-font;
+  font-family: $primary-text-font;
   font-weight: 500;
   font-size: $font-size;
   line-height: $line-height;

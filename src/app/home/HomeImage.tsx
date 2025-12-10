@@ -34,8 +34,8 @@ const HomeImage: React.FC<HomeImageProps> = ({
         className={styles['home-image']}
         priority
       />
-      {/* <div className={styles['block-box']} />
-      <div className={styles['text-block']}>
+      <div className={styles['block-box']} />
+      {/* <div className={styles['text-block']}>
         {lines.map((line) => (
           <span key={line} className={styles['text']}>{line}</span>
         ))}

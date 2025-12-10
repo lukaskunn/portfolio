@@ -1,4 +1,4 @@
-@use "../references" as ref;
+@use "../references" as *;
 
 .header-mobile {
   display: none;
@@ -9,21 +9,21 @@
   -webkit-backdrop-filter: blur(20px);
   padding: 16px 20px;
 
-  @include ref.respond-to(mb) {
+  @include respond-to(mb) {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
   .open-menu-button {
-    @include ref.menu-item;
+    @include menu-item;
     padding: 0;
     background: none;
     border: none;
   }
 
   .name-logo {
-    font-family: ref.$title-font;
+    font-family: $title-font;
     font-size: 18px;
     font-weight: bold;
     color: #000;
@@ -48,11 +48,11 @@
 
   padding: 20px 0px;
 
-  @include ref.respond-to(mb) {
+  @include respond-to(mb) {
     display: flex;
   }
 
-  @include ref.respond-to(mb) {
+  @include respond-to(mb) {
     display: flex;
   }
 
@@ -72,7 +72,7 @@
     align-items: center;
 
     .name-logo {
-      font-family: ref.$title-font;
+      font-family: $title-font;
       font-size: 18px;
       font-weight: bold;
       color: #E5E5DD;
@@ -81,7 +81,7 @@
     }
 
     .open-menu-button {
-      @include ref.menu-item;
+      @include menu-item;
       color: #E5E5DD;
       padding: 0;
 
@@ -98,16 +98,16 @@
     width: calc(100% - 40px);
 
     .navigation-item {
-      @include ref.menu-item;
+      @include menu-item;
       font-size: 64px;
       font-weight: bold;
-      font-family: ref.$title-font;
+      font-family: $title-font;
       text-decoration: none;
       background: unset;
 
       color: #E5E5DD;
 
-      @include ref.respond-to(xs) {
+      @include respond-to(xs) {
         font-size: 48px;
       }
     }
@@ -121,7 +121,7 @@
     flex-direction: column;
     gap: 78px;
 
-    @include ref.respond-to(xs) {
+    @include respond-to(xs) {
       gap: 32px
     }
 
