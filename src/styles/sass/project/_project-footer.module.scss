@@ -1,0 +1,144 @@
+@use '../references' as *;
+
+.project-footer {
+  width: 100%;
+  padding: 0px;
+
+  @include respond-to(mb) {
+    padding: 0px 0 80px;
+  }
+}
+
+.footer-navigation {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 180px;
+
+  @include respond-to(tb) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    text-align: center;
+    margin-bottom: 80px;
+  }
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  gap: 12px;
+  text-decoration: none;
+  color: $primary-color;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:last-child {
+    justify-content: flex-end;
+
+    @include respond-to(tb) {
+      justify-content: center;
+    }
+  }
+
+  @include respond-to(tb) {
+    justify-content: center;
+  }
+}
+
+.nav-icon {
+  @include title-style(20px, 1, 0);
+  font-weight: 400;
+  margin-bottom: -4px;
+}
+
+.nav-text {
+  @include text-box-text;
+  font-size: 24px;
+  font-family: $primary-text-font;
+
+  @include respond-to(mb) {
+    font-size: 16px;
+  }
+}
+
+.footer-center {
+  text-align: center;
+
+  @include respond-to(mb) {
+    order: -1;
+  }
+
+  & + .nav-link {
+    @include respond-to(tb) {
+      display: none
+    }
+  }
+}
+
+.footer-message {
+  @include text-box-text;
+  font-family: $primary-text-font;
+  font-size: 24px;
+  margin: 0;
+
+  @include respond-to(mb) {
+    font-size: 14px;
+  }
+}
+
+.cta-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @include respond-to(mb) {
+    padding: 40px 0;
+  }
+}
+
+.cta-subtitle {
+  @include text-box-text;
+  font-size: 36px;
+  margin: 0;
+
+  @include respond-to(mb) {
+    font-size: 16px;
+  }
+}
+
+.cta-title {
+  @include title-style(150px, 1, -0.06em);
+  margin: 0;
+  text-decoration: none;
+  color: $primary-color;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  @include respond-to(mb) {
+    font-size: 72px;
+  }
+}
+
+.cta-icon {
+  @include title-style(60px, 1, 0);
+  font-weight: 400;
+
+  @include respond-to(mb) {
+    font-size: 40px;
+  }
+
+  @include respond-to(xm) {
+    font-size: 32px;
+  }
+}

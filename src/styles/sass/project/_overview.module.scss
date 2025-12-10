@@ -1,0 +1,117 @@
+@use '../references' as *;
+
+.overview-section {
+  width: 100%;
+  margin-bottom: 120px;
+
+  @include respond-to(mb) {
+    margin-bottom: 80px;
+  }
+}
+
+.overview-header {
+  margin-bottom: 100px;
+
+  @include respond-to(mb) {
+    margin-bottom: 40px;
+  }
+}
+
+.project-title {
+  @include title-style(150px, 182px, -0.06em);
+  margin: 0 0 0px;
+
+  @include respond-to(mb) {
+    font-size: 64px;
+    margin: 0 0 32px;
+  }
+
+  @include respond-to(xm) {
+    font-size: 48px;
+  }
+}
+
+.project-meta {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+
+  @include respond-to(tb) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 42px;
+  }
+
+  @include respond-to(mb) {
+    grid-template-columns: 1fr;
+  }
+
+  @include respond-to(xm) {
+    gap: 24px;
+  }
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  // gap: 8px;
+}
+
+.meta-label {
+  @include text-box-text;
+  font-size: 14px;
+  text-transform: lowercase;
+}
+
+.meta-value {
+  @include subtitle-style(16px, 1.4, -0.01em);
+  font-weight: 600;
+  text-transform: uppercase;
+
+  @include respond-to(mb) {
+    font-size: 14px;
+  }
+}
+
+.overview-content {
+  margin-bottom: 60px;
+
+  @include respond-to(mb) {
+    margin-bottom: 40px;
+  }
+}
+
+.description-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 60px;
+
+  @include respond-to(tb) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.description-text {
+  @include text-box-text;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+
+  @include respond-to(mb) {
+    font-size: 15px;
+  }
+}
+
+.main-image-wrapper {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}

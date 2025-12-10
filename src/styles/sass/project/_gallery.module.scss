@@ -1,0 +1,33 @@
+@use '../references' as *;
+
+.gallery-section {
+  width: 100%;
+  margin-bottom: 64px;
+
+  @include respond-to(mb) {
+    margin-bottom: 32px;
+  }
+}
+
+.gallery-title {
+  @include title-style(36px, 1.2, -0.02em);
+  margin: 0 0 6px;
+  text-align: center;
+  font-weight: 700;
+  font-family: $secondary-text-font;
+
+  @include respond-to(mb) {
+    font-size: 24px;
+    margin: 0 0 40px;
+  }
+}
+
+.gallery-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include respond-to(mb) {
+    gap: 32px;
+  }
+}
