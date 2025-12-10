@@ -12,6 +12,7 @@
   
   @include respond-to(mb) {
     width: calc(100% - 40px);
+    padding: 150px 0 0;
   }
 
   .title {
@@ -27,7 +28,7 @@
     
     @include respond-to(xm) {
       @include title-style(72px, 72px, -0.08em);
-      margin: 0 0 164px;
+      margin: 0 0 100px;
     }
     
     
