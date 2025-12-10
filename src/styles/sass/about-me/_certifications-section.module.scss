@@ -56,8 +56,8 @@
 }
 
 .header-cell {
-  @include subtitle-style(16px, 1.4, -0.01em);
-  font-weight: 400;
+  @include subtitle-style(18px, 1, -0.01em);
+  font-weight: 700;
 
   &:last-child {
     text-align: right;
