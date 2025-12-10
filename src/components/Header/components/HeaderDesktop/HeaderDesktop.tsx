@@ -11,7 +11,7 @@ const LINK_ITEMS = [
   { title: "Home", link: "/home" },
   { title: "Projects", link: "/projects" },
   { title: "About Me", link: "/about-me" },
-  { title: "Blog", link: "/blog" }
+  // { title: "Blog", link: "/blog" }
 ];
 
 const HeaderDesktop = () => {
