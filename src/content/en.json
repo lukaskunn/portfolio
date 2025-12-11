@@ -96,51 +96,150 @@
     "backToProjectsText": "Back to projects",
     "projects": [
       {
-        "projectId": "motorola-europe-store",
-        "title": "[ Motorola Europe E-commerce Store ]",
-        "description": "Vtex IO + React",
-        "briefDescription": "In my current role at Motorola Europe, I am spearheading the development of a groundbreaking re-branded layout for the Motorola Europe e-commerce store. Collaborating closely with a team of skilled developers and designers, our mission is to elevate the online shopping experience for Motorola customers across Europe.</>Leveraging cutting-edge technologies such as Vtex IO, React, TypeScript, and Node.js, we are not only revamping the store's aesthetics but also enhancing its performance and usability. My role involves conceptualizing and implementing innovative features that seamlessly integrate into the new layout, ensuring a smooth and intuitive user journey.</> A pivotal aspect of this project has been my involvement with the Vtex API, enabling me to introduce new functionalities and optimize the store's performance. By harnessing the power of this API, we have been able to unlock new possibilities and push the boundaries of what the e-commerce platform can achieve.</>One of the most rewarding achievements of this endeavor has been the creation of the new Motoverse pages layout. By developing a custom no-code builder for each page, we hpave empowered the marketing team to generate dynamic new pages autonomously, without the reliance on a developer. This innovation not only streamlines the content creation process but also fosters agility and flexibility within the organization.</>As we continue to refine and evolve the Motorola Europe e-commerce store, I am excited to be at the forefront of delivering a truly transformative digital experience for our customers.",
-        "urlToProject": "https://www.motorola.co.uk",
-        "galleryBackground": "/assets/images/projects/motorola_europe/image_modal.png",
-        "imageAlt": "Motorola Europe Project Image",
-        "galleryBackgroundColor": "#922724",
-        "technologies": [
-          "React",
-          "Vtex IO",
-          "TypeScript",
-          "Node.js"
+        "overview": {
+          "projectId": "casa-dexco",
+          "galleryBackground": "/assets/images/projects/motorola_europe/image_modal.png",
+          "imageAlt": "Casa dexco Project Image",
+          "galleryBackgroundColor": "#922724",
+          "title": "[ Casa Dexco ]",
+          "type": "Institucional Website",
+          "service": "Web Development",
+          "industry": "House & Design",
+          "year": "2025",
+          "description": "Casa Dexco is a leading home improvement and construction company in Brazil, known for its commitment to quality and customer satisfaction. The project involved developing a modern and user-friendly website that showcases their extensive range of products and services. By leveraging the latest web technologies, we created an engaging online platform that allows customers to easily explore Casa Dexco's offerings, access valuable resources, and connect with their team for personalized assistance. The new website not only enhances the user experience but also strengthens Casa Dexco's digital presence in the competitive home improvement market.",
+          "mainImageUrl": "/assets/images/projects/motorola_europe/image_modal.png"
+        },
+        "gallery": [
+          {
+            "type": "text-bigimage",
+            "text": "This is a detailed explanation of the project with a big image on the right.",
+            "rightImageUrl": "/images/project-image1.png",
+            "caption": "Caption for the first image"
+          },
+          {
+            "type": "bigimage-text",
+            "leftImageUrl": "/images/project-image2.png",
+            "text": "Another section with a big image on the left and text on the right.",
+            "caption": "Caption for the second image"
+          },
+          {
+            "type": "image-only",
+            "leftImageUrl": "/images/project-image3.png",
+            "caption": "Caption for the third image"
+          }
         ],
-        "galleryImages": [
-          [
-            {
-              "front": "/assets/images/projects/motorola_europe/image_7.png",
-              "back": "/assets/images/projects/motorola_europe/image_8.png",
-              "photoText": "[Motoverse Homepage]"
-            },
-            {
-              "front": "/assets/images/projects/motorola_europe/image_9.png",
-              "back": "/assets/images/projects/motorola_europe/image_10.png",
-              "photoText": "[Motoverse Landing Page]"
-            }
-          ],
-          [
-            {
-              "front": "/assets/images/projects/motorola_europe/image_1.png",
-              "back": "/assets/images/projects/motorola_europe/image_2.png",
-              "photoText": "[Homepage]"
-            },
-            {
-              "front": "/assets/images/projects/motorola_europe/image_3.png",
-              "back": "/assets/images/projects/motorola_europe/image_3.png",
-              "photoText": "[Product Page]"
-            },
-            {
-              "front": "/assets/images/projects/motorola_europe/image_5.png",
-              "back": "/assets/images/projects/motorola_europe/image_6.png",
-              "photoText": "[Family Page]"
-            }
-          ]
-        ]
+        "footer": {
+          "linkToNextProject": "/project/next-project"
+        }
+      },
+      {
+        "overview": {
+          "projectId": "Casa Dexco E-commerce Store",
+          "galleryBackground": "",
+          "imageAlt": "",
+          "galleryBackgroundColor": "#922724",
+          "title": "[ Casa Dexco E-commerce Store ]",
+          "type": "E-commerce",
+          "service": "Web Development",
+          "industry": "House & Design",
+          "year": "2025",
+          "description": "Casa Dexco is expanding its digital footprint with the launch of a new e-commerce platform designed to provide customers with a seamless online shopping experience. This project focuses on creating an intuitive and visually appealing website that showcases Casa Dexco's extensive range of home improvement products. By integrating advanced search functionalities, personalized recommendations, and secure payment options, we aim to enhance customer satisfaction and drive sales growth. The e-commerce store is built using cutting-edge technologies to ensure optimal performance, scalability, and responsiveness across all devices. This initiative reflects Casa Dexco's commitment to innovation and customer-centric solutions in the home improvement industry.",
+          "mainImageUrl": "/assets/images/projects/motorola_europe/image_modal.png"
+        },
+        "gallery": [
+          {
+            "type": "text-bigimage",
+            "text": "This is a detailed explanation of the project with a big image on the right.",
+            "rightImageUrl": "/images/project-image1.png",
+            "caption": "Caption for the first image"
+          },
+          {
+            "type": "bigimage-text",
+            "leftImageUrl": "/images/project-image2.png",
+            "text": "Another section with a big image on the left and text on the right.",
+            "caption": "Caption for the second image"
+          },
+          {
+            "type": "image-only",
+            "leftImageUrl": "/images/project-image3.png",
+            "caption": "Caption for the third image"
+          }
+        ],
+        "footer": {
+          "linkToNextProject": "/project/next-project"
+        }
+      },
+      {
+        "overview": {
+          "galleryBackground": "/assets/images/projects/motorola_europe/image_modal.png",
+          "imageAlt": "Motoverse",
+          "galleryBackgroundColor": "#922724",
+          "title": "[ Motoverse ]",
+          "type": "Institucional Website",
+          "service": "Web Development",
+          "industry": "Technology",
+          "year": "2024",
+          "description": "Motoverse is an innovative online platform developed for Motorola Europe, designed to provide users with an immersive and interactive experience. The project involved creating a visually stunning website that showcases Motorola's latest products, technologies, and brand initiatives. By utilizing cutting-edge web development techniques, we crafted a dynamic and engaging interface that allows users to explore the Motoverse universe seamlessly. The platform features rich multimedia content, interactive product displays, and user-friendly navigation, all aimed at enhancing the overall user experience. Motoverse serves as a testament to Motorola's commitment to innovation and excellence in the digital space.",
+          "mainImageUrl": "/assets/images/projects/motorola_europe/image_modal.png"
+        },
+        "gallery": [
+          {
+            "type": "text-bigimage",
+            "text": "This is a detailed explanation of the project with a big image on the right.",
+            "rightImageUrl": "/images/project-image1.png",
+            "caption": "Caption for the first image"
+          },
+          {
+            "type": "bigimage-text",
+            "leftImageUrl": "/images/project-image2.png",
+            "text": "Another section with a big image on the left and text on the right.",
+            "caption": "Caption for the second image"
+          },
+          {
+            "type": "image-only",
+            "leftImageUrl": "/images/project-image3.png",
+            "caption": "Caption for the third image"
+          }
+        ],
+        "footer": {
+          "linkToNextProject": "/project/next-project"
+        }
+      },
+      {
+        "overview": {
+          "galleryBackground": "/assets/images/projects/motorola_europe/image_modal.png",
+          "imageAlt": "Motorola Europe Project Image",
+          "galleryBackgroundColor": "#922724",
+          "title": "[ Motorola Europe E-commerce Store ]",
+          "type": "E-commerce",
+          "service": "Web Development",
+          "industry": "Technology",
+          "year": "2024",
+          "description": "In my current role at Motorola Europe, I am spearheading the development of a groundbreaking re-branded layout for the Motorola Europe e-commerce store. Collaborating closely with a team of skilled developers and designers, our mission is to elevate the online shopping experience for Motorola customers across Europe.</>Leveraging cutting-edge technologies such as Vtex IO, React, TypeScript, and Node.js, we are not only revamping the store's aesthetics but also enhancing its performance and usability. My role involves conceptualizing and implementing innovative features that seamlessly integrate into the new layout, ensuring a smooth and intuitive user journey.</> A pivotal aspect of this project has been my involvement with the Vtex API, enabling me to introduce new functionalities and optimize the store's performance. By harnessing the power of this API, we have been able to unlock new possibilities and push the boundaries of what the e-commerce platform can achieve.</>One of the most rewarding achievements of this endeavor has been the creation of the new Motoverse pages layout. By developing a custom no-code builder for each page, we hpave empowered the marketing team to generate dynamic new pages autonomously, without the reliance on a developer. This innovation not only streamlines the content creation process but also fosters agility and flexibility within the organization.</>As we continue to refine and evolve the Motorola Europe e-commerce store, I am excited to be at the forefront of delivering a truly transformative digital experience for our customers.",
+          "mainImageUrl": "/assets/images/projects/motorola_europe/image_modal.png"
+        },
+        "gallery": [
+          {
+            "type": "text-bigimage",
+            "text": "This is a detailed explanation of the project with a big image on the right.",
+            "rightImageUrl": "/images/project-image1.png",
+            "caption": "Caption for the first image"
+          },
+          {
+            "type": "bigimage-text",
+            "leftImageUrl": "/images/project-image2.png",
+            "text": "Another section with a big image on the left and text on the right.",
+            "caption": "Caption for the second image"
+          },
+          {
+            "type": "image-only",
+            "leftImageUrl": "/images/project-image3.png",
+            "caption": "Caption for the third image"
+          }
+        ],
+        "footer": {
+          "linkToNextProject": "/project/next-project"
+        }
       },
       {
         "projectId": "personal-stuff",
