@@ -16,6 +16,15 @@ interface OverviewProps {
 const Overview = ({ title, type, service, industry, year, descriptionLeft, descriptionRight, mainImageUrl }: OverviewProps) => {
   return (
     <section className={styles["overview-section"]}>
+      <div className={styles["main-image-wrapper"]}>
+        <Image
+          src={mainImageUrl}
+          alt={title}
+          width={1360}
+          height={600}
+          className={styles["main-image"]}
+        />
+      </div>
       <div className={styles["overview-header"]}>
         <h1 className={styles["project-title"]}>{title}</h1>
         <div className={styles["project-meta"]}>
@@ -45,15 +54,6 @@ const Overview = ({ title, type, service, industry, year, descriptionLeft, descr
         </div>
       </div>
 
-      <div className={styles["main-image-wrapper"]}>
-        <Image
-          src={mainImageUrl}
-          alt={title}
-          width={1360}
-          height={600}
-          className={styles["main-image"]}
-        />
-      </div>
     </section>
   )
 }

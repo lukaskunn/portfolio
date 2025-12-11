@@ -1,15 +1,12 @@
-import React from 'react'
+'use client'
+import React, { useState, useEffect } from 'react'
 import styles from "@/styles/css/project.module.css"
 import GalleryItem from './GalleryItem'
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 
 interface GalleryItemData {
-  type: 'text-bigimage' | 'bigimage-text' | 'text-smallimage' | 'smallimage-text' | 'image-only' | 'text-only' | 'smallimage-bigimage' | 'bigimage-smallimage'
-  leftImageUrl?: string
-  rightImageUrl?: string
-  text?: string
-  textBackgroundColor?: string
-  textColor?: string
-  caption?: string
+  image: string
+  caption: string
 }
 
 interface GalleryProps {
@@ -17,13 +14,29 @@ interface GalleryProps {
 }
 
 const Gallery = ({ items }: GalleryProps) => {
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    const updateIsMounted = () => {
+      setIsMounted(true)
+    }
+
+    updateIsMounted()
+  }, [])
+
   return (
     <section className={styles["gallery-section"]}>
-      <h2 className={styles["gallery-title"]}>PROJECT GALLERY</h2>
-      <div className={styles["gallery-grid"]}>
-        {items.map((item, index) => (
-          <GalleryItem key={index} {...item} />
-        ))}
+      <h2 className={styles["gallery-title"]}>Project Gallery</h2>
+      <div className={styles["mansory-container"]}>
+        {isMounted && (
+          <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 600: 2, 900: 3 }} gutterBreakPoints={{ 1: "0px" }}>
+            <Masonry>
+              {items.map((item, index) => (
+                <GalleryItem key={index} image={item.image} caption={item.caption} />
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
+        )}
       </div>
     </section>
   )

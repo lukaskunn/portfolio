@@ -20,42 +20,120 @@ const getProjectData = (projectName: string) => {
     },
     gallery: [
       {
-        type: "text-bigimage" as const,
-        text: "[ Homepage ] / desktop",
-        textBackgroundColor: "#FFFFFF",
-        textColor: "#000000",
-        rightImageUrl: "/assets/images/image_test.png",
-        caption: "Homepage desktop"
+        image: "https://picsum.photos/1200/1080",
+        caption: "Project image 1"
       },
       {
-        type: "text-bigimage" as const,
-        text: "[ Locations ] / desktop",
-        textBackgroundColor: "#111111",
-        textColor: "#FFFFFF",
-        rightImageUrl: "/assets/images/image_test.png",
-        caption: "Locations desktop"
+        image: "https://picsum.photos/720/1080",
+        caption: "Project image 1"
       },
       {
-        type: "bigimage-text" as const,
-        leftImageUrl: "/assets/images/image_test_2.png",
-        text: "[ Locations ] / desktop",
-        textBackgroundColor: "red",
-        textColor: "#FFFFFF",
-        caption: "Locations page"
+        image: "https://picsum.photos/1920/1080",
+        caption: "Project image 2"
       },
       {
-        type: "smallimage-bigimage" as const,
-        leftImageUrl: "/assets/images/image_test.png",
-        rightImageUrl: "/assets/images/image_test.png",
-        caption: "Multiple views"
+        image: "https://picsum.photos/1200/1080",
+        caption: "Project image 1"
       },
       {
-        type: "smallimage-bigimage" as const,
-        leftImageUrl: "/assets/images/image_test.png",
-        rightImageUrl: "/assets/images/image_test_2.png",
-        caption: "More views"
-      }
+        image: "https://picsum.photos/1920/1080",
+        caption: "Project image 2"
+      },
+      {
+        image: "https://picsum.photos/720/1080",
+        caption: "Project image 1"
+      },
+      {
+        image: "https://picsum.photos/1200/1080",
+        caption: "Project image 1"
+      },
+      {
+        image: "https://picsum.photos/1920/1080",
+        caption: "Project image 2"
+      },
+      {
+        image: "https://picsum.photos/1200/1080",
+        caption: "Project image 1"
+      },
+      {
+        image: "https://picsum.photos/720/1080",
+        caption: "Project image 1"
+      },
+      {
+        image: "https://picsum.photos/720/1080",
+        caption: "Project image 1"
+      },
+      {
+        image: "https://picsum.photos/1920/1080",
+        caption: "Project image 2"
+      },
+      {
+        image: "https://picsum.photos/1200/1080",
+        caption: "Project image 1"
+      },
+      {
+        image: "https://picsum.photos/1920/1080",
+        caption: "Project image 2"
+      },
+      {
+        image: "https://picsum.photos/720/1080",
+        caption: "Project image 1"
+      },
+      {
+        image: "https://picsum.photos/1200/1080",
+        caption: "Project image 1"
+      },
+      {
+        image: "https://picsum.photos/1920/1080",
+        caption: "Project image 2"
+      },
+      {
+        image: "https://picsum.photos/1200/1080",
+        caption: "Project image 1"
+      },
+      {
+        image: "https://picsum.photos/1920/1080",
+        caption: "Project image 2"
+      },
     ],
+    // gallery: [
+    //   {
+    //     type: "text-bigimage" as const,
+    //     text: "[ Homepage ] / desktop",
+    //     textBackgroundColor: "#FFFFFF",
+    //     textColor: "#000000",
+    //     rightImageUrl: "/assets/images/image_test.png",
+    //     caption: "Homepage desktop"
+    //   },
+    //   {
+    //     type: "text-bigimage" as const,
+    //     text: "[ Locations ] / desktop",
+    //     textBackgroundColor: "#111111",
+    //     textColor: "#FFFFFF",
+    //     rightImageUrl: "/assets/images/image_test.png",
+    //     caption: "Locations desktop"
+    //   },
+    //   {
+    //     type: "bigimage-text" as const,
+    //     leftImageUrl: "https://picsum.photos/1920/1080",
+    //     text: "[ Locations ] / desktop",
+    //     textBackgroundColor: "red",
+    //     textColor: "#FFFFFF",
+    //     caption: "Locations page"
+    //   },
+    //   {
+    //     type: "smallimage-bigimage" as const,
+    //     leftImageUrl: "/assets/images/image_test.png",
+    //     rightImageUrl: "/assets/images/image_test.png",
+    //     caption: "Multiple views"
+    //   },
+    //   {
+    //     type: "smallimage-bigimage" as const,
+    //     leftImageUrl: "/assets/images/image_test.png",
+    //     rightImageUrl: "https://picsum.photos/1920/1080",
+    //     caption: "More views"
+    //   }
+    // ],
     footer: {
       linkToNextProject: "/project/next-project"
     }

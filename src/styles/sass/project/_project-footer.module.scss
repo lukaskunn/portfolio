@@ -2,7 +2,7 @@
 
 .project-footer {
   width: 100%;
-  padding: 0px;
+  padding: 0px 0 20px;
 
   @include respond-to(mobile-768) {
     padding: 0px 0 0px;
@@ -11,10 +11,9 @@
 
 .footer-navigation {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 40px;
-  margin-bottom: 180px;
 
   @include respond-to(tablet-1024) {
     grid-template-columns: 1fr;
@@ -58,7 +57,7 @@
 
 .nav-text {
   @include text-box-text;
-  font-size: 24px;
+  font-size: 20px;
   font-family: $primary-text-font;
 
   @include respond-to(mobile-768) {
@@ -94,7 +93,7 @@
 .cta-section {
   display: flex;
   flex-direction: column;
-  padding: 0 0 60px;
+  padding: 0 0 0px;
 
   @include respond-to(mobile-768) {
     padding: 40px 0;
