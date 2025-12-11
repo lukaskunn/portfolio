@@ -1,13 +1,13 @@
 import React from "react";
 import LinkItem from "./components/LinkItem/Index";
 import styles from "@/styles/css/all-my-links.module.css";
-import { redirect } from "next/navigation";
+import Image from "next/image";
 
 const links = [
   {
     title: "Portfolio",
-    hoverText: "See more...",
-    link: "https://lucasoliveira.io",
+    hoverText: "Explore my work",
+    link: "/home",
     openInNewPage: false,
   },
   {
@@ -18,7 +18,7 @@ const links = [
   },
   {
     title: "Linkedin",
-    hoverText: "Lucas Oliveira",
+    hoverText: "Connect with me",
     link: "https://www.linkedin.com/in/lucas-oliveira-997810198/",
     openInNewPage: true,
   },
@@ -36,23 +36,26 @@ const links = [
   },
   {
     title: "Youtube",
-    hoverText: "Lucas シルバ",
+    hoverText: "Watch my videos",
     link: "https://www.youtube.com/@lucas-sio",
     openInNewPage: true,
   },
 ];
 
 const AllMyLinks = () => {
-  redirect("/home");
-  
   return (
     <div className={styles.container}>
-      <img
-        src="/images/general/6a0e989e927968f88f171e52418dafc6.jpg"
-        alt="seki oyasumi punpun icon"
+      <Image
+        src="/assets/images/homepage/homepage_image_resized.jpg"
+        alt="Profile picture"
         className={styles["image-icon"]}
+        width={260}
+        height={260}
+        priority
       />
-      <h2 className={styles["page-title"]}>Hi, find out my links here...</h2>
+      <h1 className={styles["page-title"]}>
+        All my links in one place - let&apos;s connect.
+      </h1>
       <div className={styles["links-container"]}>
         {links.map((link, index) => {
           const { hoverText, title, link: url, openInNewPage } = link;
@@ -62,7 +65,7 @@ const AllMyLinks = () => {
               link={url}
               textHover={hoverText}
               title={title}
-              key={index}
+              key={`${title}-${index}`}
               openInNewPage={openInNewPage}
             />
           );

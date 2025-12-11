@@ -16,14 +16,8 @@ const LinkItem = ({ link, title, openInNewPage, textHover }: LinkItemProps) => {
       target={openInNewPage ? "_blank" : "_self"}
       rel="noopener noreferrer"
     >
-      <span
-        className={styles["item-hover"]}
-        dangerouslySetInnerHTML={{ __html: textHover }}
-      />
-      <span
-        className={styles["item-visible"]}
-        dangerouslySetInnerHTML={{ __html: title }}
-      />
+      <span className={styles["item-hover"]}>{textHover}</span>
+      <span className={styles["item-visible"]}>{title}</span>
     </a>
   );
 };
