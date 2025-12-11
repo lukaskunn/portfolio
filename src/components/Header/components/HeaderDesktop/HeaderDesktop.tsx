@@ -4,26 +4,19 @@ import HeaderItem from "./HeaderItem";
 import DownloadResumeButton from "./DownloadResumeButton";
 import ContactMeButton from "./ContactMeButton";
 import Link from "next/link";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 import styles from "../../../../styles/css/header.module.css";
 
-const LINK_ITEMS = [
-  { title: "Home", link: "/home" },
-  { title: "Projects", link: "/projects" },
-  { title: "About Me", link: "/about-me" },
-  // { title: "Blog", link: "/blog" }
-];
-
 const HeaderDesktop = () => {
-  
-  // const { currentLanguage } = useLanguage();
-  // const { menuItems } = currentLanguage.header;
+  const { currentContent } = useLanguage();
+  const { header } = currentContent;
 
   return (
     <div className={styles["header-desktop"]}>
-      <Link href="/home" className={styles["name-logo"]}>Lucas Oliveira</Link>
+      <Link href="/home" className={styles["name-logo"]}>{header.headerTitle}</Link>
       <div className={styles["header-desktop__header-menu"]}>
-        {LINK_ITEMS.map((item) => (
+        {header.menuItems.map((item) => (
           <HeaderItem key={item.title} title={item.title} link={item.link} />
         ))}
         <DownloadResumeButton />

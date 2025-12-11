@@ -3,6 +3,7 @@
 import React, { useState, FormEvent } from 'react';
 import styles from '@/styles/css/contact.module.css';
 import { FiArrowUpRight } from "react-icons/fi";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 
 interface FormData {
@@ -10,7 +11,6 @@ interface FormData {
   phone: string;
   email: string;
   message: string;
-  // budget: string;
 }
 
 interface FormErrors {
@@ -19,15 +19,16 @@ interface FormErrors {
   message?: string;
 }
 
-// const budgetOptions = ['5K-10K', '10K-20K', 'MORE'];
-
 const ContactForm: React.FC = () => {
+  const { currentContent } = useLanguage();
+  const { contact } = currentContent;
+  const formContent = contact.form;
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
     email: '',
     message: '',
-    // budget: '5K-10K',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -39,20 +40,20 @@ const ContactForm: React.FC = () => {
     const newErrors: FormErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = formContent.validation.nameRequired;
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = formContent.validation.emailRequired;
     } else {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(formData.email)) {
-        newErrors.email = 'Invalid email format';
+        newErrors.email = formContent.validation.emailInvalid;
       }
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+      newErrors.message = formContent.validation.messageRequired;
     }
 
     setErrors(newErrors);
@@ -77,13 +78,6 @@ const ContactForm: React.FC = () => {
     }
   };
 
-  // const handleBudgetSelect = (budget: string) => {
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     budget,
-  //   }));
-  // };
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -107,22 +101,21 @@ const ContactForm: React.FC = () => {
 
       if (response.ok) {
         setSubmitStatus('success');
-        setStatusMessage(data.message || 'Message sent successfully!');
+        setStatusMessage(data.message || formContent.successMessage);
         setFormData({
           name: '',
           phone: '',
           email: '',
           message: '',
-          // budget: '5K-10K',
         });
       } else {
         setSubmitStatus('error');
-        setStatusMessage(data.error || 'Failed to send message');
+        setStatusMessage(data.error || formContent.errorMessage);
       }
     } catch (error) {
       console.error('Submit error:', error);
       setSubmitStatus('error');
-      setStatusMessage('Failed to send message. Please try again.');
+      setStatusMessage(formContent.errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -132,7 +125,7 @@ const ContactForm: React.FC = () => {
     <form className={styles.contactForm} onSubmit={handleSubmit}>
       <div className={styles.formGroup}>
         <label htmlFor="name" className={styles.formLabel}>
-          YOUR NAME<span className={styles.required}>*</span>
+          {formContent.nameLabel}<span className={styles.required}>{formContent.requiredMark}</span>
         </label>
         <input
           type="text"
@@ -148,7 +141,7 @@ const ContactForm: React.FC = () => {
 
       <div className={styles.formGroup}>
         <label htmlFor="phone" className={styles.formLabel}>
-          PHONE
+          {formContent.phoneLabel}
         </label>
         <input
           type="tel"
@@ -163,7 +156,7 @@ const ContactForm: React.FC = () => {
 
       <div className={styles.formGroup}>
         <label htmlFor="email" className={styles.formLabel}>
-          YOUR EMAIL<span className={styles.required}>*</span>
+          {formContent.emailLabel}<span className={styles.required}>{formContent.requiredMark}</span>
         </label>
         <input
           type="email"
@@ -179,7 +172,7 @@ const ContactForm: React.FC = () => {
 
       <div className={styles.formGroup}>
         <label htmlFor="message" className={styles.formLabel}>
-          HOW CAN I HELP YOU<span className={styles.required}>*</span>
+          {formContent.messageLabel}<span className={styles.required}>{formContent.requiredMark}</span>
         </label>
         <textarea
           id="message"
@@ -193,29 +186,12 @@ const ContactForm: React.FC = () => {
         {errors.message && <span className={styles.errorMessage}>{errors.message}</span>}
       </div>
 
-      {/* <div className={styles.formGroup}>
-        <label className={styles.formLabel}>PROJECT BUDGET (USD)</label>
-        <div className={styles.budgetOptions}>
-          {budgetOptions.map((option) => (
-            <button
-              key={option}
-              type="button"
-              className={`${styles.budgetOption} ${formData.budget === option ? styles.budgetSelected : ''
-                }`}
-              onClick={() => handleBudgetSelect(option)}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-      </div> */}
-
       <button
         type="submit"
         className={styles.submitButton}
         disabled={isSubmitting}
       >
-        {isSubmitting ? 'SENDING...' : 'DISCUSS THE PROJECT'}
+        {isSubmitting ? formContent.submittingButton : formContent.submitButton}
         <FiArrowUpRight className={styles.submitArrow} size={20} />
       </button>
 

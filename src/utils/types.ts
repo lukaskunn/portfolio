@@ -1,6 +1,5 @@
 export interface LanguageContentType {
   landing: Landing
-  transitionsText: TransitionsText
   header: Header
   works: Works
   aboutMe: AboutMe
@@ -11,36 +10,51 @@ export interface LanguageContentType {
 
 export interface Landing {
   sectionTitle: string
+  title: string
+  subtitle: LandingSubtitle
+  mobileSubtitles: string[]
   nextPageText: string
-  menuItems: MenuItem[]
 }
 
-export interface MenuItem {
-  text: string
-  href: string
-}
-
-export interface TransitionsText {
-  routesTexts: RoutesTexts
-  projectsTexts: string[]
-  quotes: string[]
-}
-
-export interface RoutesTexts {
-  "/": string
-  "/Works": string
-  "/About": string
-  "/Contact": string
+export interface LandingSubtitle {
+  currentPosition: string
+  positionTitle: string
+  companyPrefix: string
+  companyName: string
+  companyUrl: string
+  location: string
 }
 
 export interface Header {
   headerTitle: string
-  menuItems: MenuItem2[]
+  menuItems: HeaderMenuItem[]
+  resumeButton: HeaderButton
+  contactButton: HeaderButton
+  mobileNavigation: MobileNavItem[]
+  socialLinks: SocialLinkItem[]
+  mobileQuickMessage: string
 }
 
-export interface MenuItem2 {
-  text: string
+export interface HeaderMenuItem {
+  title: string
+  link: string
+}
+
+export interface HeaderButton {
+  title: string
+  link: string
+}
+
+export interface MobileNavItem {
+  label: string
   href: string
+  type?: string
+}
+
+export interface SocialLinkItem {
+  label: string
+  href: string
+  type: string
 }
 
 export interface Works {
@@ -74,13 +88,25 @@ export interface GalleryImage {
 export interface AboutMe {
   sectionTitle: string
   nextPageText: string
-  sectionSubTitle: string
-  content: Content[]
+  intro: string
+  background: AboutMeBackground
+  certifications: AboutMeCertifications
 }
 
-export interface Content {
+export interface AboutMeBackground {
   title: string
-  text: string[]
+  paragraphs: string[]
+}
+
+export interface AboutMeCertifications {
+  title: string
+  tableHeaders: string[]
+  items: CertificationItem[]
+}
+
+export interface CertificationItem {
+  subjects: string[]
+  source: string
 }
 
 export interface Resume {
@@ -98,21 +124,55 @@ export interface Card {
 
 export interface Services {
   sectionTitle: string
-  skills: Skills
+  items: ServiceItem[]
 }
 
-export interface Skills {
-  soft: string[]
-  hard: string[]
+export interface ServiceItem {
+  title: string
+  subtitle: string
+  description: string
 }
 
 export interface Contact {
-  title: string
-  contacts: ContactItem[]
+  pageHeader: ContactPageHeader
+  form: ContactForm
+  contactInfo: ContactInfo
+  socialLinks: ContactSocialLink[]
 }
 
-export interface ContactItem {
-  type: string
-  linkText: string
-  urlLink: string
+export interface ContactPageHeader {
+  subtitle: string
+  title: string
+  titleAccent: string
+  titleEnd: string
+}
+
+export interface ContactForm {
+  nameLabel: string
+  phoneLabel: string
+  emailLabel: string
+  messageLabel: string
+  requiredMark: string
+  submitButton: string
+  submittingButton: string
+  successMessage: string
+  errorMessage: string
+  validation: ContactFormValidation
+}
+
+export interface ContactFormValidation {
+  nameRequired: string
+  emailRequired: string
+  emailInvalid: string
+  messageRequired: string
+}
+
+export interface ContactInfo {
+  phone: string
+  email: string
+}
+
+export interface ContactSocialLink {
+  name: string
+  url: string
 }

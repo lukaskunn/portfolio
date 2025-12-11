@@ -21,7 +21,7 @@ const ProjectItem = ({ project, index, updateModal }: ProjectItemProps) => {
       onMouseEnter={() => updateModal(index, true)}
       onMouseLeave={() => updateModal(index, false)}>
       {index === 0 ? <div className={`${styles["border"]} ${styles["top"]}`} /> : null}
-      <Link href={link} className={styles["project-item"]}>
+      <Link href={`/project/${link}`} className={styles["project-item"]}>
         <p className={styles["project-index"]}>{index + 1 < 10 ? `0${index + 1}` : index + 1}</p>
         <h2 className={styles["project-title"]}>{title}</h2>
         <p className={styles["project-tech"]}>{tech}</p>

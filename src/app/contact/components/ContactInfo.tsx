@@ -3,41 +3,25 @@
 import React from 'react';
 import styles from '@/styles/css/contact.module.css';
 import { FiArrowUpRight } from "react-icons/fi";
-
-interface SocialLink {
-  name: string;
-  url: string;
-}
-
-const socialLinks: SocialLink[] = [
-  {
-    name: 'INSTAGRAM',
-    url: 'https://instagram.com/lukaskunn',
-  },
-  {
-    name: 'TELEGRAM',
-    url: 'https://t.me/lukaskunn',
-  },
-  {
-    name: 'LINKEDIN',
-    url: 'https://linkedin.com/in/lucas-oliveira-997810198/',
-  },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const ContactInfo: React.FC = () => {
+  const { currentContent } = useLanguage();
+  const { contact } = currentContent;
+
   return (
     <div className={styles.contactInfo}>
       <div className={styles.contactDetails}>
-        <a href="tel:+5511999999999" className={styles.contactPhone}>
-          +55 11 9 5442-5212
+        <a href={`tel:${contact.contactInfo.phone.replace(/\s/g, '')}`} className={styles.contactPhone}>
+          {contact.contactInfo.phone}
         </a>
-        <a href="mailto:lucassioliveira098@gmail.com" className={styles.contactEmail}>
-          lucassioliveira098@gmail.com
+        <a href={`mailto:${contact.contactInfo.email}`} className={styles.contactEmail}>
+          {contact.contactInfo.email}
         </a>
       </div>
 
       <div className={styles.socialLinks}>
-        {socialLinks.map((link) => (
+        {contact.socialLinks.map((link) => (
           <a
             key={link.name}
             href={link.url}
@@ -45,7 +29,7 @@ const ContactInfo: React.FC = () => {
             rel="noopener noreferrer"
             className={styles.socialLink}
           >
-            {link.name} <FiArrowUpRight className={styles.linkArrow} size={14}/>
+            {link.name} <FiArrowUpRight className={styles.linkArrow} size={14} />
           </a>
         ))}
       </div>

@@ -2,15 +2,19 @@
 
 import React from 'react';
 import styles from '@/styles/css/contact.module.css';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const PageHeader: React.FC = () => {
+  const { currentContent } = useLanguage();
+  const { contact } = currentContent;
+
   return (
     <header className={styles.pageHeader}>
-      <span className={styles.subtitle}>LET&apos;S START THE CONVERSATION</span>
+      <span className={styles.subtitle}>{contact.pageHeader.subtitle}</span>
       <h1 className={styles.title}>
-        GREAT DESIGN
-        <span className={styles.titleAccent}>S T A R T S &nbsp; W I T H</span>
-        GREAT COLLABORATION
+        {contact.pageHeader.title}
+        <span className={styles.titleAccent}>{contact.pageHeader.titleAccent}</span>
+        {contact.pageHeader.titleEnd}
       </h1>
     </header>
   );

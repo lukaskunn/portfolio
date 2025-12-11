@@ -1,77 +1,103 @@
 {
   "landing": {
     "sectionTitle": "Lucas Oliveira",
-    "nextPageText": "My Projects",
-    "menuItems": [
-      {
-        "text": "/Home",
-        "href": "/home"
-      },
-      {
-        "text": "/ Projects",
-        "href": "/projects"
-      },
-      {
-        "text": "/ About Me",
-        "href": "/about"
-      },
-      {
-        "text": "/ Contact",
-        "href": "/contact"
-      }
-    ]
+    "title": "CREATIVE DEVELOPER",
+    "subtitle": {
+      "currentPosition": "/ Currently",
+      "positionTitle": "PL/SSR II Front End Developer",
+      "companyPrefix": "@",
+      "companyName": "Corebiz",
+      "companyUrl": "https://www.corebiz.ag/en",
+      "location": "/ Based in São Paulo, Brazil."
+    },
+    "mobileSubtitles": [
+      "/ WEB DESIGN (UI/UX)",
+      "/ WEB DEVELOPER",
+      "/ SOFTWARE ENGINEER"
+    ],
+    "nextPageText": "My Projects"
   },
   "header": {
-    "headerTitle": "<Lucas Oliveira />",
+    "headerTitle": "Lucas Oliveira",
     "menuItems": [
       {
-        "text": "/ Home",
-        "href": "/home"
+        "title": "Home",
+        "link": "/home"
       },
       {
-        "text": "/ Projects",
+        "title": "Projects",
+        "link": "/projects"
+      },
+      {
+        "title": "About Me",
+        "link": "/about-me"
+      }
+    ],
+    "resumeButton": {
+      "title": "My Resume",
+      "link": "https://drive.google.com/file/d/12EiJ8H6GPwLhGk97YTjIdE1g1W3HkZ44/view"
+    },
+    "contactButton": {
+      "title": "Contact Me",
+      "link": "/contact"
+    },
+    "mobileNavigation": [
+      {
+        "label": "HOME",
+        "href": "/"
+      },
+      {
+        "label": "PROJECTS",
         "href": "/projects"
       },
       {
-        "text": "/ About Me",
-        "href": "/about"
+        "label": "ABOUT ME",
+        "href": "/about-me"
       },
       {
-        "text": "/ Blog",
-        "href": "/blog"
+        "label": "MY RESUME",
+        "href": "https://drive.google.com/file/d/12EiJ8H6GPwLhGk97YTjIdE1g1W3HkZ44/view",
+        "type": "resume"
+      },
+      {
+        "label": "CONTACT ME",
+        "href": "/contact",
+        "type": "contact"
       }
-    ]
-  },
-  "transitionsText": {
-    "routesTexts": {
-      "/": "Home",
-      "/Works": "My Projects",
-      "/About": "About Me",
-      "/Contact": "Contact"
-    },
-    "projectsTexts": [
-      "[PROJECT]: Motorola India",
-      "[PROJECT]: Motorola US",
-      "[PROJECT]: Karsten / Trussardi",
-      "[PROJECT]: BabadoTop",
-      "[PROJECT]: Motorola Europe"
     ],
-    "quotes": [
-      "“The best revenge is not to be like your enemy.” – Marcus Aurelius",
-      "“The best way to predict the future is to create it.” – Peter Drucker",
-      "The more you know, the less you need.",
-      "How long are you going to wait before you demand the best for yourself?"
-    ]
+    "socialLinks": [
+      {
+        "label": "Linkedin",
+        "href": "https://linkedin.com/in/lucas-oliveira-997810198/",
+        "type": "social"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://instagram.com/lukaskunn",
+        "type": "social"
+      },
+      {
+        "label": "X / Twitter",
+        "href": "https://twitter.com/lukaskunn",
+        "type": "social"
+      },
+      {
+        "label": "Medium",
+        "href": "https://medium.com/@lukaskunn",
+        "type": "social"
+      }
+    ],
+    "mobileQuickMessage": "I DESIGN MEMORABLE WEB EXPERIENCES FOR BRANDS OF ALL SIZES"
   },
   "works": {
-    "sectionTitle": "Projects",
+    "sectionTitle": "WORKS",
     "seeMoreText": "see project",
     "nextPageText": "About Me",
     "backToProjectsText": "Back to projects",
     "projects": [
       {
-        "projectId": "5",
-        "title": "[Motorola Europe]",
+        "projectId": "motorola-europe-store",
+        "title": "[ Motorola Europe E-commerce Store ]",
         "description": "Vtex IO + React",
         "briefDescription": "In my current role at Motorola Europe, I am spearheading the development of a groundbreaking re-branded layout for the Motorola Europe e-commerce store. Collaborating closely with a team of skilled developers and designers, our mission is to elevate the online shopping experience for Motorola customers across Europe.</>Leveraging cutting-edge technologies such as Vtex IO, React, TypeScript, and Node.js, we are not only revamping the store's aesthetics but also enhancing its performance and usability. My role involves conceptualizing and implementing innovative features that seamlessly integrate into the new layout, ensuring a smooth and intuitive user journey.</> A pivotal aspect of this project has been my involvement with the Vtex API, enabling me to introduce new functionalities and optimize the store's performance. By harnessing the power of this API, we have been able to unlock new possibilities and push the boundaries of what the e-commerce platform can achieve.</>One of the most rewarding achievements of this endeavor has been the creation of the new Motoverse pages layout. By developing a custom no-code builder for each page, we hpave empowered the marketing team to generate dynamic new pages autonomously, without the reliance on a developer. This innovation not only streamlines the content creation process but also fosters agility and flexibility within the organization.</>As we continue to refine and evolve the Motorola Europe e-commerce store, I am excited to be at the forefront of delivering a truly transformative digital experience for our customers.",
         "urlToProject": "https://www.motorola.co.uk",
@@ -117,103 +143,7 @@
         ]
       },
       {
-        "projectId": "1",
-        "imageAlt": "Motorola Europe Project Image",
-        "title": "[Motorola India]",
-        "description": "Ecommerce + React",
-        "briefDescription": "During my tenure with the Motorola India team, I served as the lead developer on a pivotal project: the development of the Motorola India E-commerce Store. In this capacity, I assumed the role of both a developer and a mentor, guiding fellow team members while tackling the most complex challenges head-on.</>This project provided me with invaluable opportunities for personal and professional growth. Notably, I honed my leadership skills, fostering a more accessible and collaborative environment within our team. Through hands-on experience with cutting-edge technologies such as React and Vtex IO, I expanded my technical expertise significantly. </>Throughout the development cycle, I played a key role in implementing numerous features and resolving critical issues. One standout accomplishment was the optimization of an autofill function during the checkout process, drastically reducing the time required from approximately 15 seconds to a mere 2 seconds. This enhancement streamlined the user experience and significantly boosted efficiency.</>Beyond technical accomplishments, my time with Motorola India also presented opportunities for linguistic development. Engaging in daily meetings with the Motorola India Project Manager, I sharpened my English language skills while ensuring seamless project alignment and progress tracking.",
-        "urlToProject": "https://www.motorola.in",
-        "galleryBackground": "/assets/images/projects/motorola_india/motorola_india_image_1.png",
-        "galleryBackgroundColor": "#000",
-        "technologies": [
-          "React",
-          "Vtex IO",
-          "TypeScript",
-          "Node.js"
-        ],
-        "galleryImages": [
-          [
-            {
-              "front": "/assets/images/projects/motorola_india/motorola_india_image_1.png",
-              "back": "/assets/images/projects/motorola_india/motorola_india_image_1.png",
-              "photoText": "[Motorola India Home Page]"
-            }
-          ]
-        ]
-      },
-      {
-        "projectId": "2",
-        "title": "[Motorola US]",
-        "imageAlt": "Motorola US Project Image",
-        "description": "Ecommerce + React",
-        "briefDescription": "My inaugural project with Vtex IO marked a pivotal moment in my career journey. Tasked with developing key components for the launch of the Edge 30 Pro product page, I collaborated within a dedicated team environment. </> This project provided me with the unique opportunity to interface directly with the marketing team at Motorola USA. This exposure not only enriched my understanding of web development but also fostered invaluable insights into the intersection of technology and marketing strategies. </> Working alongside seasoned developers, I immersed myself in the intricacies of web development, refining my skills and techniques. Moreover, this project served as a catalyst for my English language proficiency, as I embraced the challenge of effectively communicating with international stakeholders.",
-        "urlToProject": "https://www.motorola.com/us/",
-        "galleryBackground": "/assets/images/projects/motorola_us/motorola_us_image_1.png",
-        "galleryBackgroundColor": "#c6c6c6",
-        "technologies": [
-          "React",
-          "Vtex IO",
-          "TypeScript",
-          "Node.js"
-        ],
-        "galleryImages": [
-          [
-            {
-              "front": "/assets/images/projects/motorola_us/motorola_us_image_1.png",
-              "back": "/assets/images/projects/motorola_us/motorola_us_image_1.png",
-              "photoText": "[Edge 30 PRO Page]"
-            }
-          ]
-        ]
-      },
-      {
-        "projectId": "3",
-        "title": "Karsten / Trussardi",
-        "description": "Ecommerce + React",
-        "imageAlt": "Karsten / Trussardi Project Image",
-        "briefDescription": "My tenure with Karsten and Trussardi e-commerce stores was instrumental in shaping my expertise in front-end development and Vtex platform utilization. Tasked with developing new features and resolving existing issues, I delved deep into the intricacies of front-end development within the Vtex ecosystem.</>Operating within the realm of Vtex legacy, I honed my skills in HTML and CSS, leveraging these foundational technologies to enhance the user experience and functionality of both platforms. This hands-on experience not only expanded my technical repertoire but also instilled in me a deep understanding of front-end principles and best practices.",
-        "urlToProject": "https://www.karsten.com.br",
-        "galleryBackground": "/assets/images/projects/trussardi/trussardi_image_1.png",
-        "galleryBackgroundColor": "orange",
-        "technologies": [
-          "React",
-          "Vtex Legacy"
-        ],
-        "galleryImages": [
-          [
-            {
-              "front": "/assets/images/projects/trussardi/trussardi_image_1.png",
-              "back": "/assets/images/projects/trussardi/trussardi_image_1.png",
-              "photoText": "[Trussardi Home Page]"
-            }
-          ]
-        ]
-      },
-      {
-        "projectId": "4",
-        "title": "BabadoTop",
-        "description": "Ecommerce + React",
-        "imageAlt": "BabadoTop Project Image",
-        "briefDescription": "My experience at this particular storefront proved to be one of the most challenging yet rewarding endeavors in my career journey. Over the span of two intense months, I immersed myself in the world of ReactJS, delving into its advanced features and pushing the boundaries of my technical skill set. </> During my tenure, I conceptualized and developed a groundbreaking component reminiscent of an Instagram story. This innovative feature seamlessly integrated a virtual fitting room with a customizable shelf, empowering customers to visualize products in a dynamic and engaging manner while facilitating effortless purchasing decisions. </> Harnessing the power of Vtex legacy alongside HTML and CSS, I crafted bespoke solutions tailored to the unique requirements of the storefront. Additionally, I leveraged my newfound expertise in ReactJS to create custom components that elevated the user experience to new heights. </> My time at this storefront not only deepened my understanding of front-end development but also underscored the importance of innovation and adaptability in the ever-evolving landscape of e-commerce. Through perseverance and creative problem-solving, I overcame formidable challenges and emerged with newfound confidence and proficiency in ReactJS and e-commerce development.",
-        "galleryBackground": "/assets/images/projects/babadotop/babadotop_image_1.png",
-        "galleryBackgroundColor": "blue",
-        "urlToProject": "https://www.babadotop.com.br",
-        "technologies": [
-          "React",
-          "Vtex Legacy"
-        ],
-        "galleryImages": [
-          [
-            {
-              "front": "/assets/images/projects/babadotop/babadotop_image_1.png",
-              "back": "/assets/images/projects/babadotop/babadotop_image_1.png",
-              "photoText": "[Babadotop Home Page]"
-            }
-          ]
-        ]
-      },
-      {
-        "projectId": "6",
+        "projectId": "personal-stuff",
         "title": "Personal Stuff",
         "imageAlt": "Personal Stuff Project Image",
         "description": "Next.js / Three.js / GSAP / Framer Motion",
@@ -225,28 +155,76 @@
     ]
   },
   "aboutMe": {
+    "sectionTitle": "ABOUT ME",
     "nextPageText": "Contact",
-    "sectionTitle": "About Me",
-    "sectionSubTitle": "Hi, i'm Lucas Oliveira, Web Developer and technology enthusiast",
-    "content": [
+    "intro": "I'm a creative developer and software engineer from São Paulo with over 5 years of experience creating unique web experiences around the world. I love crafting visual striking and awesome websites that not only look great but also feel intuitive",
+    "background": {
+      "title": "My Background",
+      "paragraphs": [
+        "I'm a 23-year-old guy, graduated in computer science and working as a full-stack developer.",
+        "I received honors for presenting my final paper on Computer Vision and disease identification in tomato plants.",
+        "Currently developing for Motorola Europe in my job, maintaining Motorola stores in over 30 countries in Europe.",
+        "I have worked on developing for various e-commerces, creating their home pages and product pages, creating components and adjusting already implemented components.",
+        "Currently studying Three.js and animations with GSAP / Framer Motion."
+      ]
+    },
+    "certifications": {
+      "title": "Certifications",
+      "tableHeaders": [
+        "Subject",
+        "Source"
+      ],
+      "items": [
+        {
+          "subjects": [
+            "Computer Science Degree"
+          ],
+          "source": "FEI College"
+        },
+        {
+          "subjects": [
+            "React + Next.js",
+            "Testes automatizados",
+            "segurança"
+          ],
+          "source": "Alura"
+        },
+        {
+          "subjects": [
+            "Three.js journey"
+          ],
+          "source": "Three.js journey"
+        }
+      ]
+    }
+  },
+  "services": {
+    "sectionTitle": "Services",
+    "items": [
       {
-        "title": "About Me",
-        "text": [
-          "I'm a 23-year-old guy, graduated in computer science and working as a full-stack developer.",
-          "I received honors for presenting my final paper on Computer Vision and disease identification in tomato plants.",
-          "Currently developing for Motorola Europe in my job, maintaining Motorola stores in over 30 countries in Europe.",
-          "I have worked on developing for various e-commerces, creating their home pages and product pages, creating components and adjusting already implemented components.",
-          "Currently studying Three.js and animations with GSAP / Framer Motion."
-        ]
+        "title": "Digital Interface Design",
+        "subtitle": "Beautiful, intuitive designs built to connect.",
+        "description": "I design digital experiences that blend aesthetics and usability. Every interface is crafted to tell a story, guide users naturally, and feel visually alive across any screen."
       },
       {
-        "title": "Background",
-        "text": [
-          "Competitive programming. ",
-          "Photgraphy.",
-          "Design.",
-          "Video games."
-        ]
+        "title": "Interactive Web Experiences",
+        "subtitle": "Not just websites, immersive journeys.",
+        "description": "I create interactive experiences that aren't just sites but ideas made tangible through modern frontend technology. Built with React and Next.js, they feel fluid, fast, and deeply engaging."
+      },
+      {
+        "title": "High-Performance Web Systems",
+        "subtitle": "Speed, stability, and flow, built in.",
+        "description": "I deliver optimized digital products that load instantly, perform flawlessly, and rank well. Every millisecond matters, because great performance is great design."
+      },
+      {
+        "title": "Conversion-Driven Brand Experiences",
+        "subtitle": "Where storytelling meets results.",
+        "description": "I build websites and landing pages that communicate clearly and convert effectively. Each project blends strong design, thoughtful content, and technical precision."
+      },
+      {
+        "title": "Connected & Scalable Ecosystems",
+        "subtitle": "Experiences that grow with your brand.",
+        "description": "I build integrated ecosystems, connecting frontends, APIs, and content platforms, designed to evolve as your business does, ensuring your digital platforms are seamless and scalable."
       }
     ]
   },
@@ -269,52 +247,46 @@
       }
     ]
   },
-  "services": {
-    "sectionTitle": "Skills",
-    "skills": {
-      "soft": [
-        "Web Development",
-        "Git / GitFlow",
-        "Web Design",
-        "Web Services",
-        "Problem Solving",
-        "Algorithms & Data Structures",
-        "APIs"
-      ],
-      "hard": [
-        "ReactJS",
-        "Next.js",
-        "Vtex IO",
-        "Angular",
-        "JavaScript / TypeScript",
-        "Jquery",
-        "HTML / CSS",
-        "Sass / Stylus / Less",
-        "Node.js",
-        "Express",
-        "MongoDB",
-        "PostgreSQL",
-        "Python"
-      ]
-    }
-  },
   "contact": {
-    "title": "[Contact]",
-    "contacts": [
+    "pageHeader": {
+      "subtitle": "LET'S START THE CONVERSATION",
+      "title": "GREAT DESIGN",
+      "titleAccent": "S T A R T S   W I T H",
+      "titleEnd": "GREAT COLLABORATION"
+    },
+    "form": {
+      "nameLabel": "YOUR NAME",
+      "phoneLabel": "YOUR PHONE (OPTIONAL)",
+      "emailLabel": "YOUR EMAIL",
+      "messageLabel": "YOUR MESSAGE",
+      "requiredMark": "*",
+      "submitButton": "SEND MESSAGE",
+      "submittingButton": "SENDING...",
+      "successMessage": "Message sent successfully!",
+      "errorMessage": "Failed to send message. Please try again.",
+      "validation": {
+        "nameRequired": "Name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email format",
+        "messageRequired": "Message is required"
+      }
+    },
+    "contactInfo": {
+      "phone": "+55 11 9 5442-5212",
+      "email": "lucassioliveira098@gmail.com"
+    },
+    "socialLinks": [
       {
-        "type": "[Email]",
-        "linkText": "lucassioliveira098@gmail.com",
-        "urlLink": "mailto:lucasisoliveira098@gmail.com?subject = Contact"
+        "name": "INSTAGRAM",
+        "url": "https://instagram.com/lukaskunn"
       },
       {
-        "type": "[LinkedIn]",
-        "linkText": "Lucas Oliveira",
-        "urlLink": "https://linkedin.com/in/lucas-oliveira-997810198/"
+        "name": "TELEGRAM",
+        "url": "https://t.me/lukaskunn"
       },
       {
-        "type": "[GitHub]",
-        "linkText": "lukaskunn",
-        "urlLink": "https://github.com/lukaskunn"
+        "name": "LINKEDIN",
+        "url": "https://linkedin.com/in/lucas-oliveira-997810198/"
       }
     ]
   }

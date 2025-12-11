@@ -3,27 +3,13 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import styles from "@/styles/css/header.module.css";
 import LinkHandler from "@/components/LinkHandler";
-
-const NAVIGATION_ITEMS = [
-  { label: "HOME", href: "/" },
-  { label: "PROJECTS", href: "/projects" },
-  { label: "ABOUT ME", href: "/about-me" },
-  // { label: "BLOG", href: "/blog" },
-  { label: "MY RESUME", href: "https://example.com/resume", type: "resume" },
-  { label: "CONTACT ME", href: "/contact", type: "contact" },
-];
-
-const SOCIAL_LINKS = [
-  { label: "Linkedin", href: "https://linkedin.com/in/username", type: "social" },
-  { label: "Instagram", href: "https://instagram.com/username", type: "social" },
-  { label: "X / Twitter", href: "https://twitter.com/username", type: "social" },
-  { label: "Medium", href: "https://medium.com/@username", type: "social" },
-];
-
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeaderMobile = () => {
   const pathName = usePathname();
   const [menuIsOpen, setMenuIsOpen] = React.useState(false);
+  const { currentContent } = useLanguage();
+  const { header } = currentContent;
 
   if (pathName === "/all-my-links") {
     return null;
@@ -32,29 +18,29 @@ const HeaderMobile = () => {
   return (
     <>
       <div className={styles["header-mobile"]}>
-        <div className={styles["name-logo"]}>Lucas Oliveira</div>
+        <div className={styles["name-logo"]}>{header.headerTitle}</div>
         <button className={styles["open-menu-button"]} onClick={() => { setMenuIsOpen(true) }}>[ Menu ]</button>
       </div>
 
       <div className={`${styles["mobile-menu-overlay"]} ${menuIsOpen ? styles["open"] : styles["closed"]}`}>
         <div className={styles["mobile-menu-overlay__top-items"]}>
-          <div className={styles["name-logo"]}>Lucas Oliveira</div>
+          <div className={styles["name-logo"]}>{header.headerTitle}</div>
           <button className={styles["open-menu-button"]} onClick={() => { setMenuIsOpen(false) }}>[ Menu ]</button>
         </div>
         <div className={styles["mobile-menu-overlay__container"]}>
           <div className={styles["mobile-menu-overlay__container__navigation-items"]}>
-            {NAVIGATION_ITEMS.map((item) => (
+            {header.mobileNavigation.map((item) => (
               <LinkHandler key={item.href} className={styles["navigation-item"]} href={item.href}>{item.label}</LinkHandler>
             ))}
           </div>
           <div className={styles["mobile-menu-overlay__container__menu-footer"]}>
             <div className={styles["mobile-menu-overlay__container__menu-footer__social-links"]}>
-              {SOCIAL_LINKS.map((link) => (
+              {header.socialLinks.map((link) => (
                 <LinkHandler key={link.href} className={`${styles["social-link"]} ${link.type === "contact" ? styles["contact-link"] : ""}`} href={link.href}>{link.label}</LinkHandler>
               ))}
             </div>
             <div className={styles["mobile-menu-overlay__container__menu-footer__quickly-message"]}>
-              <span className={styles["message"]}>I DESIGN MEMORABLE WEB EXPERIENCES FOR BRANDS OF ALL SIZES</span>
+              <span className={styles["message"]}>{header.mobileQuickMessage}</span>
             </div>
           </div>
         </div>
