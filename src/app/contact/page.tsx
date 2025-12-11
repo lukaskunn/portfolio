@@ -1,22 +1,17 @@
-import PageTitle from "./PageTitle";
-import ContactList from "./ContactList";
-import SideImage from "./SideImage";
-
-import styles from "@/styles/css/contact.module.css"; 
+import { PageHeader, ContactForm, ContactInfo } from "./components";
+import styles from "@/styles/css/contact.module.css";
 import type { NextPage } from "next";
 
 const ContactPage: NextPage = () => {
   return (
     <section className={styles.contactContainer}>
-      <div className={styles.contact} id="contact">
-        <div className={styles.contactSide}>
-          <PageTitle />
-          <ContactList />
-        </div>
-        <SideImage />
+      <div className={styles.contactContent}>
+        <PageHeader />
+        <ContactForm />
+        <ContactInfo />
       </div>
     </section>
   );
-}
+};
 
 export default ContactPage;
