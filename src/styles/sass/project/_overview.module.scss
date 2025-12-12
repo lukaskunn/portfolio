@@ -28,7 +28,7 @@ $border-color: rgba(43, 43, 43, 0.05);
 
   @include respond-to(mobile-768) {
     font-size: 64px;
-    margin: 0 0 32px;
+    margin: 0 0 8px;
   }
 
   @include respond-to(mobile-480) {
@@ -44,7 +44,7 @@ $border-color: rgba(43, 43, 43, 0.05);
 
   @include respond-to(mobile-768) {
     font-size: 20px;
-    margin: 0 0 12px;
+    margin: 0 0 32px;
   }
 
   @include respond-to(mobile-480) {
