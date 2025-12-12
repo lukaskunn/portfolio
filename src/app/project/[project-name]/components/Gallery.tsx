@@ -3,14 +3,10 @@ import React, { useState, useEffect } from 'react'
 import styles from "@/styles/css/project.module.css"
 import GalleryItem from './GalleryItem'
 import MasonryContainer from './Masonry'
-
-interface GalleryItemData {
-  image: string
-  caption: string
-}
+import type { ProjectGalleryItem } from '@/utils/types'
 
 interface GalleryProps {
-  items: GalleryItemData[]
+  items: ProjectGalleryItem[]
 }
 
 const Gallery = ({ items }: GalleryProps) => {
