@@ -16,8 +16,6 @@ const LinkHandler = ({
 }: LinkHandlerProps) => {
   const isExternal = /^https?:\/\//i.test(href)
 
-  console.log(isExternal || goToExternalPage)
-
   if (isExternal || goToExternalPage) {
     return <a href={href} target="_blank" rel="noopener noreferrer" className={className}>{children}</a>
   }

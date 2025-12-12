@@ -20,8 +20,6 @@ type ProjectItemProps = {
 const ProjectItem = ({ project, index, updateModal, openOnExternalPage }: ProjectItemProps) => {
   const { title, link, tech, subtitle, urlToProject } = project;
 
-  console.log(title, urlToProject, openOnExternalPage)
-
   return (
     <div key={link} className={styles["project-list-item"]}
       onMouseEnter={() => updateModal(index, true)}
