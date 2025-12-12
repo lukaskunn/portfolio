@@ -93,21 +93,26 @@ const ProjectModal = () => {
         className={styles["modal-slider"]}
         style={{ top: `${index * -100}%` }}
       >
-        {projects.map((project, i) => (
-          <div
-            className={styles["project-modal"]}
-            key={i}
-            style={{ backgroundColor: project.galleryBackgroundColor }}
-          >
-            <Image
-              src={project.galleryBackground}
-              color={project.galleryBackgroundColor}
-              height={0}
-              width={300}
-              alt={project.imageAlt || "Project background"}
-            />
-          </div>
-        ))}
+        {projects.map((project, i) => {
+          const {overview} = project
+          const { galleryBackground, galleryBackgroundColor } = overview;
+
+          return (
+            <div
+              className={styles["project-modal"]}
+              key={i}
+              style={{ backgroundColor: galleryBackgroundColor }}
+            >
+              <Image
+                src={galleryBackground}
+                color={galleryBackgroundColor}
+                height={290}
+                width={300}
+                alt={project.imageAlt || "Project background"}
+              />
+            </div>
+          )
+        })}
       </div>
     </motion.div>
   );

@@ -65,24 +65,39 @@ export interface Works {
   projects: Project[]
 }
 
-export interface Project {
+export interface ProjectOverview {
   projectId: string
+  cardTitle: string
   title: string
-  imageAlt?: string
-  description: string
-  urlToProject: string
+  subtitle: string
   galleryBackground: string
+  imageAlt: string
   galleryBackgroundColor: string
-  goToExternalPage?: boolean
-  briefDescription?: string
-  technologies?: string[]
-  galleryImages?: GalleryImage[][]
+  type: string
+  service: string
+  industry: string
+  year: string
+  descriptionLeft: string
+  descriptionRight: string
+  mainImageUrl: string
+  goToExternalPage: boolean
+  urlToProject?: string
+  technologies: string
 }
 
-export interface GalleryImage {
-  front: string
-  back: string
-  photoText: string
+export interface ProjectGalleryItem {
+  image: string
+  caption: string
+}
+
+export interface ProjectFooter {
+  linkToNextProject: string
+}
+
+export interface Project {
+  overview: ProjectOverview
+  gallery: ProjectGalleryItem[]
+  footer: ProjectFooter
 }
 
 export interface AboutMe {
