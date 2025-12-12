@@ -43,41 +43,45 @@ const GalleryItem = ({ image, caption }: GalleryItemProps) => {
   return (
     <>
       <div className={styles["image-container"]}>
-        <img
-          src={image}
-          alt={caption}
-          onClick={handleImageClick}
-          className={styles["gallery-image"]}
-        />
-      </div>
-
-      
-        <div
-          className={styles["image-modal-overlay"]}
-          onClick={handleCloseModal}
-          style={{ display: isModalOpen ? 'flex' : 'none' }}
-        >
-          <div
-            className={styles["image-modal-content"]}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className={styles["image-modal-close"]}
-              onClick={handleCloseModal}
-              aria-label="Close modal"
-            >
-              <IoMdClose size={24} />
-            </button>
-            <img
-              src={image}
-              alt={caption}
-              className={styles["image-modal-image"]}
-            />
-            {caption && (
-              <p className={styles["image-modal-caption"]}>{caption}</p>
-            )}
+        <div className={styles["background-container"]}>
+          <img
+            src={image}
+            alt={caption}
+            onClick={handleImageClick}
+            className={styles["gallery-image"]}
+          />
+          <div className={styles["description-overlay"]}>
+            <span className={styles["description-overlay-text"]}>{caption}</span>
+            <span className={styles["description-overlay-cta"]}>[ Click to see better ]</span>
           </div>
         </div>
+      </div>
+      <div
+        className={styles["image-modal-overlay"]}
+        onClick={handleCloseModal}
+        style={{ display: isModalOpen ? 'flex' : 'none' }}
+      >
+        <div
+          className={styles["image-modal-content"]}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            className={styles["image-modal-close"]}
+            onClick={handleCloseModal}
+            aria-label="Close modal"
+          >
+            <IoMdClose size={24} />
+          </button>
+          <img
+            src={image}
+            alt={caption}
+            className={styles["image-modal-image"]}
+          />
+          {caption && (
+            <p className={styles["image-modal-caption"]}>{caption}</p>
+          )}
+        </div>
+      </div>
     </>
   )
 }

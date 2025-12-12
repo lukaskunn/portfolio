@@ -19,9 +19,9 @@ const ProjectsPage = () => {
       <div className={styles["project-list-container"]}>
         {projects.map((project, index) => {
           const { overview } = project;
-          const { subtitle, projectId, technologies, cardTitle, goToExternalPage } = overview
+          const { subtitle, projectId, technologies, cardTitle, goToExternalPage, urlToProject } = overview
           return (
-            <ProjectItem key={index} project={{ link: projectId, tech: technologies, title: cardTitle, subtitle }} index={index} updateModal={updateModal} openOnExternalPage={goToExternalPage} />
+            <ProjectItem key={index} project={{ link: projectId, tech: technologies, title: cardTitle, subtitle, urlToProject }} index={index} updateModal={updateModal} openOnExternalPage={goToExternalPage} />
           )
         })}
       </div>

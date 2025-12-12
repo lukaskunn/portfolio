@@ -10,6 +10,7 @@ type ProjectItemProps = {
     link: string;
     tech: string;
     subtitle: string;
+    urlToProject?: string;
   };
   index: number;
   openOnExternalPage: boolean;
@@ -17,14 +18,16 @@ type ProjectItemProps = {
 }
 
 const ProjectItem = ({ project, index, updateModal, openOnExternalPage }: ProjectItemProps) => {
-  const { title, link, tech, subtitle } = project;
+  const { title, link, tech, subtitle, urlToProject } = project;
+
+  console.log(title, urlToProject, openOnExternalPage)
 
   return (
     <div key={link} className={styles["project-list-item"]}
       onMouseEnter={() => updateModal(index, true)}
       onMouseLeave={() => updateModal(index, false)}>
       {index === 0 ? <div className={`${styles["border"]} ${styles["top"]}`} /> : null}
-      <LinkHandler href={`/project/${link}`} className={styles["project-item"]} goToExternalPage={openOnExternalPage}>
+      <LinkHandler href={openOnExternalPage && urlToProject ? urlToProject : `/project/${link}`} className={styles["project-item"]} goToExternalPage={openOnExternalPage}>
         <p className={styles["project-index"]}>{index + 1 < 10 ? `0${index + 1}` : index + 1}</p>
         <div className={styles["project-title-subtitle"]}>
           <h2 className={styles["project-title"]}>{title}</h2>

@@ -12,25 +12,6 @@ $border-color: rgba(43, 43, 43, 0.05);
   .mansory-container {
     margin: 0 -8px;
   }
-
-  .image-container {
-    width: 100%;
-    overflow: hidden;
-    
-    img {
-      padding: 8px;
-      // border-right: 1px solid $border-color;
-      // border-bottom: 1px solid $border-color;
-
-      // &:first-child {
-      //   border-top: 1px solid $border-color;
-      //   border-left: 1px solid $border-color;
-      // }
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-  }
 }
 
 .gallery-title {

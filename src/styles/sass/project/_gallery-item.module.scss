@@ -1,12 +1,55 @@
 @use '../references' as *;
 
-.gallery-image {
-  cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+.image-container {
+  position: relative;
+  overflow: hidden;
+  padding: 8px;
+  width: 100%;
 
   &:hover {
-    opacity: 0.85;
-    transform: scale(1.02);
+    .description-overlay {
+      opacity: 1;
+    }
+  }
+
+  .background-container {
+    position: relative;
+  }
+
+  .gallery-image {
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .description-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    height: 100%;
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    pointer-events: none;
+
+    .description-overlay-text {
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .description-overlay-cta {
+      margin-top: 12px;
+      font-size: 14px;
+    }
   }
 }
 
@@ -171,7 +214,7 @@
   position: relative;
   max-width: 100%;
   max-height: 100%;
-  width: 100%;
+  width: fit-content;
   height: 100%;
   display: flex;
   flex-direction: column;
