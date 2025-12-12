@@ -1,7 +1,7 @@
 'use client';
 import React from 'react'
 import styles from '@/styles/css/projects.module.css';
-import ProjectModal from '@/components/ProjectModal';
+import ProjectModal from '@/app/projects/components/ProjectModal';
 import ProjectItem from './ProjectItem';
 import { useProjectModalContext } from '@/contexts/ProjectsModalContext';
 import { useLanguage } from '@/contexts/LanguageContext';
