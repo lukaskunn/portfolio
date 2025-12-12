@@ -1,19 +1,9 @@
 import React from 'react'
 import styles from "@/styles/css/project.module.css"
 import Image from 'next/image'
+import type { ProjectOverview } from '@/utils/types'
 
-interface OverviewProps {
-  title: string
-  type: string
-  service: string
-  industry: string
-  year: string
-  descriptionLeft: string
-  descriptionRight: string
-  mainImageUrl: string
-}
-
-const Overview = ({ title, type, service, industry, year, descriptionLeft, descriptionRight, mainImageUrl }: OverviewProps) => {
+const Overview = ({ title, type, service, industry, year, descriptionLeft, descriptionRight, mainImageUrl, subtitle }: ProjectOverview) => {
   return (
     <section className={styles["overview-section"]}>
       <div className={styles["main-image-wrapper"]}>
@@ -27,6 +17,7 @@ const Overview = ({ title, type, service, industry, year, descriptionLeft, descr
       </div>
       <div className={styles["overview-header"]}>
         <h1 className={styles["project-title"]}>{title}</h1>
+        <h2 className={styles["project-subtitle"]}>{subtitle}</h2>
         <div className={styles["project-meta"]}>
           <div className={styles["meta-item"]}>
             <span className={styles["meta-label"]}>[type]</span>

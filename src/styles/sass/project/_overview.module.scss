@@ -23,7 +23,7 @@ $border-color: rgba(43, 43, 43, 0.05);
 }
 
 .project-title {
-  @include title-style(150px, 1, -0.06em);
+  @include title-style(150px, 1, 0em);
   margin: 0 0 0px;
 
   @include respond-to(mobile-768) {
@@ -36,18 +36,32 @@ $border-color: rgba(43, 43, 43, 0.05);
   }
 }
 
+.project-subtitle {
+  @include subtitle-style(22px, 1, 0.0em);
+  font-family: $primary-text-font;
+  font-weight: 300;
+  margin: -4px 0 24px;
+
+  @include respond-to(mobile-768) {
+    font-size: 20px;
+    margin: 0 0 12px;
+  }
+
+  @include respond-to(mobile-480) {
+    font-size: 18px;
+  }
+}
+
 .project-meta {
   display: flex;
   flex-direction: row;
   gap: 80px;
-  margin-left: 20px;
 
   @include respond-to(tablet-1024) {
     gap: 42px;
   }
 
   @include respond-to(mobile-768) {
-    margin-left: 0;
     flex-direction: column;
   }
 
@@ -106,6 +120,50 @@ $border-color: rgba(43, 43, 43, 0.05);
 
   @include respond-to(mobile-768) {
     font-size: 15px;
+  }
+
+  h3 {
+    font-family: $gloock-font;
+    letter-spacing: 0.08rem;
+    font-size: 24px;
+    margin: 32px 0 16px;
+    border-bottom: 1px solid black;
+
+    @include respond-to(mobile-768) {
+      font-size: 20px;
+      margin: 24px 0 12px;
+    }
+  }
+
+  h4 {
+    font-family: $gloock-font;
+    letter-spacing: 0.06rem;
+    font-size: 18px;
+    margin: 12px 0 0;
+
+    @include respond-to(mobile-768) {
+      font-size: 18px;
+      margin: 20px 0 8px;
+    }
+
+    & + p {
+      margin-top: 0px;
+    }
+  }
+
+  p {
+    font-family: $secondary-text-font;
+    font-size: 16px;
+    // line-height: 1;
+    letter-spacing: 0em;
+    margin: 4px 0 0;
+  }
+  li {
+    margin: 4px 0 12px;
+
+    h4 {
+      margin: 0;
+    }
   }
 }
 
