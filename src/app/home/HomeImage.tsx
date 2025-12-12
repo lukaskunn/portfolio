@@ -18,7 +18,7 @@ const DEFAULT_LINES = [
 ];
 
 const HomeImage: React.FC<HomeImageProps> = ({
-  imageSrc = '/assets/images/homepage/test_1.jpg',
+  imageSrc = '/assets/images/homepage/profile_image.jpg',
   alt = 'Profile portrait',
   width = 480,
   height = 480,
