@@ -21,7 +21,6 @@ const GalleryItem = ({ image, caption }: GalleryItemProps) => {
     setIsModalOpen(false)
   }
 
-  // Close modal on ESC key press
   useEffect(() => {
     const handleEscKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isModalOpen) {

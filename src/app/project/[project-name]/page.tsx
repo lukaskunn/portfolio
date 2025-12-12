@@ -7,8 +7,6 @@ import ProjectFooter from './components/ProjectFooter'
 import { useLanguage } from '@/contexts/LanguageContext'
 import type { Project } from '@/utils/types'
 
-// This would be fetched based on the project-name param
-// For now, using mock data matching the JSON structure
 const getProjectData = (projectName: string, projects: Project[]) => {
   const projectNameDecoded = decodeURIComponent(projectName);
   return projects.find(project => project.overview.projectId === projectNameDecoded)!

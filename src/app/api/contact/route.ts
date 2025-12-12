@@ -14,7 +14,6 @@ export async function POST(request: NextRequest) {
     const body: ContactFormData = await request.json();
     const { name, phone, email, message, budget } = body;
 
-    // Validate required fields
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: 'Name, email, and message are required' },
@@ -22,7 +21,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
@@ -31,23 +29,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // For now, we'll use a simple fetch to send email via a service
-    // You can integrate with services like Resend, SendGrid, or Nodemailer
-    // For production, you should set up a proper email service
-
-    // Log the contact form submission (for development)
-    // console.log('Contact Form Submission:', {
-    //   name,
-    //   phone,
-    //   email,
-    //   message,
-    //   budget,
-    //   timestamp: new Date().toISOString(),
-    // });
-
-    // Here you would typically integrate with an email service
-    // Example with Resend (you'd need to install @resend/node):
-    //
     const resend = new Resend(process.env.RESEND_API_KEY);
     await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
@@ -231,7 +212,6 @@ export async function POST(request: NextRequest) {
       `,
     });
 
-    // For now, simulate success
     return NextResponse.json(
       {
         success: true,
@@ -239,7 +219,6 @@ export async function POST(request: NextRequest) {
       },
       { status: 200 }
     );
-
   } catch (error) {
     console.error('Contact form error:', error);
     return NextResponse.json(

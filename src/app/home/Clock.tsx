@@ -4,7 +4,6 @@ import React from 'react'
 const Clock = () => {
   const [currentLocalTime, setCurrentLocalTime] = React.useState<string>('00:00:00 AM');
 
-  // Update local time
   React.useEffect(() => {
     const updateLocalTime = () => {
       const localTime = new Intl.DateTimeFormat("pt-BR", {
@@ -17,7 +16,7 @@ const Clock = () => {
       setCurrentLocalTime(localTime);
     };
 
-    updateLocalTime(); // Initialize immediately
+    updateLocalTime();
     const interval = setInterval(updateLocalTime, 1000);
     return () => clearInterval(interval);
   }, []);
