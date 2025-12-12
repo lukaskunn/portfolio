@@ -96,76 +96,283 @@
     "backToProjectsText": "Back to projects",
     "projects": [
       {
-        "projectId": "motorola-europe-store",
-        "title": "[ Motorola Europe E-commerce Store ]",
-        "description": "Vtex IO + React",
-        "briefDescription": "In my current role at Motorola Europe, I am spearheading the development of a groundbreaking re-branded layout for the Motorola Europe e-commerce store. Collaborating closely with a team of skilled developers and designers, our mission is to elevate the online shopping experience for Motorola customers across Europe.</>Leveraging cutting-edge technologies such as Vtex IO, React, TypeScript, and Node.js, we are not only revamping the store's aesthetics but also enhancing its performance and usability. My role involves conceptualizing and implementing innovative features that seamlessly integrate into the new layout, ensuring a smooth and intuitive user journey.</> A pivotal aspect of this project has been my involvement with the Vtex API, enabling me to introduce new functionalities and optimize the store's performance. By harnessing the power of this API, we have been able to unlock new possibilities and push the boundaries of what the e-commerce platform can achieve.</>One of the most rewarding achievements of this endeavor has been the creation of the new Motoverse pages layout. By developing a custom no-code builder for each page, we hpave empowered the marketing team to generate dynamic new pages autonomously, without the reliance on a developer. This innovation not only streamlines the content creation process but also fosters agility and flexibility within the organization.</>As we continue to refine and evolve the Motorola Europe e-commerce store, I am excited to be at the forefront of delivering a truly transformative digital experience for our customers.",
-        "urlToProject": "https://www.motorola.co.uk",
-        "galleryBackground": "/assets/images/projects/motorola_europe/image_modal.png",
-        "imageAlt": "Motorola Europe Project Image",
-        "galleryBackgroundColor": "#922724",
-        "technologies": [
-          "React",
-          "Vtex IO",
-          "TypeScript",
-          "Node.js"
+        "overview": {
+          "projectId": "casa-dexco",
+          "title": "Casa Dexco",
+          "cardTitle": "[ Casa Dexco ]",
+          "subtitle": "A \"Phygital\" Ecosystem for Brazil's Design Authority",
+          "technologies": "VTEX IO / React / TypeScript / Node.js",
+          "galleryBackground": "/assets/images/projects/casadexco/casadexco_modal_2.png",
+          "imageAlt": "Casa dexco Project Image",
+          "galleryBackgroundColor": "#1c1c1c",
+          "type": "Institutional Website",
+          "service": "Web Development",
+          "industry": "House & Design",
+          "year": "2025",
+          "descriptionLeft": "<div><h3>Project Overview</h3><p>Casa Dexco represents the digital unification of Brazil's most influential construction and decor conglomerate, housing iconic brands like Deca, Portinari, Duratex, and Hydra. The objective was to create a digital flagship that didn't just display products, but extended the physical experience of their concept store in Avenida Paulista. The platform serves a dual audience: end-consumers seeking inspiration and, crucially, architects and specifiers looking for technical resources and workspace.</p><h3>Key Features & User Experience</h3><p>The project required complex logic to bridge the gap between visual inspiration and technical specification:</p><ol><li><h4>Interactive \"Living Environments\" Showroom</h4><p>The core technical achievement is the \"Viver Ambientes\" module. I developed an immersive \"Shop the Look\" experience where users explore high-fidelity architectural photography.</p><p><strong>The Interaction:</strong> Using custom hover states and transitions, users can interact with specific elements within a scene (e.g., a faucet or floor tile).</p><p><strong>The Logic:</strong> This action triggers a dynamic product shelf that pulls real-time data for the tagged items, allowing the user to view the specific SKU, technical description, and finish options without leaving the inspiration context.</p></li><li><h4>Service Integration & Scheduling</h4><p>To support the \"Casa Dexco\" physical coworking space, I built a custom scheduling system. This feature invites professionals to book workspaces directly through the site. It involved creating a multi-step form validation flow that captures user data (CPF, profile type) and integrates with the backend to manage capacity.</p></li><li><h4>Geolocation & Store Locator</h4><p>To drive foot traffic, we implemented a robust map interface. Users can input their location to filter and find the nearest authorized resellers or showrooms, visualizing the extensive network of Dexco partners across Brazil.</p></li></ol></div>",
+          "descriptionRight": "<div><h3>Technical Architecture</h3><p>The application was engineered using VTEX IO, leveraging its serverless capabilities for scalability.</p><h4>Frontend</h4><p>Built with React and TypeScript to ensure component reusability and type safety across the complex UI. I focused heavily on Micro-interactions, creating smooth CSS transitions and hover effects that mimic the premium feel of the physical products.</p><h4>Backend</h4><p>Custom Node.js middlewares were developed to handle specific business rules, such as the scheduling logic and specific product catalog queries that standard VTEX APIs didn't cover out-of-the-box.</p><h3>The Impact</h3><p>The result is a seamless digital ecosystem that acts as a true extension of the Casa Dexco brand, functional enough for an architect's daily workflow, yet visually rich enough to inspire a homeowner's renovation.</p></div>",
+          "mainImageUrl": "/assets/images/projects/casadexco/casadexco_banner.png",
+          "goToExternalPage": false
+        },
+        "gallery": [
+          {
+            "image": "/assets/images/projects/casadexco/casadexco_agendamento_1.png",
+            "caption": "Casa Dexco Scheduling Feature"
+          },
+          {
+            "image": "/assets/images/projects/casadexco/casadexco_ambientes_pagina_1.png",
+            "caption": "Casa Dexco ambientes page"
+          },
+          {
+            "image": "/assets/images/projects/casadexco/casadexco_ambientes_pagina_2.png",
+            "caption": "Casa Dexco ambientes page"
+          },
+          {
+            "image": "/assets/images/projects/casadexco/casadexco_faq.png",
+            "caption": "Casa Dexco FAQ Section"
+          },
+          {
+            "image": "/assets/images/projects/casadexco/casadexco_homepage_consumidor_1.png",
+            "caption": "Casa Dexco Consumer Homepage"
+          },
+          {
+            "image": "/assets/images/projects/casadexco/casadexco_homepage_consumidor_2.png",
+            "caption": "Casa Dexco Consumer Homepage"
+          },
+          {
+            "image": "/assets/images/projects/casadexco/casadexco_homepage_consumidor_3.png",
+            "caption": "Casa Dexco Consumer Homepage"
+          },
+          {
+            "image": "/assets/images/projects/casadexco/casadexco_homepage_especificador_1.png",
+            "caption": "Casa Dexco Specifier Homepage"
+          },
+          {
+            "image": "/assets/images/projects/casadexco/casadexco_homepage_especificador_2.png",
+            "caption": "Casa Dexco Specifier Homepage"
+          },
+          {
+            "image": "/assets/images/projects/casadexco/casadexco_homepage_especificador_3.png",
+            "caption": "Casa Dexco Specifier Homepage"
+          },
+          {
+            "image": "/assets/images/projects/casadexco/casadexco_project_showroom.png",
+            "caption": "Casa Dexco Showroom Page"
+          }
         ],
-        "galleryImages": [
-          [
-            {
-              "front": "/assets/images/projects/motorola_europe/image_7.png",
-              "back": "/assets/images/projects/motorola_europe/image_8.png",
-              "photoText": "[Motoverse Homepage]"
-            },
-            {
-              "front": "/assets/images/projects/motorola_europe/image_9.png",
-              "back": "/assets/images/projects/motorola_europe/image_10.png",
-              "photoText": "[Motoverse Landing Page]"
-            }
-          ],
-          [
-            {
-              "front": "/assets/images/projects/motorola_europe/image_1.png",
-              "back": "/assets/images/projects/motorola_europe/image_2.png",
-              "photoText": "[Homepage]"
-            },
-            {
-              "front": "/assets/images/projects/motorola_europe/image_3.png",
-              "back": "/assets/images/projects/motorola_europe/image_3.png",
-              "photoText": "[Product Page]"
-            },
-            {
-              "front": "/assets/images/projects/motorola_europe/image_5.png",
-              "back": "/assets/images/projects/motorola_europe/image_6.png",
-              "photoText": "[Family Page]"
-            }
-          ]
-        ]
+        "footer": {
+          "linkToNextProject": "/project/casa-dexco-store"
+        }
       },
       {
-        "projectId": "personal-stuff",
-        "title": "Personal Stuff",
-        "imageAlt": "Personal Stuff Project Image",
-        "description": "Next.js / Three.js / GSAP / Framer Motion",
-        "urlToProject": "/my-stuff",
-        "galleryBackground": "/assets/images/projects/myStuff/glass-effect-background.png",
-        "galleryBackgroundColor": "#922724",
-        "goToExternalPage": true
+        "overview": {
+          "projectId": "casa-dexco-store",
+          "cardTitle": "[ Casa Dexco E-commerce Store ]",
+          "title": "Casa Dexco Store",
+          "subtitle": "High-Performance Retail on VTEX IO",
+          "technologies": "VTEX IO / React / TypeScript / Node.js",
+          "galleryBackground": "/assets/images/projects/casadexco_store/casadexco_store_modal.png",
+          "imageAlt": "",
+          "galleryBackgroundColor": "#1c1c1c",
+          "type": "E-commerce",
+          "service": "Web Development",
+          "industry": "House & Design",
+          "year": "2025",
+          "descriptionLeft": "<div><h3>Project Overview</h3><p>While the institutional site inspires, the Casa Dexco Store is built to convert. This project involved a complete redesign and re-platforming of the direct-to-consumer e-commerce channel for brands like Deca, Portinari, and Hydra. The objective was to build a robust, scalable retail machine capable of handling high-traffic events like Black Friday while managing complex logistics behind a clean, user-friendly interface.</p><h3>Technical Challenges & Logical Architecture</h3><p>Built on VTEX IO with React, the frontend appears deceptively simple. However, the backend architecture handles significant complexity to ensure a seamless checkout flow:</p><ol><li><h4>Intelligent Seller Routing (White Label)</h4><p>The most critical feature is the geolocation logic. Since inventory is distributed across various centers, I implemented a validation system where the user's Zip Code (CEP) dynamically filters the entire catalog.</p><p><strong>The Logic:</strong> The application identifies the user's location and routes the session to the correct \"White Label\" seller. This ensures that the pricing, stock availability, and shipping estimates shown in the cart are 100% accurate for that specific region.</p></li><li><h4>Custom Identity Management</h4><p>We moved beyond standard login flows to create a segmented identification system. The platform identifies the user type (End Consumer vs. Architect/Specifier) during the authentication process. This allows for future scalability in offering differentiated pricing or B2B-specific features.</p></li></ol></div>",
+          "descriptionRight": "<div><h3>Retail Features & \"Black Season\"</h3><p>To maximize conversion during retail peaks, I engineered specific \"Urgency Triggers\" that required real-time data validation:</p><ul><li><strong>Aggregated Stock Counter:</strong> I developed a component that checks stock availability across multiple sellers simultaneously. If the total inventory dips below a certain threshold, a \"Low Stock\" warning is triggered on the UI to encourage immediate purchase.</li><li><strong>Promotion Timers:</strong> A dynamic countdown timer was integrated into the Collection pages, synchronized with the backend trade policies to ensure promotions expire automatically without manual content updates.</li></ul><h3>The Result</h3><p>The redesign delivered a modern, friction-free shopping experience. From the structured Product Detail Pages (PDP) to the transparent checkout resume, the new architecture ensures that complex business rules never interfere with the user's path to purchase.</p></div>",
+          "mainImageUrl": "/assets/images/projects/casadexco_store/casadexco_store_banner.png",
+          "goToExternalPage": false
+        },
+        "gallery": [
+          {
+            "image": "/assets/images/projects/casadexco_store/casadexco_store_homepage_1.png",
+            "caption": "Casa Dexco store homepage"
+          },
+          {
+            "image": "/assets/images/projects/casadexco_store/casadexco_store_homepage_2.png",
+            "caption": "Casa Dexco store homepage"
+          },
+          {
+            "image": "/assets/images/projects/casadexco_store/casadexco_store_homepage_3.png",
+            "caption": "Casa Dexco store homepage"
+          },
+          {
+            "image": "/assets/images/projects/casadexco_store/casadexco_store_homepage_4.png",
+            "caption": "Casa Dexco store Footer"
+          },
+          {
+            "image": "/assets/images/projects/casadexco_store/casadexco_store_product_page.png",
+            "caption": "Casa Dexco Store Product Page"
+          },
+          {
+            "image": "/assets/images/projects/casadexco_store/casadexco_store_collection_page_1.png",
+            "caption": "Casa Dexco Store Collection Page"
+          },
+          {
+            "image": "/assets/images/projects/casadexco_store/casadexco_store_checkout_cart.png",
+            "caption": "Casa Dexco Store Checkout Cart"
+          },
+          {
+            "image": "/assets/images/projects/casadexco_store/casadexco_store_checkout_address.png",
+            "caption": "Casa Dexco Store Shopping Cart"
+          }
+        ],
+        "footer": {
+          "linkToNextProject": "/project/motoverse"
+        }
+      },
+      {
+        "overview": {
+          "projectId": "motoverse",
+          "title": "Motoverse",
+          "cardTitle": "[ Motoverse ]",
+          "subtitle": "Architecting a Scalable Content Engine for Europe",
+          "technologies": "VTEX IO / React / TypeScript",
+          "galleryBackground": "/assets/images/projects/motoverse/motoverse_modal.png",
+          "imageAlt": "Motoverse",
+          "galleryBackgroundColor": "#1c1c1c",
+          "type": "Institucional Website",
+          "service": "Web Development",
+          "industry": "Technology",
+          "year": "2024",
+          "descriptionLeft": "<div><h3>Project Overview</h3><p>Motoverse is the central institutional hub for Motorola across 30 European markets. Unlike a standard e-commerce store, this platform is dedicated to brand storytelling, showcasing global partnerships, environmental initiatives (ESG), and technological breakthroughs. The challenge was to deliver a visually immersive experience that could be localized and managed easily across dozens of regions without constant developer intervention.</p><h3>The Engineering Breakthrough: \"No-Code\" Architecture</h3><p>The standard approach for landing pages is often rigid and hardcoded. For Motoverse, I architected a Dynamic Component System that revolutionized how the marketing team creates content.</p><p><strong>The Solution:</strong> I leveraged VTEX IO and React to build a library of flexible, reusable blocks. Instead of writing code for every new campaign, I exposed these components through the VTEX Site Editor.</p><p><strong>The Impact:</strong> This effectively created a custom \"Drag-and-Drop\" page builder. Content managers can now assemble complex layouts, positioning text, hero banners, and interactive galleries, completely independently. This reduced the \"Time-to-Live\" for new campaigns from days to minutes.</p></div>",
+          "descriptionRight": "<div><h3>Global Content Management</h3><p>This modular architecture was crucial for managing Motorola's high-profile partnerships. The system supports rich media layouts for diverse content verticals:</p><ul><li><strong>Sports Partnerships:</strong> Dedicated dynamic hubs for the Formula 1, Chicago Bulls, and Euroleague.</li><li><strong>ESG & Innovation:</strong> Immersive storytelling pages for Motorola's environmental and tech initiatives, all built using the same reusable design system.</li></ul><h3>Tech Stack & Scalability</h3><ul><li><strong>Frontend:</strong> React (TypeScript) running on VTEX IO.</li><li><strong>CMS Strategy:</strong> The project utilizes a \"Headless-first\" mindset, where the frontend is decoupled from the content schema, allowing for the 30-country rollout to share a single codebase while maintaining unique localized content.</li></ul></div>",
+          "mainImageUrl": "/assets/images/projects/motoverse/motoverse_banner.png",
+          "goToExternalPage": false
+        },
+        "gallery": [
+          {
+            "image": "/assets/images/projects/motoverse/motoverse_homepage.png",
+            "caption": "Motoverse Homepage"
+          },
+          {
+            "image": "/assets/images/projects/motoverse/motoverse_lp_1.png",
+            "caption": "Motoverse Chicago Bulls Partnership Page"
+          },
+          {
+            "image": "/assets/images/projects/motoverse/motoverse_lp_2.png",
+            "caption": "Motoverse Formula 1 Partnership Page"
+          },
+          {
+            "image": "/assets/images/projects/motoverse/motoverse_lp_3.png",
+            "caption": "Motoverse Sustainability Page"
+          }
+        ],
+        "footer": {
+          "linkToNextProject": "/project/motorola-europe"
+        }
+      },
+      {
+        "overview": {
+          "projectId": "motorola-europe",
+          "cardTitle": "[ Motorola Europe E-commerce Store ]",
+          "title": "Motorola Europe",
+          "subtitle": "A Pan-European E-commerce Ecosystem",
+          "technologies": "VTEX IO / React / TypeScript / Node.js",
+          "galleryBackground": "/assets/images/projects/motorola_europe/motorola_europe_modal.png",
+          "imageAlt": "Motorola Europe Project Image",
+          "galleryBackgroundColor": "#1c1c1c",
+          "type": "E-commerce",
+          "service": "Web Development",
+          "industry": "Technology",
+          "year": "2024",
+          "descriptionLeft": "<div><h3>Project Overview</h3><p>Managing a direct-to-consumer channel for a global tech giant requires more than just a storefront; it demands a scalable commerce engine. I led the frontend development and backend service integration for Motorola's European Store, a unified platform serving 30 distinct markets. The objective was to create a high-performance shopping experience that balances the brand's visual storytelling with the rigid logistical requirements of selling electronics across borders.</p><h3>Complex Commerce & Backend Logic</h3><p>Unlike standard retail sites, selling smartphones involves complex post-sale services and dynamic pricing models. I engineered custom Node.js middlewares on VTEX IO to handle these specific business rules:</p><ol><li><h4>MotoCare (Warranty Intelligence)</h4><p>I developed the integration for MotoCare, Motorola's extended warranty service. This wasn't a simple \"add-to-cart\" product.</p><p><strong>The Challenge:</strong> The system needed to verify if a specific device (SKU) was eligible for coverage and check if the warranty window was still open for that user.</p><p><strong>The Solution:</strong> I built a backend service that intercepts the user's session, validates the device data in real-time against the MotoCare API, and dynamically injects the correct warranty options into the checkout flow.</p></li><li><h4>Dynamic Trade-In Engine</h4><p>To incentivize device upgrades, we implemented a robust Trade-In system.</p><p><strong>The Logic:</strong> This feature allows users to exchange their old devices for credit. I implemented the frontend logic to capture the old device's condition and model, which communicates with the pricing engine to calculate a real-time discount. This discount is then applied programmatically to the cart, reducing the checkout friction significantly.</p></li></ol></div>",
+          "descriptionRight": "<div><h3>Visual Storytelling & Product Discovery</h3><p>A key requirement was to merge \"Marketing\" and \"Sales.\" We moved away from dry product lists to create immersive Product Detail Pages (PDPs) and Landing Pages.</p><h4>Flagship Showcases:</h4><p>For launches like the Edge Family, I built rich, component-based layouts that break down complex technical specs (cameras, processors, display refresh rates) into digestible, interactive visual narratives.</p><h4>Seamless Conversion:</h4><p>These high-impact pages were integrated directly into the commerce flow, allowing users to move from \"learning\" to \"buying\" without ever leaving the immersive environment.</p><h3>The Impact</h3><p>The platform successfully unified 30 fragmented markets into a single, maintainable codebase using React and TypeScript, ensuring that a feature deployed for the UK could be instantly rolled out to Germany or Italy, ensuring brand consistency at a continental scale.</p></div>",
+          "mainImageUrl": "/assets/images/projects/motorola_europe/motorola_europe_banner.png",
+          "goToExternalPage": false
+        },
+        "gallery": [
+          {
+            "image": "/assets/images/projects/motorola_europe/motorola_europe_homepage.png",
+            "caption": "Motorola Europe Homepage"
+          },
+          {
+            "image": "/assets/images/projects/motorola_europe/motorola_europe_homepage_grid.png",
+            "caption": "Motorola Europe Homepage Grid View"
+          },
+          {
+            "image": "/assets/images/projects/motorola_europe/motorola_europe_product_information_lp_1.png",
+            "caption": "Motorola Europe Product Information Landing Page"
+          },
+          {
+            "image": "/assets/images/projects/motorola_europe/motorola_europe_product_information_lp_2.png",
+            "caption": "Motorola Europe Product Information Landing Page"
+          },
+          {
+            "image": "/assets/images/projects/motorola_europe/motorola_europe_product_information_lp.png",
+            "caption": "Motorola Europe Product Information Landing Page"
+          },
+          {
+            "image": "/assets/images/projects/motorola_europe/motorola_europe_product_page_1.png",
+            "caption": "Motorola Europe Product Page"
+          },
+          {
+            "image": "/assets/images/projects/motorola_europe/motorola_europe_product_page_2.png",
+            "caption": "Motorola Europe Product Page"
+          },
+          {
+            "image": "/assets/images/projects/motorola_europe/motorola_europe_business_edition_2.png",
+            "caption": "Motorola Europe Business edition page"
+          },
+          {
+            "image": "/assets/images/projects/motorola_europe/motorola_europe_business_edition_page.png",
+            "caption": "Motorola Europe Business edition page"
+          },
+          {
+            "image": "/assets/images/projects/motorola_europe/motorola_europe_collection_page.png",
+            "caption": "Motorola Europe collection page"
+          },
+          {
+            "image": "/assets/images/projects/motorola_europe/motorola_europe_compare_page.png",
+            "caption": "Motorola Europe comapre page"
+          },
+          {
+            "image": "/assets/images/projects/motorola_europe/motorola_europe_thinkphone_page.png",
+            "caption": "Motorola Europe Thinkphone page"
+          }
+        ],
+        "footer": {
+          "linkToNextProject": "/projects"
+        }
+      },
+      {
+        "overview": {
+          "projectId": "personal-stuff",
+          "title": "Personal Stuff",
+          "cardTitle": "Personal Stuff",
+          "subtitle": "A collection of my personal projects and experiments.",
+          "technologies": "Next.js / Three.js / GSAP / Framer Motion",
+          "galleryBackground": "/assets/images/projects/myStuff/glass-effect-background.png",
+          "imageAlt": "Personal Stuff Project Image",
+          "urlToProject": "https://www.lucasoliveira.io/my-stuff",
+          "galleryBackgroundColor": "#1c1c1c",
+          "goToExternalPage": true,
+          "year": "",
+          "type": "",
+          "service": "",
+          "industry": "",
+          "descriptionLeft": "",
+          "descriptionRight": "",
+          "mainimage": "/"
+        },
+        "gallery": [],
+        "footer": {
+          "linkToNextProject": ""
+        }
       }
     ]
   },
   "aboutMe": {
     "sectionTitle": "ABOUT ME",
     "nextPageText": "Contact",
-    "intro": "I'm a creative developer and software engineer from São Paulo with over 5 years of experience creating unique web experiences around the world. I love crafting visual striking and awesome websites that not only look great but also feel intuitive",
+    "intro": "I am a Creative Software Engineer based in São Paulo with over 5 years of experience architecting digital ecosystems for global brands. I specialize in the intersection of technical performance and visual immersion, transforming complex backend logic into fluid, motion-rich user interfaces that push the boundaries of modern web design.",
     "background": {
       "title": "My Background",
       "paragraphs": [
-        "I'm a 23-year-old guy, graduated in computer science and working as a full-stack developer.",
-        "I received honors for presenting my final paper on Computer Vision and disease identification in tomato plants.",
-        "Currently developing for Motorola Europe in my job, maintaining Motorola stores in over 30 countries in Europe.",
-        "I have worked on developing for various e-commerces, creating their home pages and product pages, creating components and adjusting already implemented components.",
-        "Currently studying Three.js and animations with GSAP / Framer Motion."
+        "At 24, I am operating as a Full-Stack Developer with a focus on enterprise architecture. Currently, I am engineering the Casa Dexco Store, a high-performance e-commerce ecosystem built on VTEX IO. My work bridges the gap between complex business logic, such as intelligent \"white label\" seller routing and dynamic inventory management, and the premium, responsive frontend experience required by a market leader. I don't just write code; I build scalable commerce tools that drive real revenue.",
+        "My passion for engineering is rooted in deep computer science. I graduated with honors, receiving recognition for my final paper on Computer Vision and Disease Identification in agriculture. This background gave me a strong foundation in algorithmic thinking, a skill I keep sharp by constantly challenging myself.",
+        "I believe the web is the ultimate canvas. I am currently deep-diving into Creative Development, pushing the boundaries of the browser with Three.js, GSAP, and WebGL. My goal is to transform standard static layouts into fluid, motion-rich experiences.",
+        "When I’m not pushing to production, I’m usually refining my craft or decompressing. You can find me grinding algorithmic challenges on LeetCode (optimizing solutions is my version of a workout), capturing street photography around São Paulo, or relaxing with a competitive gaming session. I believe that a sharp mind requires a chill vibe."
       ]
     },
     "certifications": {
