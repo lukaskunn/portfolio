@@ -68,26 +68,24 @@
     "socialLinks": [
       {
         "label": "Linkedin",
-        "href": "https://linkedin.com/in/lucas-oliveira-997810198/",
+        "href": "https://www.linkedin.com/in/lucas-oliveira-io/",
         "type": "social"
       },
       {
         "label": "Instagram",
-        "href": "https://instagram.com/lukaskunn",
+        "href": "https://www.instagram.com/http.lucaso/",
         "type": "social"
       },
       {
         "label": "X / Twitter",
-        "href": "https://twitter.com/lukaskunn",
-        "type": "social"
-      },
-      {
-        "label": "Medium",
-        "href": "https://medium.com/@lukaskunn",
+        "href": "https://x.com/http_lucaso",
         "type": "social"
       }
     ],
     "mobileQuickMessage": "I DESIGN MEMORABLE WEB EXPERIENCES FOR BRANDS OF ALL SIZES"
+  },
+  "footer": {
+    "quickMessage": "I DESIGN MEMORABLE WEB EXPERIENCES<br />FOR BRANDS OF ALL SIZES"
   },
   "works": {
     "sectionTitle": "WORKS",
@@ -484,16 +482,20 @@
     },
     "socialLinks": [
       {
+        "name": "X / TWITTER",
+        "url": "https://x.com/http_lucaso"
+      },
+      {
         "name": "INSTAGRAM",
-        "url": "https://instagram.com/lukaskunn"
+        "url": "https://www.instagram.com/http.lucaso/"
       },
       {
         "name": "TELEGRAM",
-        "url": "https://t.me/lukaskunn"
+        "url": "https://t.me/http_lucaso"
       },
       {
         "name": "LINKEDIN",
-        "url": "https://linkedin.com/in/lucas-oliveira-997810198/"
+        "url": "https://www.linkedin.com/in/lucas-oliveira-io/"
       }
     ]
   }

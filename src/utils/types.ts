@@ -1,11 +1,16 @@
 export interface LanguageContentType {
   landing: Landing
   header: Header
+  footer: Footer
   works: Works
   aboutMe: AboutMe
   resume: Resume
   services: Services
   contact: Contact
+}
+
+export interface Footer {
+  quickMessage: string
 }
 
 export interface Landing {

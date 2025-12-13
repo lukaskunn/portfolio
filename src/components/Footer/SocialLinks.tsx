@@ -1,34 +1,20 @@
 import React from 'react'
 import styles from "@/styles/css/footer.module.css";
-
+import { useLanguage } from '@/contexts/LanguageContext';
 import SocialLink from './SocialLink';
 
-interface SocialLink {
-  name: string;
-  url: string;
-}
 
-interface SocialLinksProps {
-  links?: SocialLink[]
-}
+const SocialLinks = () => {
+  const { currentContent } = useLanguage();
+  const links = currentContent.header.socialLinks
 
-const DEFAULT_LINKS = [
-  { name: 'Instagram', url: 'https://instagram.com' },
-  { name: 'GitHub', url: 'https://github.com' },
-  { name: 'Twitter', url: 'https://twitter.com' },
-  { name: 'LinkedIn', url: 'https://linkedin.com' },
-];
-
-const SocialLinks = ({
-  links = DEFAULT_LINKS
-}: SocialLinksProps) => {
   return (
     <div className={styles["social-links-container"]}>
       {links.map((link) => (
         <SocialLink
-          key={link.name}
-          name={link.name}
-          url={link.url}
+          key={link.label}
+          name={link.label}
+          url={link.href}
         />
       ))}
     </div>
