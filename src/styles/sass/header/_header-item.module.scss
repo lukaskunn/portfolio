@@ -8,12 +8,13 @@
   justify-content: center;
   
   text-decoration: none;
+  cursor: none;
 
   mix-blend-mode: difference;
 
   &:hover {
     color: ref.$secondary-color;
-    cursor: pointer;
+    // cursor: pointer;
   }
 
   &:hover {

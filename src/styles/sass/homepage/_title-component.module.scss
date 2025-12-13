@@ -33,7 +33,7 @@
 
     pointer-events: none;
     user-select: none;
-    cursor: default;
+    // cursor: default;
 
     @include respond-to(desktop-1440) {
       @include title-style(225px, 0.95, 0);
