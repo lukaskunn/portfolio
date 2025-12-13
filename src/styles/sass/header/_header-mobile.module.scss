@@ -48,21 +48,24 @@
 
   padding: 20px 30px 20px 20px;
 
-  @include respond-to(mobile-768) {
-    display: flex;
-  }
+  // transition: left 0.3s ease-in-out;
+  left: -104%;
 
   @include respond-to(mobile-768) {
     display: flex;
   }
 
-  &.open {
-    left: 0;
+  @include respond-to(mobile-768) {
+    display: flex;
   }
 
-  &.closed {
-    left: -104%;
-  }
+  // &.open {
+  //   left: 0;
+  // }
+
+  // &.closed {
+  //   left: -104%;
+  // }
 
 
   &__top-items {

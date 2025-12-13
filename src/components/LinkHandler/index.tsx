@@ -6,21 +6,23 @@ interface LinkHandlerProps {
   children: React.ReactNode;
   className: string;
   goToExternalPage?: boolean;
+  onClick?: () => void;
 }
 
 const LinkHandler = ({
   href,
   children,
   className,
-  goToExternalPage
+  goToExternalPage,
+  onClick
 }: LinkHandlerProps) => {
   const isExternal = /^https?:\/\//i.test(href)
 
   if (isExternal || goToExternalPage) {
-    return <a href={href} target="_blank" rel="noopener noreferrer" className={className}>{children}</a>
+    return <a href={href} target="_blank" rel="noopener noreferrer" className={className} onClick={onClick}>{children}</a>
   }
 
-  return <Link href={href} className={className}>{children}</Link>
+  return <Link href={href} className={className} onClick={onClick}>{children}</Link>
 }
 
 export default LinkHandler
