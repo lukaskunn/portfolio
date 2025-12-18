@@ -32,6 +32,22 @@
   }
 }
 
+.mobile-menu-overlay-background {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -104%;
+  width: 100vw;
+  height: 100vh;
+  background-color: #292929;
+  color: #E5E5DD;
+  z-index: 998;
+
+  @include respond-to(mobile-768) {
+    display: block;
+  }
+}
+
 .mobile-menu-overlay {
   display: none;
   position: fixed;
@@ -39,7 +55,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #0E0C03;
+  background-color: #1c1c1c;
   color: #E5E5DD;
   z-index: 999;
 

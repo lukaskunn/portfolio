@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   text-decoration: none;
   cursor: none;
 
@@ -23,13 +23,15 @@
       gap: 8px;
     }
   }
-  
+
   .text {
     display: flex;
     align-items: center;
     justify-content: center;
     transition: gap 0.2s ease-in-out;
-  
+    overflow: hidden;
+    height: 27px;
     gap: 4px;
   }
+
 }
