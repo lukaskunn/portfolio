@@ -1,7 +1,11 @@
 'use client'
-import React from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
 import styles from '@/styles/css/Homepage.module.css';
+import { usePageContext } from '@/contexts/PageContext';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ANIMATION_DELAYS, ANIMATION_TIME } from '@/utils/animationVars';
 
 interface HomeImageProps {
   imageSrc?: string;
@@ -24,18 +28,98 @@ const HomeImage: React.FC<HomeImageProps> = ({
   height = 480,
   lines = DEFAULT_LINES
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRefMobile = useRef<HTMLDivElement>(null);
+  const mobileImageRef = useRef<HTMLImageElement>(null);
+  const blackBoxRef = useRef<HTMLDivElement>(null);
+  const { isLoaded } = usePageContext();
+
+  useGSAP(() => {
+    if (!isLoaded || !containerRef.current) return;
+
+    // Clip-path reveal from top-left to bottom-right
+    gsap.fromTo(
+      containerRef.current,
+      {
+        clipPath: 'circle(0% at 0% 0%)',
+        scale: 1.1,
+      },
+      {
+        clipPath: 'circle(50% at 50% 50%)',
+        scale: 1,
+        transform: 'translate(-50%, -50%)',
+        ease: 'power4.out',
+        duration: ANIMATION_TIME.image,
+        delay: ANIMATION_DELAYS.image,
+      }
+    );
+
+    if (!mobileImageRef.current || !blackBoxRef.current) return;
+
+    gsap.fromTo(
+      blackBoxRef.current,
+      {
+        clipPath:
+          'inset(0% 100% 100% 0%)',
+      },
+      {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        ease: 'power4.out',
+        duration: ANIMATION_TIME.image - 0.3,
+        delay: ANIMATION_DELAYS.image,
+      }
+    );
+
+    gsap.fromTo(
+      mobileImageRef.current,
+      {
+        clipPath:
+          'inset(0% 100% 100% 0%)',
+      },
+      {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        ease: 'power4.out',
+        duration: ANIMATION_TIME.image - 0.5,
+        delay: ANIMATION_DELAYS.image + 0.15,
+      }
+    );
+  }, { dependencies: [isLoaded] });
+
   return (
-    <div className={styles['home-image-container']}>
-      <Image
-        src={imageSrc}
-        alt={alt}
-        width={width}
-        height={height}
-        className={styles['home-image']}
-        priority
-      />
-      <div className={styles['block-box']} />
-    </div>
+    <>
+      <div
+        ref={containerRef}
+        className={`${styles['home-image-container']} ${styles['desktop-image-container']}`}
+        style={{
+          clipPath: 'inset(0% 100% 100% 0%)',
+          transform: 'scale(1.1) translate(-50%, -50%)',
+        }}
+      >
+        <Image
+          src={imageSrc}
+          alt={alt}
+          width={width}
+          height={height}
+          className={styles['home-image']}
+          priority
+        />
+      </div>
+      <div
+        ref={containerRefMobile}
+        className={`${styles['home-image-container']} ${styles['mobile-image-container']}`}
+      >
+        <Image
+          ref={mobileImageRef}
+          src={imageSrc}
+          alt={alt}
+          width={width}
+          height={height}
+          className={`${styles['home-image']} .mobile-home-image`}
+          priority
+        />
+        <div className={`${styles['block-box']} .black-box`} ref={blackBoxRef} />
+      </div>
+    </>
   );
 };
 

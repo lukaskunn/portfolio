@@ -33,6 +33,20 @@ $box-text-bottom: 56px;
     // display: none;
   }
 
+  &.desktop-image-container {
+    @include respond-to(mobile-768) {
+      display: none;
+    }
+  }
+
+  &.mobile-image-container {
+    display: none;
+
+    @include respond-to(mobile-768) {
+      display: flex;
+    }
+  }
+
   .home-image {
     max-width: 100%;
     width: 450px;

@@ -12,10 +12,6 @@
   position: relative;
   top: 120px;
 
-  @include respond-to(desktop-1440) {
-     padding: 0 40px
-  }
-
   @include respond-to(tablet-1024) {
     max-width: 1200px;
     padding: 0;
@@ -24,7 +20,7 @@
 
 
   .title-text {
-    @include title-style(240px, 0.95, 0);
+    @include title-style(236px, 0.95, 0);
     text-align: center;
     margin: 0;
 
@@ -33,10 +29,11 @@
 
     pointer-events: none;
     user-select: none;
+
     // cursor: default;
 
     @include respond-to(desktop-1440) {
-      @include title-style(225px, 0.95, 0);
+      @include title-style(214px, 0.95, 0);
     }
 
     @include respond-to(tablet-1024) {
@@ -48,6 +45,14 @@
       text-align: left;
     }
 
+    :global(.title-line) {
+      overflow: hidden;
+      display: block;
+    }
+
+    :global(.title-letter) {
+      display: inline-block;
+    }
   }
 
   .subtitle-container {

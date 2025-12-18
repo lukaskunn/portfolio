@@ -5,11 +5,13 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { CursorProvider } from "@/contexts/CursorContext";
 import { PageContextProvider } from "@/contexts/PageContext";
 import { DeviceContextProvider } from "@/contexts/DeviceContext";
+import { AnimationProvider } from "@/contexts/AnimationContext";
 import CursorFollower from "@/components/CursorFollower";
 import Header from "@/components/Header";
 import "@/styles/css/global.css";
 import Footer from "@/components/Footer";
 import generateMetadata from "@/utils/generateMetadata";
+import Loading from "@/components/Loading";
 
 const gloockFont = localFont({
   variable: "--font-gloock",
@@ -76,7 +78,7 @@ export default function RootLayout({
     <html lang="en" className={`${aksharFont.variable} ${robotoMonoFont.variable} ${robotoFont.variable} ${gloockFont.variable}`}>
       <body>
         <AppProviders>
-          {/* <Loading /> */}
+          <Loading />
           <CursorFollower />
           <Header />
           {children}
@@ -93,11 +95,13 @@ function AppProviders({ children }: { children: React.ReactNode }) {
     <>
       <CursorProvider>
         <PageContextProvider>
-          <DeviceContextProvider>
-            <LanguageProvider>
-              {children}
-            </LanguageProvider>
-          </DeviceContextProvider>
+          <AnimationProvider>
+            <DeviceContextProvider>
+              <LanguageProvider>
+                {children}
+              </LanguageProvider>
+            </DeviceContextProvider>
+          </AnimationProvider>
         </PageContextProvider>
       </CursorProvider>
     </>
