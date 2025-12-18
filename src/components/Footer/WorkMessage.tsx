@@ -1,14 +1,62 @@
-import React from 'react'
+'use client'
+import React, { useRef, useMemo } from 'react'
 import styles from "@/styles/css/footer.module.css";
 import { useLanguage } from '@/contexts/LanguageContext';
+import { usePageContext } from '@/contexts/PageContext';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ANIMATION_DELAYS, ANIMATION_TIME } from '@/utils/animationVars';
+import { SplitText } from 'gsap/all';
+
+gsap.registerPlugin(SplitText);
 
 const WorkMessage = () => {
   const { currentContent } = useLanguage();
   const message = currentContent.footer.quickMessage;
+  const textRef = useRef<HTMLSpanElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { isLoaded } = usePageContext();
+
+  useGSAP(() => {
+    if (!isLoaded || !textRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const split = SplitText.create(textRef.current, {
+        type: 'lines',
+        linesClass: 'work-message-line line++',
+        mask: "lines",
+        autoSplit: true,
+        onSplit: (self) => {
+          return gsap.from(self.lines, {
+            yPercent: 100,
+            ease: 'power4.out',
+            duration: ANIMATION_TIME.footerWorkMessage,
+            delay: ANIMATION_DELAYS.footer,
+            stagger: 0.15,
+            onComplete: () => self.revert(),
+          })
+        },
+      })
+
+      return () => {
+        split.revert();
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
+
+  }, { scope: containerRef, dependencies: [isLoaded] });
+
+
 
   return (
-    <div className={styles["work-message-container"]}>
-      <span className={styles["work-message-text"]} dangerouslySetInnerHTML={{__html: message}}/>
+    <div className={styles["work-message-container"]} ref={containerRef}>
+      <span
+        ref={textRef}
+        className={`${styles["work-message-text"]} .title-message`}
+      >
+        {message}
+      </span>
     </div>
   )
 }

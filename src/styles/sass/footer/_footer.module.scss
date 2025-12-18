@@ -23,6 +23,7 @@
     flex-direction: row;
     gap: 61px;
     width: 100%;
+    align-items: flex-end;
 
     @include respond-to(tablet-1024) {
       gap: 40px;
@@ -54,20 +55,24 @@
 
   .work-message-container {
     width: 100%;
+    max-width: 600px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 
     .work-message-text {
       @include footer-text-box-text;
-
       text-align: right;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      display: block; // Must be block for SplitText to detect line breaks
+      max-width: 100%; // Constrain width so text wraps
 
       @include respond-to(tablet-1024) {
         font-size: 20px;
+      }
+
+      // SplitText line reveal animation classes
+      :global(.work-message-line) {
+        display: block;
       }
     }
   }
