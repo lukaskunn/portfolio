@@ -25,6 +25,10 @@
     width: 100%;
     align-items: flex-end;
 
+    @include respond-to(desktop-1366) {
+      gap: 46px;
+    }
+
     @include respond-to(tablet-1024) {
       gap: 40px;
     }
@@ -41,7 +45,7 @@
       gap: 8px;
       transition: gap 0.4s ease;
 
-      @include respond-to(tablet-1024) {
+      @include respond-to(desktop-1366) {
         font-size: 16px;
         gap: 6px;
       }
@@ -60,11 +64,19 @@
     flex-direction: row;
     justify-content: flex-end;
 
+    // @include respond-to(desktop-1366) {
+    //   max-width: 450px;
+    // }
+
     .work-message-text {
       @include footer-text-box-text;
       text-align: right;
       display: block; // Must be block for SplitText to detect line breaks
       max-width: 100%; // Constrain width so text wraps
+
+      // @include respond-to(desktop-1366) {
+      //   font-size: 20px;
+      // }
 
       @include respond-to(tablet-1024) {
         font-size: 20px;

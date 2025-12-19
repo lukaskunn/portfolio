@@ -39,6 +39,12 @@ $gloock-font: var(--font-gloock);
     }
   }
 
+  @else if $breakpoint ==desktop-1366 {
+    @media screen and (max-width: 1366px) {
+      @content;
+    }
+  }
+
   @else if $breakpoint ==desktop-1440 {
     @media screen and (max-width: 1440px) {
       @content;
@@ -65,7 +71,6 @@ $gloock-font: var(--font-gloock);
 
 @mixin subtitle-style($font-size, $line-height, $letter-spacing) {
   font-family: $primary-text-font;
-  font-weight: 500;
   font-size: $font-size;
   line-height: $line-height;
   letter-spacing: $letter-spacing;
@@ -94,7 +99,7 @@ $gloock-font: var(--font-gloock);
   font-family: $primary-text-font;
   font-weight: 300;
   font-size: 18px;
-  line-height: 100%;
   color: $primary-color;
   letter-spacing: -0.02rem;
+  line-height: 1.2;
 }

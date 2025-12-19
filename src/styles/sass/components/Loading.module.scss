@@ -21,14 +21,20 @@
     .loading-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: baseline;
       width: 400px;
-      margin-bottom: 0px;
+      margin-bottom: 12px;
       overflow: hidden;
+      // transform: translateY(100%);
+
+      @include respond-to(mobile-768) {
+        width: 300px;
+      }
       
       &__title {
+        font-family: $title-font;
+        font-size: 24px;
         display: inline-block;
-        transform: translateY(150%);
       }
 
       &__stats {
@@ -37,7 +43,7 @@
         font-size: 32px;
         font-weight: bold;
         color: #000;
-        transform: translateY(150%);
+        // transform: translateY(100%);
       }
     }
 
@@ -47,17 +53,11 @@
       height: 600px;
       overflow: hidden;
       clip-path: inset(100% 0 0 0);
-      // animation: revealFromBottom 1.5s ease-out forwards;
-
-      // @keyframes revealFromBottom {
-      //   from {
-      //     clip-path: inset(100% 0 0 0);
-      //   }
-
-      //   to {
-      //     clip-path: inset(0 0 0 0);
-      //   }
-      // }
+      
+      @include respond-to(mobile-768) {
+        width: 300px;
+        height: 450px;
+      }
 
       &__image-wrapper {
         position: absolute;

@@ -12,10 +12,13 @@
   position: relative;
   top: 120px;
 
+  @include respond-to(desktop-1366) {
+    top: 100px;
+  }
+
   @include respond-to(tablet-1024) {
     max-width: 1200px;
     padding: 0;
-    top: 120px;
   }
 
 
@@ -36,12 +39,16 @@
       @include title-style(214px, 0.95, 0);
     }
 
+    @include respond-to(desktop-1366) {
+      @include title-style(190px, 0.95, 0);
+    }
+
     @include respond-to(tablet-1024) {
       @include title-style(156px, 0.95, 0);
     }
 
     @include respond-to(mobile-768) {
-      @include title-style(58px, 1, 0);
+      @include title-style(54px, 1, 0);
       text-align: left;
     }
 
@@ -75,7 +82,7 @@
       @include subtitle-style(16px, 1, -0.02rem);
       margin: 0;
 
-      @include respond-to(mobile-768) {
+      @include respond-to(desktop-1366) {
         @include subtitle-style(14px, 1, -0.02rem);
         font-weight: 300;
       }

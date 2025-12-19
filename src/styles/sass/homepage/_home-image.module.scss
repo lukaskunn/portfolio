@@ -9,7 +9,7 @@ $box-text-bottom: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
+  width: fit-content;
   max-width: 1440px;
 
   position: absolute;
@@ -24,11 +24,16 @@ $box-text-bottom: 56px;
     left: 52%;
   }
 
+  @include respond-to(desktop-1366) {
+    top: 470px;
+  }
+
  @include respond-to(mobile-768) {
     position: absolute;
     bottom: 30px;
     top: auto;
-    left: 14px;
+    left: auto;
+    right: 24px;
     transform: none;
     // display: none;
   }
@@ -58,6 +63,10 @@ $box-text-bottom: 56px;
       width: 380px;
     }
 
+    @include respond-to(desktop-1366) {
+      width: 320px;
+    }
+
     @include respond-to(mobile-768) {
       width: 100%;
       max-width: 297px;
@@ -80,9 +89,10 @@ $box-text-bottom: 56px;
 
     @include respond-to(mobile-768) {
       display: flex;
-      left: 0px;
+      left: auto;
+      right: -14px;
       bottom: $box-bottom;
-      width: 384px;
+      width: calc(100vw - 20px);
       height: 239px;
     }
   }

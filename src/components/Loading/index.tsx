@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 const animationConfig: gsap.TweenVars = {
   duration: 0.5,
- ease: "power2.out",
+  ease: "power2.out",
 }
 
 const images = [
@@ -27,7 +27,7 @@ const images = [
 
 const LOADING_DURATION = 4; // seconds for stats counter
 const IMAGE_REVEAL_DURATION = 1; // seconds for image clip-path
-const TEXT_ANIMATION_DURATION = 0.3; // seconds for text appear/hide
+const TEXT_ANIMATION_DURATION = 1; // seconds for text appear/hide
 
 const Loading = () => {
   const { isLoaded, setIsLoaded } = usePageContext();
@@ -38,12 +38,17 @@ const Loading = () => {
   const titleRef = React.useRef<HTMLSpanElement>(null);
   const statsRef = React.useRef<HTMLSpanElement>(null);
   const statsValueRef = React.useRef<{ value: number }>({ value: 0 });
+  const headerRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      setImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, (LOADING_DURATION * 3 * 1000) / images.length);
-    return () => clearInterval(interval);
+    const timeout = setTimeout(() => {
+      const interval = setInterval(() => {
+        setImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+      }, (LOADING_DURATION * 3 * 1000) / images.length);
+      return () => clearInterval(interval);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   useGSAP(() => {
@@ -54,15 +59,18 @@ const Loading = () => {
       clipPath: "inset(0% 0% 0% 0%)",
       duration: IMAGE_REVEAL_DURATION,
       ease: "power4.inOut",
+      delay: 1,
     });
 
     // Step 2: Text "Loading" and stats appear from bottom
-    tl.to([titleRef.current, statsRef.current], {
-      y: 0,
+    tl.fromTo(headerRef.current, {
+      y: "100%",
+    }, {
+      y: "0%",
       duration: TEXT_ANIMATION_DURATION,
       ease: "power4.out",
-      // stagger: 0.5,
-    });
+      delay: 0.1
+    })
 
     // Step 3: Stats counter from 0 to 100%
     tl.to(statsValueRef.current, {
@@ -75,12 +83,11 @@ const Loading = () => {
     });
 
     // Step 4: Reverse - Text hides to bottom
-    tl.to([titleRef.current, statsRef.current], {
-      y: "150%",
-      duration: TEXT_ANIMATION_DURATION + 0.3,
+    tl.to(headerRef.current, {
+      y: "100%",
+      duration: TEXT_ANIMATION_DURATION - 0.2,
       ease: "power4.in",
-      // stagger: 0.05,
-    });
+    }) // Wait 0.5s before starting this animation
 
     // Step 5: Reverse - Image clip-path from top to bottom (hide)
     tl.to(imageContainerRef.current, {
@@ -93,7 +100,7 @@ const Loading = () => {
         }, 500);
       },
     }, "<"); // Start with previous animation (text hide)
-    // });
+    // 
 
   }, { scope: containerRef });
 
@@ -101,8 +108,12 @@ const Loading = () => {
     <AnimateOpacityContainer className={styles["container"]} canAnimate={isLoaded} target={0} animationConfig={animationConfig} >
       <div className={styles["loading-content"]} ref={containerRef}>
         <div className={styles["loading-header"]}>
-          <span className={styles["loading-header__title"]} ref={titleRef}>Loading</span>
-          <span className={styles["loading-header__stats"]} ref={statsRef}>{stats}%</span>
+          <div style={{ overflow: 'hidden', height: 'fit-content', width: '100%' }}>
+            <div ref={headerRef} style={{ transform: "translateY(100%)", display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: "baseline" }} >
+              <span className={styles["loading-header__title"]} ref={titleRef}>Loading</span>
+              <span className={styles["loading-header__stats"]} ref={statsRef}>{stats}%</span>
+            </div>
+          </div>
         </div>
         <div className={styles["image-container"]} ref={imageContainerRef}>
           {images.map((src, index) => (

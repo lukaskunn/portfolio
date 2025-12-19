@@ -35,7 +35,7 @@ const HeaderMobile = () => {
           setShowMenuItems(true);
         }
       });
-    } else {     
+    } else {
       gsap.to(menuOverlayBackground.current, {
         left: "-104%",
         duration: 0.7,
@@ -71,8 +71,20 @@ const HeaderMobile = () => {
       <div className={styles["mobile-menu-overlay-background"]} ref={menuOverlayBackground} />
       <div className={`${styles["mobile-menu-overlay"]} ${menuIsOpen ? styles["open"] : styles["closed"]}`} ref={menuOverlayRef}>
         <div className={styles["mobile-menu-overlay__top-items"]}>
-          <div className={styles["name-logo"]}>{header.headerTitle}</div>
-          <button className={styles["open-menu-button"]} onClick={() => { setMenuIsOpen(false) }}>[ Menu ]</button>
+          <LineRevealContainer
+            direction="down"
+            duration={0.8}
+            trigger={showMenuItems}
+          >
+            <div className={styles["name-logo"]}>{header.headerTitle}</div>
+          </LineRevealContainer>
+          <LineRevealContainer
+            direction="down"
+            duration={0.8}
+            trigger={showMenuItems}
+          >
+            <button className={styles["open-menu-button"]} onClick={() => { setMenuIsOpen(false) }}>[ Menu ]</button>
+          </LineRevealContainer>
         </div>
         <div className={styles["mobile-menu-overlay__container"]} ref={menuItemsRef}>
           <div className={styles["mobile-menu-overlay__container__navigation-items"]}>
