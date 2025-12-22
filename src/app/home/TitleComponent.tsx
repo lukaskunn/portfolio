@@ -1,70 +1,27 @@
 'use client'
-import React, { useRef } from 'react'
+import React from 'react'
 import styles from "@/styles/css/Homepage.module.css";
 import Clock from './Clock';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { usePageContext } from '@/contexts/PageContext';
-import { gsap } from 'gsap';
-import { SplitText } from 'gsap/all';
-import { useGSAP } from '@gsap/react';
 import { ANIMATION_DELAYS, ANIMATION_TIME } from '@/utils/animationVars';
 import LineRevealContainer from '@/components/animations/LineReveal';
-
-gsap.registerPlugin(SplitText);
+import SplitTextReveal from '@/components/animations/SplitTextReveal';
 
 const TitleComponent = () => {
   const { currentContent } = useLanguage();
   const { landing } = currentContent;
-  const { isLoaded } = usePageContext();
-
-  const titleRef = useRef<HTMLHeadingElement>(null);
-
-  useGSAP(() => {
-    if (!isLoaded || !titleRef.current) return;
-
-    const tl = gsap.timeline();
-
-    // Split title text into characters using GSAP SplitText
-    const split = new SplitText(titleRef.current, {
-      type: 'chars, words, lines',
-      charsClass: 'title-letter',
-      linesClass: 'title-line',
-      mask: 'chars',
-      autoSplit: true,
-    });
-
-    // Animate title letters one by one
-    tl.fromTo(
-      split.chars,
-      {
-        x: '110%',
-        opacity: 1,
-      },
-      {
-        x: '0%',
-        duration: ANIMATION_TIME.title,
-        ease: 'power4.out',
-        // stagger: 0.05,
-        delay: ANIMATION_DELAYS.title,
-      }
-    );
-
-    // Cleanup function to revert split
-    return () => {
-      split.revert();
-    };
-
-  }, { dependencies: [isLoaded] });
 
   return (
     <div className={styles["title-container"]}>
-      <h2
-        ref={titleRef}
+      <SplitTextReveal
+        as="h2"
         className={styles["title-text"]}
-        style={{ overflow: 'hidden', perspective: '1000px' }}
+        duration={ANIMATION_TIME.title}
+        delay={ANIMATION_DELAYS.title}
+        direction="right"
       >
         {landing.title}
-      </h2>
+      </SplitTextReveal>
       <div className={styles["subtitle-container"]}>
         <LineRevealContainer direction="down" duration={ANIMATION_TIME.subtitle} delay={ANIMATION_DELAYS.subtitle}>
           <span
