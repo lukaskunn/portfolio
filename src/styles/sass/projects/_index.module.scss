@@ -16,7 +16,7 @@
   }
 
   .title {
-    @include title-style(245px, 182px, -0.06em);
+    @include title-style(245px, 1, -0.06em);
     margin: 0 0 100px;
 
     @include respond-to(tablet-1024) {

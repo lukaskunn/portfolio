@@ -13,15 +13,18 @@ type ProjectItemProps = {
     urlToProject?: string;
   };
   index: number;
-  openOnExternalPage: boolean;
+  openOnExternalPage?: boolean;
   updateModal: (index: number, modalIsActive: boolean) => void;
 }
 
-const ProjectItem = ({ project, index, updateModal, openOnExternalPage }: ProjectItemProps) => {
+const ProjectItem = ({ project, index, updateModal, openOnExternalPage = false }: ProjectItemProps) => {
   const { title, link, tech, subtitle, urlToProject } = project;
 
   return (
-    <div key={link} className={styles["project-list-item"]}
+    <div key={link}
+      style={{opacity: 0}}
+      className={styles["project-list-item"]}
+      data-project-item
       onMouseEnter={() => updateModal(index, true)}
       onMouseLeave={() => updateModal(index, false)}>
       {index === 0 ? <div className={`${styles["border"]} ${styles["top"]}`} /> : null}

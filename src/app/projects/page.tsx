@@ -2,9 +2,10 @@
 import React from 'react'
 import styles from '@/styles/css/projects.module.css';
 import ProjectModal from '@/app/projects/components/ProjectModal';
-import ProjectItem from './ProjectItem';
+import ProjectList from './ProjectList';
 import { useProjectModalContext } from '@/contexts/ProjectsModalContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import SplitTextReveal from '@/components/animations/SplitTextReveal';
 
 const ProjectsPage = () => {
   const { updateModal } = useProjectModalContext();
@@ -16,17 +17,9 @@ const ProjectsPage = () => {
   return (
     <main className={styles["container"]}>
       <h1 className={styles["title"]}>{works.sectionTitle} <span className={styles["project-counter"]}>({works.projects.length})</span></h1>
-      <div className={styles["project-list-container"]}>
-        {projects.map((project, index) => {
-          const { overview } = project;
-          const { subtitle, projectId, technologies, cardTitle, goToExternalPage, urlToProject } = overview
-          return (
-            <ProjectItem key={index} project={{ link: projectId, tech: technologies, title: cardTitle, subtitle, urlToProject }} index={index} updateModal={updateModal} openOnExternalPage={goToExternalPage} />
-          )
-        })}
-      </div>
+      <ProjectList projects={projects} updateModal={updateModal} />
       <ProjectModal />
-    </main>
+    </main >
   )
 }
 
