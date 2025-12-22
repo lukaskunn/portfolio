@@ -1,0 +1,13 @@
+@use "../references" as *;
+
+.background-transition {
+  background-color: $primary-color;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  transform: translateX(100%);
+}
