@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import styles from '@/styles/css/Homepage.module.css';
 import { usePageContext } from '@/contexts/PageContext';
+import { useTransitionContext } from '@/contexts/TransitionContext';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ANIMATION_DELAYS, ANIMATION_TIME } from '@/utils/animationVars';
@@ -33,9 +34,28 @@ const HomeImage: React.FC<HomeImageProps> = ({
   const mobileImageRef = useRef<HTMLImageElement>(null);
   const blackBoxRef = useRef<HTMLDivElement>(null);
   const { isLoaded } = usePageContext();
+  const { isPageReady } = useTransitionContext();
+  const hasAnimatedRef = useRef(false);
 
   useGSAP(() => {
-    if (!isLoaded || !containerRef.current) return;
+    if (!containerRef.current) return;
+
+    // Only set initial state if page is not ready and hasn't animated yet
+    if (!isPageReady && !hasAnimatedRef.current) {
+      gsap.set(containerRef.current, { opacity: 0 });
+      if (mobileImageRef.current && blackBoxRef.current) {
+        gsap.set([mobileImageRef.current, blackBoxRef.current], { opacity: 0 });
+      }
+    }
+
+    if (!isLoaded || !isPageReady) return;
+
+    // Set visible and mark as animated
+    gsap.set(containerRef.current, { opacity: 1 });
+    if (mobileImageRef.current && blackBoxRef.current) {
+      gsap.set([mobileImageRef.current, blackBoxRef.current], { opacity: 1 });
+    }
+    hasAnimatedRef.current = true;
 
     // Clip-path reveal from top-left to bottom-right
     gsap.fromTo(
@@ -83,7 +103,7 @@ const HomeImage: React.FC<HomeImageProps> = ({
         delay: ANIMATION_DELAYS.image + 0.15,
       }
     );
-  }, { dependencies: [isLoaded] });
+  }, { dependencies: [isLoaded, isPageReady] });
 
   return (
     <>

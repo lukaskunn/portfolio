@@ -2,6 +2,7 @@
 import React, { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { usePageContext } from '@/contexts/PageContext'
+import { useTransitionContext } from '@/contexts/TransitionContext'
 
 type LineRevealContainerProps = {
   direction?: 'up' | 'down';
@@ -15,9 +16,22 @@ type LineRevealContainerProps = {
 const LineRevealContainer = ({ children, direction = "up", duration = 1, delay = 0, runAfterLoad = true, trigger }: LineRevealContainerProps) => {
   const el = useRef<HTMLDivElement>(null);
   const { isLoaded } = usePageContext();
+  const { isPageReady } = useTransitionContext();
+  const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
     if (!el.current) return;
+
+    // Only set initial state if page is not ready and hasn't animated yet
+    if (!isPageReady && !hasAnimatedRef.current) {
+      gsap.set(el.current, { yPercent: direction === 'down' ? -100 : 100 });
+      return; // Don't proceed with animation if not ready
+    }
+
+    // Once animated, keep content visible regardless of isPageReady state
+    if (hasAnimatedRef.current) {
+      return;
+    }
 
     // If trigger is provided, use it to control animation
     if (trigger !== undefined) {
@@ -27,6 +41,7 @@ const LineRevealContainer = ({ children, direction = "up", duration = 1, delay =
         return;
       }
       // Trigger is true, run the animation
+      hasAnimatedRef.current = true;
       gsap.fromTo(el.current,
         { yPercent: direction === 'down' ? -100 : 100 },
         {
@@ -39,7 +54,9 @@ const LineRevealContainer = ({ children, direction = "up", duration = 1, delay =
     } else {
       // Otherwise use the original runAfterLoad + isLoaded logic
       if (runAfterLoad && !isLoaded) return;
+      if (!isPageReady) return;
 
+      hasAnimatedRef.current = true;
       gsap.fromTo(el.current,
         { yPercent: direction === 'down' ? -100 : 100 },
         {
@@ -50,7 +67,7 @@ const LineRevealContainer = ({ children, direction = "up", duration = 1, delay =
         }
       );
     }
-  }, [isLoaded, runAfterLoad, trigger, direction, duration, delay]);
+  }, [isLoaded, isPageReady, runAfterLoad, trigger, direction, duration, delay]);
 
   return (
     <div style={{ overflow: 'hidden', height: 'fit-content' }}>
