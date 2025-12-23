@@ -4,11 +4,17 @@
 .certifications-section {
   width: 100%;
   margin-bottom: 80px;
-  border-top: 2px solid $primary-color;
   padding: 16px 0 0;
 
-  @include respond-to(mobile-768) {
-    border-top: none;
+  .border-top {
+    width: 100%;
+    height: 2px;
+    background-color: $primary-color;
+    margin-bottom: 16px;
+
+    @include respond-to(mobile-768) {
+      display: none;
+    }
   }
 }
 
@@ -24,6 +30,12 @@
   }
 }
 
+.title-container {
+  @include respond-to(mobile-768) {
+    padding-bottom: 8px;
+  }
+}
+
 .section-title {
   @include title-style(28px, 1.2, -0.01em);
   margin: 0;
@@ -31,8 +43,18 @@
 
   @include respond-to(mobile-768) {
     font-size: 24px;
-    border-bottom: 2px solid $primary-color;
-    padding: 0 0 8px;
+  }
+}
+
+.title-border-bottom {
+  display: none;
+
+  @include respond-to(mobile-768) {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: $primary-color;
+    margin-top: 8px;
   }
 }
 
@@ -95,6 +117,10 @@
   gap: 8px;
   align-items: flex-start;
   margin: 0;
+
+  @include respond-to(mobile-768) {
+    padding-left: 0;
+  }
 }
 
 .cell-text {

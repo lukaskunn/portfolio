@@ -3,6 +3,17 @@
 // Intro Section
 .intro-section {
   width: 100%;
+
+  .border-top {
+    width: 100%;
+    height: 2px;
+    background-color: $primary-color;
+    margin-bottom: 60px;
+
+    @include respond-to(mobile-768) {
+      margin-bottom: 40px;
+    }
+  }
 }
 
 .intro-box {
