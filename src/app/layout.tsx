@@ -14,6 +14,7 @@ import generateMetadata from "@/utils/generateMetadata";
 import Loading from "@/components/Loading";
 import { TransitionContextProvider } from "@/contexts/TransitionContext";
 import Inner from "@/components/Inner";
+import HTMLWrapper from "./HTMLWrapper";
 
 const gloockFont = localFont({
   variable: "--font-gloock",
@@ -77,21 +78,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${aksharFont.variable} ${robotoMonoFont.variable} ${robotoFont.variable} ${gloockFont.variable}`}>
-      <body>
-        <AppProviders>
+    <AppProviders>
+      <HTMLWrapper className={`${aksharFont.variable} ${robotoMonoFont.variable} ${robotoFont.variable} ${gloockFont.variable}`}>
+        <body>
           <Inner>
-
             <Loading />
             <CursorFollower />
             <Header />
             {children}
             <Footer />
           </Inner>
-        </AppProviders>
-        <SpeedInsights />
-      </body>
-    </html>
+          <SpeedInsights />
+        </body>
+      </HTMLWrapper>
+    </AppProviders>
   );
 }
 
