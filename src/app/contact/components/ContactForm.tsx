@@ -1,9 +1,13 @@
 'use client';
 
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useRef } from 'react';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 import styles from '@/styles/css/contact.module.css';
 import { FiArrowUpRight } from "react-icons/fi";
 import { useLanguage } from '@/contexts/LanguageContext';
+import { usePageContext } from '@/contexts/PageContext';
+import { useTransitionContext } from '@/contexts/TransitionContext';
 
 
 interface FormData {
@@ -23,6 +27,10 @@ const ContactForm: React.FC = () => {
   const { currentContent } = useLanguage();
   const { contact } = currentContent;
   const formContent = contact.form;
+  const formRef = useRef<HTMLFormElement>(null);
+  const hasAnimatedRef = useRef(false);
+  const { isLoaded } = usePageContext();
+  const { isPageReady } = useTransitionContext();
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -35,6 +43,43 @@ const ContactForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
+
+  useGSAP(() => {
+    if (!formRef.current) return;
+
+    // Only set initial state if page is not ready and hasn't animated yet
+    if (!isPageReady && !hasAnimatedRef.current) {
+      gsap.set(formRef.current, { opacity: 0 });
+      return;
+    }
+
+    if (!isLoaded || !isPageReady) return;
+
+    const formGroups = formRef.current.querySelectorAll(`.${styles.formGroup}`);
+    const submitButton = formRef.current.querySelector(`.${styles.submitButton}`);
+
+    // Set initial state
+    gsap.set([...formGroups, submitButton], {
+      opacity: 0,
+      y: 30
+    });
+
+    gsap.set(formRef.current, { opacity: 1 });
+
+    // Mark as animated
+    hasAnimatedRef.current = true;
+
+    // Animate form fields with stagger
+    gsap.to([...formGroups, submitButton], {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      stagger: 0.1,
+      delay: 1.2
+    });
+
+  }, { dependencies: [isLoaded, isPageReady], scope: formRef });
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -121,7 +166,7 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <form className={styles.contactForm} onSubmit={handleSubmit}>
+    <form ref={formRef} className={styles.contactForm} onSubmit={handleSubmit}>
       <div className={styles.formGroup}>
         <label htmlFor="name" className={styles.formLabel}>
           {formContent.nameLabel}<span className={styles.required}>{formContent.requiredMark}</span>

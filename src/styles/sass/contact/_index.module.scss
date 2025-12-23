@@ -85,6 +85,11 @@
   align-items: center;
   gap: 10px;
 
+  // Keep each line together on desktop
+  &>* {
+    white-space: nowrap;
+  }
+
   @include respond-to(desktop-1440) {
     font-size: 60px;
   }
@@ -97,6 +102,11 @@
   @include respond-to(mobile-768) {
     font-size: 36px;
     gap: 6px;
+
+    // Allow wrapping on mobile if needed
+    &>* {
+      white-space: normal;
+    }
   }
 
   @include respond-to(mobile-480) {
