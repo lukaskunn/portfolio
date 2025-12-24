@@ -77,7 +77,7 @@ const CertificationsSection = () => {
 
     // Animate table rows
     const header = tableRef.current.querySelector(`.${styles["table-header"]}`);
-    const rows = tableRef.current.querySelectorAll(`.${styles["table-row"]}`);
+    const rows = Array.from(tableRef.current.querySelectorAll(`.${styles["table-row"]}`));
 
     gsap.set([header, ...rows], {
       y: 50,

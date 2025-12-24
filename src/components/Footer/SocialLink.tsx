@@ -22,7 +22,7 @@ const SocialLink = ({
       className={`${styles["social-link"]} ${className || ''}`}
     >
       <span className={`${styles["separator"]} ${styles["front-separator"]}`}>[</span>
-      <TextScrollHover text={name} containerHeight={24} />
+      <TextScrollHover text={name} />
       <span className={`${styles["separator"]} ${styles["front-separator"]}`}>]</span>
     </a>
   )

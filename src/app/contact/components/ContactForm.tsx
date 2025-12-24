@@ -59,7 +59,7 @@ const ContactForm: React.FC = () => {
     const submitButton = formRef.current.querySelector(`.${styles.submitButton}`);
 
     // Set initial state
-    gsap.set([...formGroups, submitButton], {
+    gsap.set([...Array.from(formGroups), submitButton], {
       opacity: 0,
       y: 30
     });
@@ -70,7 +70,7 @@ const ContactForm: React.FC = () => {
     hasAnimatedRef.current = true;
 
     // Animate form fields with stagger
-    gsap.to([...formGroups, submitButton], {
+    gsap.to([...Array.from(formGroups), submitButton], {
       opacity: 1,
       y: 0,
       duration: 0.8,
