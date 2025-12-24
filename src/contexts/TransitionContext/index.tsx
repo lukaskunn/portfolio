@@ -7,9 +7,11 @@ interface TransitionContextType {
   isTransitioningOut: boolean;
   isPageReady: boolean;
   nextPath?: string | null;
+  displayPageName?: string;
   setIsTransitioningIn: React.Dispatch<React.SetStateAction<boolean>>;
   setIsTransitioningOut: React.Dispatch<React.SetStateAction<boolean>>;
   setNextPath?: React.Dispatch<React.SetStateAction<string | null>>;
+  setDisplayPageName?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const TransitionContext = createContext<TransitionContextType | undefined>(undefined);
@@ -24,19 +26,21 @@ export const TransitionContextProvider: React.FC<TransitionContextProviderProps>
   const [isTransitioningOut, setIsTransitioningOut] = useState(false);
   const [isPageReady, setIsPageReady] = useState(true);
   const [nextPath, setNextPath] = useState<string | null>(null);
+  const [displayPageName, setDisplayPageName] = useState<string>('');
+
 
   React.useEffect(() => {
     if (isTransitioningOut && nextPath) {
       // Set page not ready when starting transition
       setIsPageReady(false);
-      
-      // Wait for transition out animation to complete (cover the page)
+
+      // Wait for transition out animation to complete (cover the page + text reveal)
       const timeout = setTimeout(() => {
         router.push(nextPath);
         setNextPath(null);
         setIsTransitioningOut(false);
         setIsTransitioningIn(true);
-      }, 600); // Duration until page is fully covered
+      }, 1200); // 600ms background cover + 600ms text reveal
 
       return () => clearTimeout(timeout);
     }
@@ -44,15 +48,15 @@ export const TransitionContextProvider: React.FC<TransitionContextProviderProps>
 
   React.useEffect(() => {
     if (isTransitioningIn) {
-      // Wait for overlay to stay (1s) then set page ready as it starts revealing
+      // Wait for complete transition (delay + text exit + background exit) before setting page ready
       const readyTimeout = setTimeout(() => {
         setIsPageReady(true);
-      }, 1500); // After 1 second stay, as overlay starts to slide out
-      
+      }, 1900); // 500ms delay + 600ms text disappear + 800ms background slide out
+
       // Wait for transition in animation to complete (reveal the page)
       const completeTimeout = setTimeout(() => {
         setIsTransitioningIn(false);
-      }, 1800); // Duration to stay + exit animation
+      }, 1900); // Same timing as page ready
 
       return () => {
         clearTimeout(readyTimeout);
@@ -66,9 +70,11 @@ export const TransitionContextProvider: React.FC<TransitionContextProviderProps>
     isTransitioningOut,
     isPageReady,
     nextPath,
+    displayPageName,
     setIsTransitioningIn,
     setIsTransitioningOut,
     setNextPath,
+    setDisplayPageName,
   };
 
   return <TransitionContext.Provider value={value}>{children}</TransitionContext.Provider>;
