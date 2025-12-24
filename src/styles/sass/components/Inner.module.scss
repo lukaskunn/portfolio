@@ -10,4 +10,39 @@
   z-index: 9999;
   pointer-events: none;
   transform: translateX(100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.transition-text-container {
+  overflow: hidden;
+  height: fit-content;
+}
+
+$transition-text-line-height: 1.2;
+
+.transition-text {
+  @include subtitle-style(42px, $transition-text-line-height, 0);
+  color: $background-color-main !important;
+  text-align: center;
+  text-transform: uppercase;
+  will-change: transform;
+
+  @include respond-to(desktop-1440) {
+    @include subtitle-style(42px, $transition-text-line-height, 0);
+  }
+
+  @include respond-to(tablet-1024) {
+    @include subtitle-style(32px, $transition-text-line-height, 0);
+  }
+
+  @include respond-to(mobile-768) {
+    @include subtitle-style(28px, $transition-text-line-height, 0);
+  }
+
+  @include respond-to(mobile-480) {
+    @include subtitle-style(24px, $transition-text-line-height, 0);
+  }
 }

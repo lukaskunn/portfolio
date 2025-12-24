@@ -1,1 +1,1 @@
-.menu-item-container{font-weight:300;font-size:18px;height:18px;display:block;overflow:hidden}.menu-item-container .item-text{margin:0}
+.menu-item-container{font-weight:300;font-size:18px;display:inline-block;overflow:hidden;position:relative;vertical-align:bottom;line-height:1.2;height:1.2em}.menu-item-container .item-text{margin:0;line-height:1.2;display:block;width:100%}

@@ -9,24 +9,31 @@ import styles from "@/styles/css/components/TextScrollHover.module.css";
 
 type MenuItemProps = {
   text: string;
-  containerHeight?: number;
 };
 
-const MenuItem = ({ text, containerHeight=17 }: MenuItemProps) => {
+const MenuItem = ({ text }: MenuItemProps) => {
   const { setIsHovering } = useCursor();
   const menuItemContainerRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const ctx = gsap.context(() => {
-      const initial = new SplitText(".initial", {
+      const initialElement = menuItemContainerRef.current?.querySelector(".initial");
+      const hoveredElement = menuItemContainerRef.current?.querySelector(".hovered");
+
+      if (!initialElement || !hoveredElement) return;
+
+      const initial = new SplitText(initialElement, {
         type: "chars",
-        charsClass: "initial",
+        charsClass: "initial-char",
       });
 
-      const hovered = new SplitText(".hovered", {
+      const hovered = new SplitText(hoveredElement, {
         type: "chars",
-        charsClass: "hovered",
+        charsClass: "hovered-char",
       });
+
+      // Position hovered text below the container initially
+      gsap.set(hovered.chars, { y: "100%" });
 
       const tlInitial = gsap.timeline({ paused: true }).to(initial.chars, {
         y: "-100%",
@@ -68,7 +75,7 @@ const MenuItem = ({ text, containerHeight=17 }: MenuItemProps) => {
   }, [menuItemContainerRef]);
 
   return (
-    <div className={styles["menu-item-container"]} style={{ height: containerHeight }} ref={menuItemContainerRef}>
+    <div className={styles["menu-item-container"]} ref={menuItemContainerRef}>
       <p className={`initial ${styles["item-text"]}`}>{text}</p>
       <p className={`hovered ${styles["item-text"]}`}>{text}</p>
     </div>
