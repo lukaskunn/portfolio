@@ -116,6 +116,7 @@ const HomeImage: React.FC<HomeImageProps> = ({
         }}
       >
         <Image
+          fetchPriority='high'
           src={imageSrc}
           alt={alt}
           width={width}
@@ -129,6 +130,7 @@ const HomeImage: React.FC<HomeImageProps> = ({
         className={`${styles['home-image-container']} ${styles['mobile-image-container']}`}
       >
         <Image
+          fetchPriority='high'
           ref={mobileImageRef}
           src={imageSrc}
           alt={alt}

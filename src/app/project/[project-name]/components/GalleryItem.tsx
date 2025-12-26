@@ -49,6 +49,7 @@ const GalleryItem = ({ image, caption }: GalleryItemProps) => {
       <div className={styles["image-container"]}>
         <div className={styles["background-container"]}>
           <img
+            fetchPriority='low'
             src={imageUrl}
             alt={alt}
             onClick={handleImageClick}
@@ -77,6 +78,7 @@ const GalleryItem = ({ image, caption }: GalleryItemProps) => {
             <IoMdClose size={24} />
           </button>
           <img
+            fetchPriority='low'
             src={imageUrl}
             alt={alt}
             className={styles["image-modal-image"]}

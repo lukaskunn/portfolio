@@ -18,6 +18,7 @@ const Overview = ({ title, type, service, industry, year, descriptionLeft, descr
     <section className={styles["overview-section"]}>
       <div className={styles["main-image-wrapper"]}>
         <Image
+        fetchPriority='high'
           src={imageUrl}
           alt={title}
           width={1360}

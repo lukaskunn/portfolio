@@ -123,6 +123,7 @@ const Loading = () => {
               style={{ opacity: index === imageIndex ? 1 : 0 }}
             >
               <Image
+                fetchPriority={index === 0 ? 'high' : 'auto'}
                 src={src}
                 alt="Loading image"
                 className={styles["image-container__image"]}
