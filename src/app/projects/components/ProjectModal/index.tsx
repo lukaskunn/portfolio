@@ -23,9 +23,13 @@ const scaleAnimation = {
   },
 };
 
-const ProjectModal = () => {
+type ProjectModalProps = {
+  projects: any[];
+};
+
+const ProjectModal = ({ projects }: ProjectModalProps) => {
   const { modal } = useProjectModalContext();
-  const { isActive, index, projects } = modal;
+  const { isActive, index } = modal;
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({
     x: 0,
@@ -94,14 +98,14 @@ const ProjectModal = () => {
         style={{ top: `${index * -100}%` }}
       >
         {projects.map((project, i) => {
-          const {overview} = project
+          const { overview } = project
           const { galleryBackground, galleryBackgroundColor } = overview;
 
           return (
             <div
               className={styles["project-modal"]}
               key={i}
-              style={{ backgroundColor: galleryBackgroundColor }}
+              style={{ backgroundColor: galleryBackgroundColor.hex }}
             >
               <Image
                 src={galleryBackground}

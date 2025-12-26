@@ -1,13 +1,10 @@
 "use client";
 import React, { useState, useContext, createContext } from "react";
-import type { Project } from "@/utils/types";
-import { useLanguage } from "../LanguageContext";
 
 interface ProjectModalContextType {
   modal: {
     isActive: boolean;
     index: number;
-    projects: Project[];
   };
   updateModal: (index: number, modalIsActive: boolean) => void;
 }
@@ -23,13 +20,10 @@ interface ProjectModalContextProviderProps {
 export const ProjectModalContextProvider: React.FC<
   ProjectModalContextProviderProps
 > = ({ children }) => {
-  const { currentContent } = useLanguage();
-  const { projects } = currentContent.works;
 
   const [modal, setModal] = useState({
     isActive: false,
     index: 0,
-    projects,
   });
 
   const updateModal = (index: number, modalIsActive: boolean) => {

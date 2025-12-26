@@ -41,8 +41,6 @@ const ProjectList = ({ projects, updateModal }: ProjectListProps) => {
     const items = containerRef.current.querySelectorAll('[data-project-item]')
     const overlays = containerRef.current.querySelectorAll('[data-project-overlay]')
 
-    console.log(items)
-
     // Only set initial state if page is not ready and hasn't animated yet
     if (!isPageReady && !hasAnimatedRef.current) {
       gsap.set(items, { opacity: 0 })
