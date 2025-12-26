@@ -23,8 +23,14 @@ const Inner = ({
     const segments = path.split('/').filter(Boolean)
     if (segments.length === 0) return 'Home'
 
-    // Handle project routes
-    if (segments[0] === 'project') return 'Project'
+    // Handle project routes - show project name from URL
+    if (segments[0] === 'project' && segments[1]) {
+      const projectName = segments[1]
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')
+      return `[${projectName}]`
+    }
 
     // Convert kebab-case to Title Case
     const pageName = segments[0]
