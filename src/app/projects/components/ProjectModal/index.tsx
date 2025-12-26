@@ -6,6 +6,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "./components/Image";
 import styles from "@/styles/css/components/ProjectModal.module.css";
 import { useProjectModalContext } from "@/contexts/ProjectsModalContext";
+import { useCursor } from "@/contexts/CursorContext";
 import { urlFor } from "@/sanity/client";
 
 const scaleAnimation = {
@@ -28,14 +29,9 @@ import type { ProjectModalProps } from '@/types';
 
 const ProjectModal = ({ projects }: ProjectModalProps) => {
   const { modal } = useProjectModalContext();
+  const { position } = useCursor();
   const { isActive, index } = modal;
   const containerRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({
-    x: 0,
-    y: 0,
-    scrollY: 0,
-    scrollX: 0,
-  });
 
   const moveContainerX = useRef<gsap.QuickToFunc>();
   const moveContainerY = useRef<gsap.QuickToFunc>();
@@ -60,29 +56,6 @@ const ProjectModal = ({ projects }: ProjectModalProps) => {
       moveContainerY.current(position.y + position.scrollY);
     }
   }, [position]);
-
-  const handleMouseMove = useCallback((event: MouseEvent) => {
-    const { clientX, clientY } = event;
-    setPosition((prev) => ({ ...prev, x: clientX, y: clientY }));
-  }, []);
-
-  const handleScroll = useCallback(() => {
-    setPosition((prev) => ({
-      ...prev,
-      scrollX: window.scrollX,
-      scrollY: window.scrollY,
-    }));
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [handleMouseMove, handleScroll]);
 
   return (
     <motion.div

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useContext, createContext, useCallback, useMemo } from "react";
 import type { ProjectModalContextType, ProjectModal } from '@/types';
 
 const ProjectModalContext = createContext<ProjectModalContextType | undefined>(
@@ -19,14 +19,14 @@ export const ProjectModalContextProvider: React.FC<
     index: 0,
   });
 
-  const updateModal = (index: number, modalIsActive: boolean) => {
+  const updateModal = useCallback((index: number, modalIsActive: boolean) => {
     setModal((prev) => ({ ...prev, isActive: modalIsActive, index }));
-  };
+  }, []);
 
-  const value: ProjectModalContextType = {
+  const value = useMemo<ProjectModalContextType>(() => ({
     modal,
     updateModal,
-  };
+  }), [modal, updateModal]);
 
   return (
     <ProjectModalContext.Provider value={value}>

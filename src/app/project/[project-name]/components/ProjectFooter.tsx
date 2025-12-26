@@ -40,4 +40,4 @@ const ProjectFooter = ({ linkToNextProject }: ProjectFooterProps) => {
   )
 }
 
-export default ProjectFooter
+export default React.memo(ProjectFooter)

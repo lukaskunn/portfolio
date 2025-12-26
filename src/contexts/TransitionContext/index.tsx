@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useContext, createContext, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import type { TransitionContextType } from '@/types';
 
@@ -54,7 +54,7 @@ export const TransitionContextProvider: React.FC<TransitionContextProviderProps>
     }
   }, [isTransitioningIn]);
 
-  const value: TransitionContextType = {
+  const value = useMemo<TransitionContextType>(() => ({
     isTransitioningIn,
     isTransitioningOut,
     isPageReady,
@@ -64,7 +64,7 @@ export const TransitionContextProvider: React.FC<TransitionContextProviderProps>
     setIsTransitioningOut,
     setNextPath,
     setDisplayPageName,
-  };
+  }), [isTransitioningIn, isTransitioningOut, isPageReady, nextPath, displayPageName]);
 
   return <TransitionContext.Provider value={value}>{children}</TransitionContext.Provider>;
 };

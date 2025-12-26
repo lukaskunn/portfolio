@@ -42,4 +42,4 @@ const SkipToContent = () => {
   )
 }
 
-export default SkipToContent
+export default React.memo(SkipToContent)

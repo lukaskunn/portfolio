@@ -24,4 +24,4 @@ const HeaderItem = ({
   )
 }
 
-export default HeaderItem
+export default React.memo(HeaderItem)

@@ -10,4 +10,4 @@ const DownloadResumeButton = ({ data }: DownloadResumeButtonProps) => {
   )
 }
 
-export default DownloadResumeButton
+export default React.memo(DownloadResumeButton)

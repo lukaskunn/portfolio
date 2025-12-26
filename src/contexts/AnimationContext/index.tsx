@@ -77,11 +77,12 @@ interface AnimationProviderProps {
 }
 
 export const AnimationProvider: React.FC<AnimationProviderProps> = ({ children }) => {
-  const value: AnimationContextType = {
+  // Memoize the value since it never changes
+  const value = React.useMemo<AnimationContextType>(() => ({
     presets: ANIMATION_PRESETS,
     delays: ANIMATION_DELAYS,
     isAnimationEnabled: true,
-  };
+  }), []);
 
   return (
     <AnimationContext.Provider value={value}>

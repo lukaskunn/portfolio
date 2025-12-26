@@ -372,8 +372,8 @@ export interface ModalProps {
 export interface CursorContextType {
   hoverImportantText: boolean
   setHoverImportantText: (value: boolean) => void
-  position: { x: number; y: number }
-  setPosition: (value: { x: number; y: number }) => void
+  position: { x: number; y: number; scrollX: number; scrollY: number }
+  setPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number; scrollX: number; scrollY: number }>>
   hoverSize: string
   setIsHovering: (props: SetIsHoveringProps) => void
   modalProps: ModalProps

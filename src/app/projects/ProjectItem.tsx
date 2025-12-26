@@ -53,4 +53,4 @@ const ProjectItem = ({ project, index, updateModal, openOnExternalPage = false }
   )
 }
 
-export default ProjectItem
+export default React.memo(ProjectItem)

@@ -17,4 +17,4 @@ const Image = (props: IImage) => {
   return <NextImage src={src} className={styles["project-modal-image"]} alt={alt} width={320} height={270} loading="lazy" />;
 };
 
-export default Image;
+export default React.memo(Image);

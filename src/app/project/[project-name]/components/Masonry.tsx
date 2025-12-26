@@ -16,4 +16,4 @@ const MasonryContainer = ({ children }: MasonryContainerProps) => {
   )
 }
 
-export default MasonryContainer
+export default React.memo(MasonryContainer)

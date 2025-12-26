@@ -28,4 +28,4 @@ const SocialLink = ({
   )
 }
 
-export default SocialLink
+export default React.memo(SocialLink)

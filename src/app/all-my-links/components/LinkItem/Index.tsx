@@ -22,4 +22,4 @@ const LinkItem = ({ link, title, openInNewPage, textHover }: LinkItemProps) => {
   );
 };
 
-export default LinkItem;
+export default React.memo(LinkItem);

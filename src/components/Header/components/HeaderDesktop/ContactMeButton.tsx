@@ -17,4 +17,4 @@ const ContactMeButton = ({ data }: ContactMeButtonProps) => {
   )
 }
 
-export default ContactMeButton
+export default React.memo(ContactMeButton)
