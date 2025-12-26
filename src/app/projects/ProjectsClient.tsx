@@ -72,7 +72,7 @@ const ProjectsClient = ({ works, projects }: ProjectsClientProps) => {
   }, { dependencies: [isLoaded, isPageReady] });
 
   return (
-    <main className={styles["container"]}>
+    <main id="main-content" className={styles["container"]} role="main" aria-label="Projects page content">
       <h1
         ref={titleRef}
         className={styles["title"]}

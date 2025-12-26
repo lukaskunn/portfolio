@@ -20,7 +20,7 @@ export default async function ProjectsPage() {
     projects.map((project: any) => ({
       name: project.title,
       description: project.subtitle,
-      url: `https://lucasoliveira.io/project/${project.link.current}`,
+      url: `https://lucasoliveira.io/project/${project.overview.projectId}`,
       image: project.image?.asset?.url,
       author: {
         name: "Lucas Oliveira",

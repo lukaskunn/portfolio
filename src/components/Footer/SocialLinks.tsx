@@ -17,7 +17,7 @@ const SocialLinks = ({ data }: SocialLinksProps) => {
   const { isLoaded } = usePageContext();
 
   return (
-    <div ref={containerRef} className={styles["social-links-container"]}>
+    <nav ref={containerRef} className={styles["social-links-container"]} aria-label="Social media links">
       {data.socialLinks?.map((link: any, index: number) => (
         <LineRevealContainer key={link.text} direction="up" duration={ANIMATION_TIME.footer} delay={ANIMATION_DELAYS.footer + index * 0.1}>
           <SocialLink
@@ -27,7 +27,7 @@ const SocialLinks = ({ data }: SocialLinksProps) => {
           />
         </LineRevealContainer>
       ))}
-    </div>
+    </nav>
   )
 }
 

@@ -16,9 +16,11 @@ function Header({ data }: HeaderProps) {
   }
 
   return (
-    <header className={styles.header}>
-      <HeaderDesktop data={data} />
-      <HeaderMobile data={data} />
+    <header className={styles.header} role="banner">
+      <nav role="navigation" aria-label="Main navigation">
+        <HeaderDesktop data={data} />
+        <HeaderMobile data={data} />
+      </nav>
     </header>
   );
 }

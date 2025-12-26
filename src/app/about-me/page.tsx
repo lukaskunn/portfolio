@@ -39,13 +39,15 @@ export default async function AboutMePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
       />
-      <div className={styles.container}>
-        <HeroSection data={aboutMe} />
-        <IntroSection data={aboutMe} />
-        <BackgroundSection data={aboutMe} />
-        <CertificationsSection data={aboutMe.certifications} />
-        <ServicesSection data={servicesData.services} />
-      </div>
+      <main id="main-content" role="main" aria-label="About me page content">
+        <div className={styles.container}>
+          <HeroSection data={aboutMe} />
+          <IntroSection data={aboutMe} />
+          <BackgroundSection data={aboutMe} />
+          <CertificationsSection data={aboutMe.certifications} />
+          <ServicesSection data={servicesData.services} />
+        </div>
+      </main>
     </>
   )
 }

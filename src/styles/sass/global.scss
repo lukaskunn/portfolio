@@ -215,3 +215,75 @@ body {
     padding: 0 20px;
   }
 }
+
+// ============================================
+// ACCESSIBILITY: Focus Styles for Keyboard Navigation
+// ============================================
+
+// Remove default focus outline and add custom focus-visible styles
+// This ensures keyboard users see clear focus indicators while
+// not showing focus styles for mouse/touch users
+*:focus {
+  outline: none;
+}
+
+// Custom focus-visible styles for better accessibility
+*:focus-visible {
+  outline: 3px solid $secondary-color;
+  outline-offset: 2px;
+  border-radius: 2px;
+  transition: outline-offset 0.2s ease;
+}
+
+// Specific focus styles for interactive elements
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid $secondary-color;
+  outline-offset: 4px;
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  *:focus-visible {
+    outline-width: 2px;
+    outline-color: currentColor;
+  }
+}
+
+// Ensure keyboard navigation is visible even with custom cursor
+@media screen and (min-width: 770px) {
+  *:focus-visible {
+    // Show system cursor on focus for better visibility
+    cursor: auto !important;
+  }
+}
+
+// Screen reader only content
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// Allow keyboard focus to work with elements that have tabindex
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+// Ensure main content can receive focus for skip-to-content
+#main-content {
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
+}

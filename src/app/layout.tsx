@@ -16,6 +16,7 @@ import Inner from "@/components/Inner";
 import HTMLWrapper from "./HTMLWrapper";
 import { getLayoutContent } from "@/sanity/lib/fetch";
 import { generateWebSiteJsonLd } from "@/utils/generateJsonLd";
+import SkipToContent from "@/components/SkipToContent";
 
 const gloockFont = localFont({
   variable: "--font-gloock",
@@ -106,6 +107,7 @@ export default async function RootLayout({
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
           />
+          <SkipToContent />
           <Inner>
             <Loading />
             <CursorFollower />

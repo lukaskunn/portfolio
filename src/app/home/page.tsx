@@ -12,7 +12,7 @@ export async function generateMetadata() {
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <main id="main-content" className={styles.main} role="main" aria-label="Homepage content">
       <TitleComponent />
       <HomeImage />
       <BackgroundGrid />

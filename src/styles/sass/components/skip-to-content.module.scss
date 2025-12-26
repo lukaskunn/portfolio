@@ -1,0 +1,40 @@
+@use "../references" as *;
+
+.skip-to-content {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+
+  padding: 16px 32px;
+  background-color: $primary-color;
+  color: $background-color-main;
+
+  font-family: $primary-text-font;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  transition: top 0.3s ease-in-out;
+
+  // Only visible when focused (keyboard navigation)
+  &:focus {
+    top: 20px;
+    outline: 3px solid $secondary-color;
+    outline-offset: 2px;
+  }
+
+  // Ensure it works with high contrast mode
+  @media (prefers-contrast: high) {
+    border: 2px solid currentColor;
+  }
+
+  // Respect reduced motion preferences
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}

@@ -12,12 +12,14 @@ export default async function ContactPage() {
   const contact = await getContactContent();
 
   return (
-    <section className={styles.contactContainer}>
-      <div className={styles.contactContent}>
-        <PageHeader data={contact} />
-        <ContactForm data={contact} />
-        <ContactInfo data={contact} />
-      </div>
-    </section>
+    <main id="main-content" role="main" aria-label="Contact page content">
+      <section className={styles.contactContainer}>
+        <div className={styles.contactContent}>
+          <PageHeader data={contact} />
+          <ContactForm data={contact} />
+          <ContactInfo data={contact} />
+        </div>
+      </section>
+    </main>
   );
 }

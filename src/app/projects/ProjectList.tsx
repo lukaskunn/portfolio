@@ -89,6 +89,8 @@ const ProjectList = ({ projects, updateModal }: ProjectListProps) => {
       {projects.map((project, index) => {
         const { overview } = project
         const { subtitle, projectId, technologies, cardTitle, goToExternalPage, urlToProject } = overview
+
+        console.log(overview)
         
         return (
           <div key={index} style={{ position: 'relative', overflow: 'hidden' }}>

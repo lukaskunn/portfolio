@@ -81,11 +81,13 @@ export default async function ProjectPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <div className={styles.container}>
-        <Overview {...projectData.overview} />
-        <Gallery items={projectData.gallery} />
-        <ProjectFooter linkToNextProject={projectData.overview.urlToProject} />
-      </div>
+      <main id="main-content" role="main" aria-label={`${projectData.title} project details`}>
+        <article className={styles.container}>
+          <Overview {...projectData.overview} />
+          <Gallery items={projectData.gallery} />
+          <ProjectFooter linkToNextProject={projectData.overview.urlToProject} />
+        </article>
+      </main>
     </>
   )
 }
