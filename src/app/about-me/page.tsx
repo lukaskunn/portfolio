@@ -6,6 +6,12 @@ import BackgroundSection from './components/BackgroundSection'
 import CertificationsSection from './components/CertificationsSection'
 import ServicesSection from './components/ServicesSection'
 import { getAboutMeContent, getServicesContent } from '@/sanity/lib/fetch'
+import generateMetadataUtil from '@/utils/generateMetadata'
+
+export async function generateMetadata() {
+  const aboutMe = await getAboutMeContent();
+  return generateMetadataUtil(aboutMe.seo, undefined, undefined, undefined, "/about-me");
+}
 
 export default async function AboutMePage() {
   const [aboutMe, servicesData] = await Promise.all([

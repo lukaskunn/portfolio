@@ -31,7 +31,8 @@ export const LANDING_QUERY = `*[_type == "landing"][0]{
           dimensions,
           lqip
         }
-      }
+      },
+      alt
     }
   }
 }`
@@ -112,7 +113,18 @@ export const ABOUT_ME_QUERY = `*[_type == "aboutMe"][0]{
   seo {
     metaTitle,
     metaDescription,
-    keywords
+    keywords,
+    ogImage {
+      asset->{
+        _id,
+        url,
+        metadata {
+          dimensions,
+          lqip
+        }
+      },
+      alt
+    }
   }
 }`
 
@@ -149,7 +161,18 @@ export const RESUME_QUERY = `*[_type == "resume"][0]{
   seo {
     metaTitle,
     metaDescription,
-    keywords
+    keywords,
+    ogImage {
+      asset->{
+        _id,
+        url,
+        metadata {
+          dimensions,
+          lqip
+        }
+      },
+      alt
+    }
   }
 }`
 
@@ -191,7 +214,18 @@ export const CONTACT_QUERY = `*[_type == "contact"][0]{
   seo {
     metaTitle,
     metaDescription,
-    keywords
+    keywords,
+    ogImage {
+      asset->{
+        _id,
+        url,
+        metadata {
+          dimensions,
+          lqip
+        }
+      },
+      alt
+    }
   }
 }`
 
@@ -206,7 +240,18 @@ export const WORKS_QUERY = `*[_type == "works"][0]{
   seo {
     metaTitle,
     metaDescription,
-    keywords
+    keywords,
+    ogImage {
+      asset->{
+        _id,
+        url,
+        metadata {
+          dimensions,
+          lqip
+        }
+      },
+      alt
+    }
   }
 }`
 
@@ -265,7 +310,18 @@ export const ALL_PROJECTS_QUERY = `*[_type == "project" && status == "published"
   seo {
     metaTitle,
     metaDescription,
-    keywords
+    keywords,
+    ogImage {
+      asset->{
+        _id,
+        url,
+        metadata {
+          dimensions,
+          lqip
+        }
+      },
+      alt
+    }
   }
 }`
 
@@ -320,8 +376,13 @@ export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0]{
     ogImage {
       asset->{
         _id,
-        url
-      }
+        url,
+        metadata {
+          dimensions,
+          lqip
+        }
+      },
+      alt
     }
   },
   socialMedia {
