@@ -5,13 +5,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/all'
 import { useGSAP } from '@gsap/react'
 import styles from "@/styles/css/about-me.module.css"
-import { useLanguage } from '@/contexts/LanguageContext'
+import { PortableText } from 'next-sanity'
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const BackgroundSection = () => {
-  const { currentContent } = useLanguage();
-  const { aboutMe } = currentContent;
+interface BackgroundSectionProps {
+  data: any;
+}
+
+const BackgroundSection = ({ data }: BackgroundSectionProps) => {
   const sectionRef = useRef<HTMLElement>(null);
   const borderRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -110,16 +112,19 @@ const BackgroundSection = () => {
       <div className={styles["section-layout"]}>
         <div className={styles["title-container"]}>
           <h2 ref={titleRef} className={styles["section-title"]} style={{ overflow: 'hidden' }}>
-            {aboutMe.background.title}
+            {data.background?.title}
           </h2>
           <div ref={titleBorderRef} className={styles["title-border-bottom"]} />
         </div>
         <div ref={contentRef} className={styles["section-content"]}>
-          {aboutMe.background.paragraphs.map((paragraph, index) => (
+            <p className={styles["content-paragraph"]} style={{ overflow: 'hidden' }}>
+              <PortableText value={data.background?.paragraphs} />
+            </p>
+          {/* {data.background?.paragraphs?.map((paragraph: string, index: number) => (
             <p key={index} className={styles["content-paragraph"]} style={{ overflow: 'hidden' }}>
               {paragraph}
             </p>
-          ))}
+          ))} */}
         </div>
       </div>
     </section>

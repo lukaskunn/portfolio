@@ -4,15 +4,16 @@ import { gsap } from 'gsap'
 import { SplitText } from 'gsap/all'
 import { useGSAP } from '@gsap/react'
 import styles from "@/styles/css/about-me.module.css"
-import { useLanguage } from '@/contexts/LanguageContext'
 import { usePageContext } from '@/contexts/PageContext'
 import { useTransitionContext } from '@/contexts/TransitionContext'
 
 gsap.registerPlugin(SplitText);
 
-const HeroSection = () => {
-  const { currentContent } = useLanguage();
-  const { aboutMe } = currentContent;
+interface HeroSectionProps {
+  data: any;
+}
+
+const HeroSection = ({ data }: HeroSectionProps) => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const hasAnimatedRef = useRef(false);
   const { isLoaded } = usePageContext();
@@ -72,7 +73,7 @@ const HeroSection = () => {
         className={styles["page-title"]}
         style={{ overflow: 'hidden' }}
       >
-        {aboutMe.sectionTitle}
+        {data.sectionTitle}
       </h1>
     </section>
   )

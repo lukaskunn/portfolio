@@ -5,17 +5,21 @@ import IntroSection from './components/IntroSection'
 import BackgroundSection from './components/BackgroundSection'
 import CertificationsSection from './components/CertificationsSection'
 import ServicesSection from './components/ServicesSection'
+import { getAboutMeContent, getServicesContent } from '@/sanity/lib/fetch'
 
-const page = () => {
+export default async function AboutMePage() {
+  const [aboutMe, servicesData] = await Promise.all([
+    getAboutMeContent(),
+    getServicesContent(),
+  ]);
+
   return (
     <div className={styles.container}>
-      <HeroSection />
-      <IntroSection />
-      <BackgroundSection />
-      <CertificationsSection />
-      <ServicesSection />
+      <HeroSection data={aboutMe} />
+      <IntroSection data={aboutMe} />
+      <BackgroundSection data={aboutMe} />
+      <CertificationsSection data={aboutMe.certifications} />
+      <ServicesSection data={servicesData.services} />
     </div>
   )
 }
-
-export default page

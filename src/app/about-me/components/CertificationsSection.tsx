@@ -5,13 +5,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/all'
 import { useGSAP } from '@gsap/react'
 import styles from "@/styles/css/about-me.module.css"
-import { useLanguage } from '@/contexts/LanguageContext'
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const CertificationsSection = () => {
-  const { currentContent } = useLanguage();
-  const { aboutMe } = currentContent;
+interface CertificationsSectionProps {
+  data: any;
+}
+
+const CertificationsSection = ({ data }: CertificationsSectionProps) => {
   const sectionRef = useRef<HTMLElement>(null);
   const borderRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -99,21 +100,20 @@ const CertificationsSection = () => {
       <div className={styles["section-layout"]}>
         <div className={styles["title-container"]}>
           <h2 ref={titleRef} className={styles["section-title"]} style={{ overflow: 'hidden' }}>
-            {aboutMe.certifications.title}
+            {data?.title}
           </h2>
           <div ref={titleBorderRef} className={styles["title-border-bottom"]} />
         </div>
         <div ref={tableRef} className={styles["certifications-table"]}>
           <div className={styles["table-header"]}>
-            {aboutMe.certifications.tableHeaders.map((header, index) => (
+            {data?.tableHeaders?.map((header: string, index: number) => (
               <span key={index} className={styles["header-cell"]}>{header}</span>
             ))}
           </div>
-
-          {aboutMe.certifications.items.map((item, index) => (
+          {data?.items?.map((item: any, index: number) => (
             <div key={index} className={styles["table-row"]}>
               <ul className={styles["row-content"]}>
-                {item.subjects.map((subject, subIndex) => (
+                {item.subjects.map((subject: string, subIndex: number) => (
                   <li key={subIndex} className={styles["cell-text"]}>{subject}</li>
                 ))}
               </ul>

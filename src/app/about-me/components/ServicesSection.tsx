@@ -5,13 +5,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/all'
 import { useGSAP } from '@gsap/react'
 import styles from "@/styles/css/about-me.module.css"
-import { useLanguage } from '@/contexts/LanguageContext'
-
+import { PortableText } from 'next-sanity'
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const ServicesSection = () => {
-  const { currentContent } = useLanguage();
-  const { services } = currentContent;
+interface ServicesSectionProps {
+  data: any;
+}
+
+const ServicesSection = ({ data }: ServicesSectionProps) => {
   const sectionRef = useRef<HTMLElement>(null);
   const borderRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -98,18 +99,18 @@ const ServicesSection = () => {
       <div className={styles["section-layout"]}>
         <div className={styles["title-container"]}>
           <h2 ref={titleRef} className={styles["section-title"]} style={{ overflow: 'hidden' }}>
-            {services.sectionTitle}
+            {data?.sectionTitle || 'Services'}
           </h2>
           <div ref={titleBorderRef} className={styles["title-border-bottom"]} />
         </div>
         <div ref={gridRef} className={styles["services-grid"]}>
-          {services.items.map((service, index) => (
+          {data?.items?.map((service: any, index: number) => (
             <div key={index} className={styles["service-card"]}>
               <h3 className={styles["service-title"]}>{service.title}</h3>
               <p className={styles["service-subtitle"]}>{service.subtitle}</p>
-              <p className={styles["service-description"]}>
-                {service.description}
-              </p>
+              <span className={styles["service-description"]}>
+                <PortableText value={service.description} />
+              </span>
             </div>
           ))}
         </div>

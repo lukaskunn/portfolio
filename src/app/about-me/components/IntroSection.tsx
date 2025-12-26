@@ -4,15 +4,16 @@ import { gsap } from 'gsap'
 import { SplitText } from 'gsap/all'
 import { useGSAP } from '@gsap/react'
 import styles from "@/styles/css/about-me.module.css"
-import { useLanguage } from '@/contexts/LanguageContext'
 import { usePageContext } from '@/contexts/PageContext'
 import { useTransitionContext } from '@/contexts/TransitionContext'
-
+import { PortableText } from 'next-sanity'
 gsap.registerPlugin(SplitText);
 
-const IntroSection = () => {
-  const { currentContent } = useLanguage();
-  const { aboutMe } = currentContent;
+interface IntroSectionProps {
+  data: any;
+}
+
+const IntroSection = ({ data }: IntroSectionProps) => {
   const textRef = useRef<HTMLParagraphElement>(null);
   const borderRef = useRef<HTMLDivElement>(null);
   const hasAnimatedRef = useRef(false);
@@ -90,7 +91,7 @@ const IntroSection = () => {
           className={styles["intro-text"]}
           style={{ overflow: 'hidden' }}
         >
-          {aboutMe.intro}
+          <PortableText value={data.intro} />
         </p>
       </div>
     </section>
