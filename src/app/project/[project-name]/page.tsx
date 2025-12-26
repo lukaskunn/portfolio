@@ -14,13 +14,7 @@ interface PageProps {
 
 export default async function ProjectPage({ params }: PageProps) {
   const projectSlug = decodeURIComponent(params['project-name']);
-  
-  // // Fetch project by slug
   const projectData = await getProjectBySlug(projectSlug);
-  
-  console.log("Project page params:", projectSlug)
-  console.log("Project data for slug", projectSlug, ":", projectData);
-  // return <div>Project page is under construction.</div>;
 
   if (!projectData) {
     notFound();

@@ -8,24 +8,18 @@ import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 
 type Project = {
-  link: string
-  tech: string
-  title: string
-  subtitle: string
-  urlToProject?: string
+  overview: {
+    subtitle: string
+    projectId: { current: string }
+    technologies: string
+    cardTitle: string
+    goToExternalPage?: boolean
+    urlToProject?: string
+  }
 }
 
 type ProjectListProps = {
-  projects: Array<{
-    overview: {
-      subtitle: string
-      projectId: string
-      technologies: string
-      cardTitle: string
-      goToExternalPage?: boolean
-      urlToProject?: string
-    }
-  }>
+  projects: Project[]
   updateModal: (index: number, modalIsActive: boolean) => void
 }
 
@@ -95,7 +89,7 @@ const ProjectList = ({ projects, updateModal }: ProjectListProps) => {
       {projects.map((project, index) => {
         const { overview } = project
         const { subtitle, projectId, technologies, cardTitle, goToExternalPage, urlToProject } = overview
-
+        
         return (
           <div key={index} style={{ position: 'relative', overflow: 'hidden' }}>
             <ProjectItem

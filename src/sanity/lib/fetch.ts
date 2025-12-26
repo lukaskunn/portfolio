@@ -99,7 +99,6 @@ export async function getFeaturedProjects() {
  * Fetch a single project by slug
  */
 export async function getProjectBySlug(slug: string) {
-  console.log("Fetching project with slug:", slug);
   return client.fetch(PROJECT_BY_SLUG_QUERY, { slug }, {
     next: { revalidate: REVALIDATE_TIME }
   })
