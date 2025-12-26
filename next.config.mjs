@@ -3,6 +3,14 @@ const nextConfig = {
   sassOptions: {
     implementation: 'sass-embedded',
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
+    ],
+  },
   async redirects() {
     return [
       {
