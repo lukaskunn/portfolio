@@ -7,6 +7,7 @@ import CertificationsSection from './components/CertificationsSection'
 import ServicesSection from './components/ServicesSection'
 import { getAboutMeContent, getServicesContent } from '@/sanity/lib/fetch'
 import generateMetadataUtil from '@/utils/generateMetadata'
+import { generateProfilePageJsonLd } from '@/utils/generateJsonLd'
 
 export async function generateMetadata() {
   const aboutMe = await getAboutMeContent();
@@ -19,13 +20,32 @@ export default async function AboutMePage() {
     getServicesContent(),
   ]);
 
+  // Generate JSON-LD for About Me page
+  const profileJsonLd = generateProfilePageJsonLd({
+    name: "Lucas Oliveira",
+    jobTitle: "Frontend Developer & Creative Web Designer",
+    url: "https://lucasoliveira.io",
+    description: aboutMe.intro || "Creative Frontend developer specializing in React, Next.js, and TypeScript.",
+    sameAs: [
+      "https://github.com/lucaskun",
+      "https://linkedin.com/in/lucasoliveira",
+    ]
+  });
+
   return (
-    <div className={styles.container}>
-      <HeroSection data={aboutMe} />
-      <IntroSection data={aboutMe} />
-      <BackgroundSection data={aboutMe} />
-      <CertificationsSection data={aboutMe.certifications} />
-      <ServicesSection data={servicesData.services} />
-    </div>
+    <>
+      {/* JSON-LD Structured Data for Profile */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
+      />
+      <div className={styles.container}>
+        <HeroSection data={aboutMe} />
+        <IntroSection data={aboutMe} />
+        <BackgroundSection data={aboutMe} />
+        <CertificationsSection data={aboutMe.certifications} />
+        <ServicesSection data={servicesData.services} />
+      </div>
+    </>
   )
 }
