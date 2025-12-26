@@ -1,0 +1,12 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin/API routes
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://lucasoliveira.io/sitemap.xml
+
+# Crawl-delay for respectful crawling (optional)
+Crawl-delay: 1

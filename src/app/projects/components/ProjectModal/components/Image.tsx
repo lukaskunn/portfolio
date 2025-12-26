@@ -13,7 +13,7 @@ interface IImage {
 const Image = (props: IImage) => {
   const { src, alt } = props;
 
-  return <NextImage src={urlFor(src).url()} className={styles["project-modal-image"]} alt={alt} width={320} height={270}/>;
+  return <NextImage src={urlFor(src).url()} className={styles["project-modal-image"]} alt={alt} width={320} height={270} loading="lazy"/>;
 };
 
 export default Image;

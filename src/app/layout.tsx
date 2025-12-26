@@ -15,6 +15,7 @@ import { TransitionContextProvider } from "@/contexts/TransitionContext";
 import Inner from "@/components/Inner";
 import HTMLWrapper from "./HTMLWrapper";
 import { getLayoutContent } from "@/sanity/lib/fetch";
+import { generateWebSiteJsonLd } from "@/utils/generateJsonLd";
 
 const gloockFont = localFont({
   variable: "--font-gloock",
@@ -80,10 +81,31 @@ export default async function RootLayout({
   // Fetch layout content from Sanity
   const { header, footer } = await getLayoutContent();
 
+  // Generate JSON-LD structured data for the website
+  const websiteJsonLd = generateWebSiteJsonLd({
+    name: "Lucas Oliveira - Portfolio",
+    url: "https://lucasoliveira.io",
+    description: "Creative Frontend developer specializing in React, Next.js, and TypeScript. Creating beautiful, accessible, and performant web experiences.",
+    author: {
+      name: "Lucas Oliveira",
+      jobTitle: "Frontend Developer & Creative Web Designer",
+      url: "https://lucasoliveira.io",
+      sameAs: [
+        "https://github.com/lucaskun",
+        "https://linkedin.com/in/lucasoliveira",
+      ]
+    }
+  });
+
   return (
     <AppProviders>
       <HTMLWrapper className={`${aksharFont.variable} ${robotoMonoFont.variable} ${robotoFont.variable} ${gloockFont.variable}`}>
         <body>
+          {/* JSON-LD Structured Data */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+          />
           <Inner>
             <Loading />
             <CursorFollower />
@@ -105,9 +127,9 @@ function AppProviders({ children }: { children: React.ReactNode }) {
         <PageContextProvider>
           <AnimationProvider>
             <DeviceContextProvider>
-                <TransitionContextProvider>
-                  {children}
-                </TransitionContextProvider>
+              <TransitionContextProvider>
+                {children}
+              </TransitionContextProvider>
             </DeviceContextProvider>
           </AnimationProvider>
         </PageContextProvider>
