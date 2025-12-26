@@ -1,14 +1,14 @@
 'use client'
 import React from 'react'
 import HeaderItem from './HeaderItem';
-import { useLanguage } from '@/contexts/LanguageContext';
 
-const DownloadResumeButton = () => {
-  const { currentContent } = useLanguage();
-  const { header } = currentContent;
+interface DownloadResumeButtonProps {
+  data: any;
+}
 
+const DownloadResumeButton = ({ data }: DownloadResumeButtonProps) => {
   return (
-    <HeaderItem link={header.resumeButton.link} title={header.resumeButton.title} />
+    <HeaderItem link={data.url} title={data.text} />
   )
 }
 

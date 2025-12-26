@@ -2,18 +2,18 @@
 import React from 'react'
 import { LuArrowUpRight } from "react-icons/lu";
 import LinkHandler from '@/components/LinkHandler';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { TextScrollHover } from '@/components/animations';
 
 import styles from "../../../../styles/css/header.module.css";
 
-const ContactMeButton = () => {
-  const { currentContent } = useLanguage();
-  const { header } = currentContent;
+interface ContactMeButtonProps {
+  data: any;
+}
 
+const ContactMeButton = ({ data }: ContactMeButtonProps) => {
   return (
-    <LinkHandler href={header.contactButton.link} className={`${styles["menu-item"]} ${styles["contact-me-button"]}`}>
-      <TextScrollHover text={header.contactButton.title} />
+    <LinkHandler href={data.url} className={`${styles["menu-item"]} ${styles["contact-me-button"]}`}>
+      <TextScrollHover text={data.text} />
       <LuArrowUpRight className={styles["button-arrow"]} size={"1.4em"} />
     </LinkHandler>
   )

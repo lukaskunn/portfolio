@@ -4,8 +4,11 @@ import HeaderDesktop from "@/components/Header/components/HeaderDesktop/HeaderDe
 import HeaderMobile from "@/components/Header/components/HeaderMobile";
 import styles from "@/styles/css/header.module.css";
 
+interface HeaderProps {
+  data: any; // Sanity header content
+}
 
-function Header() {
+function Header({ data }: HeaderProps) {
   const pathName = usePathname();
 
   if (pathName === "/all-my-links") {
@@ -14,8 +17,8 @@ function Header() {
 
   return (
     <header className={styles.header}>
-      <HeaderDesktop />
-      <HeaderMobile />
+      <HeaderDesktop data={data} />
+      <HeaderMobile data={data} />
     </header>
   );
 }

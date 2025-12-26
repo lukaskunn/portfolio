@@ -5,7 +5,11 @@ import { usePathname } from 'next/navigation';
 import SocialLinks from './SocialLinks';
 import WorkMessage from './WorkMessage';
 
-const Footer = () => {
+interface FooterProps {
+  data: any; // Sanity footer content
+}
+
+const Footer = ({ data }: FooterProps) => {
   const pathName = usePathname();
   const footerRef = useRef<HTMLElement>(null);
 
@@ -18,8 +22,8 @@ const Footer = () => {
       ref={footerRef}
       className={styles["footer-container"]}
     >
-      <SocialLinks />
-      <WorkMessage />
+      <SocialLinks data={data} />
+      <WorkMessage data={data} />
     </footer>
   )
 }

@@ -1,7 +1,6 @@
 'use client'
 import React, { useRef, useMemo } from 'react'
 import styles from "@/styles/css/footer.module.css";
-import { useLanguage } from '@/contexts/LanguageContext';
 import { usePageContext } from '@/contexts/PageContext';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -10,9 +9,12 @@ import { SplitText } from 'gsap/all';
 
 gsap.registerPlugin(SplitText);
 
-const WorkMessage = () => {
-  const { currentContent } = useLanguage();
-  const message = currentContent.footer.quickMessage;
+interface WorkMessageProps {
+  data: any;
+}
+
+const WorkMessage = ({ data }: WorkMessageProps) => {
+  const message = data.quickMessage;
   const textRef = useRef<HTMLSpanElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const { isLoaded } = usePageContext();

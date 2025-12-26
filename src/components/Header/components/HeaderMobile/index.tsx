@@ -3,21 +3,21 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import styles from "@/styles/css/header.module.css";
 import LinkHandler from "@/components/LinkHandler";
-import { useLanguage } from "@/contexts/LanguageContext";
 import gsap from "gsap";
 import LineRevealContainer from "@/components/animations/LineReveal";
 import { ANIMATION_DELAYS } from "@/utils/animationVars";
 
-const HeaderMobile = () => {
+interface HeaderMobileProps {
+  data: any; // Sanity header content
+}
+
+const HeaderMobile = ({ data }: HeaderMobileProps) => {
   const pathName = usePathname();
   const [menuIsOpen, setMenuIsOpen] = React.useState(false);
   const [showMenuItems, setShowMenuItems] = React.useState(false);
-  const { currentContent } = useLanguage();
   const menuOverlayRef = React.useRef<HTMLDivElement>(null);
   const menuOverlayBackground = React.useRef<HTMLDivElement>(null);
   const menuItemsRef = React.useRef<HTMLDivElement>(null);
-
-  const { header } = currentContent;
 
   React.useEffect(() => {
     if (menuIsOpen) {
@@ -61,7 +61,7 @@ const HeaderMobile = () => {
     <>
       <div className={styles["header-mobile"]}>
         <LineRevealContainer direction="down" delay={ANIMATION_DELAYS.header}>
-          <div className={styles["name-logo"]}>{header.headerTitle}</div>
+          <div className={styles["name-logo"]}>{data.headerTitle}</div>
         </LineRevealContainer>
         <LineRevealContainer direction="down" delay={0.1 + ANIMATION_DELAYS.header}>
           <button className={styles["open-menu-button"]} onClick={() => { setMenuIsOpen(true) }}>[ Menu ]</button>
@@ -76,7 +76,7 @@ const HeaderMobile = () => {
             duration={0.8}
             trigger={showMenuItems}
           >
-            <div className={styles["name-logo"]}>{header.headerTitle}</div>
+            <div className={styles["name-logo"]}>{data.headerTitle}</div>
           </LineRevealContainer>
           <LineRevealContainer
             direction="down"
@@ -88,7 +88,7 @@ const HeaderMobile = () => {
         </div>
         <div className={styles["mobile-menu-overlay__container"]} ref={menuItemsRef}>
           <div className={styles["mobile-menu-overlay__container__navigation-items"]}>
-            {header.mobileNavigation.map((item, index) => (
+            {data.mobileNavigation?.map((item: any, index: number) => (
               <LineRevealContainer
                 key={item.href}
                 direction="up"
@@ -105,24 +105,24 @@ const HeaderMobile = () => {
           <div className={styles["mobile-menu-overlay__container__menu-footer"]}>
             <LineRevealContainer
               direction="up"
-              delay={header.mobileNavigation.length * 0.08}
+              delay={(data.mobileNavigation?.length || 0) * 0.08}
               duration={0.8}
               trigger={showMenuItems}
             >
               <div className={styles["mobile-menu-overlay__container__menu-footer__social-links"]}>
-                {header.socialLinks.map((link) => (
-                  <LinkHandler key={link.href} className={`${styles["social-link"]} ${link.type === "contact" ? styles["contact-link"] : ""}`} href={link.href}>{link.label}</LinkHandler>
+                {data.socialLinks?.map((link: any) => (
+                  <LinkHandler key={link.url} className={`${styles["social-link"]} ${link.type === "contact" ? styles["contact-link"] : ""}`} href={link.url}>{link.text}</LinkHandler>
                 ))}
               </div>
             </LineRevealContainer>
             <LineRevealContainer
               direction="up"
-              delay={header.mobileNavigation.length * 0.08 + 0.1}
+              delay={(data.mobileNavigation?.length || 0) * 0.08 + 0.1}
               duration={0.8}
               trigger={showMenuItems}
             >
               <div className={styles["mobile-menu-overlay__container__menu-footer__quickly-message"]}>
-                <span className={styles["message"]}>{header.mobileQuickMessage}</span>
+                <span className={styles["message"]}>{data.mobileQuickMessage}</span>
               </div>
             </LineRevealContainer>
           </div>

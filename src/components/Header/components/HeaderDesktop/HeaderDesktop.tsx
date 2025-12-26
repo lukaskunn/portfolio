@@ -3,32 +3,33 @@ import React from "react";
 import HeaderItem from "./HeaderItem";
 import DownloadResumeButton from "./DownloadResumeButton";
 import ContactMeButton from "./ContactMeButton";
-import Link from "next/link";
-import { useLanguage } from "@/contexts/LanguageContext";
+import LinkHandler from "@/components/LinkHandler";
 import LineRevealContainer from "@/components/animations/LineReveal";
 import styles from "../../../../styles/css/header.module.css";
 import { ANIMATION_DELAYS, ANIMATION_TIME } from "@/utils/animationVars"
-const HeaderDesktop = () => {
-  const { currentContent } = useLanguage();
-  const { header } = currentContent;
 
+interface HeaderDesktopProps {
+  data: any; // Sanity header content
+}
+
+const HeaderDesktop = ({ data }: HeaderDesktopProps) => {
   return (
     <div className={styles["header-desktop"]}>
       <LineRevealContainer direction="down" duration={ANIMATION_TIME.header} delay={ANIMATION_DELAYS.header}>
-        <Link href="/home" className={styles["name-logo"]}>{header.headerTitle}</Link>
+        <LinkHandler href="/home" className={styles["name-logo"]}>{data.headerTitle}</LinkHandler>
       </LineRevealContainer>
       <div className={styles["header-desktop__header-menu"]}>
-        {header.menuItems.map((item, index) => (
-          <LineRevealContainer key={item.title} direction="down" duration={ANIMATION_TIME.header} delay={ANIMATION_DELAYS.header + (index + 1) * 0.1}>
-            <HeaderItem title={item.title} link={item.link} />
+        {data.menuItems?.map((item: any, index: number) => (
+          <LineRevealContainer key={item.text} direction="down" duration={ANIMATION_TIME.header} delay={ANIMATION_DELAYS.header + (index + 1) * 0.1}>
+            <HeaderItem title={item.text} link={item.url} />
           </LineRevealContainer>
         ))}
-        <LineRevealContainer direction="down" duration={ANIMATION_TIME.header} delay={ANIMATION_DELAYS.header + (header.menuItems.length + 1) * 0.1}>
-          <DownloadResumeButton />
+        <LineRevealContainer direction="down" duration={ANIMATION_TIME.header} delay={ANIMATION_DELAYS.header + ((data.menuItems?.length || 0) + 1) * 0.1}>
+          <DownloadResumeButton data={data.resumeButton} />
         </LineRevealContainer>
 
-        <LineRevealContainer direction="down" duration={ANIMATION_TIME.header} delay={ANIMATION_DELAYS.header + (header.menuItems.length + 2) * 0.1}>
-          <ContactMeButton />
+        <LineRevealContainer direction="down" duration={ANIMATION_TIME.header} delay={ANIMATION_DELAYS.header + ((data.menuItems?.length || 0) + 2) * 0.1}>
+          <ContactMeButton data={data.contactButton} />
         </LineRevealContainer>
       </div>
     </div>
