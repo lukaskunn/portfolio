@@ -6,6 +6,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "./components/Image";
 import styles from "@/styles/css/components/ProjectModal.module.css";
 import { useProjectModalContext } from "@/contexts/ProjectsModalContext";
+import { urlFor } from "@/sanity/client";
 
 const scaleAnimation = {
   initial: { scale: 0, x: "-50%", y: "-50%" },
@@ -23,9 +24,7 @@ const scaleAnimation = {
   },
 };
 
-type ProjectModalProps = {
-  projects: any[];
-};
+import type { ProjectModalProps } from '@/types';
 
 const ProjectModal = ({ projects }: ProjectModalProps) => {
   const { modal } = useProjectModalContext();
@@ -108,7 +107,7 @@ const ProjectModal = ({ projects }: ProjectModalProps) => {
               style={{ backgroundColor: galleryBackgroundColor.hex }}
             >
               <Image
-                src={galleryBackground}
+                src={urlFor(galleryBackground?.asset.url).url()}
                 color={galleryBackgroundColor}
                 height={290}
                 width={300}

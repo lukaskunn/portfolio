@@ -4,9 +4,7 @@ import HeaderDesktop from "@/components/Header/components/HeaderDesktop/HeaderDe
 import HeaderMobile from "@/components/Header/components/HeaderMobile";
 import styles from "@/styles/css/header.module.css";
 
-interface HeaderProps {
-  data: any; // Sanity header content
-}
+import type { HeaderProps } from '@/types';
 
 function Header({ data }: HeaderProps) {
   const pathName = usePathname();

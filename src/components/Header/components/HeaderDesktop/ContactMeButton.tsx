@@ -6,9 +6,7 @@ import { TextScrollHover } from '@/components/animations';
 
 import styles from "../../../../styles/css/header.module.css";
 
-interface ContactMeButtonProps {
-  data: any;
-}
+import type { ContactMeButtonProps } from '@/types';
 
 const ContactMeButton = ({ data }: ContactMeButtonProps) => {
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "@/styles/css/components/ProjectModal.module.css";
 import NextImage from "next/image";
-import { urlFor } from "@/sanity/client";
+
 interface IImage {
   src: string;
   color: string;
@@ -13,7 +13,8 @@ interface IImage {
 const Image = (props: IImage) => {
   const { src, alt } = props;
 
-  return <NextImage src={urlFor(src).url()} className={styles["project-modal-image"]} alt={alt} width={320} height={270} loading="lazy"/>;
+  // If src is already a URL string, use it directly
+  return <NextImage src={src} className={styles["project-modal-image"]} alt={alt} width={320} height={270} loading="lazy" />;
 };
 
 export default Image;

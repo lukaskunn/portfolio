@@ -9,13 +9,9 @@ import ProjectList from './ProjectList';
 import { useProjectModalContext } from '@/contexts/ProjectsModalContext';
 import { usePageContext } from '@/contexts/PageContext'
 import { useTransitionContext } from '@/contexts/TransitionContext'
+import type { ProjectsClientProps } from '@/types'
 
 gsap.registerPlugin(SplitText);
-
-interface ProjectsClientProps {
-  works: any;
-  projects: any[];
-}
 
 const ProjectsClient = ({ works, projects }: ProjectsClientProps) => {
   const { updateModal } = useProjectModalContext();

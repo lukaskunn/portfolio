@@ -9,9 +9,7 @@ import { useTransitionContext } from '@/contexts/TransitionContext'
 
 gsap.registerPlugin(SplitText);
 
-interface HeroSectionProps {
-  data: any;
-}
+import type { HeroSectionProps } from '@/types';
 
 const HeroSection = ({ data }: HeroSectionProps) => {
   const titleRef = useRef<HTMLHeadingElement>(null);

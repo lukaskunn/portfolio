@@ -11,9 +11,7 @@ import { useTransitionContext } from '@/contexts/TransitionContext';
 
 gsap.registerPlugin(SplitText);
 
-interface ContactInfoProps {
-  data: any;
-}
+import type { ContactInfoProps, Link } from '@/types';
 
 const ContactInfo: React.FC<ContactInfoProps> = ({ data }) => {
   const infoRef = useRef<HTMLDivElement>(null);
@@ -130,7 +128,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ data }) => {
       </div>
 
       <div ref={socialLinksRef} className={styles.socialLinks}>
-        {data.socialLinks?.map((link: any) => (
+        {data.socialLinks?.map((link: Link) => (
           <a
             key={link.text}
             href={link.url}

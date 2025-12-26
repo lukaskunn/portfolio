@@ -9,9 +9,7 @@ import { SplitText } from 'gsap/all';
 
 gsap.registerPlugin(SplitText);
 
-interface WorkMessageProps {
-  data: any;
-}
+import type { WorkMessageProps } from '@/types';
 
 const WorkMessage = ({ data }: WorkMessageProps) => {
   const message = data.quickMessage;

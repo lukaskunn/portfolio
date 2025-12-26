@@ -2,6 +2,7 @@ import { getWorksContent, getAllProjects } from '@/sanity/lib/fetch';
 import ProjectsClient from './ProjectsClient';
 import generateMetadataUtil from '@/utils/generateMetadata';
 import { generateCollectionPageJsonLd } from '@/utils/generateJsonLd';
+import type { ProjectCard } from '@/types';
 
 export async function generateMetadata() {
   const works = await getWorksContent();
@@ -17,11 +18,11 @@ export default async function ProjectsPage() {
 
   // Generate JSON-LD for projects collection
   const collectionJsonLd = generateCollectionPageJsonLd(
-    projects.map((project: any) => ({
+    projects.map((project: ProjectCard) => ({
       name: project.title,
       description: project.subtitle,
       url: `https://lucasoliveira.io/project/${project.overview.projectId}`,
-      image: project.image?.asset?.url,
+      image: project.overview.mainImageUrl?.asset?.url,
       author: {
         name: "Lucas Oliveira",
         jobTitle: "Frontend Developer & Creative Web Designer",

@@ -10,9 +10,7 @@ import { useTransitionContext } from '@/contexts/TransitionContext';
 
 gsap.registerPlugin(SplitText);
 
-interface PageHeaderProps {
-  data: any;
-}
+import type { PageHeaderProps } from '@/types';
 
 const PageHeader: React.FC<PageHeaderProps> = ({ data }) => {
   const subtitleRef = useRef<HTMLSpanElement>(null);

@@ -7,9 +7,7 @@ import gsap from "gsap";
 import LineRevealContainer from "@/components/animations/LineReveal";
 import { ANIMATION_DELAYS } from "@/utils/animationVars";
 
-interface HeaderMobileProps {
-  data: any; // Sanity header content
-}
+import type { HeaderMobileProps, MobileNavItem, Link } from '@/types';
 
 const HeaderMobile = ({ data }: HeaderMobileProps) => {
   const pathName = usePathname();
@@ -88,7 +86,7 @@ const HeaderMobile = ({ data }: HeaderMobileProps) => {
         </div>
         <div className={styles["mobile-menu-overlay__container"]} ref={menuItemsRef}>
           <div className={styles["mobile-menu-overlay__container__navigation-items"]}>
-            {data.mobileNavigation?.map((item: any, index: number) => (
+            {data.mobileNavigation?.map((item: MobileNavItem, index: number) => (
               <LineRevealContainer
                 key={item.href}
                 direction="up"
@@ -110,7 +108,7 @@ const HeaderMobile = ({ data }: HeaderMobileProps) => {
               trigger={showMenuItems}
             >
               <div className={styles["mobile-menu-overlay__container__menu-footer__social-links"]}>
-                {data.socialLinks?.map((link: any) => (
+                {data.socialLinks?.map((link: Link) => (
                   <LinkHandler key={link.url} className={`${styles["social-link"]} ${link.type === "contact" ? styles["contact-link"] : ""}`} href={link.url}>{link.text}</LinkHandler>
                 ))}
               </div>

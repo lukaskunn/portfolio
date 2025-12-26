@@ -1,18 +1,7 @@
 'use client'
 import React, { useState, useContext, createContext } from "react";
 import { useRouter } from "next/navigation";
-
-interface TransitionContextType {
-  isTransitioningIn: boolean;
-  isTransitioningOut: boolean;
-  isPageReady: boolean;
-  nextPath?: string | null;
-  displayPageName?: string;
-  setIsTransitioningIn: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsTransitioningOut: React.Dispatch<React.SetStateAction<boolean>>;
-  setNextPath?: React.Dispatch<React.SetStateAction<string | null>>;
-  setDisplayPageName?: React.Dispatch<React.SetStateAction<string>>;
-}
+import type { TransitionContextType } from '@/types';
 
 const TransitionContext = createContext<TransitionContextType | undefined>(undefined);
 

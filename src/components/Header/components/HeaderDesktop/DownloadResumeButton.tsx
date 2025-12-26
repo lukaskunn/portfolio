@@ -2,9 +2,7 @@
 import React from 'react'
 import HeaderItem from './HeaderItem';
 
-interface DownloadResumeButtonProps {
-  data: any;
-}
+import type { DownloadResumeButtonProps } from '@/types';
 
 const DownloadResumeButton = ({ data }: DownloadResumeButtonProps) => {
   return (

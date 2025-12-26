@@ -9,9 +9,7 @@ import { PortableText } from 'next-sanity'
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-interface BackgroundSectionProps {
-  data: any;
-}
+import type { BackgroundSectionProps } from '@/types';
 
 const BackgroundSection = ({ data }: BackgroundSectionProps) => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -117,9 +115,9 @@ const BackgroundSection = ({ data }: BackgroundSectionProps) => {
           <div ref={titleBorderRef} className={styles["title-border-bottom"]} />
         </div>
         <div ref={contentRef} className={styles["section-content"]}>
-            <p className={styles["content-paragraph"]} style={{ overflow: 'hidden' }}>
-              <PortableText value={data.background?.paragraphs} />
-            </p>
+          <p className={styles["content-paragraph"]} style={{ overflow: 'hidden' }}>
+            <PortableText value={data.background?.paragraphs} />
+          </p>
           {/* {data.background?.paragraphs?.map((paragraph: string, index: number) => (
             <p key={index} className={styles["content-paragraph"]} style={{ overflow: 'hidden' }}>
               {paragraph}

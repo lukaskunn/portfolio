@@ -9,9 +9,7 @@ import { useTransitionContext } from '@/contexts/TransitionContext'
 import { PortableText } from 'next-sanity'
 gsap.registerPlugin(SplitText);
 
-interface IntroSectionProps {
-  data: any;
-}
+import type { IntroSectionProps } from '@/types';
 
 const IntroSection = ({ data }: IntroSectionProps) => {
   const textRef = useRef<HTMLParagraphElement>(null);

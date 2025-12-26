@@ -1,10 +1,6 @@
 'use client'
 import React, { useState, useContext, createContext } from "react";
-
-interface PageContextType {
-  isLoaded: boolean;
-  setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import type { PageContextType } from '@/types';
 
 const PageContext = createContext<PageContextType | undefined>(undefined);
 
@@ -25,10 +21,10 @@ export const PageContextProvider: React.FC<PageContextProviderProps> = ({ childr
 
 export const usePageContext = (): PageContextType => {
   const context = useContext(PageContext);
-  
+
   if (context === undefined) {
     throw new Error("usePageContext must be used within a PageContextProvider");
   }
-  
+
   return context;
 };

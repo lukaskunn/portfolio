@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { client } from '@/sanity/client'
 import { ALL_PROJECTS_QUERY } from '@/sanity/sanity-queries'
+import type { ProjectCard } from '@/types'
 
 const baseUrl = 'https://lucasoliveira.io'
 
@@ -54,9 +55,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
 
   // Dynamic project pages
-  const projectPages: MetadataRoute.Sitemap = projects.map((project: any) => ({
-    url: `${baseUrl}/project/${project.link.current}`,
-    lastModified: new Date(project._updatedAt || project._createdAt || new Date()),
+  const projectPages: MetadataRoute.Sitemap = projects.map((project: ProjectCard) => ({
+    url: `${baseUrl}/project/${project.link?.current || project.slug.current}`,
+    lastModified: new Date(project._updatedAt || project._createdAt || Date.now()),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
   }))

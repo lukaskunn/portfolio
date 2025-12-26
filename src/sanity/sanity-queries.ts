@@ -14,11 +14,9 @@
 export const LANDING_QUERY = `*[_type == "landing"][0]{
   _id,
   sectionTitle,
-  greeting,
   title,
   subtitle,
   mobileSubtitles,
-  nextPageText,
   seo {
     metaTitle,
     metaDescription,

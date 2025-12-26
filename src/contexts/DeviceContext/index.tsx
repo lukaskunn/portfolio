@@ -1,19 +1,10 @@
 'use client'
 import React, { useContext } from "react";
+import type { DeviceContextType } from '@/types';
 
 import useDevice from "../../hooks/useDevice";
 
-interface DeviceContextProps {
-  device: string;
-  isMobile: boolean;
-  isDesktop: boolean;
-  isTablet: boolean;
-  isSmallTablet: boolean;
-  isSmallDesktop: boolean;
-  isUltraWide: boolean;
-}
-
-export const DeviceContext = React.createContext<DeviceContextProps>({
+export const DeviceContext = React.createContext<DeviceContextType>({
   device: "desktop",
   isMobile: false,
   isDesktop: true,

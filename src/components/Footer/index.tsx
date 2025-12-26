@@ -5,9 +5,7 @@ import { usePathname } from 'next/navigation';
 import SocialLinks from './SocialLinks';
 import WorkMessage from './WorkMessage';
 
-interface FooterProps {
-  data: any; // Sanity footer content
-}
+import type { FooterProps } from '@/types';
 
 const Footer = ({ data }: FooterProps) => {
   const pathName = usePathname();

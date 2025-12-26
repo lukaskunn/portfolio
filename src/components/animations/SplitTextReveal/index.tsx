@@ -120,7 +120,8 @@ const SplitTextReveal = ({
 
   return (
     <Component
-      ref={elementRef as any}
+      // @ts-ignore - GSAP SplitText requires ref to work with any HTML element type
+      ref={elementRef}
       className={className}
       style={{ overflow: 'hidden', perspective: '1000px', ...style }}
     >

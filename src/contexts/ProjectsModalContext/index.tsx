@@ -1,13 +1,6 @@
 "use client";
 import React, { useState, useContext, createContext } from "react";
-
-interface ProjectModalContextType {
-  modal: {
-    isActive: boolean;
-    index: number;
-  };
-  updateModal: (index: number, modalIsActive: boolean) => void;
-}
+import type { ProjectModalContextType, ProjectModal } from '@/types';
 
 const ProjectModalContext = createContext<ProjectModalContextType | undefined>(
   undefined,
@@ -21,7 +14,7 @@ export const ProjectModalContextProvider: React.FC<
   ProjectModalContextProviderProps
 > = ({ children }) => {
 
-  const [modal, setModal] = useState({
+  const [modal, setModal] = useState<ProjectModal>({
     isActive: false,
     index: 0,
   });

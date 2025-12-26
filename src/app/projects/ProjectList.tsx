@@ -6,20 +6,10 @@ import { usePageContext } from '@/contexts/PageContext'
 import { useTransitionContext } from '@/contexts/TransitionContext'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-
-type Project = {
-  overview: {
-    subtitle: string
-    projectId: { current: string }
-    technologies: string
-    cardTitle: string
-    goToExternalPage?: boolean
-    urlToProject?: string
-  }
-}
+import type { ProjectCard } from '@/types'
 
 type ProjectListProps = {
-  projects: Project[]
+  projects: ProjectCard[]
   updateModal: (index: number, modalIsActive: boolean) => void
 }
 
@@ -90,12 +80,16 @@ const ProjectList = ({ projects, updateModal }: ProjectListProps) => {
         const { overview } = project
         const { subtitle, projectId, technologies, cardTitle, goToExternalPage, urlToProject } = overview
 
-        console.log(overview)
-        
         return (
           <div key={index} style={{ position: 'relative', overflow: 'hidden' }}>
             <ProjectItem
-              project={{ link: projectId, tech: technologies, title: cardTitle, subtitle, urlToProject }}
+              project={{
+                link: projectId,
+                tech: technologies?.join(', ') || '',
+                title: cardTitle || '',
+                subtitle: subtitle || '',
+                urlToProject
+              }}
               index={index}
               updateModal={updateModal}
               openOnExternalPage={goToExternalPage}

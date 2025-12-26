@@ -8,9 +8,7 @@ import styles from "@/styles/css/about-me.module.css"
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-interface CertificationsSectionProps {
-  data: any;
-}
+import type { CertificationsSectionProps, Certification } from '@/types';
 
 const CertificationsSection = ({ data }: CertificationsSectionProps) => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -110,7 +108,7 @@ const CertificationsSection = ({ data }: CertificationsSectionProps) => {
               <span key={index} className={styles["header-cell"]}>{header}</span>
             ))}
           </div>
-          {data?.items?.map((item: any, index: number) => (
+          {data?.items?.map((item: Certification, index: number) => (
             <div key={index} className={styles["table-row"]}>
               <ul className={styles["row-content"]}>
                 {item.subjects.map((subject: string, subIndex: number) => (

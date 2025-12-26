@@ -1,35 +1,12 @@
 'use client'
 import React, { createContext, useContext, useState, ReactNode } from "react";
+import type { CursorContextType, SetIsHoveringProps, ModalProps, CursorSize } from '@/types';
 
-const sizes = {
+const sizes: Record<CursorSize, string> = {
   big: "120px",
   medium: "80px",
   small: "40px",
   keep: "20px",
-};
-
-type setIsHoveringProps = {
-  value: boolean;
-  size?: "big" | "medium" | "small" | "keep";
-};
-
-type ModalProps = {
-  isOpen: boolean;
-  content: string;
-  scramble?: boolean;
-};
-
-type CursorContextType = {
-  hoverImportantText: boolean;
-  setHoverImportantText: (value: boolean) => void;
-  position: { x: number; y: number };
-  setPosition: (value: { x: number; y: number }) => void;
-  hoverSize: string;
-  setIsHovering: ({ value, size }: setIsHoveringProps) => void;
-  modalProps: ModalProps;
-  setModalProps: (value: ModalProps) => void;
-  handleModalPropsEnter: (content: string, scramble: boolean) => void;
-  handleModalPropsLeave: (content: string) => void;
 };
 
 const CursorContext = createContext<CursorContextType | undefined>(undefined);
@@ -44,7 +21,7 @@ export const CursorProvider = ({ children }: { children: ReactNode }) => {
     scramble: false,
   });
 
-  const setIsHovering = ({ value, size }: setIsHoveringProps) => {
+  const setIsHovering = ({ value, size }: SetIsHoveringProps) => {
     setHoverImportantText(value);
     if (!size) return;
 

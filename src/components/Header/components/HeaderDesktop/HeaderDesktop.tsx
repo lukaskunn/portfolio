@@ -8,9 +8,7 @@ import LineRevealContainer from "@/components/animations/LineReveal";
 import styles from "../../../../styles/css/header.module.css";
 import { ANIMATION_DELAYS, ANIMATION_TIME } from "@/utils/animationVars"
 
-interface HeaderDesktopProps {
-  data: any; // Sanity header content
-}
+import type { HeaderDesktopProps, Link } from '@/types';
 
 const HeaderDesktop = ({ data }: HeaderDesktopProps) => {
   return (
@@ -19,7 +17,7 @@ const HeaderDesktop = ({ data }: HeaderDesktopProps) => {
         <LinkHandler href="/home" className={styles["name-logo"]}>{data.headerTitle}</LinkHandler>
       </LineRevealContainer>
       <div className={styles["header-desktop__header-menu"]}>
-        {data.menuItems?.map((item: any, index: number) => (
+        {data.menuItems?.map((item: Link, index: number) => (
           <LineRevealContainer key={item.text} direction="down" duration={ANIMATION_TIME.header} delay={ANIMATION_DELAYS.header + (index + 1) * 0.1}>
             <HeaderItem title={item.text} link={item.url} />
           </LineRevealContainer>

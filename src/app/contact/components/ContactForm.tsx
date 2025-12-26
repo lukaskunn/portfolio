@@ -9,22 +9,7 @@ import { usePageContext } from '@/contexts/PageContext';
 import { useTransitionContext } from '@/contexts/TransitionContext';
 
 
-interface FormData {
-  name: string;
-  phone: string;
-  email: string;
-  message: string;
-}
-
-interface FormErrors {
-  name?: string;
-  email?: string;
-  message?: string;
-}
-
-interface ContactFormProps {
-  data: any;
-}
+import type { ContactFormProps, ContactFormData, ContactFormErrors } from '@/types';
 
 const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -51,14 +36,14 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
     }
   };
 
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     phone: '',
     email: '',
     message: '',
   });
 
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState<ContactFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
@@ -101,7 +86,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
   }, { dependencies: [isLoaded, isPageReady], scope: formRef });
 
   const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
+    const newErrors: ContactFormErrors = {};
 
     if (!formData.name.trim()) {
       newErrors.name = formContent.validation.nameRequired;
@@ -133,7 +118,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
       [name]: value,
     }));
 
-    if (errors[name as keyof FormErrors]) {
+    if (errors[name as keyof ContactFormErrors]) {
       setErrors((prev) => ({
         ...prev,
         [name]: undefined,

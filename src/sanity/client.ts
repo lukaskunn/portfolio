@@ -10,6 +10,8 @@ export const client = createClient({
 
 const builder = createImageUrlBuilder(client)
 
-export function urlFor(source: any) {
+import type { SanityImage } from '@/types'
+
+export function urlFor(source: SanityImage | { asset: { _ref: string } }) {
   return builder.image(source)
 }

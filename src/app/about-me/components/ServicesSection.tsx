@@ -8,9 +8,7 @@ import styles from "@/styles/css/about-me.module.css"
 import { PortableText } from 'next-sanity'
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-interface ServicesSectionProps {
-  data: any;
-}
+import type { ServicesSectionProps, Service } from '@/types';
 
 const ServicesSection = ({ data }: ServicesSectionProps) => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -104,7 +102,7 @@ const ServicesSection = ({ data }: ServicesSectionProps) => {
           <div ref={titleBorderRef} className={styles["title-border-bottom"]} />
         </div>
         <div ref={gridRef} className={styles["services-grid"]}>
-          {data?.items?.map((service: any, index: number) => (
+          {data?.items?.map((service: Service, index: number) => (
             <div key={index} className={styles["service-card"]}>
               <h3 className={styles["service-title"]}>{service.title}</h3>
               <p className={styles["service-subtitle"]}>{service.subtitle}</p>
