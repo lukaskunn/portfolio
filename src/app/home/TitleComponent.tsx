@@ -1,15 +1,17 @@
-'use client'
 import React from 'react'
 import styles from "@/styles/css/Homepage.module.css";
 import Clock from './Clock';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { ANIMATION_DELAYS, ANIMATION_TIME } from '@/utils/animationVars';
 import LineRevealContainer from '@/components/animations/LineReveal';
 import SplitTextReveal from '@/components/animations/SplitTextReveal';
+import { type SanityDocument } from "next-sanity";
+import { client } from '@/sanity/client'
+import { LANDING_QUERY, FEATURED_PROJECTS_QUERY } from '@/sanity/sanity-queries'
 
-const TitleComponent = () => {
-  const { currentContent } = useLanguage();
-  const { landing } = currentContent;
+const TitleComponent = async () => {
+  const [landing] = await Promise.all([
+    client.fetch(LANDING_QUERY)
+  ])
 
   return (
     <div className={styles["title-container"]}>
@@ -39,7 +41,7 @@ const TitleComponent = () => {
         </LineRevealContainer>
       </div>
       <div className={styles["subtitle-container-mobile"]}>
-        {landing.mobileSubtitles.map((subtitle, index) => (
+        {landing.mobileSubtitles.map((subtitle: any, index: number) => (
           <LineRevealContainer key={index} direction="down" duration={ANIMATION_TIME.subtitle} delay={ANIMATION_DELAYS.subtitle + index * 0.1}>
             <span
               key={index}

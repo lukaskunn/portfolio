@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { LanguageProvider } from "@/contexts/LanguageContext";
 import { CursorProvider } from "@/contexts/CursorContext";
 import { PageContextProvider } from "@/contexts/PageContext";
 import { DeviceContextProvider } from "@/contexts/DeviceContext";
@@ -15,6 +14,7 @@ import Loading from "@/components/Loading";
 import { TransitionContextProvider } from "@/contexts/TransitionContext";
 import Inner from "@/components/Inner";
 import HTMLWrapper from "./HTMLWrapper";
+import { getLayoutContent } from "@/sanity/lib/fetch";
 
 const gloockFont = localFont({
   variable: "--font-gloock",
@@ -72,11 +72,14 @@ const robotoFont = localFont({
 
 export const metadata: Metadata = generateMetadata()
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Fetch layout content from Sanity
+  const { header, footer } = await getLayoutContent();
+
   return (
     <AppProviders>
       <HTMLWrapper className={`${aksharFont.variable} ${robotoMonoFont.variable} ${robotoFont.variable} ${gloockFont.variable}`}>
@@ -84,9 +87,9 @@ export default function RootLayout({
           <Inner>
             <Loading />
             <CursorFollower />
-            <Header />
+            <Header data={header} />
             {children}
-            <Footer />
+            <Footer data={footer} />
           </Inner>
           <SpeedInsights />
         </body>
@@ -102,11 +105,9 @@ function AppProviders({ children }: { children: React.ReactNode }) {
         <PageContextProvider>
           <AnimationProvider>
             <DeviceContextProvider>
-              <LanguageProvider>
                 <TransitionContextProvider>
                   {children}
                 </TransitionContextProvider>
-              </LanguageProvider>
             </DeviceContextProvider>
           </AnimationProvider>
         </PageContextProvider>
