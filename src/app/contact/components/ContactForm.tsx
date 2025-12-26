@@ -5,7 +5,6 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import styles from '@/styles/css/contact.module.css';
 import { FiArrowUpRight } from "react-icons/fi";
-import { useLanguage } from '@/contexts/LanguageContext';
 import { usePageContext } from '@/contexts/PageContext';
 import { useTransitionContext } from '@/contexts/TransitionContext';
 
@@ -23,14 +22,34 @@ interface FormErrors {
   message?: string;
 }
 
-const ContactForm: React.FC = () => {
-  const { currentContent } = useLanguage();
-  const { contact } = currentContent;
-  const formContent = contact.form;
+interface ContactFormProps {
+  data: any;
+}
+
+const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
   const formRef = useRef<HTMLFormElement>(null);
   const hasAnimatedRef = useRef(false);
   const { isLoaded } = usePageContext();
   const { isPageReady } = useTransitionContext();
+
+  // Extract form config from data with fallbacks
+  const formContent = data.form || {
+    nameLabel: 'Name',
+    emailLabel: 'Email',
+    messageLabel: 'Message',
+    submitLabel: 'Send Message',
+    requiredMark: '*',
+    successMessage: 'Message sent successfully!',
+    errorMessage: 'Failed to send message',
+    submittingButton: 'Sending...',
+    submitButton: 'Send',
+    validation: {
+      nameRequired: 'Name is required',
+      emailRequired: 'Email is required',
+      emailInvalid: 'Invalid email format',
+      messageRequired: 'Message is required'
+    }
+  };
 
   const [formData, setFormData] = useState<FormData>({
     name: '',

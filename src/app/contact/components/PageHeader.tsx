@@ -5,15 +5,16 @@ import { gsap } from 'gsap';
 import { SplitText } from 'gsap/all';
 import { useGSAP } from '@gsap/react';
 import styles from '@/styles/css/contact.module.css';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { usePageContext } from '@/contexts/PageContext';
 import { useTransitionContext } from '@/contexts/TransitionContext';
 
 gsap.registerPlugin(SplitText);
 
-const PageHeader: React.FC = () => {
-  const { currentContent } = useLanguage();
-  const { contact } = currentContent;
+interface PageHeaderProps {
+  data: any;
+}
+
+const PageHeader: React.FC<PageHeaderProps> = ({ data }) => {
   const subtitleRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const hasAnimatedRef = useRef(false);
@@ -103,16 +104,16 @@ const PageHeader: React.FC = () => {
         className={styles.subtitle}
         style={{ overflow: 'hidden' }}
       >
-        {contact.pageHeader.subtitle}
+        {data.pageHeader.subtitle}
       </span>
       <h1
         ref={titleRef}
         className={styles.title}
         style={{ overflow: 'hidden' }}
       >
-        <span>{contact.pageHeader.title}</span>
-        <span className={styles.titleAccent}>{contact.pageHeader.titleAccent}</span>
-        <span>{contact.pageHeader.titleEnd}</span>
+        <span>{data.pageHeader.title}</span>
+        <span className={styles.titleAccent}>{data.pageHeader.titleAccent}</span>
+        <span>{data.pageHeader.titleEnd}</span>
       </h1>
     </header>
   );

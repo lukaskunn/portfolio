@@ -6,15 +6,16 @@ import { SplitText } from 'gsap/all';
 import { useGSAP } from '@gsap/react';
 import styles from '@/styles/css/contact.module.css';
 import { FiArrowUpRight } from "react-icons/fi";
-import { useLanguage } from '@/contexts/LanguageContext';
 import { usePageContext } from '@/contexts/PageContext';
 import { useTransitionContext } from '@/contexts/TransitionContext';
 
 gsap.registerPlugin(SplitText);
 
-const ContactInfo: React.FC = () => {
-  const { currentContent } = useLanguage();
-  const { contact } = currentContent;
+interface ContactInfoProps {
+  data: any;
+}
+
+const ContactInfo: React.FC<ContactInfoProps> = ({ data }) => {
   const infoRef = useRef<HTMLDivElement>(null);
   const phoneRef = useRef<HTMLAnchorElement>(null);
   const emailRef = useRef<HTMLAnchorElement>(null);
@@ -112,32 +113,32 @@ const ContactInfo: React.FC = () => {
       <div className={styles.contactDetails}>
         <a
           ref={phoneRef}
-          href={`tel:${contact.contactInfo.phone.replace(/\s/g, '')}`}
+          href={`tel:${data.contactInfo?.phone?.replace(/\s/g, '') || ''}`}
           className={styles.contactPhone}
           style={{ overflow: 'hidden' }}
         >
-          {contact.contactInfo.phone}
+          {data.contactInfo?.phone || '+55 11 99999-9999'}
         </a>
         <a
           ref={emailRef}
-          href={`mailto:${contact.contactInfo.email}`}
+          href={`mailto:${data.contactInfo?.email || ''}`}
           className={styles.contactEmail}
           style={{ overflow: 'hidden' }}
         >
-          {contact.contactInfo.email}
+          {data.contactInfo?.email || 'contact@example.com'}
         </a>
       </div>
 
       <div ref={socialLinksRef} className={styles.socialLinks}>
-        {contact.socialLinks.map((link) => (
+        {data.socialLinks?.map((link: any) => (
           <a
-            key={link.name}
+            key={link.text}
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.socialLink}
           >
-            {link.name} <FiArrowUpRight className={styles.linkArrow} size={14} />
+            {link.text} <FiArrowUpRight className={styles.linkArrow} size={14} />
           </a>
         ))}
       </div>

@@ -1,17 +1,17 @@
 import { PageHeader, ContactForm, ContactInfo } from "./components";
 import styles from "@/styles/css/contact.module.css";
-import type { NextPage } from "next";
+import { getContactContent } from "@/sanity/lib/fetch";
 
-const ContactPage: NextPage = () => {
+export default async function ContactPage() {
+  const contact = await getContactContent();
+
   return (
     <section className={styles.contactContainer}>
       <div className={styles.contactContent}>
-        <PageHeader />
-        <ContactForm />
-        <ContactInfo />
+        <PageHeader data={contact} />
+        <ContactForm data={contact} />
+        <ContactInfo data={contact} />
       </div>
     </section>
   );
-};
-
-export default ContactPage;
+}
