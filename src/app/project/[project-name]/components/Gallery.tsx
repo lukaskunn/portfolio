@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react'
 import styles from "@/styles/css/project.module.css"
 import GalleryItem from './GalleryItem'
 import MasonryContainer from './Masonry'
-import type { ProjectGalleryItem } from '@/utils/types'
+import type { GalleryItem as GalleryItemType } from '@/sanity/sanity-types'
 
 interface GalleryProps {
-  items: ProjectGalleryItem[]
+  items: GalleryItemType[]
 }
 
 const Gallery = ({ items }: GalleryProps) => {

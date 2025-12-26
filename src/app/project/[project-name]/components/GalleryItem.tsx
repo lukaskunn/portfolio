@@ -2,16 +2,21 @@
 
 import React, { useState, useEffect } from 'react'
 import styles from "@/styles/css/project.module.css"
-import { IoMdClose } from "react-icons/io";
-
+import { IoMdClose } from "react-icons/io"
+import type { SanityImage } from '@/sanity/sanity-types'
+import { urlFor } from '@/sanity/client'
 
 interface GalleryItemProps {
-  image: string
-  caption: string
+  image: SanityImage
+  caption?: string
 }
 
 const GalleryItem = ({ image, caption }: GalleryItemProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // Convert SanityImage to URL string
+  const imageUrl = image?.asset?.url || urlFor(image).url()
+  const alt = image?.alt || caption || 'Project gallery image'
 
   const handleImageClick = () => {
     setIsModalOpen(true)
@@ -44,8 +49,8 @@ const GalleryItem = ({ image, caption }: GalleryItemProps) => {
       <div className={styles["image-container"]}>
         <div className={styles["background-container"]}>
           <img
-            src={image}
-            alt={caption}
+            src={imageUrl}
+            alt={alt}
             onClick={handleImageClick}
             className={styles["gallery-image"]}
           />
@@ -72,8 +77,8 @@ const GalleryItem = ({ image, caption }: GalleryItemProps) => {
             <IoMdClose size={24} />
           </button>
           <img
-            src={image}
-            alt={caption}
+            src={imageUrl}
+            alt={alt}
             className={styles["image-modal-image"]}
           />
           {caption && (

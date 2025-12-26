@@ -1,14 +1,24 @@
 import React from 'react'
 import styles from "@/styles/css/project.module.css"
 import Image from 'next/image'
-import type { ProjectOverview } from '@/utils/types'
+import type { ProjectOverview } from '@/sanity/sanity-types'
+import { urlFor } from '@/sanity/client'
 
 const Overview = ({ title, type, service, industry, year, descriptionLeft, descriptionRight, mainImageUrl, subtitle }: ProjectOverview) => {
+  // Convert SanityImage to URL string
+  const imageUrl = mainImageUrl?.asset?.url || urlFor(mainImageUrl).url()
+
+  // Convert PortableTextContent to plain text for now (or use @portabletext/react for rich text)
+  const leftText = descriptionLeft ? (Array.isArray(descriptionLeft) ? descriptionLeft.map(block =>
+    block.children?.map(child => child.text).join('') || '').join('\n\n') : String(descriptionLeft)) : ''
+  const rightText = descriptionRight ? (Array.isArray(descriptionRight) ? descriptionRight.map(block =>
+    block.children?.map(child => child.text).join('') || '').join('\n\n') : String(descriptionRight)) : ''
+
   return (
     <section className={styles["overview-section"]}>
       <div className={styles["main-image-wrapper"]}>
         <Image
-          src={mainImageUrl}
+          src={imageUrl}
           alt={title}
           width={1360}
           height={600}
@@ -40,8 +50,8 @@ const Overview = ({ title, type, service, industry, year, descriptionLeft, descr
 
       <div className={styles["overview-content"]}>
         <div className={styles["description-wrapper"]}>
-          <p className={styles["description-text"]} dangerouslySetInnerHTML={{ __html: descriptionLeft }} />
-          <p className={styles["description-text"]} dangerouslySetInnerHTML={{ __html: descriptionRight }} />
+          <p className={styles["description-text"]} dangerouslySetInnerHTML={{ __html: leftText }} />
+          <p className={styles["description-text"]} dangerouslySetInnerHTML={{ __html: rightText }} />
         </div>
       </div>
 
