@@ -1,15 +1,18 @@
 'use client';
 import React, { useRef } from 'react'
+import dynamic from 'next/dynamic'
 import { gsap } from 'gsap'
 import { SplitText } from 'gsap/all'
 import { useGSAP } from '@gsap/react'
 import styles from '@/styles/css/projects.module.css';
-import ProjectModal from '@/app/projects/components/ProjectModal';
 import ProjectList from './ProjectList';
 import { useProjectModalContext } from '@/contexts/ProjectsModalContext';
 import { usePageContext } from '@/contexts/PageContext'
 import { useTransitionContext } from '@/contexts/TransitionContext'
 import type { ProjectsClientProps } from '@/types'
+
+// Code-split ProjectModal (contains Framer Motion)
+const ProjectModal = dynamic(() => import('@/app/projects/components/ProjectModal'), { ssr: false });
 
 gsap.registerPlugin(SplitText);
 

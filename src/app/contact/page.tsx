@@ -1,7 +1,14 @@
-import { PageHeader, ContactForm, ContactInfo } from "./components";
+import dynamic from "next/dynamic";
+import { PageHeader } from "./components";
 import styles from "@/styles/css/contact.module.css";
 import { getContactContent } from "@/sanity/lib/fetch";
 import generateMetadataUtil from "@/utils/generateMetadata";
+
+// Code-split form and contact info (below-the-fold)
+const ContactForm = dynamic(() => import("./components/ContactForm"), {
+  loading: () => <div style={{ minHeight: '400px' }} />
+});
+const ContactInfo = dynamic(() => import("./components/ContactInfo"));
 
 export async function generateMetadata() {
   const contact = await getContactContent();

@@ -1,9 +1,15 @@
 'use client'
 import React, { useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import styles from "@/styles/css/project.module.css"
 import GalleryItem from './GalleryItem'
-import MasonryContainer from './Masonry'
 import type { GalleryItem as GalleryItemType } from '@/sanity/sanity-types'
+
+// Code-split Masonry library (large external dependency)
+const MasonryContainer = dynamic(() => import('./Masonry'), {
+  loading: () => <div style={{ minHeight: '600px' }} />,
+  ssr: true
+});
 
 interface GalleryProps {
   items: GalleryItemType[]

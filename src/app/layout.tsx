@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import dynamic from "next/dynamic";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CursorProvider } from "@/contexts/CursorContext";
 import { PageContextProvider } from "@/contexts/PageContext";
 import { DeviceContextProvider } from "@/contexts/DeviceContext";
 import { AnimationProvider } from "@/contexts/AnimationContext";
-import CursorFollower from "@/components/CursorFollower";
 import Header from "@/components/Header";
 import "@/styles/css/global.css";
 import Footer from "@/components/Footer";
@@ -17,6 +17,9 @@ import HTMLWrapper from "./HTMLWrapper";
 import { getLayoutContent } from "@/sanity/lib/fetch";
 import { generateWebSiteJsonLd } from "@/utils/generateJsonLd";
 import SkipToContent from "@/components/SkipToContent";
+
+// Code-split heavy components that aren't critical for initial render
+const CursorFollower = dynamic(() => import("@/components/CursorFollower"), { ssr: false });
 
 const gloockFont = localFont({
   variable: "--font-gloock",
