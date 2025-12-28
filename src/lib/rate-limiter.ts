@@ -42,7 +42,7 @@ class RateLimiter {
   private cleanup(now: number): void {
     // Clean up entries older than 2x the window
     const cutoff = now - this.windowMs * 2;
-    for (const [key, entry] of this.requests.entries()) {
+    for (const [key, entry] of Array.from(this.requests.entries())) {
       if (entry.resetTime < cutoff) {
         this.requests.delete(key);
       }

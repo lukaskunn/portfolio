@@ -56,7 +56,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Dynamic project pages
   const projectPages: MetadataRoute.Sitemap = projects.map((project: ProjectCard) => ({
-    url: `${baseUrl}/project/${project.link?.current || project.slug.current}`,
+    url: `${baseUrl}/project/${project.overview.projectId}`,
     lastModified: new Date(project._updatedAt || project._createdAt || Date.now()),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
