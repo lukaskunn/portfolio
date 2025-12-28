@@ -6,7 +6,6 @@ import { SplitText } from 'gsap/all';
 import { useGSAP } from '@gsap/react';
 import styles from '@/styles/css/contact.module.css';
 import { FiArrowUpRight } from "react-icons/fi";
-import { usePageContext } from '@/contexts/PageContext';
 import { useTransitionContext } from '@/contexts/TransitionContext';
 
 gsap.registerPlugin(SplitText);
@@ -19,8 +18,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ data }) => {
   const emailRef = useRef<HTMLAnchorElement>(null);
   const socialLinksRef = useRef<HTMLDivElement>(null);
   const hasAnimatedRef = useRef(false);
-  const { isLoaded } = usePageContext();
-  const { isPageReady } = useTransitionContext();
+  const { isLoaded, isPageReady } = useTransitionContext();
 
   useGSAP(() => {
     if (!infoRef.current || !phoneRef.current || !emailRef.current || !socialLinksRef.current) return;

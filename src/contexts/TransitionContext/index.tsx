@@ -14,6 +14,7 @@ export const TransitionContextProvider: React.FC<TransitionContextProviderProps>
   const [isTransitioningIn, setIsTransitioningIn] = useState(false);
   const [isTransitioningOut, setIsTransitioningOut] = useState(false);
   const [isPageReady, setIsPageReady] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [nextPath, setNextPath] = useState<string | null>(null);
   const [displayPageName, setDisplayPageName] = useState<string>('');
 
@@ -58,13 +59,15 @@ export const TransitionContextProvider: React.FC<TransitionContextProviderProps>
     isTransitioningIn,
     isTransitioningOut,
     isPageReady,
+    isLoaded,
     nextPath,
     displayPageName,
     setIsTransitioningIn,
     setIsTransitioningOut,
+    setIsLoaded,
     setNextPath,
     setDisplayPageName,
-  }), [isTransitioningIn, isTransitioningOut, isPageReady, nextPath, displayPageName]);
+  }), [isTransitioningIn, isTransitioningOut, isPageReady, isLoaded, nextPath, displayPageName]);
 
   return <TransitionContext.Provider value={value}>{children}</TransitionContext.Provider>;
 };

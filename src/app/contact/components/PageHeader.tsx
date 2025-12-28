@@ -5,7 +5,6 @@ import { gsap } from 'gsap';
 import { SplitText } from 'gsap/all';
 import { useGSAP } from '@gsap/react';
 import styles from '@/styles/css/contact.module.css';
-import { usePageContext } from '@/contexts/PageContext';
 import { useTransitionContext } from '@/contexts/TransitionContext';
 
 gsap.registerPlugin(SplitText);
@@ -16,8 +15,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ data }) => {
   const subtitleRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const hasAnimatedRef = useRef(false);
-  const { isLoaded } = usePageContext();
-  const { isPageReady } = useTransitionContext();
+  const { isLoaded, isPageReady } = useTransitionContext();
 
   useGSAP(() => {
     if (!subtitleRef.current || !titleRef.current) return;

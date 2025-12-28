@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import styles from "@/styles/css/components/Loading.module.css"
-import { usePageContext } from '@/contexts/PageContext'
+import { useTransitionContext } from '@/contexts/TransitionContext'
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import AnimateOpacityContainer from '../AnimateOpacityContainer';
@@ -30,7 +30,7 @@ const IMAGE_REVEAL_DURATION = 1; // seconds for image clip-path
 const TEXT_ANIMATION_DURATION = 1; // seconds for text appear/hide
 
 const Loading = () => {
-  const { isLoaded, setIsLoaded } = usePageContext();
+  const { isLoaded, setIsLoaded } = useTransitionContext();
   const [stats, setStats] = React.useState<number>(0);
   const [imageIndex, setImageIndex] = React.useState<number>(0);
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -100,7 +100,7 @@ const Loading = () => {
         }, 500);
       },
     }, "<"); // Start with previous animation (text hide)
-    // 
+    //
 
   }, { scope: containerRef });
 

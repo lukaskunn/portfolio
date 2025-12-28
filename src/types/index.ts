@@ -382,19 +382,16 @@ export interface CursorContextType {
   handleModalPropsLeave: (content: string) => void
 }
 
-export interface PageContextType {
-  isLoaded: boolean
-  setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>
-}
-
 export interface TransitionContextType {
   isTransitioningIn: boolean
   isTransitioningOut: boolean
   isPageReady: boolean
+  isLoaded: boolean
   nextPath?: string | null
   displayPageName?: string
   setIsTransitioningIn: React.Dispatch<React.SetStateAction<boolean>>
   setIsTransitioningOut: React.Dispatch<React.SetStateAction<boolean>>
+  setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>
   setNextPath?: React.Dispatch<React.SetStateAction<string | null>>
   setDisplayPageName?: React.Dispatch<React.SetStateAction<string>>
 }

@@ -3,7 +3,6 @@ import React, { useRef } from 'react'
 import { gsap } from 'gsap'
 import { SplitText } from 'gsap/all'
 import { useGSAP } from '@gsap/react'
-import { usePageContext } from '@/contexts/PageContext'
 import { useTransitionContext } from '@/contexts/TransitionContext'
 
 gsap.registerPlugin(SplitText);
@@ -33,8 +32,7 @@ const SplitTextReveal = ({
 }: SplitTextRevealProps) => {
   const elementRef = useRef<HTMLElement>(null);
   const hasAnimatedRef = useRef(false);
-  const { isLoaded } = usePageContext();
-  const { isPageReady } = useTransitionContext();
+  const { isLoaded, isPageReady } = useTransitionContext();
 
   useGSAP(() => {
     if (!elementRef.current) return;

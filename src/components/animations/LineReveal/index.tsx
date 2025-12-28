@@ -1,7 +1,6 @@
 'use client'
 import React, { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
-import { usePageContext } from '@/contexts/PageContext'
 import { useTransitionContext } from '@/contexts/TransitionContext'
 
 type LineRevealContainerProps = {
@@ -15,8 +14,7 @@ type LineRevealContainerProps = {
 
 const LineRevealContainer = ({ children, direction = "up", duration = 1, delay = 0, runAfterLoad = true, trigger }: LineRevealContainerProps) => {
   const el = useRef<HTMLDivElement>(null);
-  const { isLoaded } = usePageContext();
-  const { isPageReady } = useTransitionContext();
+  const { isLoaded, isPageReady } = useTransitionContext();
   const hasAnimatedRef = useRef(false);
 
   useEffect(() => {

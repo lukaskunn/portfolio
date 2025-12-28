@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { usePageContext } from '@/contexts/PageContext'
+import { useTransitionContext } from '@/contexts/TransitionContext'
 
 type HTMLWrapperProps = {
   children?: React.ReactNode;
@@ -8,7 +8,7 @@ type HTMLWrapperProps = {
 }
 
 const HTMLWrapper = ({ children, className }: HTMLWrapperProps) => {
-  const { isLoaded } = usePageContext();
+  const { isLoaded } = useTransitionContext();
 
   return (
     <html lang='en' className={className} style={{ overflowY: isLoaded ? 'auto' : 'hidden' }}>{children}</html>

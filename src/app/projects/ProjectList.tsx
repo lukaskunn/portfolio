@@ -2,7 +2,6 @@
 import React, { useRef } from 'react'
 import styles from '@/styles/css/projects.module.css'
 import ProjectItem from './ProjectItem'
-import { usePageContext } from '@/contexts/PageContext'
 import { useTransitionContext } from '@/contexts/TransitionContext'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
@@ -16,8 +15,7 @@ type ProjectListProps = {
 const ProjectList = ({ projects, updateModal }: ProjectListProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const hasAnimatedRef = useRef(false)
-  const { isLoaded } = usePageContext()
-  const { isPageReady } = useTransitionContext()
+  const { isLoaded, isPageReady } = useTransitionContext()
 
   useGSAP(() => {
     if (!containerRef.current) return

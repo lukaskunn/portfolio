@@ -2,8 +2,8 @@
 import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { usePageContext } from '@/contexts/PageContext';
-import { ANIMATION_PRESETS } from '@/contexts/AnimationContext';
+import { useTransitionContext } from '@/contexts/TransitionContext';
+import { ANIMATION_PRESETS } from '@/utils/animationVars';
 
 interface StaggerRevealProps {
   children: React.ReactNode;
@@ -29,7 +29,7 @@ const StaggerReveal = forwardRef<HTMLDivElement, StaggerRevealProps>(({
   onComplete,
 }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { isLoaded } = usePageContext();
+  const { isLoaded } = useTransitionContext();
 
   const getInitialTransform = () => {
     switch (direction) {

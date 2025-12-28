@@ -5,7 +5,6 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import styles from '@/styles/css/contact.module.css';
 import { FiArrowUpRight } from "react-icons/fi";
-import { usePageContext } from '@/contexts/PageContext';
 import { useTransitionContext } from '@/contexts/TransitionContext';
 
 
@@ -14,8 +13,7 @@ import type { ContactFormProps, ContactFormData, ContactFormErrors } from '@/typ
 const ContactForm: React.FC<ContactFormProps> = ({ data }) => {
   const formRef = useRef<HTMLFormElement>(null);
   const hasAnimatedRef = useRef(false);
-  const { isLoaded } = usePageContext();
-  const { isPageReady } = useTransitionContext();
+  const { isLoaded, isPageReady } = useTransitionContext();
 
   // Extract form config from data with fallbacks
   const formContent = data.form || {

@@ -1,7 +1,7 @@
 'use client'
 import React, { useRef, useMemo } from 'react'
 import styles from "@/styles/css/footer.module.css";
-import { usePageContext } from '@/contexts/PageContext';
+import { useTransitionContext } from '@/contexts/TransitionContext';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ANIMATION_DELAYS, ANIMATION_TIME } from '@/utils/animationVars';
@@ -15,7 +15,7 @@ const WorkMessage = ({ data }: WorkMessageProps) => {
   const message = data.quickMessage;
   const textRef = useRef<HTMLSpanElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { isLoaded } = usePageContext();
+  const { isLoaded } = useTransitionContext();
 
   useGSAP(() => {
     if (!isLoaded || !textRef.current) return;

@@ -2,8 +2,8 @@
 import React, { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { usePageContext } from '@/contexts/PageContext';
-import { ANIMATION_PRESETS } from '@/contexts/AnimationContext';
+import { useTransitionContext } from '@/contexts/TransitionContext';
+import { ANIMATION_PRESETS } from '@/utils/animationVars';
 
 type RevealDirection = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top' | 'bottom' | 'left' | 'right';
 
@@ -50,7 +50,7 @@ const ClipPathReveal: React.FC<ClipPathRevealProps> = ({
   onComplete,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { isLoaded } = usePageContext();
+  const { isLoaded } = useTransitionContext();
 
   useGSAP(() => {
     if (!isLoaded || !containerRef.current) return;

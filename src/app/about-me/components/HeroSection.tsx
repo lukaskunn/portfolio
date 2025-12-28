@@ -4,7 +4,6 @@ import { gsap } from 'gsap'
 import { SplitText } from 'gsap/all'
 import { useGSAP } from '@gsap/react'
 import styles from "@/styles/css/about-me.module.css"
-import { usePageContext } from '@/contexts/PageContext'
 import { useTransitionContext } from '@/contexts/TransitionContext'
 
 gsap.registerPlugin(SplitText);
@@ -14,8 +13,7 @@ import type { HeroSectionProps } from '@/types';
 const HeroSection = ({ data }: HeroSectionProps) => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const hasAnimatedRef = useRef(false);
-  const { isLoaded } = usePageContext();
-  const { isPageReady } = useTransitionContext();
+  const { isLoaded, isPageReady } = useTransitionContext();
 
   useGSAP(() => {
     if (!titleRef.current) return;

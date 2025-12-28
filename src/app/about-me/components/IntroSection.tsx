@@ -4,7 +4,6 @@ import { gsap } from 'gsap'
 import { SplitText } from 'gsap/all'
 import { useGSAP } from '@gsap/react'
 import styles from "@/styles/css/about-me.module.css"
-import { usePageContext } from '@/contexts/PageContext'
 import { useTransitionContext } from '@/contexts/TransitionContext'
 import { PortableText } from 'next-sanity'
 gsap.registerPlugin(SplitText);
@@ -15,8 +14,7 @@ const IntroSection = ({ data }: IntroSectionProps) => {
   const textRef = useRef<HTMLParagraphElement>(null);
   const borderRef = useRef<HTMLDivElement>(null);
   const hasAnimatedRef = useRef(false);
-  const { isLoaded } = usePageContext();
-  const { isPageReady } = useTransitionContext();
+  const { isLoaded, isPageReady } = useTransitionContext();
 
   useGSAP(() => {
     if (!textRef.current || !borderRef.current) return;

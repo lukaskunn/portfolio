@@ -7,7 +7,6 @@ import { useGSAP } from '@gsap/react'
 import styles from '@/styles/css/projects.module.css';
 import ProjectList from './ProjectList';
 import { useProjectModalContext } from '@/contexts/ProjectsModalContext';
-import { usePageContext } from '@/contexts/PageContext'
 import { useTransitionContext } from '@/contexts/TransitionContext'
 import type { ProjectsClientProps } from '@/types'
 
@@ -20,8 +19,7 @@ const ProjectsClient = ({ works, projects }: ProjectsClientProps) => {
   const { updateModal } = useProjectModalContext();
   const titleRef = useRef<HTMLHeadingElement>(null);
   const hasAnimatedRef = useRef(false);
-  const { isLoaded } = usePageContext();
-  const { isPageReady } = useTransitionContext();
+  const { isLoaded, isPageReady } = useTransitionContext();
 
   useGSAP(() => {
     if (!titleRef.current) return;

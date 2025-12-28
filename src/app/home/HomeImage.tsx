@@ -2,7 +2,6 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import styles from '@/styles/css/Homepage.module.css';
-import { usePageContext } from '@/contexts/PageContext';
 import { useTransitionContext } from '@/contexts/TransitionContext';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -33,8 +32,7 @@ const HomeImage: React.FC<HomeImageProps> = ({
   const containerRefMobile = useRef<HTMLDivElement>(null);
   const mobileImageRef = useRef<HTMLImageElement>(null);
   const blackBoxRef = useRef<HTMLDivElement>(null);
-  const { isLoaded } = usePageContext();
-  const { isPageReady } = useTransitionContext();
+  const { isLoaded, isPageReady } = useTransitionContext();
   const hasAnimatedRef = useRef(false);
 
   useGSAP(() => {

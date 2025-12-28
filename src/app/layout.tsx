@@ -3,9 +3,7 @@ import localFont from "next/font/local";
 import dynamic from "next/dynamic";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CursorProvider } from "@/contexts/CursorContext";
-import { PageContextProvider } from "@/contexts/PageContext";
 import { DeviceContextProvider } from "@/contexts/DeviceContext";
-import { AnimationProvider } from "@/contexts/AnimationContext";
 import Header from "@/components/Header";
 import "@/styles/css/global.css";
 import Footer from "@/components/Footer";
@@ -127,18 +125,12 @@ export default async function RootLayout({
 
 function AppProviders({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <CursorProvider>
-        <PageContextProvider>
-          <AnimationProvider>
-            <DeviceContextProvider>
-              <TransitionContextProvider>
-                {children}
-              </TransitionContextProvider>
-            </DeviceContextProvider>
-          </AnimationProvider>
-        </PageContextProvider>
-      </CursorProvider>
-    </>
+    <CursorProvider>
+      <DeviceContextProvider>
+        <TransitionContextProvider>
+          {children}
+        </TransitionContextProvider>
+      </DeviceContextProvider>
+    </CursorProvider>
   );
 }

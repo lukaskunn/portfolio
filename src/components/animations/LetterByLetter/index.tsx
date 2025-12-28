@@ -2,8 +2,8 @@
 import React, { useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { usePageContext } from '@/contexts/PageContext';
-import { ANIMATION_PRESETS } from '@/contexts/AnimationContext';
+import { useTransitionContext } from '@/contexts/TransitionContext';
+import { ANIMATION_PRESETS } from '@/utils/animationVars';
 
 interface LetterByLetterProps {
   children: string;
@@ -23,7 +23,7 @@ const LetterByLetter: React.FC<LetterByLetterProps> = ({
   onComplete,
 }) => {
   const containerRef = useRef<HTMLElement>(null);
-  const { isLoaded } = usePageContext();
+  const { isLoaded } = useTransitionContext();
   const animationPreset = ANIMATION_PRESETS[preset];
 
   // Split text into letters, preserving spaces

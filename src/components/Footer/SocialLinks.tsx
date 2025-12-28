@@ -2,7 +2,7 @@
 import React, { useRef } from 'react'
 import styles from "@/styles/css/footer.module.css";
 import SocialLink from './SocialLink';
-import { usePageContext } from '@/contexts/PageContext';
+import { useTransitionContext } from '@/contexts/TransitionContext';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ANIMATION_DELAYS, ANIMATION_TIME } from '@/utils/animationVars';
@@ -12,7 +12,7 @@ import type { SocialLinksProps, Link } from '@/types';
 
 const SocialLinks = ({ data }: SocialLinksProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { isLoaded } = usePageContext();
+  const { isLoaded } = useTransitionContext();
 
   return (
     <nav ref={containerRef} className={styles["social-links-container"]} aria-label="Social media links">
