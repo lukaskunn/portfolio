@@ -1,0 +1,278 @@
+@use "../references" as *;
+
+.not-found-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+  position: relative;
+  z-index: 1;
+
+  @include respond-to(mobile-768) {
+    padding: 3rem 1.5rem;
+  }
+
+  @include respond-to(mobile-480) {
+    padding: 2rem 1rem;
+  }
+}
+
+// Corner Labels
+.error-code,
+.system-status,
+.bug-info {
+  position: fixed;
+  font-family: var(--font-roboto-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: $primary-color;
+  opacity: 0.6;
+  z-index: 2;
+
+  @include respond-to(mobile-768) {
+    font-size: 0.625rem;
+  }
+
+  @include respond-to(mobile-480) {
+    font-size: 0.5rem;
+  }
+}
+
+.error-code {
+  top: 6rem;
+  left: 2rem;
+
+  @include respond-to(mobile-768) {
+    top: 5rem;
+    left: 1.5rem;
+  }
+
+  @include respond-to(mobile-480) {
+    top: 4.5rem;
+    left: 1rem;
+  }
+}
+
+.system-status {
+  bottom: 8rem;
+  left: 2rem;
+
+  @include respond-to(mobile-768) {
+    bottom: 7rem;
+    left: 1.5rem;
+  }
+
+  @include respond-to(mobile-480) {
+    bottom: 6rem;
+    left: 1rem;
+  }
+}
+
+.bug-info {
+  bottom: 8rem;
+  right: 2rem;
+
+  @include respond-to(mobile-768) {
+    bottom: 7rem;
+    right: 1.5rem;
+  }
+
+  @include respond-to(mobile-480) {
+    bottom: 6rem;
+    right: 1rem;
+  }
+}
+
+// Main Content
+.main-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.error-container {
+  position: relative;
+  margin-bottom: 2rem;
+
+  @include respond-to(mobile-768) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.page-not-found-label {
+  font-family: var(--font-roboto-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  color: $primary-color;
+  border: 1px solid $primary-color;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+
+  @include respond-to(mobile-768) {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  @include respond-to(mobile-480) {
+    font-size: 0.625rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+.error-number {
+  font-family: var(--font-gloock);
+  font-size: clamp(10rem, 20vw, 18rem);
+  font-weight: 400;
+  line-height: 0.9;
+  color: $primary-color;
+  margin: 0;
+  letter-spacing: -0.02em;
+
+  @include respond-to(tablet-1024) {
+    font-size: clamp(8rem, 18vw, 14rem);
+  }
+
+  @include respond-to(mobile-768) {
+    font-size: clamp(6rem, 15vw, 10rem);
+  }
+
+  @include respond-to(mobile-480) {
+    font-size: clamp(5rem, 20vw, 8rem);
+  }
+}
+
+.error-title {
+  @include title-style(3rem, 1.2, -0.02em);
+  margin: 2rem 0 1.5rem;
+  color: $primary-color;
+
+  @include respond-to(tablet-1024) {
+    font-size: 2.5rem;
+    margin: 1.5rem 0 1.25rem;
+  }
+
+  @include respond-to(mobile-768) {
+    font-size: 2rem;
+    margin: 1.25rem 0 1rem;
+  }
+
+  @include respond-to(mobile-480) {
+    font-size: 1.5rem;
+    margin: 1rem 0 0.75rem;
+  }
+}
+
+.error-description {
+  font-family: var(--font-roboto-mono);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: $primary-color;
+  margin: 0 auto 3rem;
+  max-width: 500px;
+  opacity: 0.8;
+
+  @include respond-to(mobile-768) {
+    font-size: 0.875rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @include respond-to(mobile-480) {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+  }
+}
+
+// Return Button
+.return-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border: 1px solid $primary-color;
+  background-color: transparent;
+  color: $primary-color;
+  font-family: var(--font-roboto-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  @include respond-to(mobile-768) {
+    padding: 0.875rem 1.75rem;
+    font-size: 0.8125rem;
+    gap: 0.625rem;
+  }
+
+  @include respond-to(mobile-480) {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: $primary-color;
+    transition: left 0.3s ease;
+    z-index: -1;
+  }
+
+  &:hover {
+    color: $background-color-main;
+
+    &::before {
+      left: 0;
+    }
+
+    .button-arrow {
+      transform: translateX(4px);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid $primary-color;
+    outline-offset: 4px;
+  }
+}
+
+.button-text {
+  display: flex;
+  align-items: center;
+}
+
+.button-arrow {
+  font-size: 1.25rem;
+  transition: transform 0.3s ease;
+  line-height: 1;
+
+  @include respond-to(mobile-480) {
+    font-size: 1.125rem;
+  }
+}
+
+// Footer
+.footer-wrapper {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+}
