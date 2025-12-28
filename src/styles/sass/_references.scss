@@ -1,19 +1,179 @@
-/* Self-hosted font-face declarations replacing Google Fonts import */
-/* Adjust the URLs to where you store the font files in your project */
+/* ============================================
+   DESIGN TOKENS & VARIABLES
+   ============================================ */
 
+// ============================================
+// Color Tokens
+// ============================================
+
+// Base Colors
 $background-color-main: #E5E5DD;
+$background-color-dark: #1c1c1c;
+$background-color-overlay: #292929;
 $primary-color: #000000;
 $secondary-color: #111111;
 
-// $title-font: 'Akshar', sans-serif;
-// $primary-text-font: 'Roboto Mono', monospace;
-// $secondary-text-font: 'Roboto', sans-serif;
+// State Colors
+$error-color: #e74c3c;
+$success-color: #27ae60;
 
+// Utility Colors
+$color-transparent-bg: rgba(229, 229, 221, 0); // #e5e5dd00
+
+// Alpha Variations (for borders, shadows, overlays)
+$alpha-10: rgba(0, 0, 0, 0.1);
+$alpha-20: rgba(0, 0, 0, 0.2);
+$alpha-30: rgba(0, 0, 0, 0.3);
+$alpha-40: rgba(0, 0, 0, 0.4);
+
+// Success/Error Alpha Variations
+$success-alpha-10: rgba(46, 204, 113, 0.1);
+$success-alpha-30: rgba(46, 204, 113, 0.3);
+$error-alpha-10: rgba(231, 76, 60, 0.1);
+$error-alpha-30: rgba(231, 76, 60, 0.3);
+
+// ============================================
+// Typography Tokens
+// ============================================
+
+// Font Families
 $title-font: var(--font-akshar);
 $primary-text-font: var(--font-roboto-mono);
 $secondary-text-font: var(--font-roboto);
 $gloock-font: var(--font-gloock);
 
+// Font Sizes
+$font-size-tiny: 10px;
+$font-size-xs: 11px;
+$font-size-sm: 12px;
+$font-size-base: 14px;
+$font-size-md: 15px;
+$font-size-base-16: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+$font-size-2xl: 24px;
+$font-size-3xl: 28px;
+$font-size-4xl: 36px;
+$font-size-5xl: 48px;
+$font-size-6xl: 56px;
+$font-size-7xl: 60px;
+$font-size-8xl: 72px;
+$font-size-9xl: 80px;
+$font-size-10xl: 220px;
+
+// Line Heights
+$line-height-none: 1;
+$line-height-tight: 1.1;
+$line-height-snug: 1.2;
+$line-height-normal: 1.4;
+$line-height-relaxed: 1.5;
+
+// Letter Spacing
+$letter-spacing-tightest: -0.08rem;
+$letter-spacing-tighter: -0.06em;
+$letter-spacing-tight: -0.02rem;
+$letter-spacing-tight-em: -0.02em;
+$letter-spacing-normal: 0.02em;
+$letter-spacing-wide: 0.05em;
+$letter-spacing-wider: 0.1em;
+$letter-spacing-widest: 0.15em;
+$letter-spacing-ultra: 0.2em;
+$letter-spacing-mega: 0.25em;
+$letter-spacing-super: 0.3em;
+
+// Font Weights
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// ============================================
+// Spacing Tokens
+// ============================================
+
+// Base Spacing Scale
+$spacing-1: 2px;
+$spacing-2: 4px;
+$spacing-3: 6px;
+$spacing-4: 8px;
+$spacing-5: 10px;
+$spacing-6: 12px;
+$spacing-7: 14px;
+$spacing-8: 16px;
+$spacing-9: 18px;
+$spacing-10: 20px;
+$spacing-12: 24px;
+$spacing-14: 28px;
+$spacing-15: 30px;
+$spacing-16: 32px;
+$spacing-18: 36px;
+$spacing-20: 40px;
+$spacing-21: 42px;
+$spacing-24: 48px;
+$spacing-28: 56px;
+$spacing-30: 60px;
+$spacing-32: 64px;
+$spacing-36: 72px;
+$spacing-40: 80px;
+$spacing-50: 100px;
+$spacing-60: 120px;
+$spacing-70: 140px;
+$spacing-75: 150px;
+$spacing-80: 160px;
+$spacing-95: 190px;
+
+// Container Max Widths
+$container-max-width: 1440px;
+$container-sm: 280px;
+$container-md: 340px;
+$container-lg: 400px;
+$container-xl: 420px;
+$container-2xl: 480px;
+$container-3xl: 500px;
+$container-4xl: 550px;
+
+// Image Sizes
+$image-size-mobile: 180px;
+$image-size-tablet: 220px;
+$image-size-desktop: 260px;
+
+// ============================================
+// Border Tokens
+// ============================================
+$border-width-thin: 1px;
+$border-width-base: 2px;
+$border-width-thick: 3px;
+
+$border-radius-sm: 2px;
+$border-radius-full: 50%;
+
+// ============================================
+// Shadow Tokens
+// ============================================
+$shadow-sm: 0 4px 12px $alpha-10;
+
+// ============================================
+// Transition Tokens
+// ============================================
+$transition-fast: 0.2s ease;
+$transition-base: 0.3s ease;
+$transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// ============================================
+// Z-Index Tokens
+// ============================================
+$z-index-overlay-bg: 998;
+$z-index-overlay: 999;
+$z-index-modal: 1000;
+
+// ============================================
+// Backdrop Filters
+// ============================================
+$backdrop-blur: blur(20px);
+
+// ============================================
+// Responsive Breakpoint Mixins
+// ============================================
 @mixin respond-to($breakpoint) {
   @if $breakpoint ==mobile-375 {
     @media screen and (max-width: 375px) {
@@ -51,6 +211,12 @@ $gloock-font: var(--font-gloock);
     }
   }
 
+  @else if $breakpoint ==tablet-1440 {
+    @media screen and (max-width: 1440px) {
+      @content;
+    }
+  }
+
   @else if $breakpoint ==desktop-1920 {
     @media screen and (min-width: 1920px) {
       @content;
@@ -58,13 +224,14 @@ $gloock-font: var(--font-gloock);
   }
 }
 
+// ============================================
+// Typography Mixins
+// ============================================
 @mixin title-style($font-size, $line-height, $letter-spacing) {
   font-family: $gloock-font;
-  font-weight: bold;
+  font-weight: $font-weight-bold;
   font-size: $font-size;
   line-height: $line-height;
-  // line-height: 1;
-  // text-align: center;
   letter-spacing: $letter-spacing;
   color: $primary-color;
 }
@@ -79,27 +246,62 @@ $gloock-font: var(--font-gloock);
 
 @mixin footer-text-box-text {
   font-family: $gloock-font;
-  font-weight: 400;
-  font-size: 28px;
+  font-weight: $font-weight-regular;
+  font-size: $font-size-3xl;
   line-height: normal;
-  // letter-spacing: -0.02rem;
   color: $primary-color;
 }
 
 @mixin text-box-text {
   font-family: $primary-text-font;
-  font-weight: 400;
+  font-weight: $font-weight-regular;
   font-size: 26px;
   line-height: normal;
-  letter-spacing: -0.02rem;
+  letter-spacing: $letter-spacing-tight;
   color: $primary-color;
 }
 
 @mixin menu-item {
   font-family: $primary-text-font;
-  font-weight: 300;
-  font-size: 18px;
+  font-weight: $font-weight-light;
+  font-size: $font-size-lg;
   color: $primary-color;
-  letter-spacing: -0.02rem;
-  line-height: 1.2;
+  letter-spacing: $letter-spacing-tight;
+  line-height: $line-height-snug;
+}
+
+// ============================================
+// Utility Mixins
+// ============================================
+
+// Focus visible styles for accessibility
+@mixin focus-visible {
+  outline: $border-width-base solid $secondary-color;
+  outline-offset: $spacing-2;
+  border-radius: $border-radius-sm;
+  transition: outline-offset $transition-fast;
+}
+
+// Interactive element focus
+@mixin interactive-focus {
+  outline: $border-width-base solid $secondary-color;
+  outline-offset: $spacing-2;
+}
+
+// Standard transition
+@mixin transition($properties...) {
+  transition-duration: $transition-base;
+  transition-timing-function: ease;
+  transition-property: $properties;
+}
+
+// Smooth transition with cubic bezier
+@mixin smooth-transition($properties...) {
+  transition: $properties $transition-smooth;
+}
+
+// Backdrop blur effect
+@mixin backdrop-blur {
+  backdrop-filter: $backdrop-blur;
+  -webkit-backdrop-filter: $backdrop-blur;
 }

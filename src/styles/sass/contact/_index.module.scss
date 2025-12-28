@@ -10,18 +10,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 120px 0 60px;
+  padding: $spacing-60 0 $spacing-30;
 
   @include respond-to(tablet-1024) {
-    padding: 100px 0 50px;
+    padding: $spacing-50 0 50px;
   }
 
   @include respond-to(mobile-768) {
-    padding: 80px 0 40px;
+    padding: $spacing-40 0 $spacing-20;
   }
 
   @include respond-to(mobile-480) {
-    padding: 70px 0px 30px;
+    padding: 70px 0 $spacing-15;
   }
 }
 
@@ -189,8 +189,8 @@
 }
 
 .required {
-  color: #e74c3c;
-  margin-left: 2px;
+  color: $error-color;
+  margin-left: $spacing-1;
 }
 
 .formInput,
@@ -198,21 +198,21 @@
   width: 100%;
   padding: 15px 0;
   font-family: $primary-text-font;
-  font-size: 16px;
-  font-weight: 400;
+  font-size: $font-size-base-16;
+  font-weight: $font-weight-regular;
   color: $primary-color;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: $border-width-thin solid $alpha-30;
   outline: none;
-  transition: border-color 0.3s ease;
+  @include transition(border-color);
 
   &:focus {
     border-bottom-color: $primary-color;
   }
 
   &::placeholder {
-    color: rgba(0, 0, 0, 0.4);
+    color: $alpha-40;
   }
 
   @include respond-to(mobile-768) {
@@ -236,14 +236,14 @@
 }
 
 .inputError {
-  border-bottom-color: #e74c3c;
+  border-bottom-color: $error-color;
 }
 
 .errorMessage {
   font-family: $primary-text-font;
-  font-size: 12px;
-  color: #e74c3c;
-  margin-top: 4px;
+  font-size: $font-size-sm;
+  color: $error-color;
+  margin-top: $spacing-2;
 }
 
 // Budget Options
@@ -354,15 +354,15 @@
 }
 
 .successMessage {
-  background-color: rgba(46, 204, 113, 0.1);
-  color: #27ae60;
-  border: 1px solid rgba(46, 204, 113, 0.3);
+  background-color: $success-alpha-10;
+  color: $success-color;
+  border: $border-width-thin solid $success-alpha-30;
 }
 
 .errorStatus {
-  background-color: rgba(231, 76, 60, 0.1);
-  color: #e74c3c;
-  border: 1px solid rgba(231, 76, 60, 0.3);
+  background-color: $error-alpha-10;
+  color: $error-color;
+  border: $border-width-thin solid $error-alpha-30;
 }
 
 // Contact Info Section
@@ -372,10 +372,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: $spacing-15;
   text-align: center;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  padding-top: 40px;
+  border-top: $border-width-thin solid $alpha-10;
+  padding-top: $spacing-20;
 
   @include respond-to(mobile-768) {
     gap: 25px;
@@ -475,7 +475,7 @@
   justify-content: space-between;
   align-items: center;
 
-  @media screen and (max-width: 1340px) {
+  @include respond-to(desktop-1366) {
     max-width: 1340px;
     padding: 10vh 20px;
   }
@@ -493,7 +493,7 @@
   }
 
   .contactSide {
-    @media screen and (max-width: 768px) {
+    @include respond-to(mobile-768) {
       width: 100%;
       margin-top: 40px;
     }
@@ -507,7 +507,7 @@
     flex-direction: row;
     gap: 20px;
 
-    @media screen and (max-width: 768px) {
+    @include respond-to(mobile-768) {
       font-size: 1rem;
     }
 

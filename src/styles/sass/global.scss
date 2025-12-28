@@ -178,12 +178,11 @@ table {
 }
 
 html {
-  background: red;
   background-color: $background-color-main;
   color: $primary-color;
   font-family: $primary-text-font;
-  font-size: 16px; // Base font size
-  line-height: 1.5; // Improved readability
+  font-size: $font-size-base-16; // Base font size
+  line-height: $line-height-relaxed; // Improved readability
   -webkit-text-size-adjust: 100%; // Prevent font scaling in landscape on iOS
 
   margin: 0;
@@ -195,7 +194,7 @@ html {
 
   cursor: none;
 
-  @media screen and (max-width: 769px) {
+  @include respond-to(mobile-768) {
     cursor: default;
   }
 }
@@ -205,14 +204,14 @@ body {
   padding: 0;
   min-height: 100vh;
   width: 100%;
-  padding: 0 40px;
+  padding: 0 $spacing-20;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-rendering: optimizeSpeed; // Improve rendering performance
 
   @include respond-to(mobile-768) {
-    padding: 0 20px;
+    padding: 0 $spacing-10;
   }
 }
 
@@ -229,10 +228,7 @@ body {
 
 // Custom focus-visible styles for better accessibility
 *:focus-visible {
-  outline: 3px solid $secondary-color;
-  outline-offset: 2px;
-  border-radius: 2px;
-  transition: outline-offset 0.2s ease;
+  @include focus-visible;
 }
 
 // Specific focus styles for interactive elements
@@ -241,20 +237,19 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid $secondary-color;
-  outline-offset: 4px;
+  @include interactive-focus;
 }
 
 // High contrast mode support
 @media (prefers-contrast: high) {
   *:focus-visible {
-    outline-width: 2px;
+    outline-width: $border-width-base;
     outline-color: currentColor;
   }
 }
 
 // Ensure keyboard navigation is visible even with custom cursor
-@media screen and (min-width: 770px) {
+@include respond-to(mobile-768) {
   *:focus-visible {
     // Show system cursor on focus for better visibility
     cursor: auto !important;

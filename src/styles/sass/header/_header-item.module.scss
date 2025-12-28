@@ -19,8 +19,8 @@
 
   &:hover {
     .text {
-      transition: gap 0.2s cubic-bezier(0, 0, 0, 1);
-      gap: 8px;
+      @include ref.smooth-transition(gap);
+      gap: ref.$spacing-4;
     }
   }
 
@@ -28,8 +28,8 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    transition: gap 0.2s ease-in-out;
-    gap: 4px;
+    @include ref.smooth-transition(gap);
+    gap: ref.$spacing-2;
   }
 
 }

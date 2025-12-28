@@ -3,11 +3,9 @@
 .header-mobile {
   display: none;
   width: 100%;
-
-  background: #e5e5dd00;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 16px 20px;
+  background: $color-transparent-bg;
+  @include backdrop-blur;
+  padding: $spacing-8 $spacing-10;
 
   @include respond-to(mobile-768) {
     display: flex;
@@ -24,9 +22,9 @@
 
   .name-logo {
     font-family: $title-font;
-    font-size: 18px;
-    font-weight: bold;
-    color: #000;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $primary-color;
     text-decoration: none;
     text-transform: uppercase;
   }
@@ -39,9 +37,9 @@
   left: -104%;
   width: 100vw;
   height: 100vh;
-  background-color: #292929;
-  color: #E5E5DD;
-  z-index: 998;
+  background-color: $background-color-overlay;
+  color: $background-color-main;
+  z-index: $z-index-overlay-bg;
 
   @include respond-to(mobile-768) {
     display: block;
@@ -55,14 +53,14 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #1c1c1c;
-  color: #E5E5DD;
-  z-index: 999;
+  background-color: $background-color-dark;
+  color: $background-color-main;
+  z-index: $z-index-overlay;
 
   flex-direction: column;
   align-items: center;
 
-  padding: 20px 30px 20px 20px;
+  padding: $spacing-10 $spacing-15 $spacing-10 $spacing-10;
 
   // transition: left 0.3s ease-in-out;
   left: -104%;

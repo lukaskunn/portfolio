@@ -3,25 +3,25 @@
 // Hero Section
 .hero-section {
   width: 100%;
-  padding-bottom: 40px;
-  margin-bottom: 42px;
+  padding-bottom: $spacing-20;
+  margin-bottom: $spacing-21;
 
   @include respond-to(mobile-768) {
-    padding-bottom: 0px;
-    margin-bottom: 24px
+    padding-bottom: 0;
+    margin-bottom: $spacing-12;
   }
 }
 
 .page-title {
-  @include title-style(220px, 1, -0.06em);
-  margin: 0 0 140px;
+  @include title-style($font-size-10xl, $line-height-none, $letter-spacing-tighter);
+  margin: 0 0 $spacing-70;
 
   @include respond-to(mobile-768) {
-    font-size: 80px;
-    margin: 0 0 0px;
+    font-size: $font-size-9xl;
+    margin: 0;
   }
 
   @include respond-to(mobile-480) {
-    font-size: 56px;
+    font-size: $font-size-6xl;
   }
 }
