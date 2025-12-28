@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { contactRateLimiter } from '@/lib/rate-limiter';
 
 interface ContactFormData {
   name: string;
@@ -11,6 +12,36 @@ interface ContactFormData {
 
 export async function POST(request: NextRequest) {
   try {
+    // Get IP address for rate limiting
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0] ||
+      request.headers.get('x-real-ip') ||
+      'anonymous';
+
+    // Check rate limit
+    const rateLimitResult = contactRateLimiter.check(ip);
+
+    if (!rateLimitResult.success) {
+      const resetDate = new Date(rateLimitResult.resetTime);
+      const minutesUntilReset = Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000);
+
+      return NextResponse.json(
+        {
+          error: 'Too many requests. Please try again later.',
+          retryAfter: minutesUntilReset,
+          resetTime: resetDate.toISOString()
+        },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': minutesUntilReset.toString(),
+            'X-RateLimit-Limit': '3',
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': resetDate.toISOString()
+          }
+        }
+      );
+    }
+
     const body: ContactFormData = await request.json();
     const { name, phone, email, message, budget } = body;
 
@@ -217,7 +248,14 @@ export async function POST(request: NextRequest) {
         success: true,
         message: 'Thank you for your message! I will get back to you soon.'
       },
-      { status: 200 }
+      {
+        status: 200,
+        headers: {
+          'X-RateLimit-Limit': '3',
+          'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
+          'X-RateLimit-Reset': new Date(rateLimitResult.resetTime).toISOString()
+        }
+      }
     );
   } catch (error) {
     console.error('Contact form error:', error);
