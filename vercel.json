@@ -18,14 +18,6 @@
     {
       "source": "/my-stuff/:path*",
       "destination": "https://personal-stuff.vercel.app/my-stuff/:path*"
-    },
-    {
-      "source": "/",
-      "destination": "https://www.lucasoliveira.io"
-    },
-    {
-      "source": "/:path*",
-      "destination": "https://www.lucasoliveira.io/:path*"
     }
   ]
 }
