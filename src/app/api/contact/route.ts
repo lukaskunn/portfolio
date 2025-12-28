@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { contactRateLimiter } from '@/lib/rate-limiter';
+import { env } from '@/lib/env';
 
 interface ContactFormData {
   name: string;
@@ -60,7 +61,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const resend = new Resend(env.RESEND_API_KEY);
     await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
       to: 'lucassioliveira098@gmail.com',
