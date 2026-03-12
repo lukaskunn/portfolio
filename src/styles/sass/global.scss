@@ -277,6 +277,7 @@ select:focus-visible {
 // Ensure main content can receive focus for skip-to-content
 #main-content {
   outline: none;
+  width: 100%;
 
   &:focus {
     outline: none;

@@ -22,6 +22,19 @@
     display: none;
   }
 
+  &__menu-items {
+    display: flex;
+    flex-direction: row;
+    gap: 26px;
+
+    position: absolute;
+
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+
+
   .name-logo {
     font-family: ref.$gloock-font;
     font-weight: 500;
@@ -37,5 +50,7 @@
     display: flex;
     flex-direction: row;
     gap: 26px;
+
+    justify-content: flex-end;
   }
 }

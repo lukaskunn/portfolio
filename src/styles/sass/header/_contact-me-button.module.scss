@@ -9,18 +9,16 @@
     align-items: center;
     justify-content: center;
     gap: $spacing-2;
-    @include transition(gap);
+    transition: .2s all ease;
 
     &:hover {
-      gap: $spacing-4;
-
       .button-arrow {
         transform: rotate(45deg);
       }
     }
 
     .button-arrow {
-      @include transition(transform);
+      transition: .4s transform ease;
     }
   }
 }

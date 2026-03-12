@@ -61,92 +61,96 @@
       // margin: 16px 0 0;
     }
 
-    .project-item {
-      // font-family: $primary-text-font;
-      color: #000;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-
-      text-decoration: none;
-
-      gap: 20px;
-      padding: 16px 0;
-
-      .project-index {
-        font-size: 18px;
-        font-weight: normal;
-        letter-spacing: -0.02rem;
-        width: 100%;
-        max-width: 134px;
-        margin: 0;
-        text-decoration: none;
-
-        @include respond-to(mobile-768) {
-          display: none;
-        }
-      }
-
-      .project-title-subtitle {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        width: 100%;
-
-        .project-title {
-          font-size: 22px;
-          font-family: $secondary-text-font;
-          font-weight: bold;
-          line-height: normal;
-          letter-spacing: -0.02rem;
-  
-          width: 100%;
-          margin: 0;
-          text-decoration: none;
-  
-          // @include ref.respond-to(mobile-768) {
-          //   display: none;
-          // }
-        }
-
-        .project-subtitle {
-          font-size: 14px;
-          font-weight: 300;
-          letter-spacing: -0.02rem;
-          margin: 0;
-  
-          width: 100%;
-          max-width: 600px;
-          text-decoration: none;
-        }
-      }
-
-
-      .project-tech {
-        font-size: 16px;
-        font-weight: 300;
-        letter-spacing: -0.02rem;
-        text-align: right;
-        margin: 0;
-
-        width: 100%;
-        max-width: 440px;
-        text-decoration: none;
-      }
-
-      .project-link-icon {
-        width: 100%;
-        max-width: 100px;
+    .project-list-item {
+      cursor: none;
+      
+      .project-item {
+        // font-family: $primary-text-font;
+        color: #000;
         display: flex;
         flex-direction: row;
-        justify-content: flex-end;
-        text-decoration: none;
-        // width: 16px;
-        // height: 80px;
+        align-items: center;
+        justify-content: space-between;
 
-        @include respond-to(mobile-768) {
-          display: none;
+        text-decoration: none;
+
+        gap: 20px;
+        padding: 16px 0;
+
+        .project-index {
+          font-size: 18px;
+          font-weight: normal;
+          letter-spacing: -0.02rem;
+          width: 100%;
+          max-width: 134px;
+          margin: 0;
+          text-decoration: none;
+
+          @include respond-to(mobile-768) {
+            display: none;
+          }
+        }
+
+        .project-title-subtitle {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          width: 100%;
+
+          .project-title {
+            font-size: 22px;
+            font-family: $secondary-text-font;
+            font-weight: bold;
+            line-height: normal;
+            letter-spacing: -0.02rem;
+
+            width: 100%;
+            margin: 0;
+            text-decoration: none;
+
+            // @include ref.respond-to(mobile-768) {
+            //   display: none;
+            // }
+          }
+
+          .project-subtitle {
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: -0.02rem;
+            margin: 0;
+
+            width: 100%;
+            max-width: 600px;
+            text-decoration: none;
+          }
+        }
+
+
+        .project-tech {
+          font-size: 16px;
+          font-weight: 300;
+          letter-spacing: -0.02rem;
+          text-align: right;
+          margin: 0;
+
+          width: 100%;
+          max-width: 440px;
+          text-decoration: none;
+        }
+
+        .project-link-icon {
+          width: 100%;
+          max-width: 100px;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          text-decoration: none;
+          // width: 16px;
+          // height: 80px;
+
+          @include respond-to(mobile-768) {
+            display: none;
+          }
         }
       }
     }
