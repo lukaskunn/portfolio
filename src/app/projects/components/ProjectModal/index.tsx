@@ -86,6 +86,7 @@ const ProjectModal = ({ projects }: ProjectModalProps) => {
                   height={290}
                   width={300}
                   alt={project.imageAlt || "Project background"}
+                  draggable={false}
                 />
               </div>
             )

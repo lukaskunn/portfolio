@@ -24,6 +24,7 @@ const Overview = ({ title, type, service, industry, year, descriptionLeft, descr
           width={1360}
           height={600}
           className={styles["main-image"]}
+          draggable={false}
         />
       </div>
       <div className={styles["overview-header"]}>

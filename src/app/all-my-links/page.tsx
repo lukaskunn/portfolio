@@ -57,6 +57,7 @@ const AllMyLinks = () => {
         width={260}
         height={260}
         priority
+        draggable={false}
       />
       <h1 className={styles["page-title"]}>
         All my links in one place - let&apos;s connect.

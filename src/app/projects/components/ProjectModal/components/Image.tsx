@@ -14,7 +14,7 @@ const Image = (props: IImage) => {
   const { src, alt } = props;
 
   // If src is already a URL string, use it directly
-  return <NextImage src={src} className={styles["project-modal-image"]} alt={alt} width={320} height={270} loading="lazy" />;
+  return <NextImage src={src} className={styles["project-modal-image"]} alt={alt} width={320} height={270} loading="lazy" draggable={false}/>;
 };
 
 export default React.memo(Image);

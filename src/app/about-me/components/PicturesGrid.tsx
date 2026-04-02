@@ -19,14 +19,14 @@ const PicturesGrid = () => {
       <div className={`${styles["pictures-grid"]} ${styles["grid-desktop"]}`}>
         {images.map((src, index) => (
           <div key={src} className={styles["picture-item"]}>
-            <Image src={src} alt={`Picture ${index + 1}`} className={styles["picture"]} width={450} height={600} />
+            <Image src={src} alt={`Picture ${index + 1}`} className={styles["picture"]} width={450} height={600} draggable={false}/>
           </div>
         ))}
       </div>
       <div className={`${styles["pictures-grid"]} ${styles["grid-mobile"]}`}>
         {images.map((src, index) => (
           <div key={src} className={styles["picture-item"]}>
-            <Image src={src} alt={`Picture ${index + 1}`} className={styles["picture"]} width={300} height={400} />
+            <Image src={src} alt={`Picture ${index + 1}`} className={styles["picture"]} width={300} height={400} draggable={false}/>
           </div>
         ))}
       </div>

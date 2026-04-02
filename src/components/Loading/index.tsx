@@ -145,6 +145,7 @@ const FullLoading = () => {
                 className={styles["image-container__image"]}
                 width={400}
                 height={600}
+                draggable={false}
               />
             </div>
           ))}

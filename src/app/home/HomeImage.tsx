@@ -121,6 +121,7 @@ const HomeImage: React.FC<HomeImageProps> = ({
           height={height}
           className={styles['home-image']}
           priority
+          draggable={false}
         />
       </div>
       <div
@@ -136,6 +137,7 @@ const HomeImage: React.FC<HomeImageProps> = ({
           height={height}
           className={`${styles['home-image']} .mobile-home-image`}
           priority
+          draggable={false}
         />
         <div className={`${styles['block-box']} .black-box`} ref={blackBoxRef} />
       </div>
