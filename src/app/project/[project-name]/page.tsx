@@ -85,7 +85,7 @@ export default async function ProjectPage({ params }: PageProps) {
         <article className={styles.container}>
           <Overview {...projectData.overview} />
           <Gallery items={projectData.gallery} />
-          <ProjectFooter linkToNextProject={projectData.overview.urlToProject} />
+          <ProjectFooter linkToNextProject={!projectData?.footer?.nextProject ? "/projects" : projectData?.footer?.nextProject} />
         </article>
       </main>
     </>

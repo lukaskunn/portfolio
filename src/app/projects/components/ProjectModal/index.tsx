@@ -69,14 +69,14 @@ const ProjectModal = ({ projects }: ProjectModalProps) => {
         className={styles["modal-slider"]}
         style={{ top: `${index * -100}%` }}
       >
-        {projects.map((project, i) => {
+        {projects.map((project) => {
           const { overview } = project
           const { galleryBackground, galleryBackgroundColor } = overview;
 
           return (
             <div
               className={styles["project-modal"]}
-              key={i}
+              key={project._id}
               style={{ backgroundColor: galleryBackgroundColor.hex }}
             >
               <Image

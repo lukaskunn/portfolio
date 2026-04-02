@@ -42,7 +42,7 @@ const TitleComponent = async () => {
       </div>
       <div className={styles["subtitle-container-mobile"]}>
         {landing.mobileSubtitles.map((subtitle: string, index: number) => (
-          <LineRevealContainer key={index} direction="down" duration={ANIMATION_TIME.subtitle} delay={ANIMATION_DELAYS.subtitle + index * 0.1}>
+          <LineRevealContainer key={subtitle} direction="down" duration={ANIMATION_TIME.subtitle} delay={ANIMATION_DELAYS.subtitle + index * 0.1}>
             <span
               key={index}
               className={`${styles["subtitle-text"]} mobile-subtitle-item`}

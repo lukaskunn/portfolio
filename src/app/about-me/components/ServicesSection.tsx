@@ -102,8 +102,8 @@ const ServicesSection = ({ data }: ServicesSectionProps) => {
           <div ref={titleBorderRef} className={styles["title-border-bottom"]} />
         </div>
         <div ref={gridRef} className={styles["services-grid"]}>
-          {data?.items?.map((service: Service, index: number) => (
-            <div key={index} className={styles["service-card"]}>
+          {data?.items?.map((service: Service) => (
+            <div key={service.title} className={styles["service-card"]}>
               <h3 className={styles["service-title"]}>{service.title}</h3>
               <p className={styles["service-subtitle"]}>{service.subtitle}</p>
               <span className={styles["service-description"]}>

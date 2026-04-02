@@ -104,15 +104,15 @@ const CertificationsSection = ({ data }: CertificationsSectionProps) => {
         </div>
         <div ref={tableRef} className={styles["certifications-table"]}>
           <div className={styles["table-header"]}>
-            {data?.tableHeaders?.map((header: string, index: number) => (
-              <span key={index} className={styles["header-cell"]}>{header}</span>
+            {data?.tableHeaders?.map((header: string, ) => (
+              <span key={header} className={styles["header-cell"]}>{header}</span>
             ))}
           </div>
-          {data?.items?.map((item: Certification, index: number) => (
-            <div key={index} className={styles["table-row"]}>
+          {data?.items?.map((item: Certification, ) => (
+            <div key={item.source} className={styles["table-row"]}>
               <ul className={styles["row-content"]}>
-                {item.subjects.map((subject: string, subIndex: number) => (
-                  <li key={subIndex} className={styles["cell-text"]}>{subject}</li>
+                {item.subjects.map((subject: string) => (
+                  <li key={subject} className={styles["cell-text"]}>{subject}</li>
                 ))}
               </ul>
               <span className={styles["cell-text"]}>{item.source}</span>

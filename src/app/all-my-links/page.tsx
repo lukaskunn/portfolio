@@ -2,6 +2,7 @@ import React from "react";
 import LinkItem from "./components/LinkItem/Index";
 import styles from "@/styles/css/all-my-links.module.css";
 import Image from "next/image";
+import generateMetadataUtil from "@/utils/generateMetadata";
 
 const links = [
   {
@@ -42,6 +43,10 @@ const links = [
   },
 ];
 
+export async function generateMetadata() {
+  return generateMetadataUtil(null, "All my links in one place - let’s connect.", "Find all my social media profiles and portfolio links in one convenient location. Connect with me on Github, LinkedIn, Twitter, Instagram, and more to stay updated on my latest projects and insights.", "/all-my-links");
+}
+
 const AllMyLinks = () => {
   return (
     <div className={styles.container}>
@@ -57,7 +62,7 @@ const AllMyLinks = () => {
         All my links in one place - let&apos;s connect.
       </h1>
       <div className={styles["links-container"]}>
-        {links.map((link, index) => {
+        {links.map((link) => {
           const { hoverText, title, link: url, openInNewPage } = link;
 
           return (
@@ -65,7 +70,7 @@ const AllMyLinks = () => {
               link={url}
               textHover={hoverText}
               title={title}
-              key={`${title}-${index}`}
+              key={url}
               openInNewPage={openInNewPage}
             />
           );

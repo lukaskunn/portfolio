@@ -118,7 +118,7 @@ const Loading = () => {
         <div className={styles["image-container"]} ref={imageContainerRef}>
           {images.map((src, index) => (
             <div
-              key={index}
+              key={src}
               className={styles["image-container__image-wrapper"]}
               style={{ opacity: index === imageIndex ? 1 : 0 }}
             >

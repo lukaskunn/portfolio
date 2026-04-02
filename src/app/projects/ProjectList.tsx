@@ -79,10 +79,10 @@ const ProjectList = ({ projects, updateModal }: ProjectListProps) => {
         const { subtitle, projectId, technologies, cardTitle, goToExternalPage, urlToProject } = overview
 
         return (
-          <div key={index} style={{ position: 'relative', overflow: 'hidden' }}>
+          <div key={projectId} style={{ position: 'relative', overflow: 'hidden' }}>
             <ProjectItem
               project={{
-                link: projectId,
+                projectId: projectId,
                 tech: technologies?.join(', ') || '',
                 title: cardTitle || '',
                 subtitle: subtitle || '',

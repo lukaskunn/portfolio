@@ -326,7 +326,7 @@ export interface ProjectCard {
   year?: string
   technologies?: string[]
   overview: {
-    projectId: SanitySlug
+    projectId: string
     title: string
     cardTitle?: string
     subtitle?: string
@@ -338,7 +338,7 @@ export interface ProjectCard {
     mainImageUrl: SanityImage
     galleryBackground?: SanityImage
     galleryBackgroundColor?: SanityColor
-    urlToProject?: string
+    urlToProject: string
     goToExternalPage?: boolean
   }
   seo: SEO

@@ -16,6 +16,7 @@
   }
 
   .title {
+    opacity: 0;
     @include title-style(245px, 1, -0.06em);
     margin: 0 0 100px;
 

@@ -32,8 +32,8 @@ const Gallery = ({ items }: GalleryProps) => {
       <div className={styles["mansory-container"]}>
         {isMounted && (
           <MasonryContainer>
-            {items.map((item, index) => (
-              <GalleryItem key={index} image={item.image} caption={item.caption} />
+            {items.map((item) => (
+              <GalleryItem key={item.image.asset.url} image={item.image} caption={item.caption} />
             ))}
           </MasonryContainer>
         )}
