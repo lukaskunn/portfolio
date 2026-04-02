@@ -1,6 +1,6 @@
 // @ts-nocheck
 "use client";
-import { motion } from "framer-motion";
+import { LazyMotion, m } from "framer-motion"
 import gsap from "gsap";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "./components/Image";
@@ -58,7 +58,7 @@ const ProjectModal = ({ projects }: ProjectModalProps) => {
   }, [position]);
 
   return (
-    <motion.div
+    <m.div
       variants={scaleAnimation}
       initial="initial"
       animate={isActive ? "open" : "close"}
@@ -90,7 +90,7 @@ const ProjectModal = ({ projects }: ProjectModalProps) => {
           )
         })}
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

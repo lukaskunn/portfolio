@@ -18,14 +18,14 @@ const PicturesGrid = () => {
     <AnimateOpacityContainer className={styles["pictures-grid-container"]} canAnimate={isLoaded && isPageReady} target={1} animationConfig={{ duration: 1.2, ease: 'power4.out', delay: 1 }}>
       <div className={`${styles["pictures-grid"]} ${styles["grid-desktop"]}`}>
         {images.map((src, index) => (
-          <div key={index} className={styles["picture-item"]}>
+          <div key={src} className={styles["picture-item"]}>
             <Image src={src} alt={`Picture ${index + 1}`} className={styles["picture"]} width={450} height={600} />
           </div>
         ))}
       </div>
       <div className={`${styles["pictures-grid"]} ${styles["grid-mobile"]}`}>
         {images.map((src, index) => (
-          <div key={index} className={styles["picture-item"]}>
+          <div key={src} className={styles["picture-item"]}>
             <Image src={src} alt={`Picture ${index + 1}`} className={styles["picture"]} width={300} height={400} />
           </div>
         ))}

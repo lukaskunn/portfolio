@@ -2,6 +2,11 @@ import React from "react";
 import LinkItem from "./components/LinkItem/Index";
 import styles from "@/styles/css/all-my-links.module.css";
 import Image from "next/image";
+import generateMetadataUtil from '@/utils/generateMetadata'
+
+export async function generateMetadata() {
+  return generateMetadataUtil(null, "All my links in one place - connect with me on social media and explore my portfolio.", "All my links in one place - connect with me on social media and explore my portfolio.", undefined, "/all-my-links");
+}
 
 const links = [
   {
