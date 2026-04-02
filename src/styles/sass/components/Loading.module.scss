@@ -70,6 +70,8 @@
         width: 400px;
         height: 600px;
         object-fit: cover;
+
+        filter: grayscale(0.6) brightness(0.8);
       }
     }
   }

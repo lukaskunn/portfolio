@@ -14,16 +14,13 @@ const animationConfig: gsap.TweenVars = {
 }
 
 const images = [
-  '/assets/images/loading/alexandre-daoust-5rIRjoGSy_c-unsplash.jpg',
-  '/assets/images/loading/hector-o-connor-bEo8dH_m1pA-unsplash.jpg',
-  '/assets/images/loading/hector-o-connor-UVfNbmUKSAc-unsplash.jpg',
-  '/assets/images/loading/patrick-langwallner-kVlDPxcLmNQ-unsplash.jpg',
-  '/assets/images/loading/hector-o-connor-aYlt6aomt60-unsplash.jpg',
-  '/assets/images/loading/hector-o-connor-Co2PunJrPcY-unsplash.jpg',
-  '/assets/images/loading/patrick-langwallner-AtehLBTC9P8-unsplash.jpg',
-  '/assets/images/loading/patrick-langwallner-UsOnas92hFA-unsplash.jpg',
-  '/assets/images/loading/patrick-langwallner-eWy6Yvcsppc-unsplash.jpg',
-  '/assets/images/loading/sophia-rotsch-z8_mpIdT81A-unsplash.jpg',
+  '/assets/images/loading/IMG_4915.jpg',
+  '/assets/images/loading/IMG_4920.jpg',
+  '/assets/images/loading/IMG_4996.jpg',
+  '/assets/images/loading/IMG_5092.jpg',
+  '/assets/images/loading/IMG_4999.jpg',
+  '/assets/images/loading/IMG_5028.jpg',
+  '/assets/images/loading/IMG_5106.jpg',
 ]
 
 const LOADING_DURATION = 4; // seconds for stats counter
@@ -63,7 +60,7 @@ const FullLoading = () => {
     const timeout = setTimeout(() => {
       const interval = setInterval(() => {
         setImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, (LOADING_DURATION * 3 * 1000) / images.length);
+      }, (LOADING_DURATION * 3 * 800) / images.length);
       return () => clearInterval(interval);
     }, 1000);
 
@@ -119,7 +116,7 @@ const FullLoading = () => {
         }, 500);
       },
     }, "<"); // Start with previous animation (text hide)
-    //
+    
 
   }, { scope: containerRef });
 
