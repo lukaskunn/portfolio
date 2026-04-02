@@ -28,7 +28,15 @@ $box-text-bottom: 56px;
     top: 470px;
   }
 
- @include respond-to(mobile-768) {
+  @include respond-to(desktop-1280) {
+    top: 445px;
+  }
+
+  @include respond-to(tablet-1024) {
+    top: 480px;
+  }
+
+  @include respond-to(mobile-768) {
     position: absolute;
     bottom: 30px;
     top: auto;
@@ -65,6 +73,14 @@ $box-text-bottom: 56px;
 
     @include respond-to(desktop-1366) {
       width: 320px;
+    }
+
+    @include respond-to(desktop-1280) {
+      width: 280px;
+    }
+
+    @include respond-to(tablet-1024) {
+      width: 200px;
     }
 
     @include respond-to(mobile-768) {
