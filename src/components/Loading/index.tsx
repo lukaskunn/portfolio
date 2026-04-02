@@ -2,6 +2,7 @@
 import React from 'react'
 import styles from "@/styles/css/components/Loading.module.css"
 import { useTransitionContext } from '@/contexts/TransitionContext'
+import { usePathname } from 'next/navigation'
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import AnimateOpacityContainer from '../AnimateOpacityContainer';
@@ -29,7 +30,25 @@ const LOADING_DURATION = 4; // seconds for stats counter
 const IMAGE_REVEAL_DURATION = 1; // seconds for image clip-path
 const TEXT_ANIMATION_DURATION = 1; // seconds for text appear/hide
 
-const Loading = () => {
+const SimpleLoading = () => {
+  const { isLoaded, setIsLoaded } = useTransitionContext();
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 1000); // 1 second duration
+
+    return () => clearTimeout(timer);
+  }, [setIsLoaded]);
+
+  return (
+    <AnimateOpacityContainer className={styles["container"]} canAnimate={isLoaded} target={0} animationConfig={animationConfig}>
+      <div></div>
+    </AnimateOpacityContainer>
+  );
+};
+
+const FullLoading = () => {
   const { isLoaded, setIsLoaded } = useTransitionContext();
   const [stats, setStats] = React.useState<number>(0);
   const [imageIndex, setImageIndex] = React.useState<number>(0);
@@ -136,6 +155,13 @@ const Loading = () => {
       </div>
     </AnimateOpacityContainer >
   )
+}
+
+const Loading = () => {
+  const pathname = usePathname();
+  const isHomePage = pathname === '/home';
+
+  return isHomePage ? <FullLoading /> : <SimpleLoading />;
 }
 
 export default Loading
