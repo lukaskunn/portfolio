@@ -106,9 +106,20 @@ const ServicesSection = ({ data }: ServicesSectionProps) => {
             <div key={service.title} className={styles["service-card"]}>
               <h3 className={styles["service-title"]}>{service.title}</h3>
               <p className={styles["service-subtitle"]}>{service.subtitle}</p>
-              <span className={styles["service-description"]}>
-                <PortableText value={service.description} />
-              </span>
+              <div className={styles["service-description"]}>
+                <PortableText
+                  value={service.description}
+                  components={{
+                    block: {
+                      normal: ({ children }) => (
+                        <p style={{ margin: 0 }}>
+                          {children}
+                        </p>
+                      ),
+                    },
+                  }}
+                />
+              </div>
             </div>
           ))}
         </div>

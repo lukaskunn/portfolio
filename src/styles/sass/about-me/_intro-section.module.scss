@@ -19,11 +19,7 @@
 .intro-box {
   max-width: 900px;
   background: transparent;
-  margin-bottom: 156px;
-
-  @include respond-to(mobile-768) {
-    margin-bottom: 80px;
-  }
+  margin-bottom: 32px;
 }
 
 .intro-text {

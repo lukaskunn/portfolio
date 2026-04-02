@@ -16,6 +16,7 @@ const AnimateOpacityContainer = ({
   animationConfig = {
     duration: 1,
     ease: "power2.out",
+    delay: 0,
   },
   target
 }: AnimateOpacityContainerProps) => {

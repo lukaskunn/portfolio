@@ -41,11 +41,15 @@ const BackgroundSection = ({ data }: BackgroundSectionProps) => {
       }
     );
 
+    // Prepare array to collect SplitText instances for cleanup
+    const splits: any[] = [];
+
     // Split and animate title
     const titleSplit = new SplitText(titleRef.current, {
       type: 'chars',
       charsClass: 'split-char',
     });
+    splits.push(titleSplit);
 
     tl.fromTo(
       titleSplit.chars,
@@ -75,7 +79,7 @@ const BackgroundSection = ({ data }: BackgroundSectionProps) => {
       );
     }
 
-    // Animate paragraphs
+    // Animate paragraphs and collect SplitText instances for cleanup
     const paragraphs = contentRef.current.querySelectorAll('p');
 
     paragraphs.forEach((paragraph, index) => {
@@ -83,6 +87,8 @@ const BackgroundSection = ({ data }: BackgroundSectionProps) => {
         type: 'lines',
         linesClass: 'split-line',
       });
+
+      splits.push(split);
 
       gsap.set(split.lines, {
         y: '100%',
@@ -102,6 +108,17 @@ const BackgroundSection = ({ data }: BackgroundSectionProps) => {
         }
       });
     });
+
+    // Cleanup: revert all SplitText instances if effect is torn down
+    return () => {
+      splits.forEach((s) => {
+        try {
+          if (s && typeof s.revert === 'function') s.revert();
+        } catch (err) {
+          console.warn('SplitText revert failed in BackgroundSection:', err);
+        }
+      });
+    };
   }, { scope: sectionRef });
 
   return (
@@ -115,14 +132,18 @@ const BackgroundSection = ({ data }: BackgroundSectionProps) => {
           <div ref={titleBorderRef} className={styles["title-border-bottom"]} />
         </div>
         <div ref={contentRef} className={styles["section-content"]}>
-          <p className={styles["content-paragraph"]} style={{ overflow: 'hidden' }}>
-            <PortableText value={data.background?.paragraphs} />
-          </p>
-          {/* {data.background?.paragraphs?.map((paragraph: string, index: number) => (
-            <p key={index} className={styles["content-paragraph"]} style={{ overflow: 'hidden' }}>
-              {paragraph}
-            </p>
-          ))} */}
+          <PortableText
+            value={data.background?.paragraphs}
+            components={{
+              block: {
+                normal: ({ children }) => (
+                  <p className={styles["content-paragraph"]} style={{ overflow: 'hidden', margin: 0 }}>
+                    {children}
+                  </p>
+                ),
+              },
+            }}
+          />
         </div>
       </div>
     </section>

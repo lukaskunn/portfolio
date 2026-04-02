@@ -82,13 +82,13 @@ const IntroSection = ({ data }: IntroSectionProps) => {
     <section className={styles["intro-section"]}>
       <div ref={borderRef} className={styles["border-top"]} />
       <div className={styles["intro-box"]}>
-        <p
+        <div
           ref={textRef}
           className={styles["intro-text"]}
           style={{ overflow: 'hidden' }}
         >
           <PortableText value={data.intro} />
-        </p>
+        </div>
       </div>
     </section>
   )

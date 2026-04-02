@@ -2,15 +2,18 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import styles from "@/styles/css/about-me.module.css"
 import HeroSection from './components/HeroSection'
-import IntroSection from './components/IntroSection'
+// import IntroSection from './components/IntroSection'
 import { getAboutMeContent, getServicesContent } from '@/sanity/lib/fetch'
 import generateMetadataUtil from '@/utils/generateMetadata'
 import { generateProfilePageJsonLd } from '@/utils/generateJsonLd'
+import PicturesGrid from './components/PicturesGrid'
 
 // Code-split below-the-fold sections
 const BackgroundSection = dynamic(() => import('./components/BackgroundSection'));
 const CertificationsSection = dynamic(() => import('./components/CertificationsSection'));
 const ServicesSection = dynamic(() => import('./components/ServicesSection'));
+const IntroSection = dynamic(() => import('./components/IntroSection'));
+
 
 export async function generateMetadata() {
   const aboutMe = await getAboutMeContent();
@@ -46,6 +49,7 @@ export default async function AboutMePage() {
         <div className={styles.container}>
           <HeroSection data={aboutMe} />
           <IntroSection data={aboutMe} />
+          <PicturesGrid />
           <BackgroundSection data={aboutMe} />
           <CertificationsSection data={aboutMe.certifications} />
           <ServicesSection data={servicesData.services} />
