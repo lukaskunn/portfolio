@@ -193,6 +193,10 @@ html {
   -webkit-tap-highlight-color: transparent;
 
   cursor: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+
 
   @include respond-to(mobile-768) {
     cursor: default;
@@ -209,6 +213,10 @@ body {
   flex-direction: column;
   align-items: center;
   text-rendering: optimizeSpeed; // Improve rendering performance
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+
 
   @include respond-to(mobile-768) {
     padding: 0 $spacing-10;
@@ -229,15 +237,6 @@ body {
 // Custom focus-visible styles for better accessibility
 *:focus-visible {
   @include focus-visible;
-}
-
-// Specific focus styles for interactive elements
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-  @include interactive-focus;
 }
 
 // High contrast mode support

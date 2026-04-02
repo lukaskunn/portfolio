@@ -288,12 +288,6 @@ $backdrop-blur: blur(20px);
   transition: outline-offset $transition-fast;
 }
 
-// Interactive element focus
-@mixin interactive-focus {
-  outline: $border-width-base solid $secondary-color;
-  outline-offset: $spacing-2;
-}
-
 // Standard transition
 @mixin transition($properties...) {
   transition-duration: $transition-base;
