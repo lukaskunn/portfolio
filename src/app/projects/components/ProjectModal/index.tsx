@@ -1,6 +1,6 @@
 // @ts-nocheck
 "use client";
-import { LazyMotion, m } from "framer-motion"
+import { LazyMotion, domAnimation, m } from "framer-motion";
 import gsap from "gsap";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "./components/Image";
@@ -58,39 +58,41 @@ const ProjectModal = ({ projects }: ProjectModalProps) => {
   }, [position]);
 
   return (
-    <m.div
-      variants={scaleAnimation}
-      initial="initial"
-      animate={isActive ? "open" : "close"}
-      className={styles["project-modal-container"]}
-      ref={containerRef}
-    >
-      <div
-        className={styles["modal-slider"]}
-        style={{ top: `${index * -100}%` }}
+    <LazyMotion features={domAnimation}>
+      <m.div
+        variants={scaleAnimation}
+        initial="initial"
+        animate={isActive ? "open" : "close"}
+        className={styles["project-modal-container"]}
+        ref={containerRef}
       >
-        {projects.map((project) => {
-          const { overview } = project
-          const { galleryBackground, galleryBackgroundColor } = overview;
+        <div
+          className={styles["modal-slider"]}
+          style={{ top: `${index * -100}%` }}
+        >
+          {projects.map((project, i) => {
+            const { overview } = project
+            const { galleryBackground, galleryBackgroundColor } = overview;
 
-          return (
-            <div
-              className={styles["project-modal"]}
-              key={project._id}
-              style={{ backgroundColor: galleryBackgroundColor.hex }}
-            >
-              <Image
-                src={urlFor(galleryBackground?.asset.url).url()}
-                color={galleryBackgroundColor}
-                height={290}
-                width={300}
-                alt={project.imageAlt || "Project background"}
-              />
-            </div>
-          )
-        })}
-      </div>
-    </m.div>
+            return (
+              <div
+                className={styles["project-modal"]}
+                key={i}
+                style={{ backgroundColor: galleryBackgroundColor.hex }}
+              >
+                <Image
+                  src={urlFor(galleryBackground?.asset.url).url()}
+                  color={galleryBackgroundColor}
+                  height={290}
+                  width={300}
+                  alt={project.imageAlt || "Project background"}
+                />
+              </div>
+            )
+          })}
+        </div>
+      </m.div>
+    </LazyMotion>
   );
 };
 
