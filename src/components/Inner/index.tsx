@@ -13,10 +13,12 @@ type InnerProps = {
 const Inner = ({
   children
 }: InnerProps) => {
-  const { isTransitioningIn, isTransitioningOut, nextPath, displayPageName, setDisplayPageName } = useTransitionContext()
+  const { isTransitioningIn, isTransitioningOut, nextPath, onTransitionOutComplete, onTransitionInComplete } = useTransitionContext()
   const pathname = usePathname()
   const backgroundTransitionRef = React.useRef<HTMLDivElement>(null)
+  const firstBackgroundTransition = React.useRef<HTMLDivElement>(null)
   const transitionTextRef = React.useRef<HTMLDivElement>(null)
+  const revealBlock = React.useRef<HTMLDivElement>(null)
 
   // Get page name from path
   const getPageName = React.useCallback((path: string) => {
@@ -41,83 +43,59 @@ const Inner = ({
     return `[${pageName}]`
   }, [])
 
-  // Initialize text content on mount to current page
-  React.useEffect(() => {
-    if (transitionTextRef.current) {
-      // Use displayPageName from context if available, otherwise calculate from pathname
-      const pageName = displayPageName || getPageName(pathname)
-      transitionTextRef.current.textContent = pageName
-      if (!displayPageName) {
-        setDisplayPageName?.(pageName)
-      }
-    }
-  }, [pathname, displayPageName, getPageName, setDisplayPageName])
-
   useGSAP(() => {
     if (isTransitioningOut && nextPath) {
-      // Update context with destination page name
-      const destinationPageName = getPageName(nextPath)
-      setDisplayPageName?.(destinationPageName)
-
-      if (transitionTextRef.current) {
-        transitionTextRef.current.textContent = destinationPageName
-      }
-
-      // Reset text to initial position
-      gsap.set(transitionTextRef.current, {
-        yPercent: 100,
-      })
-
-      // Slide in from right to cover the page
-      gsap.fromTo(backgroundTransitionRef.current, {
-        x: '100%',
-      }, {
-        x: '0%',
-        duration: 0.6,
-        ease: 'power3.inOut',
-        onComplete: () => {
-          // After background covers screen, reveal text from bottom to top
-          gsap.to(transitionTextRef.current, {
-            yPercent: 0,
-            duration: 0.6,
-            ease: 'power4.out',
-          })
-        }
-      })
+      gsap.timeline({ onComplete: onTransitionOutComplete })
+        .fromTo(firstBackgroundTransition.current,
+          { x: '100%', y: '8%', scaleY: 0.98 },
+          { x: '0%', y: '0%', scaleY: 1, duration: 0.5, ease: 'expo.out' }
+        )
+        .fromTo(backgroundTransitionRef.current,
+          { x: '100%', y: '4%', scaleY: 0.98 },
+          { x: '0%', y: '0%', scaleY: 1, duration: 0.5, ease: 'expo.out' },
+          "<+=0.25"
+        )
     }
-  }, [isTransitioningOut, nextPath, getPageName, setDisplayPageName])
+  }, [isTransitioningOut, nextPath, onTransitionOutComplete])
 
   useGSAP(() => {
     if (isTransitioningIn) {
-      // Use the display name from context (which persists across navigation)
-      if (transitionTextRef.current && displayPageName) {
-        transitionTextRef.current.textContent = displayPageName
+      const pageName = getPageName(pathname)
+
+      if (transitionTextRef.current) {
+        transitionTextRef.current.textContent = pageName
       }
 
-      // Stay for a moment then animate text disappearing from bottom to top
-      gsap.to(transitionTextRef.current, {
-        delay: 0.5,
-        yPercent: -105,
-        duration: 0.6,
-        ease: 'power4.out',
-        onComplete: () => {
-          // After text disappears, slide background out to the left
-          gsap.to(backgroundTransitionRef.current, {
-            x: '-100%',
-            duration: 0.8,
-            ease: 'power3.inOut',
-          })
-        }
-      })
+      gsap.timeline({ onComplete: onTransitionInComplete })
+        // set initial states
+        .set(transitionTextRef.current, { opacity: 0 })
+        .set(revealBlock.current, { x: '102%' })
+
+        // reveal text with wipe
+        .to(revealBlock.current, { x: '0%', duration: 0.5, ease: 'power4.in', delay: 0.2 })
+        .set(transitionTextRef.current, { opacity: 1 })
+        .to(revealBlock.current, { x: '-102%', duration: 0.5, ease: 'power4.out' })
+        .set(revealBlock.current, { x: '102%' })
+
+        // hold text, then wipe away
+        .to(revealBlock.current, { x: '0%', duration: 0.5, ease: 'power4.in', delay: 0.4 })
+        .set(transitionTextRef.current, { opacity: 0 })
+        .to(revealBlock.current, { x: '-102%', duration: 0.5, ease: 'power4.out' })
+
+        // slide backgrounds out with stagger
+        .to(backgroundTransitionRef.current, { x: '-100%', scaleY: 1, duration: 0.9, ease: 'power2.inOut' })
+        .to(firstBackgroundTransition.current, { x: '-100%', scaleY: 1, duration: 0.9, ease: 'power2.inOut' }, "<+=0.2")
     }
-  }, [isTransitioningIn, displayPageName])
+  }, [isTransitioningIn, pathname, getPageName, onTransitionInComplete])
 
   return (
     <>
       {children}
+      <div className={`${styles["background-transition"]} ${styles["first-background"]}`} ref={firstBackgroundTransition} />
       <div ref={backgroundTransitionRef} className={styles["background-transition"]}>
         <div className={styles["transition-text-container"]}>
           <div ref={transitionTextRef} className={styles["transition-text"]} />
+          <div className={styles["show-block"]} ref={revealBlock} />
         </div>
       </div>
     </>

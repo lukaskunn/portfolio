@@ -394,6 +394,8 @@ export interface TransitionContextType {
   setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>
   setNextPath?: React.Dispatch<React.SetStateAction<string | null>>
   setDisplayPageName?: React.Dispatch<React.SetStateAction<string>>
+  onTransitionOutComplete: () => void
+  onTransitionInComplete: () => void
 }
 
 export interface ProjectModal {
