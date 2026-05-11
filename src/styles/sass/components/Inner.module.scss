@@ -1,24 +1,32 @@
 @use "../references" as *;
 
-.background-transition {
-  background-color: $primary-color;
-  width: 100vw;
-  height: 100vh;
+.animated-svg {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100vw;
+  height: 120%;
   z-index: 9999;
   pointer-events: none;
-  transform: translateX(100%);
   will-change: transform;
+  transform: translateY(100%);
+
+  path {
+    fill: $primary-color;
+  }
+}
+
+.transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  pointer-events: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-
-  &.first-background {
-    background-color: $background-color-dark-first;
-  }
 }
 
 .transition-text-container {
