@@ -94,9 +94,7 @@ const HeaderMobile = ({ data }: HeaderMobileProps) => {
                 duration={0.8}
                 trigger={showMenuItems}
               >
-                <LinkHandler data-line-reveal className={styles["navigation-item"]} href={item.href} onClick={() => {
-                  setMenuIsOpen(false)
-                }}>{item.label}</LinkHandler>
+                <LinkHandler data-line-reveal className={styles["navigation-item"]} href={item.href} onClick={() => { setTimeout(() => {setMenuIsOpen(false) }, 1000) }}>{item.label}</LinkHandler>
               </LineRevealContainer>
             ))}
           </div>
