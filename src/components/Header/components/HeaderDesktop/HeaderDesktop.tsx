@@ -16,10 +16,6 @@ const HeaderDesktop = ({ data }: HeaderDesktopProps) => {
         <LinkHandler href="/home" className={styles["name-logo"]}>{data.headerTitle}</LinkHandler>
       </LineRevealContainer>
       <div className={styles["header-desktop__header-menu"]}>
-        <LineRevealContainer direction="down" duration={ANIMATION_TIME.header} delay={ANIMATION_DELAYS.header + ((data.menuItems?.length || 0) + 1) * 0.1}>
-          <ContactMeButton data={data.resumeButton} />
-        </LineRevealContainer>
-
         <LineRevealContainer direction="down" duration={ANIMATION_TIME.header} delay={ANIMATION_DELAYS.header + ((data.menuItems?.length || 0) + 2) * 0.1}>
           <ContactMeButton data={data.contactButton} />
         </LineRevealContainer>

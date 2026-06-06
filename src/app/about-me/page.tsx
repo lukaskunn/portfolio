@@ -48,11 +48,11 @@ export default async function AboutMePage() {
       <main id="main-content" role="main" aria-label="About me page content">
         <div className={styles.container}>
           <HeroSection data={aboutMe} />
-          <IntroSection data={aboutMe} />
+          {/* <IntroSection data={aboutMe} /> */}
           <PicturesGrid />
           <BackgroundSection data={aboutMe} />
-          <CertificationsSection data={aboutMe.certifications} />
-          <ServicesSection data={servicesData.services} />
+          {/* <CertificationsSection data={aboutMe.certifications} />
+          <ServicesSection data={servicesData.services} /> */}
         </div>
       </main>
     </>
