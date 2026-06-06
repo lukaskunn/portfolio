@@ -1,14 +1,11 @@
-// @ts-nocheck
+//@ts-nocheck
 'use client'
 import React from "react";
 import gsap from "gsap";
-import { ScrambleTextPlugin } from "gsap/dist/ScrambleTextPlugin";
 
 import { motion } from "framer-motion";
 import { useCursor } from "../../contexts/CursorContext";
 import styles from "@/styles/css/components/CursorFollower.module.css";
-
-gsap.registerPlugin(ScrambleTextPlugin);
 
 const ANIMATION_DURATION = 0.35;
 
@@ -37,7 +34,7 @@ const scaleAnimation = {
 };
 
 function CursorFollower() {
-  const { hoverImportantText, hoverSize, position: cursorPosition } = useCursor();
+  const { position: cursorPosition } = useCursor();
   const cursorRef = React.useRef<HTMLDivElement>(null);
 
   const moveCursorX = React.useRef<ReturnType<typeof gsap.quickTo>>();
@@ -62,15 +59,13 @@ function CursorFollower() {
   }, [cursorPosition]);
 
   return (
-    <>
-      <motion.div
-        ref={cursorRef}
-        initial="initial"
-        variants={scaleAnimation}
-        animate="open"
-        className={`${styles["white-circle"]}`}
-      />
-    </>
+    <motion.div
+      ref={cursorRef}
+      initial="initial"
+      variants={scaleAnimation}
+      animate="open"
+      className={`${styles["white-circle"]}`}
+    />
   );
 }
 
