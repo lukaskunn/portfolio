@@ -23,7 +23,7 @@ const images = [
   '/assets/images/loading/IMG_5106.jpg',
 ]
 
-const LOADING_DURATION = 4; // seconds for stats counter
+const LOADING_DURATION = 2; // seconds for stats counter
 const IMAGE_REVEAL_DURATION = 1; // seconds for image clip-path
 const TEXT_ANIMATION_DURATION = 1; // seconds for text appear/hide
 
@@ -60,7 +60,7 @@ const FullLoading = () => {
     const timeout = setTimeout(() => {
       const interval = setInterval(() => {
         setImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, (LOADING_DURATION * 3 * 800) / images.length);
+      }, LOADING_DURATION * 3 * 1000 / images.length);
       return () => clearInterval(interval);
     }, 1000);
 
@@ -74,7 +74,7 @@ const FullLoading = () => {
     tl.to(imageContainerRef.current, {
       clipPath: "inset(0% 0% 0% 0%)",
       duration: IMAGE_REVEAL_DURATION,
-      ease: "power4.inOut",
+      ease: "power2.inOut",
       delay: 1,
     });
 
@@ -84,38 +84,40 @@ const FullLoading = () => {
     }, {
       y: "0%",
       duration: TEXT_ANIMATION_DURATION,
-      ease: "power4.out",
-      delay: 0.1
-    })
+      ease: "power4.inOut",
+    }, "<+=0.3")
 
     // Step 3: Stats counter from 0 to 100%
     tl.to(statsValueRef.current, {
       value: 100,
       duration: LOADING_DURATION,
-      ease: "power3.inOut",
+      ease: "power2.inOut",
       onUpdate: () => {
         setStats(Math.round(statsValueRef.current.value));
       },
     });
 
     // Step 4: Reverse - Text hides to bottom
-    tl.to(headerRef.current, {
-      y: "100%",
-      duration: TEXT_ANIMATION_DURATION - 0.2,
-      ease: "power4.in",
-    }) // Wait 0.5s before starting this animation
-
-    // Step 5: Reverse - Image clip-path from top to bottom (hide)
     tl.to(imageContainerRef.current, {
       clipPath: "inset(0% 0% 100% 0%)",
-      duration: IMAGE_REVEAL_DURATION,
-      ease: "power4.in",
+      duration: IMAGE_REVEAL_DURATION + 0.2,
+      ease: "power4.inOut",
       onComplete: () => {
         setTimeout(() => {
           setIsLoaded(true);
         }, 500);
       },
-    }, "<"); // Start with previous animation (text hide)
+      delay: 0.2
+    }); // Start with previous animation (text hide)
+
+    
+    // Step 5: Reverse - Image clip-path from top to bottom (hide)
+    tl.to(headerRef.current, {
+      y: "-100%",
+      duration: TEXT_ANIMATION_DURATION + 0.2,
+      ease: "power4.inOut",
+      delay: 0.2
+    }, "<") // Wait 0.5s before starting this animation
     
 
   }, { scope: containerRef });
