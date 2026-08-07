@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/blog",
+      "destination": "https://blog.lucasoliveira.io",
+      "statusCode": 301
+    }
+  ]
+}
