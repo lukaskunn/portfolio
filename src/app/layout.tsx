@@ -1,15 +1,64 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "@/styles/globals.scss";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const gabarito = localFont({
+  variable: "--font-gabarito",
+  display: "swap",
+  src: [
+    { path: "../../public/assets/fonts/Gabarito/gabarito-v9-latin-regular.woff2", weight: "400", style: "normal" },
+    { path: "../../public/assets/fonts/Gabarito/gabarito-v9-latin-500.woff2", weight: "500", style: "normal" },
+    { path: "../../public/assets/fonts/Gabarito/gabarito-v9-latin-600.woff2", weight: "600", style: "normal" },
+    { path: "../../public/assets/fonts/Gabarito/gabarito-v9-latin-700.woff2", weight: "700", style: "normal" },
+    { path: "../../public/assets/fonts/Gabarito/gabarito-v9-latin-800.woff2", weight: "800", style: "normal" },
+    { path: "../../public/assets/fonts/Gabarito/gabarito-v9-latin-900.woff2", weight: "900", style: "normal" },
+  ],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const roboto = localFont({
+  variable: "--font-roboto",
+  display: "swap",
+  src: [
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-100.woff2", weight: "100", style: "normal" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-100italic.woff2", weight: "100", style: "italic" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-200.woff2", weight: "200", style: "normal" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-200italic.woff2", weight: "200", style: "italic" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-300.woff2", weight: "300", style: "normal" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-300italic.woff2", weight: "300", style: "italic" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-regular.woff2", weight: "400", style: "normal" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-italic.woff2", weight: "400", style: "italic" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-500.woff2", weight: "500", style: "normal" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-500italic.woff2", weight: "500", style: "italic" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-600.woff2", weight: "600", style: "normal" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-600italic.woff2", weight: "600", style: "italic" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-700.woff2", weight: "700", style: "normal" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-700italic.woff2", weight: "700", style: "italic" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-800.woff2", weight: "800", style: "normal" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-800italic.woff2", weight: "800", style: "italic" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-900.woff2", weight: "900", style: "normal" },
+    { path: "../../public/assets/fonts/Roboto/roboto-v51-latin-900italic.woff2", weight: "900", style: "italic" },
+  ],
+});
+
+const robotoMono = localFont({
+  variable: "--font-roboto-mono",
+  display: "swap",
+  src: [
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-100.woff2", weight: "100", style: "normal" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-100italic.woff2", weight: "100", style: "italic" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-200.woff2", weight: "200", style: "normal" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-200italic.woff2", weight: "200", style: "italic" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-300.woff2", weight: "300", style: "normal" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-300italic.woff2", weight: "300", style: "italic" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-regular.woff2", weight: "400", style: "normal" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-italic.woff2", weight: "400", style: "italic" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-500.woff2", weight: "500", style: "normal" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-500italic.woff2", weight: "500", style: "italic" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-600.woff2", weight: "600", style: "normal" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-600italic.woff2", weight: "600", style: "italic" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-700.woff2", weight: "700", style: "normal" },
+    { path: "../../public/assets/fonts/RobotoMono/roboto-mono-v31-latin-700italic.woff2", weight: "700", style: "italic" },
+  ],
 });
 
 export const metadata: Metadata = {
@@ -19,7 +68,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      className={`${gabarito.variable} ${roboto.variable} ${robotoMono.variable}`}
+    >
       <body>{children}</body>
     </html>
   );
