@@ -173,7 +173,9 @@ body {
   margin: 0;
   min-height: 100vh;
   width: 100%;
-  padding: 0 $page-margin; // --page-margin is already responsive
+  // ponytail: no inline padding here — full-bleed sections (the header
+  // inverts its background edge-to-edge on /about) own their own
+  // $page-margin. Page content applies it per-section.
   display: flex;
   flex-direction: column;
   align-items: center;

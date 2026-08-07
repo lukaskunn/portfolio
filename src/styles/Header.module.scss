@@ -1,0 +1,179 @@
+@use "references" as *;
+
+// Every colour the header uses is a local custom property, so the inverted
+// (/about) variant is a single block of overrides instead of a duplicated tree.
+.header {
+  --header-bg: #{$color-bg-base};
+  --header-fg: #{$color-text-primary};
+  --header-fg-muted: #{$color-text-primary-muted};
+  --header-btn-bg: #{$color-bg-invert};
+  --header-btn-fg: #{$color-bg-base};
+
+  position: relative;
+  width: 100%;
+  background: var(--header-bg);
+  color: var(--header-fg);
+}
+
+.inverted {
+  --header-bg: #{$color-bg-invert};
+  --header-fg: #{$color-text-invert};
+  --header-fg-muted: #{$color-text-invert-muted};
+  --header-btn-bg: #{$color-text-invert};
+  --header-btn-fg: #{$color-text-primary};
+}
+
+// ponytail: flex, not a 12-col grid — nothing in the header aligns to a column.
+// The grid belongs to page sections.
+.inner {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: $space-xl $page-margin;
+  display: flex;
+  align-items: center;
+  gap: $space-2xl;
+
+  @include respond-to(mobile) {
+    padding-block: $space-md;
+  }
+}
+
+.logo {
+  @include heading-5;
+
+  flex: 1;
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+
+  @include respond-to(mobile) {
+    display: none;
+  }
+}
+
+.navLink {
+  @include label-xl;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.sep {
+  @include label-xl;
+
+  color: var(--header-fg-muted);
+}
+
+.lang {
+  @include label-xl;
+
+  // Absent from the tablet and mobile frames; it reappears inside the menu.
+  @include respond-to(tablet) {
+    display: none;
+  }
+}
+
+.langMuted {
+  color: var(--header-fg-muted);
+}
+
+.contact {
+  @include heading-5;
+
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2xs;
+  padding: 6px $space-md; // ponytail: 6px has no token
+  // ponytail: border == fill in both variants (#111 border on #1d1d1d reads as
+  // one shape), so a single rule covers normal and inverted.
+  border: 1px solid var(--header-btn-bg);
+  border-radius: $radius-none;
+  background: var(--header-btn-bg);
+  color: var(--header-btn-fg);
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.icon {
+  transform: rotate(-45deg);
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+
+  @include respond-to(mobile) {
+    display: flex;
+  }
+}
+
+.burgerBar {
+  width: 24px;
+  height: 2px;
+  background: var(--header-fg);
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+// Two bars rotate straight into an X — no third bar to fade out.
+.open {
+  .burgerBar:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .burgerBar:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+}
+
+.menu {
+  display: none;
+
+  @include respond-to(mobile) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+    padding: $space-lg $page-margin;
+    background: var(--header-bg);
+    color: var(--header-fg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s;
+
+    .open & {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+
+    // .lang is hidden from tablet down in the bar; inside the menu it is shown.
+    .lang {
+      display: block;
+    }
+  }
+}
