@@ -1,16 +1,7 @@
 @use "references" as *;
 
 .test {
+  @include heading-1;
   padding: $section-gap $page-margin;
   background: $color-bg-base;
-}
-
-.title {
-  @include heading-1;
-  color: $color-text-primary;
-}
-
-.label {
-  @include label-xs;
-  color: $color-text-primary-muted;
 }

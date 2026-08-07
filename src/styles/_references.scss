@@ -43,8 +43,8 @@ $color-bg-invert-muted: $gray-800;
 // Typography (Figma collection: Font)
 // ============================================
 $font-heading: var(--font-gabarito); // Figma "Heading"
-$font-label: var(--font-roboto-mono); // Figma "Label"
-$font-contrast: var(--font-roboto); // Figma "Label (contrast)"
+$font-label: var(--font-roboto); // Figma "Label"
+$font-contrast: var(--font-roboto-mono); // Figma "Label (contrast)"
 
 // Only the weights the Figma text styles actually use.
 $font-weight-extralight: 200; // Roboto
