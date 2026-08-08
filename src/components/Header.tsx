@@ -48,36 +48,38 @@ const Header = () => {
           Lucas Oliveira
         </Link>
 
-        <nav className={style.nav} aria-label="Main">
-          {NAV.map(({ href, label }, index) => (
-            <Fragment key={href}>
-              {index > 0 && (
-                <span className={style.sep} aria-hidden="true">
-                  /
-                </span>
-              )}
-              <Link href={href} className={style.navLink}>
-                {label}
-              </Link>
-            </Fragment>
-          ))}
-        </nav>
+        <div className={style.actions}>
+          <nav className={style.nav} aria-label="Main">
+            {NAV.map(({ href, label }, index) => (
+              <Fragment key={href}>
+                {index > 0 && (
+                  <span className={style.sep} aria-hidden="true">
+                    /
+                  </span>
+                )}
+                <Link href={href} className={style.navLink}>
+                  {label}
+                </Link>
+              </Fragment>
+            ))}
+          </nav>
 
-        {/* ponytail: static placeholder — no i18n wiring yet */}
-        <span className={style.lang}>
-          <span className={style.langMuted}>PT</span> / EN
-        </span>
+          {/* ponytail: static placeholder — no i18n wiring yet */}
+          <span className={style.lang}>
+            <span className={style.langMuted}>PT</span> / EN
+          </span>
 
-        {/* ponytail: no handler yet — popup wiring is a separate task */}
-        <button type="button" className={`${style.contact} ${style.contactButtonDesktop}`}>
-          Contact
-          <FaArrowRight
-            size={14}
-            className={style.icon}
-            aria-hidden="true"
-            focusable="false"
-          />
-        </button>
+          {/* ponytail: no handler yet — popup wiring is a separate task */}
+          <button type="button" className={`${style.contact} ${style.contactButtonDesktop}`}>
+            Contact
+            <FaArrowRight
+              size={14}
+              className={style.icon}
+              aria-hidden="true"
+              focusable="false"
+            />
+          </button>
+        </div>
 
         <button
           type="button"
