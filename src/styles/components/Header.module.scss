@@ -57,8 +57,14 @@
   }
 }
 
+.menuList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
 .navLink {
-  @include label-xl;
+  @include menu-items;
 
   color: inherit;
   text-decoration: none;
@@ -71,7 +77,7 @@
 }
 
 .lang {
-  @include label-xl;
+  @include menu-items;
 
   // Absent from the tablet and mobile frames; it reappears inside the menu.
   @include respond-to(tablet) {
@@ -85,6 +91,7 @@
 
 .contact {
   @include heading-5;
+  font-size: 16px;
 
   display: inline-flex;
   align-items: center;
@@ -99,13 +106,24 @@
   text-transform: uppercase;
   white-space: nowrap;
   cursor: pointer;
+
+  &.contactButtonMobile {
+    justify-content: center;
+  }
+
+  &.contactButtonDesktop {
+    @include respond-to(mobile) {
+      display: none;
+    }
+  }
 }
 
 .icon {
   transform: rotate(-45deg);
 }
 
-.burger {
+.burger,
+.closeMenuButton {
   display: none;
   flex-direction: column;
   align-items: center;
@@ -118,9 +136,19 @@
   background: none;
   cursor: pointer;
 
+  @include menu-items;
+  // line-height: 16px;
+  line-height: $font-size-base;
+
   @include respond-to(mobile) {
     display: flex;
   }
+}
+
+.closeMenuButton {
+  position: absolute;
+  right: 24;
+  top: 10;
 }
 
 .burgerBar {
@@ -143,32 +171,44 @@
   }
 }
 
+.menuBackdrop {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  background: $black-200;
+  transform: translateX(-100%);
+  transition: .5s transform cubic-bezier(0.76, 0, 0.24, 1) .2s;
+
+  .open & {
+    transform: none;
+    transition: .5s transform cubic-bezier(0.76, 0, 0.24, 1);
+  }
+}
+
 .menu {
   display: none;
 
   @include respond-to(mobile) {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
     left: 0;
     right: 0;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: $space-md;
     padding: $space-lg $page-margin;
     background: var(--header-bg);
     color: var(--header-fg);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-8px);
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s ease,
-      visibility 0.2s;
+    transform: translateX(-100%);
+    transition: .5s transform cubic-bezier(0.76, 0, 0.24, 1);
 
     .open & {
-      opacity: 1;
-      visibility: visible;
       transform: none;
+      transition: .5s transform cubic-bezier(0.76, 0, 0.24, 1) .2s;
     }
 
     // .lang is hidden from tablet down in the bar; inside the menu it is shown.

@@ -3,9 +3,10 @@
 import { Fragment, useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FaArrowRight } from "react-icons/fa"
+import { FaArrowRight, FaBars } from "react-icons/fa"
+import { FaXmark } from "react-icons/fa6"
 
-import style from "@/styles/Header.module.scss"
+import style from "@/styles/components/Header.module.scss"
 
 // These routes do not exist yet — they 404 until the pages land.
 const NAV = [
@@ -68,7 +69,7 @@ const Header = () => {
         </span>
 
         {/* ponytail: no handler yet — popup wiring is a separate task */}
-        <button type="button" className={style.contact}>
+        <button type="button" className={`${style.contact} ${style.contactButtonDesktop}`}>
           Contact
           <FaArrowRight
             size={14}
@@ -84,26 +85,49 @@ const Header = () => {
           aria-expanded={open}
           aria-controls="header-menu"
           aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((value) => !value)}
+          onClick={() => setOpen(true)}
         >
-          <span className={style.burgerBar} aria-hidden="true" />
-          <span className={style.burgerBar} aria-hidden="true" />
+          Menu
         </button>
       </div>
 
       {/* ponytail: `inert` when closed replaces a focus trap. No scroll lock —
           this is a dropdown, not a fullscreen overlay. Add one if it ever
           grows to 100dvh. */}
+      <div className={style.menuBackdrop} />
       <div id="header-menu" className={style.menu} inert={!open}>
-        {NAV.map(({ href, label }) => (
-          <Link key={href} href={href} className={style.navLink} onClick={close}>
-            {label}
-          </Link>
-        ))}
-        <span className={style.lang}>
-          <span className={style.langMuted}>PT</span> / EN
-        </span>
+        <button
+          type="button"
+          className={style.closeMenuButton}
+          aria-expanded={open}
+          aria-controls="header-menu"
+          aria-label={open ? "Close menu" : "Open menu"}
+          onClick={() => setOpen(false)}
+        >
+          Close
+        </button>
+        <div className={style.menuList}>
+
+          {NAV.map(({ href, label }) => (
+            <Link key={href} href={href} className={style.navLink} onClick={close}>
+              {label}
+            </Link>
+          ))}
+          <span className={style.lang}>
+            <span className={style.langMuted}>PT</span> / EN
+          </span>
+        </div>
+        <button type="button" className={`${style.contact} ${style.contactButtonMobile}`}>
+          Contact
+          <FaArrowRight
+            size={14}
+            className={style.icon}
+            aria-hidden="true"
+            focusable="false"
+          />
+        </button>
       </div>
+
     </header>
   )
 }
