@@ -1,0 +1,80 @@
+import Link from "next/link"
+
+import style from "@/styles/components/Footer.module.scss"
+
+// WORKS points at the homepage section — /work will never be a real route.
+const SITEMAP = [
+  { href: "/#works", label: "Works" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About" },
+] as const
+
+// ponytail: placeholder URLs — swap for the real profiles.
+const SOCIAL = [
+  { href: "https://x.com", label: "Twitter / X" },
+  { href: "https://linkedin.com", label: "LinkedIn" },
+  { href: "https://github.com", label: "GitHub" },
+] as const
+
+const EMAIL = "hello@lucasoliveira.io"
+const COORDINATES = `23°33′24.59″ S / 46°39′13.79″ W`
+
+const Footer = () => {
+  return (
+    <>
+      <div className={style.spacer} aria-hidden="true" />
+      <footer className={style.footer}>
+        <div className={style.inner}>
+          <div className={style.intro}>
+            <h2 className={style.title}>
+              {"Let’s craft"}
+              <br />
+              Something?
+            </h2>
+            <div className={style.block}>
+              <span className={style.muted}>Send a message</span>
+              <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            </div>
+          </div>
+
+          <div className={style.aside}>
+            <div className={style.block}>
+              <span className={`${style.muted} ${style.coords}`}>{COORDINATES}</span>
+              <span>Remote from São Paulo</span>
+            </div>
+            <nav className={style.sitemap} aria-label="Footer">
+              <span>Sitemap</span>
+              <div className={style.sitemapLinks}>
+                {SITEMAP.map(({ href, label }) => (
+                  <Link key={href} href={href} className={style.mutedLink}>
+                    {label}
+                  </Link>
+                ))}
+                {/* ponytail: no handler yet — same contact popup TODO as the header button. */}
+                <button type="button" className={`${style.mutedLink} ${style.linkButton}`}>
+                  Contact me
+                </button>
+              </div>
+            </nav>
+          </div>
+
+          <div className={style.bottom}>
+            <div className={style.status}>
+              <span className={style.muted}>Creative developer</span>
+              <span>Available for freelancing</span>
+            </div>
+            <nav className={style.social} aria-label="Social">
+              {SOCIAL.map(({ href, label }) => (
+                <a key={href} href={href} target="_blank" rel="noopener noreferrer">
+                  {label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </div>
+      </footer>
+    </>
+  )
+}
+
+export default Footer
