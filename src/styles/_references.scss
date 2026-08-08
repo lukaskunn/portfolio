@@ -192,6 +192,13 @@ $radius-full: 9999px;
   line-height: $line-height-label;
 }
 
+@mixin menu-items {
+  font-family: $font-label;
+  font-weight: $font-weight-semibold;
+  font-size: var(--fs-menu-item);
+  line-height: $line-height-label;
+}
+
 // ============================================
 // Utility mixins
 // ============================================
@@ -212,8 +219,9 @@ $radius-full: 9999px;
     --fs-h2: 48px;
     --fs-h3: 32px;
     --fs-h4: 24px;
-    --fs-h5: 18px;
+    --fs-h5: 20px;
     --fs-label: 16px;
+    --fs-menu-item: 16px;
 
     // Spacing — Desktop
     --page-margin: 40px;
@@ -229,6 +237,7 @@ $radius-full: 9999px;
       --fs-h4: 22px;
       --fs-h5: 18px;
       --fs-label: 14px;
+      --fs-menu-item: 16px;
 
       --page-margin: 32px;
       --gutter: 24px;
@@ -244,6 +253,7 @@ $radius-full: 9999px;
       --fs-h4: 18px;
       --fs-h5: 16px;
       --fs-label: 12px;
+      --fs-menu-item: 16px;
 
       --page-margin: 20px;
       --gutter: 16px;

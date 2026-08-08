@@ -1,0 +1,219 @@
+@use "references" as *;
+
+// Every colour the header uses is a local custom property, so the inverted
+// (/about) variant is a single block of overrides instead of a duplicated tree.
+.header {
+  --header-bg: #{$color-bg-base};
+  --header-fg: #{$color-text-primary};
+  --header-fg-muted: #{$color-text-primary-muted};
+  --header-btn-bg: #{$color-bg-invert};
+  --header-btn-fg: #{$color-bg-base};
+
+  position: relative;
+  width: 100%;
+  background: var(--header-bg);
+  color: var(--header-fg);
+}
+
+.inverted {
+  --header-bg: #{$color-bg-invert};
+  --header-fg: #{$color-text-invert};
+  --header-fg-muted: #{$color-text-invert-muted};
+  --header-btn-bg: #{$color-text-invert};
+  --header-btn-fg: #{$color-text-primary};
+}
+
+// ponytail: flex, not a 12-col grid — nothing in the header aligns to a column.
+// The grid belongs to page sections.
+.inner {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: $space-xl $page-margin;
+  display: flex;
+  align-items: center;
+  gap: $space-2xl;
+
+  @include respond-to(mobile) {
+    padding-block: $space-md;
+  }
+}
+
+.logo {
+  @include heading-5;
+
+  flex: 1;
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+
+  @include respond-to(mobile) {
+    display: none;
+  }
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.navLink {
+  @include menu-items;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.sep {
+  @include label-xl;
+
+  color: var(--header-fg-muted);
+}
+
+.lang {
+  @include menu-items;
+
+  // Absent from the tablet and mobile frames; it reappears inside the menu.
+  @include respond-to(tablet) {
+    display: none;
+  }
+}
+
+.langMuted {
+  color: var(--header-fg-muted);
+}
+
+.contact {
+  @include heading-5;
+  font-size: 16px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2xs;
+  padding: 6px $space-md; // ponytail: 6px has no token
+  // ponytail: border == fill in both variants (#111 border on #1d1d1d reads as
+  // one shape), so a single rule covers normal and inverted.
+  border: 1px solid var(--header-btn-bg);
+  border-radius: $radius-none;
+  background: var(--header-btn-bg);
+  color: var(--header-btn-fg);
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &.contactButtonMobile {
+    justify-content: center;
+  }
+
+  &.contactButtonDesktop {
+    @include respond-to(mobile) {
+      display: none;
+    }
+  }
+}
+
+.icon {
+  transform: rotate(-45deg);
+}
+
+.burger,
+.closeMenuButton {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+
+  @include menu-items;
+  // line-height: 16px;
+  line-height: $font-size-base;
+
+  @include respond-to(mobile) {
+    display: flex;
+  }
+}
+
+.closeMenuButton {
+  position: absolute;
+  right: 24;
+  top: 10;
+}
+
+.burgerBar {
+  width: 24px;
+  height: 2px;
+  background: var(--header-fg);
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+// Two bars rotate straight into an X — no third bar to fade out.
+.open {
+  .burgerBar:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .burgerBar:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+}
+
+.menuBackdrop {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  background: $black-200;
+  transform: translateX(-100%);
+  transition: .5s transform cubic-bezier(0.76, 0, 0.24, 1) .2s;
+
+  .open & {
+    transform: none;
+    transition: .5s transform cubic-bezier(0.76, 0, 0.24, 1);
+  }
+}
+
+.menu {
+  display: none;
+
+  @include respond-to(mobile) {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: $space-md;
+    padding: $space-lg $page-margin;
+    background: var(--header-bg);
+    color: var(--header-fg);
+    transform: translateX(-100%);
+    transition: .5s transform cubic-bezier(0.76, 0, 0.24, 1);
+
+    .open & {
+      transform: none;
+      transition: .5s transform cubic-bezier(0.76, 0, 0.24, 1) .2s;
+    }
+
+    // .lang is hidden from tablet down in the bar; inside the menu it is shown.
+    .lang {
+      display: block;
+    }
+  }
+}

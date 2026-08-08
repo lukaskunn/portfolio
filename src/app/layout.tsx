@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/styles/globals.scss";
+import Header from "@/components/Header";
 
 const gabarito = localFont({
   variable: "--font-gabarito",
@@ -72,7 +73,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${gabarito.variable} ${roboto.variable} ${robotoMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
