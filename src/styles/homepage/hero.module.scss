@@ -1,7 +1,100 @@
 @use "references" as *;
 
-.test {
+.hero {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 120px $page-margin 136px;
+  margin: 120px 0 0;
+
+  @include respond-to(tablet) {
+    padding: 80px $page-margin 0;
+    margin: 90px 0 0;
+  }
+
+  @include respond-to(mobile) {
+    padding-block: 64px;
+  }
+}
+
+.title {
   @include heading-1;
-  padding: $section-gap $page-margin;
-  background: $color-bg-base;
+  text-transform: uppercase;
+  color: $color-text-primary;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include respond-to(mobile) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: $space-xs;
+    row-gap: $space-2xs;
+  }
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-md;
+  margin-block: -$space-2xs;
+
+  @include respond-to(tablet) {
+    gap: $space-sm;
+  }
+
+  @include respond-to(mobile) {
+    display: contents;
+  }
+}
+
+.chip {
+  --chip-h: 60px;
+  position: relative;
+  height: var(--chip-h);
+  aspect-ratio: 16 / 9;
+  flex: none;
+  overflow: hidden;
+  // border-radius: $radius-sm;
+
+  @include respond-to(tablet) {
+    --chip-h: 46px;
+  }
+
+  @include respond-to(mobile) {
+    --chip-h: 30px;
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    width: 0;
+    margin-inline: -$space-md * 0.5;
+
+    @include respond-to(tablet) {
+      margin-inline: -$space-sm * 0.5;
+    }
+
+    @include respond-to(mobile) {
+      margin-inline: -$space-xs * 0.5;
+    }
+  }
+}
+
+.chipMedia {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: calc(var(--chip-h) * 16 / 9);
+}
+
+.break {
+  display: none;
+
+  @include respond-to(mobile) {
+    display: block;
+    flex-basis: 100%;
+    height: 0;
+  }
 }
