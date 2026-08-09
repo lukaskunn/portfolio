@@ -241,6 +241,13 @@ body {
   outline: none;
   width: 100%;
 
+  // ponytail: opaque plate that slides over the fixed footer as the page
+  // scrolls; min-height keeps a near-empty page from revealing it at rest.
+  position: relative;
+  z-index: 1;
+  background: $color-bg-base;
+  min-height: 100vh;
+
   &:focus {
     outline: none;
   }

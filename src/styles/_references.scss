@@ -197,6 +197,10 @@ $radius-full: 9999px;
   font-weight: $font-weight-semibold;
   font-size: var(--fs-menu-item);
   line-height: $line-height-label;
+
+  @media screen and (min-width: 1024) and (max-width: 1350px) {
+    font-size: 14px;
+  }
 }
 
 // ============================================
