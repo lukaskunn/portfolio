@@ -10,8 +10,6 @@
   // margin: var(--hero-offset) auto 0;
   padding: 40px $page-margin 40px;
 
-  // #main-content is a flex row: opt out of stretch so min-height wins.
-  align-self: flex-start;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -19,11 +17,11 @@
 
   @include respond-to(tablet) {
     --hero-offset: 90px;
-    padding-block: clamp(40px, 8vh, 80px);
+    padding-block: clamp(40px, 8vh, 40px);
   }
 
   @include respond-to(mobile) {
-    padding-block: clamp(32px, 6vh, 64px);
+    padding-block: clamp(32px, 6vh, 40px);
   }
 }
 
@@ -134,6 +132,9 @@
   font-variant-numeric: tabular-nums;
 
   @include label-contrast-xl;
+  // letter-spacing: -2%;
+  @include label-xl;
+  font-weight: 700;
   font-size: 16px;
 
   @include respond-to(tablet) {

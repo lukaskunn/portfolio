@@ -1,0 +1,46 @@
+@use "references" as *;
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: $radius-full;
+  background: $white-100;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 3;
+  will-change: transform;
+
+  @include respond-to(tablet) {
+    display: none;
+  }
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  max-width: 220px;
+  padding: $space-xs $space-sm;
+  border-radius: $radius-md;
+  background: $color-bg-invert;
+  color: $color-text-invert;
+  // @include label-xl;
+  @include label-contrast-xs;
+  letter-spacing: -2%;
+  // text-transform: uppercase;
+  pointer-events: none;
+  z-index: 3;
+  will-change: transform;
+  text-align: center;
+
+  @include respond-to(tablet) {
+    display: none;
+  }
+}
+
+.trigger {
+  display: contents;
+}

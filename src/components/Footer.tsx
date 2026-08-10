@@ -1,5 +1,5 @@
 import Link from "next/link"
-
+import FooterLocationBlock from "./FooterLocationBlock"
 import style from "@/styles/components/Footer.module.scss"
 
 // WORKS points at the homepage section — /work will never be a real route.
@@ -17,7 +17,6 @@ const SOCIAL = [
 ] as const
 
 const EMAIL = "hello@lucasoliveira.io"
-const COORDINATES = `23°33′24.59″ S / 46°39′13.79″ W`
 
 const Footer = () => {
   return (
@@ -34,13 +33,13 @@ const Footer = () => {
             <div className={style.block}>
               <span className={style.muted}>Send a message</span>
               <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              <span>+55 11 9 5442-5212</span>
             </div>
           </div>
 
           <div className={style.aside}>
             <div className={style.block}>
-              <span className={`${style.muted} ${style.coords}`}>{COORDINATES}</span>
-              <span>Remote from São Paulo</span>
+              <FooterLocationBlock />
             </div>
             <nav className={style.sitemap} aria-label="Footer">
               <span>Sitemap</span>
