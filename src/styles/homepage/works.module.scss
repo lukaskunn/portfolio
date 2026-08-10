@@ -11,6 +11,7 @@
   @include respond-to(tablet) {
     padding-inline: $page-margin;
     row-gap: $space-xl;
+    width: 100%;
   }
 }
 

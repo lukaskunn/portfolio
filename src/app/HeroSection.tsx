@@ -151,7 +151,7 @@ const HeroSection = () => {
       <div className={style.meta}>
         <div className={style.metaCol}>
           <span>/ São Paulo /  <LocalTime /></span>
-          <span>/ Currently Front end developer @ WPP Commerce</span>
+          <span>/ Currently Front end developer @ WPPCommerce</span>
         </div>
         <div className={style.metaCol}>
           <span>UI/UX DESIGNER /</span>

@@ -34,6 +34,7 @@ const Footer = () => {
             <div className={style.block}>
               <span className={style.muted}>Send a message</span>
               <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              <span>+55 11 9 5442-5212</span>
             </div>
           </div>
 
