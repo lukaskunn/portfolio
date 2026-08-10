@@ -1,11 +1,32 @@
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 
 import style from "@/styles/homepage/hero.module.scss"
+
+const TIME_FMT = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/Sao_Paulo",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: true,
+})
+
+const LocalTime = () => {
+  const [time, setTime] = useState<string | null>(null)
+
+  useEffect(() => {
+    const tick = () => setTime(TIME_FMT.format(new Date()))
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  return <time>{time ?? "--:--:-- --"}</time>
+}
 
 // Chip slots, in visual order: red (line 2) / pink (line 3) / yellow (line 5).
 // Swap or reorder these three URLs to change which photo lands in which slot.
@@ -89,6 +110,7 @@ const HeroSection = () => {
 
   return (
     <section className={style.hero} ref={root}>
+      <div className={style.headerHeight} />
       <h1
         className={style.title}
         aria-label="Web developer based in São Paulo mixing creativity and engineering into awesome experiences"
@@ -126,6 +148,16 @@ const HeroSection = () => {
           </span>
         ))}
       </h1>
+      <div className={style.meta}>
+        <div className={style.metaCol}>
+          <span>/ São Paulo /  <LocalTime /></span>
+          <span>/ Currently Front end developer @ WPP Commerce</span>
+        </div>
+        <div className={style.metaCol}>
+          <span>UI/UX DESIGNER /</span>
+          <span>WEB DEVELOPER /</span>
+        </div>
+      </div>
     </section>
   )
 }

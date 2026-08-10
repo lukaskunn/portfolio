@@ -1,20 +1,34 @@
 @use "references" as *;
 
 .hero {
+  // ponytail: the fixed header takes no flow height — this margin is its
+  // clearance, and the same number comes back out of the viewport fill.
+  --hero-offset: clamp(90px, 11vh, 120px);
+
   width: 100%;
   max-width: 1440px;
-  margin-inline: auto;
-  padding: 120px $page-margin 136px;
-  margin: 120px 0 0;
+  // margin: var(--hero-offset) auto 0;
+  padding: 40px $page-margin 40px;
+
+  // #main-content is a flex row: opt out of stretch so min-height wins.
+  align-self: flex-start;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   @include respond-to(tablet) {
-    padding: 80px $page-margin 0;
-    margin: 90px 0 0;
+    --hero-offset: 90px;
+    padding-block: clamp(40px, 8vh, 80px);
   }
 
   @include respond-to(mobile) {
-    padding-block: 64px;
+    padding-block: clamp(32px, 6vh, 64px);
   }
+}
+
+.headerHeight {
+  height: 36px
 }
 
 .title {
@@ -96,5 +110,51 @@
     display: block;
     flex-basis: 100%;
     height: 0;
+  }
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: $section-gap;
+
+  @include respond-to(mobile) {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: $space-xl;
+  }
+}
+
+.metaCol {
+  display: flex;
+  flex-direction: column;
+  // gap: $space-xs;
+  color: $color-text-primary;
+  font-variant-numeric: tabular-nums;
+
+  @include label-contrast-xl;
+  font-size: 16px;
+
+  @include respond-to(tablet) {
+    font-size: 14px;
+    gap: $space-2xs;
+  }
+
+  @include respond-to(mobile) {
+    font-size: 12px;
+    gap: $space-2xs;
+  }
+
+  &:last-child {
+    align-items: flex-end;
+    text-align: right;
+    white-space: nowrap;
+
+    @include respond-to(mobile) {
+      align-items: flex-start;
+      text-align: left;
+      white-space: normal;
+    }
   }
 }

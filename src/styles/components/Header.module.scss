@@ -29,7 +29,7 @@
 .inner {
   max-width: 1440px;
   margin-inline: auto;
-  padding: $space-xl $page-margin;
+  padding: $page-margin $page-margin 0;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: $gutter;
