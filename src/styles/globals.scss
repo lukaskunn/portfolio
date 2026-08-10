@@ -158,8 +158,10 @@ html {
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
 
-  // remove comments after cursor component created
-  // cursor: none;
+  cursor: default;
+  // @media (hover: hover) and (pointer: fine) {
+  //   cursor: none;
+  // }
   // -webkit-user-select: none;
   // -moz-user-select: none;
   // user-select: none;
