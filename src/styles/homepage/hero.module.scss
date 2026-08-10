@@ -17,11 +17,11 @@
 
   @include respond-to(tablet) {
     --hero-offset: 90px;
-    padding-block: clamp(40px, 8vh, 80px);
+    padding-block: clamp(40px, 8vh, 40px);
   }
 
   @include respond-to(mobile) {
-    padding-block: clamp(32px, 6vh, 64px);
+    padding-block: clamp(32px, 6vh, 40px);
   }
 }
 
