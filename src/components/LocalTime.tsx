@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 
+export const TIME_ZONE = "America/Sao_Paulo"
+
 const TIME_FMT = new Intl.DateTimeFormat("en-US", {
-  timeZone: "America/Sao_Paulo",
+  timeZone: TIME_ZONE,
   hour: "2-digit",
   minute: "2-digit",
   second: "2-digit",
