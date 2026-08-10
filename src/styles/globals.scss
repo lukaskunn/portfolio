@@ -170,6 +170,10 @@ html {
   @include respond-to(mobile) {
     cursor: default;
   }
+
+  &:has(.aboutPage) {
+    background: $black-100;
+  }
 }
 
 body {
@@ -261,10 +265,16 @@ body {
     outline: none;
   }
 
-  @include respond-to(tablet){
+  &.aboutPage {
+    background: $black-100;
+    justify-content: space-between;
+  }
+
+  @include respond-to(tablet) {
     padding: 0 0 0;
   }
-  @include respond-to(mobile){
+
+  @include respond-to(mobile) {
     padding: 0 0 0;
   }
 }

@@ -10,13 +10,13 @@ const SITEMAP = [
 ] as const
 
 // ponytail: placeholder URLs — swap for the real profiles.
-const SOCIAL = [
-  { href: "https://x.com", label: "Twitter / X" },
-  { href: "https://linkedin.com", label: "LinkedIn" },
-  { href: "https://github.com", label: "GitHub" },
+export const SOCIAL = [
+  { href: "https://x.com", label: "Twitter / X", popupLabel: "@http.lucaso" },
+  { href: "https://linkedin.com", label: "LinkedIn", popupLabel: "Lucas Oliveira" },
+  { href: "https://github.com", label: "GitHub", popupLabel: "@lukaskunn" },
 ] as const
 
-const EMAIL = "hello@lucasoliveira.io"
+export const EMAIL = "hello@lucasoliveira.io"
 
 const Footer = () => {
   return (
