@@ -8,9 +8,10 @@ import { FaXmark } from "react-icons/fa6"
 
 import style from "@/styles/components/Header.module.scss"
 
-// These routes do not exist yet — they 404 until the pages land.
+// Work points at the homepage section (/#works — mirrors Footer.tsx); the
+// rest do not exist yet — they 404 until the pages land.
 const NAV = [
-  { href: "/work", label: "Work" },
+  { href: "/#works", label: "Work" },
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
 ] as const

@@ -10,6 +10,7 @@
 
 ## Architecture
 
+
 - src/app -> website pages
 - src/component -> reusable components
 - src/contexts -> useful contexts
@@ -27,3 +28,5 @@
 - All async calls must use try/catch with typed error handling
 - Use functional components only. No class components
 - Run typecheck after every code change
+- This project is desktop first, ever use the desktop layout as source of truth. Fonts, colors, etc
+- Never add ponytail comments. If necessary, only add a small comment

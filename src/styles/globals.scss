@@ -242,7 +242,10 @@ body {
   width: 100%;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
+
+  padding: 0 0 64px;
 
   // ponytail: opaque plate that slides over the fixed footer as the page
   // scrolls; min-height keeps a near-empty page from revealing it at rest.
@@ -253,5 +256,12 @@ body {
 
   &:focus {
     outline: none;
+  }
+
+  @include respond-to(tablet){
+    padding: 0 0 0;
+  }
+  @include respond-to(mobile){
+    padding: 0 0 0;
   }
 }

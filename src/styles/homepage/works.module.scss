@@ -1,0 +1,341 @@
+@use "references" as *;
+
+.section {
+  max-width: 1440px;
+  padding: 40px $page-margin;
+  display: grid;
+  gap: 42px;
+
+  scroll-margin-top: 90px;
+
+  @include respond-to(tablet) {
+    padding-inline: $page-margin;
+    row-gap: $space-xl;
+  }
+}
+
+.title {
+  @include heading-1;
+
+  grid-column: 1 / -1;
+  letter-spacing: -0.02em;
+
+  @include respond-to(tablet) {
+    font-size: var(--fs-h2);
+  }
+}
+
+.worksTable {
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+
+  @include respond-to(tablet) {
+    gap: 0;
+  }
+}
+
+.head,
+.row {
+  display: grid;
+  // minmax(0, 1fr) instead of 1fr: 1fr alone means minmax(auto, 1fr), whose
+  // floor is the item's min-content width. Unbreakable words like
+  // "DEVELOPMENT" in .role would then refuse to shrink and steal space from
+  // the other tracks, drifting the whole row out of alignment with .head.
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: $gutter;
+}
+
+.head {
+  grid-column: 1 / -1;
+
+  @include respond-to(mobile) {
+    display: none;
+  }
+}
+
+.list {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  row-gap: $space-md;
+
+  @include respond-to(tablet) {
+    row-gap: 0;
+  }
+
+  li {
+    &:last-child {
+      .mobileRow {
+        border-bottom: 1px solid #111;
+      }
+    }
+  }
+}
+
+.row {
+  grid-column: 1 / -1;
+  color: inherit;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+
+  &:focus-visible {
+    @include focus-visible;
+  }
+
+  &.mobileRow {
+    display: none
+  }
+
+  &.desktopRow {
+    display: grid;
+  }
+
+
+  @include respond-to(mobile) {
+    &.mobileRow {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 4px;
+      padding: 16px 0;
+
+      .rowTop {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .rowBottom {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .role, .type, .client{
+          text-transform: uppercase;
+          font-family: $font-contrast;
+          font-weight: $font-weight-light;
+          font-size: 12px;
+        }
+
+        .role {
+          display: block;
+        }
+
+        .separator {
+          width: 2px;
+          height: 2px;
+          background: $black-200;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    &.desktopRow {
+      display: none;
+    }
+  }
+}
+
+.name {
+  grid-column: 1 / span 3;
+}
+
+.type {
+  grid-column: 4 / span 3;
+}
+
+.client {
+  grid-column: 7 / span 1;
+}
+
+.role {
+  grid-column: 9 / span 1;
+}
+
+.year {
+  grid-column: 11 / span 2;
+  text-align: right;
+}
+
+.head {
+
+  .name,
+  .type,
+  .client,
+  .role,
+  .year {
+    font-family: $font-contrast;
+    font-weight: $font-weight-light;
+    font-size: 12px;
+    line-height: $line-height-label;
+    letter-spacing: -2%;
+    text-transform: uppercase;
+  }
+}
+
+.row {
+
+  .name,
+  .type,
+  .client,
+  .role,
+  .year {
+    font-family: $font-label;
+    font-weight: $font-weight-bold;
+    font-size: 16px;
+    line-height: $line-height-label;
+  }
+
+  .client,
+  .role {
+    white-space: nowrap;
+  }
+}
+
+.meta {
+  display: none;
+}
+
+.top {
+  display: contents;
+}
+
+.strip {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: $gutter;
+}
+
+.slot {
+  position: relative;
+  overflow: hidden;
+
+  // Slots sit under the type / client / role / year columns — the name column
+  // stays empty, as in Figma.
+  &:nth-child(1) {
+    grid-column: 4 / span 3;
+    height: 181px;
+  }
+
+  &:nth-child(2) {
+    grid-column: 7 / span 1;
+    height: 51px;
+  }
+
+  &:nth-child(3) {
+    grid-column: 9 / span 1;
+    height: 60px;
+  }
+
+  &:nth-child(4) {
+    grid-column: 10 / span 3;
+    height: 201px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
+  .strip {
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+@include respond-to(tablet) {
+  .strip {
+    display: none;
+  }
+
+  .role {
+    display: none;
+  }
+
+  .head,
+  .row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .name,
+  .type,
+  .client,
+  .year {
+    grid-column: auto;
+  }
+
+  .year {
+    text-align: right;
+  }
+
+  .row {
+    border-top: 1px solid $color-border-default;
+    padding-block: $space-lg;
+
+    .name {
+      @include heading-4;
+    }
+
+    .type,
+    .client,
+    .year {
+      font-family: $font-contrast;
+      font-weight: $font-weight-semibold;
+      font-size: 14px;
+      line-height: $line-height-label;
+    }
+  }
+
+  .head {
+
+    .name,
+    .type,
+    .client,
+    .year {
+      font-family: $font-contrast;
+      font-weight: $font-weight-light;
+      font-size: 14px;
+      line-height: $line-height-label;
+      padding-block: $space-xs;
+    }
+  }
+}
+
+@include respond-to(mobile) {
+  .head {
+    display: none;
+  }
+
+  .row {
+    display: grid;
+  }
+
+  .top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+
+    .name {
+      font-family: $font-heading;
+      font-weight: $font-weight-bold;
+      font-size: 18px;
+      line-height: $line-height-heading;
+    }
+
+    .year {
+      font-family: $font-contrast;
+      font-weight: $font-weight-semibold;
+      font-size: 12px;
+      line-height: $line-height-label;
+    }
+  }
+
+  .meta {
+    display: block;
+    font-family: $font-contrast;
+    font-weight: $font-weight-light;
+    font-size: 12px;
+    line-height: $line-height-label;
+    color: $color-text-primary-muted;
+    text-transform: uppercase;
+  }
+}

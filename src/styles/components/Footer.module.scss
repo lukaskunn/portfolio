@@ -3,10 +3,10 @@
 // ponytail: hardcoded per breakpoint — the copy is static so it cannot reflow.
 // Swap for a ResizeObserver setting --footer-h when it comes from Sanity.
 @mixin footer-height {
-  --footer-h: 760px;
+  --footer-h: 550px;
 
   @include respond-to(tablet) {
-    --footer-h: 480px;
+    --footer-h: 432px;
   }
 
   @include respond-to(mobile) {
