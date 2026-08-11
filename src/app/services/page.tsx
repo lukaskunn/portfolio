@@ -1,27 +1,27 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Footer from "@/components/Footer"
 import ContactForm from "@/components/ContactForm"
 import style from "@/styles/services/services.module.scss"
-
+import { SERVICES, SERVICE_GROUPS } from "@/utils/contants"
 export const metadata: Metadata = {
   title: "Services — Lucas Oliveira",
 }
 
-// Placeholder copy — swap for the real text.
-const SERVICES = [
-  {
-    title: "Design",
-    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta eu massa quis eleifend. Nam at euismod enim. Praesent vitae nunc vel est molestie tincidunt in nec urna. Nunc sollicitudin euismod nibh, faucibus consectetur lorem finibus vitae. Aliquam eu risus sit amet massa pulvinar sagittis eget id magna. Nam a cursus nisl. Donec pretium, tellus eget hendrerit venenatis.",
+const IMAGE_SIZE = {
+  big: {
+    className: style.imageBig,
+    sizes: "(max-width: 767.98px) 1px, (max-width: 1023.98px) 320px, 437px",
   },
-  {
-    title: "Development",
-    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta eu massa quis eleifend. Nam at euismod enim. Praesent vitae nunc vel est molestie tincidunt in nec urna. Nunc sollicitudin euismod nibh, faucibus consectetur lorem finibus vitae. Aliquam eu risus sit amet massa pulvinar sagittis eget id magna. Nam a cursus nisl. Donec pretium, tellus eget hendrerit venenatis.",
+  medium: {
+    className: style.imageMedium,
+    sizes: "(max-width: 767.98px) 1px, (max-width: 1023.98px) 240px, 325px",
   },
-  {
-    title: "The full package",
-    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta eu massa quis eleifend. Nam at euismod enim. Praesent vitae nunc vel est molestie tincidunt in nec urna. Nunc sollicitudin euismod nibh, faucibus consectetur lorem finibus vitae. Aliquam eu risus sit amet massa pulvinar sagittis eget id magna. Nam a cursus nisl. Donec pretium, tellus eget hendrerit venenatis.",
+  small: {
+    className: style.imageSmall,
+    sizes: "(max-width: 767.98px) 1px, (max-width: 1023.98px) 160px, 213px",
   },
-] as const
+}
 
 export default function ServicesPage() {
   return (
@@ -45,6 +45,31 @@ export default function ServicesPage() {
                 </div>
               ))}
             </div>
+          </section>
+
+          <section className={style.services}>
+            <h2 className={style.servicesTitle}>Services</h2>
+            <ul className={style.servicesList}>
+              {SERVICE_GROUPS.map(({ title, items, image, size }) => (
+                <li key={title} className={style.serviceRow}>
+                  <h3 className={style.serviceTitle}>{title}</h3>
+                  <ul className={style.serviceItems}>
+                    {items.map((item, index) => (
+                      <li key={`${item}-${index}`}>{item}</li>
+                    ))}
+                  </ul>
+                  <div className={`${style.serviceImage} ${IMAGE_SIZE[size].className}`}>
+                    <Image
+                      src={image}
+                      alt=""
+                      fill
+                      style={{ objectFit: "cover" }}
+                      sizes={IMAGE_SIZE[size].sizes}
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
           </section>
 
           <section className={style.contact}>

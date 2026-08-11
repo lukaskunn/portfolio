@@ -2,13 +2,11 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import EmailAndPhoneNumberBlock from "@/components/EmailAndPhoneNumberBlock"
 import style from "@/styles/about/about.module.scss"
-import { SOCIAL } from "@/utils/contants"
+import { SOCIAL, CLIENTS } from "@/utils/contants"
 
 export const metadata: Metadata = {
   title: "About — Lucas Oliveira",
 }
-
-const CLIENTS = ["dexco", "Motorola", "KitchenAid"] as const
 
 export default function AboutPage() {
   return (
