@@ -1,0 +1,77 @@
+"use client"
+
+import { useRef } from "react"
+import Image from "next/image"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+
+import style from "@/styles/project/project.module.scss"
+
+type ProjectGalleryProps = {
+  images: readonly string[]
+  alt: string
+}
+
+const ProjectGallery = ({ images, alt }: ProjectGalleryProps) => {
+  const root = useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia()
+
+    mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+      const track = root.current?.querySelector<HTMLElement>(`.${style.track}`)
+      if (!track) return
+
+      const tween = gsap.to(track, {
+        yPercent: -50,
+        duration: images.length * 8,
+        ease: "none",
+        repeat: -1,
+      })
+
+      const onEnter = () => {
+        gsap.to(tween, { timeScale: 0, duration: 0.4, overwrite: true })
+      }
+
+      const onLeave = () => {
+        gsap.to(tween, { timeScale: 1, duration: 0.4, overwrite: true })
+      }
+
+      const canHover = window.matchMedia("(hover: hover)").matches
+
+      if (canHover) {
+        root.current?.addEventListener("pointerenter", onEnter)
+        root.current?.addEventListener("pointerleave", onLeave)
+      }
+
+      return () => {
+        if (canHover) {
+          root.current?.removeEventListener("pointerenter", onEnter)
+          root.current?.removeEventListener("pointerleave", onLeave)
+        }
+        tween.kill()
+      }
+    })
+  }, { scope: root, dependencies: [images.length] })
+
+  return (
+    <div ref={root} className={style.gallery}>
+      <div className={style.track}>
+        {[...images, ...images].map((src, index) => (
+          <div key={index} className={style.trackImage} aria-hidden={index >= images.length}>
+            <Image
+              src={src}
+              alt={index < images.length ? alt : ""}
+              fill
+              style={{ objectFit: "cover" }}
+              sizes="(max-width: 1023.98px) 45vw, 668px"
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default ProjectGallery

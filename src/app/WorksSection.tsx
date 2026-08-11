@@ -7,69 +7,11 @@ import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 
 import style from "@/styles/homepage/works.module.scss"
+import { WORKS } from "@/utils/contants"
 
-// Shared placeholder art — one project's real photos, alternating across the
-// four strip slots. Slot geometry (size/position) lives in CSS, not here.
-const IMAGE_A = "https://res.cloudinary.com/dpk0cuwnf/image/upload/v1783909595/IMG_5521_nultho.jpg"
-const IMAGE_B = "https://res.cloudinary.com/dpk0cuwnf/image/upload/v1783909609/IMG_5534_wrstqs.jpg"
-
-type Project = {
-  slug: string
-  name: string
-  type: string
-  client: string
-  role: string
-  year: string
-  images: readonly string[]
-}
-
-const PROJECTS: readonly Project[] = [
-  {
-    slug: "casa-dexco",
-    name: "Casa dexco",
-    type: "Institutional",
-    client: "DEXCO",
-    role: "DEVELOPMENT",
-    year: "2025",
-    images: [IMAGE_A, IMAGE_B, IMAGE_A, IMAGE_B],
-  },
-  {
-    slug: "dexco-store",
-    name: "Dexco Store",
-    type: "E-commerce",
-    client: "DEXCO",
-    role: "DEVELOPMENT",
-    year: "2025",
-    images: [IMAGE_A, IMAGE_B, IMAGE_A, IMAGE_B],
-  },
-  {
-    slug: "motoverse",
-    name: "Motoverse",
-    type: "Institutional",
-    client: "Motorola",
-    role: "DEVELOPMENT",
-    year: "2024",
-    images: [IMAGE_A, IMAGE_B, IMAGE_A, IMAGE_B],
-  },
-  {
-    slug: "motorola-store",
-    name: "Motorola Store",
-    type: "E-commerce",
-    client: "Motorola",
-    role: "DEVELOPMENT",
-    year: "2024",
-    images: [IMAGE_A, IMAGE_B, IMAGE_A, IMAGE_B],
-  },
-  {
-    slug: "my-stuff",
-    name: "My Stuff",
-    type: "Playground",
-    client: "Personal",
-    role: "DEVELOPMENT / DESIGN",
-    year: "2026",
-    images: [IMAGE_A, IMAGE_B, IMAGE_A, IMAGE_B],
-  },
-] as const
+// Strip has 4 fixed slots (CSS geometry), WORKS carries 3 images per project —
+// cycle them with index % length instead of storing a 4th duplicate.
+const STRIP_SLOTS = 4
 
 const WorksSection = () => {
   const root = useRef<HTMLElement>(null)
@@ -131,7 +73,7 @@ const WorksSection = () => {
         </div>
 
         <ul className={style.list}>
-          {PROJECTS.map((project) => (
+          {WORKS.map((project) => (
             <li key={project.slug}>
               <Link href={`/project/${project.slug}`} className={`${style.row} ${style.desktopRow}`}>
                 <span className={style.name}>{project.name}</span>
@@ -144,10 +86,10 @@ const WorksSection = () => {
                   never fire until hover. Revisit when real per-project images land:
                   switch to lazy + a mouseenter preload. */}
                 <span className={style.strip} aria-hidden="true">
-                  {project.images.map((src, index) => (
+                  {Array.from({ length: STRIP_SLOTS }, (_, index) => (
                     <span className={style.slot} key={index}>
                       <Image
-                        src={src}
+                        src={project.images[index % project.images.length]}
                         alt=""
                         fill
                         sizes="320px"
