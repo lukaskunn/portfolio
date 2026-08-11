@@ -1,6 +1,6 @@
 @use "references" as *;
 
-$sticky-top: calc(var(--page-margin) + 68px);
+$sticky-top: calc(var(--page-margin) + 30px);
 
 // ponytail: approximate item height, used only to centre the stack in the
 // viewport. Items are equal height so they stay aligned with each other
@@ -363,4 +363,5 @@ $process-item-h-mobile: 580px;
 
 .contact {
   width: 100%;
+  scroll-margin-top: $sticky-top;
 }

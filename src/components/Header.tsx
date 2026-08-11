@@ -24,6 +24,7 @@ const Header = () => {
 
   // startsWith so /about/* sub-routes inherit the inverted palette.
   const inverted = pathname.startsWith("/about")
+  const onServices = pathname === "/services"
 
   useEffect(() => {
     if (!open) return
@@ -43,6 +44,13 @@ const Header = () => {
   const className = [style.header, inverted && style.inverted, open && style.open]
     .filter(Boolean)
     .join(" ")
+
+  const contactLabel = (
+    <>
+      Contact
+      <FaArrowRight size={14} className={style.icon} aria-hidden="true" focusable="false" />
+    </>
+  )
 
   return (
     <header className={className}>
@@ -72,19 +80,19 @@ const Header = () => {
             <span className={style.langMuted}>PT</span> / EN
           </span>
 
-          <button
-            type="button"
-            className={`${style.contact} ${style.contactButtonDesktop}`}
-            onClick={openContactModal}
-          >
-            Contact
-            <FaArrowRight
-              size={14}
-              className={style.icon}
-              aria-hidden="true"
-              focusable="false"
-            />
-          </button>
+          {onServices ? (
+            <a href="#contact" className={`${style.contact} ${style.contactButtonDesktop}`}>
+              {contactLabel}
+            </a>
+          ) : (
+            <button
+              type="button"
+              className={`${style.contact} ${style.contactButtonDesktop}`}
+              onClick={openContactModal}
+            >
+              {contactLabel}
+            </button>
+          )}
         </div>
 
         <button
@@ -125,21 +133,25 @@ const Header = () => {
             <span className={style.langMuted}>PT</span> / EN
           </span>
         </div>
-        <button
-          type="button"
-          className={`${style.contact} ${style.contactButtonMobile}`}
-          onClick={() => {
-            openContactModal()
-          }}
-        >
-          Contact
-          <FaArrowRight
-            size={14}
-            className={style.icon}
-            aria-hidden="true"
-            focusable="false"
-          />
-        </button>
+        {onServices ? (
+          <a
+            href="#contact"
+            className={`${style.contact} ${style.contactButtonMobile}`}
+            onClick={close}
+          >
+            {contactLabel}
+          </a>
+        ) : (
+          <button
+            type="button"
+            className={`${style.contact} ${style.contactButtonMobile}`}
+            onClick={() => {
+              openContactModal()
+            }}
+          >
+            {contactLabel}
+          </button>
+        )}
       </div>
 
     </header>

@@ -86,7 +86,7 @@ export default function ServicesPage() {
             </ol>
           </section>
 
-          <section className={style.contact}>
+          <section id="contact" className={style.contact}>
             <ContactForm />
           </section>
         </div>
