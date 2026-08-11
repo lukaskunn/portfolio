@@ -35,6 +35,7 @@ $color-text-invert-muted: $white-100-muted;
 
 $color-border-default: $black-100;
 $color-icon-primary: $black-100;
+$color-danger: #e74c3c;
 
 // Dark-mode counterparts, for the components that invert.
 $color-bg-invert-muted: $gray-800;
@@ -214,9 +215,9 @@ $radius-full: 9999px;
 // Utility mixins
 // ============================================
 @mixin focus-visible {
-  outline: 2px solid $color-border-default;
-  outline-offset: $space-2xs;
-  border-radius: $radius-sm;
+  outline: none;
+  outline-offset: none;
+  border-radius: none;
 }
 
 // ============================================

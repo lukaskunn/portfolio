@@ -127,10 +127,16 @@
   font-size: 106px;
   line-height: 112px;
   text-transform: uppercase;
+  cursor: pointer;
 
   @include respond-to(tablet) {
     font-size: var(--fs-h1);
     line-height: $line-height-heading;
+  }
+
+  @media screen and (min-width: 1024px) and (max-width: 1145px) {
+    font-size: 92px;
+    line-height: 102px;
   }
 }
 
@@ -139,6 +145,8 @@
   flex-direction: column;
   gap: $space-2xs;
   font-size: 18px;
+  width: fit-content;
+  cursor: pointer;
 }
 
 // The coordinates are the one 16px line in the pair; its sibling stays 18px.

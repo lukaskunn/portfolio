@@ -186,6 +186,9 @@
   grid-column: 1 / span 4;
   display: flex;
   flex-direction: column;
+  font-family: $font-heading;
+  font-weight: $font-weight-bold;
+  font-size: 16px;
 
   @include respond-to(tablet) {
     grid-column: 1 / -1;
@@ -200,19 +203,12 @@
 .getInTouchLabel {
   font-family: $font-heading;
   font-weight: $font-weight-bold;
-  font-size: 18px;
   color: $color-text-invert-muted;
+  font-size: 18px;
 
   @include respond-to(tablet) {
     font-size: 16px;
   }
-}
-
-.getInTouchLine {
-  font-family: $font-heading;
-  font-weight: $font-weight-bold;
-  font-size: 16px;
-  color: $color-text-invert;
 }
 
 .status {

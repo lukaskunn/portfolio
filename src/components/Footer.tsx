@@ -1,39 +1,28 @@
+"use client"
+
 import Link from "next/link"
 import FooterLocationBlock from "./FooterLocationBlock"
+import { useContactModal } from "@/contexts/ContactModalContext"
 import style from "@/styles/components/Footer.module.scss"
-
-// WORKS points at the homepage section — /work will never be a real route.
-const SITEMAP = [
-  { href: "/#works", label: "Works" },
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
-] as const
-
-// ponytail: placeholder URLs — swap for the real profiles.
-export const SOCIAL = [
-  { href: "https://x.com", label: "Twitter / X", popupLabel: "@http.lucaso" },
-  { href: "https://linkedin.com", label: "LinkedIn", popupLabel: "Lucas Oliveira" },
-  { href: "https://github.com", label: "GitHub", popupLabel: "@lukaskunn" },
-] as const
-
-export const EMAIL = "hello@lucasoliveira.io"
+import EmailAndPhoneNumberBlock from "@/components/EmailAndPhoneNumberBlock"
+import { SITEMAP, SOCIAL } from "@/utils/contants"
 
 const Footer = () => {
+  const openContactModal = useContactModal()
   return (
     <>
       <div className={style.spacer} aria-hidden="true" />
       <footer className={style.footer}>
         <div className={style.inner}>
           <div className={style.intro}>
-            <h2 className={style.title}>
+            <h2 className={style.title} onClick={openContactModal} data-cursor-popup="Click to open contact form">
               {"Let’s craft"}
               <br />
               Something?
             </h2>
             <div className={style.block}>
               <span className={style.muted}>Send a message</span>
-              <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-              <span>+55 11 9 5442-5212</span>
+              <EmailAndPhoneNumberBlock />
             </div>
           </div>
 
@@ -49,8 +38,11 @@ const Footer = () => {
                     {label}
                   </Link>
                 ))}
-                {/* ponytail: no handler yet — same contact popup TODO as the header button. */}
-                <button type="button" className={`${style.mutedLink} ${style.linkButton}`}>
+                <button
+                  type="button"
+                  className={`${style.mutedLink} ${style.linkButton}`}
+                  onClick={openContactModal}
+                >
                   Contact me
                 </button>
               </div>

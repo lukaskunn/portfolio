@@ -82,6 +82,11 @@ export const useCursorFollower = (ref: RefObject<HTMLDivElement | null>, popupRe
 
         if (trigger && !trigger.isConnected) hide()
 
+        if (trigger && popup.textContent !== trigger.dataset.cursorPopup) {
+          popup.textContent = trigger.dataset.cursorPopup ?? ""
+          measure()
+        }
+
         px(fx ? mx - GAP - w : mx + GAP)
         py(fy ? my - GAP - h : my + GAP)
       }
