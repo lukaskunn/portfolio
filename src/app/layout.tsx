@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/styles/globals.scss";
+import "lenis/dist/lenis.css";
+import { ReactLenis } from "lenis/react";
 import Header from "@/components/Header";
 import CursorFollower from "@/components/CursorFollower";
 import { ContactModalProvider } from "@/contexts/ContactModalContext";
@@ -104,6 +106,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${gabarito.variable} ${roboto.variable} ${robotoMono.variable}`}
     >
       <body>
+        <ReactLenis root options={{ lerp: 0.1, smoothWheel: true, anchors: true }} />
         <CursorFollower />
         <ContactModalProvider>
           <Header />
