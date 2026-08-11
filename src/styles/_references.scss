@@ -142,6 +142,13 @@ $radius-full: 9999px;
   line-height: $line-height-heading;
 }
 
+@mixin heading-3-lg {
+  font-family: $font-heading;
+  font-weight: $font-weight-bold;
+  font-size: var(--fs-h3-lg);
+  line-height: $line-height-heading;
+}
+
 @mixin heading-4 {
   font-family: $font-heading;
   font-weight: $font-weight-bold;
@@ -222,6 +229,7 @@ $radius-full: 9999px;
     --fs-h1: 72px;
     --fs-h2: 48px;
     --fs-h3: 32px;
+    --fs-h3-lg: 36px;
     --fs-h4: 24px;
     --fs-h5: 20px;
     --fs-label: 16px;
@@ -238,6 +246,7 @@ $radius-full: 9999px;
       --fs-h1: 56px;
       --fs-h2: 40px;
       --fs-h3: 28px;
+      --fs-h3-lg: 22px;
       --fs-h4: 22px;
       --fs-h5: 18px;
       --fs-label: 14px;
@@ -254,6 +263,7 @@ $radius-full: 9999px;
       --fs-h1: 36px;
       --fs-h2: 28px;
       --fs-h3: 22px;
+      --fs-h3-lg: 18px;
       --fs-h4: 18px;
       --fs-h5: 16px;
       --fs-label: 12px;

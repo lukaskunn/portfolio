@@ -1,0 +1,125 @@
+@use "references" as *;
+
+.page {
+  max-width: 1440px;
+  width: 100%;
+  padding-inline: $page-margin;
+  gap: 64px;
+  display: flex;
+  flex-direction: column;
+
+  @include respond-to(tablet) {
+    gap: 80px;
+  }
+
+  @include respond-to(mobile) {
+    gap: 48px;
+  }
+}
+
+.headerSpace {
+  height: 72px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 140px $page-margin calc(200px - 64px);
+
+  @include respond-to(tablet) {
+    align-items: flex-start;
+    padding: 36px 0 0;
+  }
+
+  @include respond-to(mobile) {
+    align-items: flex-start;
+  }
+}
+
+.heroTitle {
+  @include heading-1;
+
+  text-align: center;
+  letter-spacing: -0.02em;
+  max-width: 1027px;
+
+  @include respond-to(tablet) {
+    font-size: var(--fs-h2);
+    text-align: left;
+    max-width: none;
+  }
+
+  @include respond-to(mobile) {
+    font-size: var(--fs-h2);
+    text-align: left;
+    max-width: none;
+  }
+}
+
+.help {
+  display: flex;
+  flex-direction: column;
+  gap: $gutter;
+
+  @include respond-to(tablet) {
+    gap: $space-2xl;
+  }
+
+  @include respond-to(mobile) {
+    gap: $space-2xl;
+  }
+}
+
+.helpTitle {
+  @include heading-2;
+
+  letter-spacing: -0.02em;
+}
+
+.helpGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: $gutter;
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: $space-2xl;
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    row-gap: $space-2xl;
+  }
+}
+
+.card {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+
+  @include respond-to(tablet) {
+    grid-column: auto;
+  }
+
+  @include respond-to(mobile) {
+    grid-column: auto;
+  }
+}
+
+.cardTitle {
+  @include heading-3-lg;
+
+  color: $color-text-primary;
+  letter-spacing: -0.02em;
+}
+
+.cardBody {
+  font-family: $font-label;
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-base;
+  line-height: $line-height-label;
+  letter-spacing: -0.02em;
+  color: $color-text-primary-muted;
+}
