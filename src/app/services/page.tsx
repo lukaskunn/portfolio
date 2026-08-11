@@ -1,12 +1,16 @@
-import type { Metadata } from "next"
 import Image from "next/image"
 import Footer from "@/components/Footer"
 import ContactForm from "@/components/ContactForm"
 import style from "@/styles/services/services.module.scss"
 import { SERVICES, SERVICE_GROUPS, PROCESS } from "@/utils/contants"
-export const metadata: Metadata = {
-  title: "Services — Lucas Oliveira",
-}
+import { buildMetadata } from "@/utils/metadata"
+
+export const metadata = buildMetadata({
+  title: "Services",
+  description:
+    "Design, development, or the full package. Research, art direction, interaction and build for brands that want a site that does more than just load fast.",
+  path: "/services",
+})
 
 const IMAGE_SIZE = {
   big: {

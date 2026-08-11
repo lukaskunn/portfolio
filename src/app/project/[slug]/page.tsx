@@ -4,6 +4,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import style from "@/styles/project/project.module.scss"
 import { WORKS } from "@/utils/contants"
+import { buildMetadata, truncate } from "@/utils/metadata"
 import ProjectGallery from "./ProjectGallery"
 
 export async function generateStaticParams() {
@@ -14,9 +15,14 @@ export async function generateMetadata({ params }: PageProps<"/project/[slug]">)
   const { slug } = await params
   const project = WORKS.find((work) => work.slug === slug)
 
-  return {
-    title: project ? `${project.name} — Lucas Oliveira` : "Project — Lucas Oliveira",
-  }
+  if (!project) return buildMetadata({ title: "Project", path: `/project/${slug}` })
+
+  return buildMetadata({
+    title: project.name,
+    description: truncate(project.description[0]),
+    path: `/project/${slug}`,
+    type: "article",
+  })
 }
 
 export default async function ProjectPage({ params }: PageProps<"/project/[slug]">) {
