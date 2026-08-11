@@ -57,6 +57,92 @@ export const PROCESS = [
   },
 ] as const
 
+export type Project = {
+  slug: string
+  name: string
+  client: string
+  type: string
+  industry: string
+  role: string
+  year: string
+  technologies: readonly string[]
+  description: readonly string[]
+  images: readonly string[]
+}
+
+// ponytail: placeholder art — one project's real photos reused across every
+// entry. Slot geometry lives in CSS, not here.
+const IMAGE_A = "https://res.cloudinary.com/dpk0cuwnf/image/upload/v1783909595/IMG_5521_nultho.jpg"
+const IMAGE_B = "https://res.cloudinary.com/dpk0cuwnf/image/upload/v1783909609/IMG_5534_wrstqs.jpg"
+
+const DESCRIPTION = [
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta eu massa quis eleifend. Nam at euismod enim. Praesent vitae nunc vel est molestie tincidunt in nec urna. Nunc sollicitudin euismod nibh, faucibus consectetur lorem finibus vitae.",
+  "Aliquam eu risus sit amet massa pulvinar sagittis eget id magna. Nam a cursus nisl. Donec pretium, tellus eget hendrerit venenatis, ligula nunc dictum massa, in gravida lorem justo eget nibh. Sed vel arcu at ex sagittis fermentum.",
+] as const
+
+export const WORKS: readonly Project[] = [
+  {
+    slug: "casa-dexco",
+    name: "Casa dexco",
+    client: "DEXCO",
+    type: "Institutional",
+    industry: "Home & Interiors",
+    role: "DEVELOPMENT",
+    year: "2025",
+    technologies: ["Next.js", "TypeScript", "Sanity"],
+    description: DESCRIPTION,
+    images: [IMAGE_A, IMAGE_B, IMAGE_A],
+  },
+  {
+    slug: "dexco-store",
+    name: "Dexco Store",
+    client: "DEXCO",
+    type: "E-commerce",
+    industry: "Home & Interiors",
+    role: "DEVELOPMENT",
+    year: "2025",
+    technologies: ["Next.js", "TypeScript", "Shopify"],
+    description: DESCRIPTION,
+    images: [IMAGE_B, IMAGE_A, IMAGE_B],
+  },
+  {
+    slug: "motoverse",
+    name: "Motoverse",
+    client: "Motorola",
+    type: "Institutional",
+    industry: "Technology",
+    role: "DEVELOPMENT",
+    year: "2024",
+    technologies: ["Next.js", "GSAP", "Sanity"],
+    description: DESCRIPTION,
+    images: [IMAGE_A, IMAGE_B, IMAGE_A],
+  },
+  {
+    slug: "motorola-store",
+    name: "Motorola Store",
+    client: "Motorola",
+    type: "E-commerce",
+    industry: "Technology",
+    role: "DEVELOPMENT",
+    year: "2024",
+    technologies: ["Next.js", "TypeScript", "Shopify"],
+    description: DESCRIPTION,
+    images: [IMAGE_B, IMAGE_A, IMAGE_B],
+  },
+  {
+    slug: "my-stuff",
+    name: "My Stuff",
+    client: "Personal",
+    type: "Playground",
+    industry: "Personal",
+    role: "DEVELOPMENT / DESIGN",
+    year: "2026",
+    technologies: ["Next.js", "TypeScript", "GSAP"],
+    description: DESCRIPTION,
+    images: [IMAGE_A, IMAGE_B, IMAGE_A],
+  },
+] as const
+
 export const SERVICE_GROUPS = [
   {
     title: "UI/UX Design",
