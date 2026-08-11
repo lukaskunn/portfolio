@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Footer from "@/components/Footer"
+import ContactForm from "@/components/ContactForm"
 import style from "@/styles/services/services.module.scss"
 
 export const metadata: Metadata = {
@@ -44,6 +45,10 @@ export default function ServicesPage() {
                 </div>
               ))}
             </div>
+          </section>
+
+          <section className={style.contact}>
+            <ContactForm />
           </section>
         </div>
       </main>
