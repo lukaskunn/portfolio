@@ -22,6 +22,14 @@
   --header-fg-muted: #{$color-text-invert-muted};
   --header-btn-bg: #{$color-text-invert};
   --header-btn-fg: #{$color-text-primary};
+
+  .burger {
+    color: $color-text-invert;
+  }
+
+  .menuBackdrop {
+    background: $color-bg-base;
+  }
 }
 
 // ponytail: same 12-col grid as Footer .inner — the right group lands on the
@@ -154,6 +162,10 @@
 
 .icon {
   transform: rotate(-45deg);
+}
+
+.burguer {
+  color: inherit;
 }
 
 .burger,
