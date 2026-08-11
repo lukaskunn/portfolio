@@ -1,12 +1,15 @@
-import type { Metadata } from "next"
 import Image from "next/image"
 import EmailAndPhoneNumberBlock from "@/components/EmailAndPhoneNumberBlock"
 import style from "@/styles/about/about.module.scss"
 import { SOCIAL, CLIENTS } from "@/utils/contants"
+import { buildMetadata } from "@/utils/metadata"
 
-export const metadata: Metadata = {
-  title: "About — Lucas Oliveira",
-}
+export const metadata = buildMetadata({
+  title: "About",
+  description:
+    "Creative web developer and software engineer from São Paulo, building design-led websites and products for brands like Dexco, Motorola and KitchenAid.",
+  path: "/about",
+})
 
 export default function AboutPage() {
   return (
