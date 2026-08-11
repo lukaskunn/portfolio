@@ -3,9 +3,10 @@
 import { Fragment, useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FaArrowRight, FaBars } from "react-icons/fa"
-import { FaXmark } from "react-icons/fa6"
+import { FaArrowRight } from "react-icons/fa"
 
+
+import { useContactModal } from "@/contexts/ContactModalContext"
 import style from "@/styles/components/Header.module.scss"
 
 // Work points at the homepage section (/#works — mirrors Footer.tsx); the
@@ -19,9 +20,11 @@ const NAV = [
 const Header = () => {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const openContactModal = useContactModal()
 
   // startsWith so /about/* sub-routes inherit the inverted palette.
   const inverted = pathname.startsWith("/about")
+  const onServices = pathname === "/services"
 
   useEffect(() => {
     if (!open) return
@@ -41,6 +44,13 @@ const Header = () => {
   const className = [style.header, inverted && style.inverted, open && style.open]
     .filter(Boolean)
     .join(" ")
+
+  const contactLabel = (
+    <>
+      Contact
+      <FaArrowRight size={14} className={style.icon} aria-hidden="true" focusable="false" />
+    </>
+  )
 
   return (
     <header className={className}>
@@ -70,16 +80,19 @@ const Header = () => {
             <span className={style.langMuted}>PT</span> / EN
           </span>
 
-          {/* ponytail: no handler yet — popup wiring is a separate task */}
-          <button type="button" className={`${style.contact} ${style.contactButtonDesktop}`}>
-            Contact
-            <FaArrowRight
-              size={14}
-              className={style.icon}
-              aria-hidden="true"
-              focusable="false"
-            />
-          </button>
+          {onServices ? (
+            <a href="#contact" className={`${style.contact} ${style.contactButtonDesktop}`}>
+              {contactLabel}
+            </a>
+          ) : (
+            <button
+              type="button"
+              className={`${style.contact} ${style.contactButtonDesktop}`}
+              onClick={openContactModal}
+            >
+              {contactLabel}
+            </button>
+          )}
         </div>
 
         <button
@@ -120,15 +133,25 @@ const Header = () => {
             <span className={style.langMuted}>PT</span> / EN
           </span>
         </div>
-        <button type="button" className={`${style.contact} ${style.contactButtonMobile}`}>
-          Contact
-          <FaArrowRight
-            size={14}
-            className={style.icon}
-            aria-hidden="true"
-            focusable="false"
-          />
-        </button>
+        {onServices ? (
+          <a
+            href="#contact"
+            className={`${style.contact} ${style.contactButtonMobile}`}
+            onClick={close}
+          >
+            {contactLabel}
+          </a>
+        ) : (
+          <button
+            type="button"
+            className={`${style.contact} ${style.contactButtonMobile}`}
+            onClick={() => {
+              openContactModal()
+            }}
+          >
+            {contactLabel}
+          </button>
+        )}
       </div>
 
     </header>

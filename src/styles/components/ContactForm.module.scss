@@ -1,0 +1,295 @@
+@use "references" as *;
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  width: 100%;
+  padding: 40px 0;
+}
+
+.row {
+  display: flex;
+  gap: $gutter;
+  align-items: stretch;
+}
+
+.left {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: $section-gap;
+}
+
+.submitBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-xs;
+
+  &.submitBlockDesktop {
+    display: flex;
+  }
+
+  &.submitBlockMobile {
+    display: none;
+  }
+
+  @include respond-to(mobile){
+    &.submitBlockDesktop {
+      display: none;
+    }
+
+    &.submitBlockMobile {
+      display: flex;
+    }
+  }
+}
+
+.fields {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 44px; // literal — no token in Figma for this gap
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.eyebrow {
+  font-family: $font-heading;
+  font-weight: 500;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+  color: $color-text-primary;
+}
+
+.title {
+  font-family: $font-heading;
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 60px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.titleMuted {
+  color: $color-text-primary-muted;
+}
+
+.info {
+  font-family: $font-heading;
+  font-weight: $font-weight-bold;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  a {
+    color: $color-text-primary;
+    text-decoration: none;
+  }
+}
+
+.label {
+  font-family: $font-contrast;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: -0.04em;
+  color: $color-text-primary-muted;
+}
+
+.required {
+  color: $color-danger;
+}
+
+.input,
+.textarea {
+  font-family: $font-label;
+  font-weight: $font-weight-bold;
+  font-size: 16px;
+  color: $color-text-primary;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid $color-border-default;
+  border-radius: $radius-none;
+  padding: 0;
+  height: 32px;
+
+  &[aria-invalid="true"] {
+    border-bottom-color: $color-danger;
+  }
+}
+
+.textarea {
+  height: 160px;
+  padding-top: $space-xs;
+  line-height: 24px;
+  resize: vertical;
+}
+
+.submit {
+  background: $color-bg-invert;
+  border: 1px solid $color-border-default;
+  padding: $space-sm $space-3xl;
+  border-radius: $radius-none;
+  font-family: $font-heading;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: $color-bg-base;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.error {
+  font-family: $font-contrast;
+  font-weight: 500;
+  font-size: 12px;
+  color: $color-danger;
+  margin-top: $space-2xs;
+}
+
+.success {
+  font-family: $font-contrast;
+  font-weight: 500;
+  font-size: 12px;
+  color: $color-text-primary;
+  margin-top: $space-2xs;
+}
+
+.optionalToggle {
+  display: none;
+}
+
+.optional {
+  display: contents;
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+}
+
+@include respond-to(tablet) {
+  .eyebrow {
+    font-size: 14px;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: $line-height-heading;
+  }
+
+  .info {
+    font-size: 14px;
+    gap: $space-2xs;
+  }
+
+  .titleBlock {
+    gap: $space-xs;
+  }
+
+  .fields {
+    gap: $space-2xl;
+  }
+
+  .field {
+    gap: $space-xs;
+  }
+
+  .textarea {
+    height: 96px;
+  }
+
+  .submit {
+    padding: $space-md $space-2xl;
+  }
+}
+
+@include respond-to(mobile) {
+  .row {
+    flex-direction: column;
+    gap: $space-2xl;
+  }
+
+  .section {
+    gap: $space-2xl;
+  }
+
+  .eyebrow {
+    font-size: 16px;
+  }
+
+  .info {
+    font-size: 16px;
+  }
+
+  .input {
+    height: 48px;
+    padding: 0;
+  }
+
+  .submit {
+    width: 100%;
+    padding: $space-md;
+  }
+
+  .optionalToggle {
+    display: block;
+    font-family: $font-contrast;
+    font-weight: 600;
+    font-size: 12px;
+    color: $color-text-primary-muted;
+    padding-block: $space-sm;
+    background: none;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    // .fields direct children in DOM order: name, optional, email, message, toggle.
+    // Reordered here so the toggle sits after the message field and the optional
+    // fields drop in right below it once opened.
+    order: 3;
+  }
+
+  // .fields direct children, in DOM order: 1 name, 2 optional, 3 email, 4 message, 5 toggle.
+  .fields > *:nth-child(3) {
+    order: 1;
+  }
+
+  .fields > *:nth-child(4) {
+    order: 2;
+  }
+
+  .optional {
+    display: none;
+    order: 4;
+
+    &.open {
+      display: flex;
+      flex-direction: column;
+      gap: $space-xl;
+    }
+  }
+}

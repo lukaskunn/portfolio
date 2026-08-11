@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
+import { TIME_ZONE } from "@/utils/contants"
 
-export const TIME_ZONE = "America/Sao_Paulo"
 
 const TIME_FMT = new Intl.DateTimeFormat("en-US", {
   timeZone: TIME_ZONE,

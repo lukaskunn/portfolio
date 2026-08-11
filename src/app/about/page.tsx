@@ -1,13 +1,12 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import { SOCIAL, EMAIL } from "@/components/Footer"
+import EmailAndPhoneNumberBlock from "@/components/EmailAndPhoneNumberBlock"
 import style from "@/styles/about/about.module.scss"
+import { SOCIAL, CLIENTS } from "@/utils/contants"
 
 export const metadata: Metadata = {
   title: "About — Lucas Oliveira",
 }
-
-const CLIENTS = ["dexco", "Motorola", "KitchenAid"] as const
 
 export default function AboutPage() {
   return (
@@ -55,10 +54,7 @@ export default function AboutPage() {
       <div className={style.contact}>
         <div className={style.getInTouch}>
           <span className={style.getInTouchLabel}>Get in touch</span>
-          <a href={`mailto:${EMAIL}`} className={style.getInTouchLine}>
-            {EMAIL}
-          </a>
-          <span className={style.getInTouchLine}>+55 11 9 5442-5212</span>
+          <EmailAndPhoneNumberBlock />
         </div>
         <div className={style.status}>
           <span className={style.statusMuted}>Creative developer</span>

@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "@/styles/globals.scss";
 import Header from "@/components/Header";
 import CursorFollower from "@/components/CursorFollower";
+import { ContactModalProvider } from "@/contexts/ContactModalContext";
 
 const gabarito = localFont({
   variable: "--font-gabarito",
@@ -76,8 +77,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body>
         <CursorFollower />
-        <Header />
-        {children}
+        <ContactModalProvider>
+          <Header />
+          {children}
+        </ContactModalProvider>
       </body>
     </html>
   );

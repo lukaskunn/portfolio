@@ -1,6 +1,7 @@
 "use client"
 import { useSyncExternalStore } from "react"
-import LocalTime, { TIME_ZONE } from "./LocalTime"
+import LocalTime from "./LocalTime"
+import { TIME_ZONE } from "@/utils/contants"
 import style from '@/styles/components/Footer.module.scss'
 
 const COORDINATES = `23°33′24.59″ S / 46°39′13.79″ W`
