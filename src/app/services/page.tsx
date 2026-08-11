@@ -3,7 +3,7 @@ import Image from "next/image"
 import Footer from "@/components/Footer"
 import ContactForm from "@/components/ContactForm"
 import style from "@/styles/services/services.module.scss"
-import { SERVICES, SERVICE_GROUPS } from "@/utils/contants"
+import { SERVICES, SERVICE_GROUPS, PROCESS } from "@/utils/contants"
 export const metadata: Metadata = {
   title: "Services — Lucas Oliveira",
 }
@@ -70,6 +70,20 @@ export default function ServicesPage() {
                 </li>
               ))}
             </ul>
+          </section>
+
+          <section className={style.process}>
+            <h2 className={style.processTitle}>Process</h2>
+            <ol className={style.processList}>
+              {PROCESS.map(({ title, body }) => (
+                <li key={title} className={style.processItem}>
+                  <div className={style.processContent}>
+                    <h3 className={style.processItemTitle}>{title}</h3>
+                    <p className={style.processBody}>{body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </section>
 
           <section className={style.contact}>
