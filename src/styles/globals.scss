@@ -144,6 +144,10 @@ table {
 }
 
 html {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   background-color: $color-bg-base;
   color: $color-text-primary;
   font-family: $font-label;
@@ -173,12 +177,6 @@ html {
 
   &:has(.aboutPage) {
     background: $black-100;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
   }
 }
 
@@ -227,6 +225,14 @@ body {
   *:focus-visible {
     // Show system cursor on focus for better visibility
     cursor: auto !important;
+  }
+}
+
+[data-section] {
+  scroll-margin-top: 96px;
+
+  @include respond-to(tablet) {
+    scroll-margin-top: 88px;
   }
 }
 

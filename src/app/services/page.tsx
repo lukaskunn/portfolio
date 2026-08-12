@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Footer from "@/components/Footer"
 import ContactForm from "@/components/ContactForm"
+import ScrollProgress from "@/components/ScrollProgress"
 import style from "@/styles/services/services.module.scss"
 import { SERVICES, SERVICE_GROUPS, PROCESS } from "@/utils/contants"
 import { buildMetadata } from "@/utils/metadata"
@@ -33,13 +34,13 @@ export default function ServicesPage() {
       <main id="main-content" className="servicePage">
         <div className={style.page}>
           <div className={style.headerSpace} />
-          <section className={style.hero}>
+          <section className={style.hero} id="intro" data-section="Intro">
             <h1 className={style.heroTitle}>
               Transform your digital presence into awesome experience that connect your business to your audience
             </h1>
           </section>
 
-          <section className={style.help}>
+          <section className={style.help} id="what-i-do" data-section="what i do">
             <h2 className={style.helpTitle}>I can help you with:</h2>
             <div className={style.helpGrid}>
               {SERVICES.map(({ title, body }) => (
@@ -51,7 +52,7 @@ export default function ServicesPage() {
             </div>
           </section>
 
-          <section className={style.services}>
+          <section className={style.services} id="services" data-section="Services">
             <h2 className={style.servicesTitle}>Services</h2>
             <ul className={style.servicesList}>
               {SERVICE_GROUPS.map(({ title, items, image, size }) => (
@@ -76,7 +77,7 @@ export default function ServicesPage() {
             </ul>
           </section>
 
-          <section className={style.process}>
+          <section className={style.process} id="process" data-section="Process">
             <h2 className={style.processTitle}>Process</h2>
             <ol className={style.processList}>
               {PROCESS.map(({ title, body }) => (
@@ -90,11 +91,12 @@ export default function ServicesPage() {
             </ol>
           </section>
 
-          <section id="contact" className={style.contact}>
+          <section id="contact" data-section="Contact" className={style.contact}>
             <ContactForm />
           </section>
         </div>
       </main>
+      <ScrollProgress />
       <Footer />
     </>
   )

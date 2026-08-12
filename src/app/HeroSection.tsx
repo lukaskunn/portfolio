@@ -90,7 +90,7 @@ const HeroSection = () => {
   }, { scope: root })
 
   return (
-    <section className={style.hero} ref={root}>
+    <section className={style.hero} id="intro" data-section="Intro" ref={root}>
       <div className={style.headerHeight} />
       <h1
         className={style.title}
