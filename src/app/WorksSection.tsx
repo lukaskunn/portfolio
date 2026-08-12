@@ -60,7 +60,7 @@ const WorksSection = () => {
   }, { scope: root })
 
   return (
-    <section className={style.section} id="works" aria-labelledby="works-title" ref={root}>
+    <section className={style.section} id="works" data-section="Works" aria-labelledby="works-title" ref={root}>
       <h2 id="works-title" className={style.title}>Curated works</h2>
 
       <div className={style.worksTable}>

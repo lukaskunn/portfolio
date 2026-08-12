@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer"
+import ScrollProgress from "@/components/ScrollProgress"
 import { buildMetadata } from "@/utils/metadata"
 import HeroSection from "./HeroSection";
 import WorksSection from "./WorksSection";
@@ -12,6 +13,7 @@ export default function Home() {
         <HeroSection />
         <WorksSection />
       </main>
+      <ScrollProgress />
       <Footer />
     </>
   );
