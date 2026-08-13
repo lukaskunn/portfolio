@@ -1,10 +1,8 @@
 "use client"
 
-import { useRef } from "react"
+import { useState, type CSSProperties } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import gsap from "gsap"
-import { useGSAP } from "@gsap/react"
 
 import style from "@/styles/homepage/works.module.scss"
 import { WORKS } from "@/utils/contants"
@@ -14,53 +12,14 @@ import { WORKS } from "@/utils/contants"
 const STRIP_SLOTS = 4
 
 const WorksSection = () => {
-  const root = useRef<HTMLElement>(null)
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
-  useGSAP(() => {
-    const mm = gsap.matchMedia()
-
-    mm.add(
-      "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (min-width: 1024px)",
-      () => {
-        const cleanups = gsap.utils
-          .toArray<HTMLElement>(`.${style.row}`, root.current)
-          .flatMap((row) => {
-            const strip = row.querySelector<HTMLElement>(`.${style.strip}`)
-            if (!strip) return []
-
-            const tween = gsap.fromTo(
-              strip,
-              { height: 0 },
-              { height: "auto", duration: 0.45, ease: "power2.out", paused: true }
-            )
-
-            const enter = () => {
-              tween.invalidate()
-              tween.play()
-            }
-            const leave = () => tween.reverse()
-            row.addEventListener("mouseenter", enter)
-            row.addEventListener("focus", enter)
-            row.addEventListener("mouseleave", leave)
-            row.addEventListener("blur", leave)
-
-            return [
-              () => {
-                row.removeEventListener("mouseenter", enter)
-                row.removeEventListener("focus", enter)
-                row.removeEventListener("mouseleave", leave)
-                row.removeEventListener("blur", leave)
-              },
-            ]
-          })
-
-        return () => cleanups.forEach((fn) => fn())
-      }
-    )
-  }, { scope: root })
+  const handleDesktopRowClick = (index: number) => () => {
+    setOpenIndex(openIndex === index ? null : index)
+  }
 
   return (
-    <section className={style.section} id="works" data-section="Works" aria-labelledby="works-title" ref={root}>
+    <section className={style.section} id="works" data-section="Works" aria-labelledby="works-title">
       <h2 id="works-title" className={style.title}>Curated works</h2>
 
       <div className={style.worksTable}>
@@ -73,34 +32,45 @@ const WorksSection = () => {
         </div>
 
         <ul className={style.list}>
-          {WORKS.map((project) => (
-            <li key={project.slug}>
-              <Link href={`/project/${project.slug}`} className={`${style.row} ${style.desktopRow}`}>
+          {WORKS.map((project, index) => (
+            <li
+              key={project.slug}
+              style={{ "--i": index } as CSSProperties}
+              className={openIndex === index ? style.rowOpen : ""}
+            >
+              <button
+                type="button"
+                className={`${style.row} ${style.desktopRow}`}
+                aria-expanded={openIndex === index}
+                aria-controls={`strip-${project.slug}`}
+                onClick={handleDesktopRowClick(index)}
+              >
                 <span className={style.name}>{project.name}</span>
                 <span className={style.type}>{project.type}</span>
                 <span className={style.client}>{project.client}</span>
                 <span className={style.role}>{project.role}</span>
                 <span className={style.year}>{project.year}</span>
+              </button>
 
-                {/* ponytail: eager-loaded — inside a height:0 box, lazy loading would
-                  never fire until hover. Revisit when real per-project images land:
-                  switch to lazy + a mouseenter preload. */}
-                <span className={style.strip} aria-hidden="true">
-                  {Array.from({ length: STRIP_SLOTS }, (_, index) => (
-                    <span className={style.slot} key={index}>
-                      <Image
-                        src={project.images[index % project.images.length]}
-                        alt=""
-                        fill
-                        sizes="320px"
-                        draggable={false}
-                        loading="eager"
-                        style={{ objectFit: "cover" }}
-                      />
-                    </span>
-                  ))}
-                </span>
-              </Link>
+              {/* ponytail: eager-loaded — inside a height:0 box, lazy loading would
+                never fire until hover. Revisit when real per-project images land:
+                switch to lazy + a mouseenter preload. */}
+              <span className={style.strip} id={`strip-${project.slug}`}>
+                <Link href={`/project/${project.slug}`} className={style.goToProjectButton}>View project</Link>
+                {Array.from({ length: STRIP_SLOTS }, (_, index) => (
+                  <span className={style.slot} key={index}>
+                    <Image
+                      src={project.images[index % project.images.length]}
+                      alt=""
+                      fill
+                      sizes="320px"
+                      draggable={false}
+                      loading="eager"
+                      style={{ objectFit: "cover" }}
+                    />
+                  </span>
+                ))}
+              </span>
               <Link href={`/project/${project.slug}`} className={`${style.row} ${style.mobileRow}`}>
                 <div className={style.rowTop}>
                   <span className={style.name}>{project.name}</span>

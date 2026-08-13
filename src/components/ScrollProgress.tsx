@@ -3,9 +3,20 @@
 import { useEffect, useRef, useState } from "react"
 import style from "@/styles/components/ScrollProgress.module.scss"
 
-type Section = { el: HTMLElement; id: string; label: string; top: number; height: number }
+type Section = { el: HTMLElement; id: string; label: string; top: number; height: number; weight: number }
 
 const IDLE_MS = 2000
+
+// offsetTop is relative to offsetParent, not the document — walk the
+// offsetParent chain to get a true document-space top (sticky ancestors and
+// positioned wrappers like .scrollOver would otherwise report ~0).
+const docTop = (el: HTMLElement) => {
+  let top = 0
+  for (let node: HTMLElement | null = el; node; node = node.offsetParent as HTMLElement | null) {
+    top += node.offsetTop
+  }
+  return top
+}
 
 export const progressAt = (
   playhead: number,
@@ -37,8 +48,9 @@ const ScrollProgress = ({ alwaysShowLabel = true }: ScrollProgressProps) => {
           el,
           id: el.id,
           label: el.dataset.section ?? "",
-          top: el.offsetTop,
+          top: docTop(el),
           height: el.offsetHeight,
+          weight: el.offsetHeight * (Number(el.dataset.progressWeight) || 1),
         }))
       )
     }
@@ -60,7 +72,9 @@ const ScrollProgress = ({ alwaysShowLabel = true }: ScrollProgressProps) => {
     const onScroll = () => {
       const scrollY = window.scrollY
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight
-      const playhead = maxScroll > 0 ? scrollY + window.innerHeight * (scrollY / maxScroll) : 0
+      const LOOKAHEAD = 0.4 // ponytail: timing knob — 1 = old behaviour, 0 = strict viewport top
+      const playhead =
+        maxScroll > 0 ? scrollY + window.innerHeight * LOOKAHEAD * (scrollY / maxScroll) : scrollY
 
       sections.forEach((section, index) => {
         const p =
@@ -99,7 +113,7 @@ const ScrollProgress = ({ alwaysShowLabel = true }: ScrollProgressProps) => {
     >
       <ul className={style.list}>
         {sections.map((section, index) => (
-          <li key={section.id} className={style.item} style={{ flexGrow: section.height }}>
+          <li key={section.id} className={style.item} style={{ flexGrow: section.weight }}>
             <a
               href={`#${section.id}`}
               className={style.link}

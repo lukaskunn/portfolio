@@ -22,9 +22,8 @@ const Header = () => {
   const [open, setOpen] = useState(false)
   const openContactModal = useContactModal()
 
-  // startsWith so /about/* sub-routes inherit the inverted palette.
-  const inverted = pathname.startsWith("/about")
   const onServices = pathname === "/services"
+  const isHome = pathname === "/"
 
   useEffect(() => {
     if (!open) return
@@ -41,7 +40,7 @@ const Header = () => {
   // otherwise the menu stays open on top of the page you just navigated to.
   const close = () => setOpen(false)
 
-  const className = [style.header, inverted && style.inverted, open && style.open]
+  const className = [style.header, open && style.open, isHome && style.home]
     .filter(Boolean)
     .join(" ")
 
