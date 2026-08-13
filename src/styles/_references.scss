@@ -96,6 +96,15 @@ $radius-md: 8px;
 $radius-full: 9999px;
 
 // ============================================
+// Motion
+// ponytail: one curve, already used verbatim in ContactModal and Header.
+// No duration tokens — the three durations in play (0.35s hover, 0.2s button,
+// 0.45s strip) have one call site each.
+// ============================================
+$ease-standard: cubic-bezier(0.76, 0, 0.24, 1);
+$ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+// ============================================
 // Breakpoints
 // Desktop-first. Tablet frames are 834px wide, so they land inside the tablet
 // tier (768–1023.98).
@@ -215,9 +224,69 @@ $radius-full: 9999px;
 // Utility mixins
 // ============================================
 @mixin focus-visible {
-  outline: none;
-  outline-offset: none;
-  border-radius: none;
+  // outline: 2px solid currentColor;
+  // outline-offset: 2px;
+  // border-radius: 0;
+}
+
+// Grow L→R on hover, exit to the right on mouseleave.
+// background-size animates; background-position swaps instantly (anchor).
+@mixin hover-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  background-position: right bottom;
+  padding-bottom: 0.1em;
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    transition: background-size 0.35s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-size: 100% 1px;
+      background-position: left bottom;
+    }
+  }
+
+  &:focus-visible {
+    background-size: 100% 1px;
+    background-position: left bottom;
+  }
+}
+
+// Grow L→R on hover, swap text colour once the marker covers it.
+@mixin hover-highlight-on {
+  background-size: 100% 100%;
+  background-position: left center;
+  color: var(--hl-fg);
+}
+
+@mixin hover-highlight($bg: $color-bg-invert, $fg: $color-bg-base) {
+  --hl-bg: #{$bg};
+  --hl-fg: #{$fg};
+  background-image: linear-gradient(var(--hl-bg), var(--hl-bg));
+  background-repeat: no-repeat;
+  background-size: 0 100%;
+  background-position: right center;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding-inline: 0.15em;
+  margin-inline: -0.15em;
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    transition: background-size 0.35s ease, color 0.35s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @include hover-highlight-on;
+    }
+  }
+
+  &:focus-visible {
+    @include hover-highlight-on;
+  }
 }
 
 // ============================================
