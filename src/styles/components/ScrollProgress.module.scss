@@ -3,9 +3,7 @@
 .rail {
   position: fixed;
   z-index: 2;
-  right: $page-margin;
   top: 50%;
-  transform: translateY(-50%);
   height: 40vh;
   opacity: 0;
   transform: translateY(-50%) translateX(8px);
@@ -38,6 +36,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .rail {
+    transition: none;
+  }
+
   .visible {
     transition: none;
   }

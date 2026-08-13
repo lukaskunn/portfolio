@@ -8,6 +8,7 @@
   --header-fg: #{$white-100};
   --header-fg-muted: #{$white-100-muted};
   --header-btn-bg: #{$white-100};
+  --header-btn-bg-hover: #e6e6e6;
   --header-btn-fg: #{$black-100};
 
   width: 100%;
@@ -18,6 +19,7 @@
   --header-fg: #{$color-text-primary};
   --header-fg-muted: #{$color-text-primary-muted};
   --header-btn-bg: #{$color-bg-invert};
+  --header-btn-bg-hover: #292929;
   --header-btn-fg: #{$color-bg-base};
 
   .inner { mix-blend-mode: normal; }
@@ -58,6 +60,10 @@
   color: inherit;
   text-decoration: none;
   text-transform: uppercase;
+  background-image: none;
+
+  width: fit-content;
+
 
   @include respond-to(tablet) {
     grid-column: auto;
@@ -142,6 +148,18 @@
   white-space: nowrap;
   cursor: pointer;
   text-decoration: none;
+  background-image: none;
+  transition: background-color 200ms ease, transform 140ms ease-out;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--header-btn-bg-hover);
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
 
   &.contactButtonMobile {
     justify-content: center;
@@ -195,26 +213,6 @@
   top: 10;
 }
 
-.burgerBar {
-  width: 24px;
-  height: 2px;
-  background: var(--header-fg);
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
-}
-
-// Two bars rotate straight into an X — no third bar to fade out.
-.open {
-  .burgerBar:first-child {
-    transform: translateY(4px) rotate(45deg);
-  }
-
-  .burgerBar:last-child {
-    transform: translateY(-4px) rotate(-45deg);
-  }
-}
-
 .menuBackdrop {
   position: fixed;
   z-index: 3;
@@ -223,11 +221,11 @@
   top: 0;
   background: $black-200;
   transform: translateX(-100%);
-  transition: .5s transform cubic-bezier(0.76, 0, 0.24, 1) .2s;
+  transition: .35s transform $ease-out .1s;
 
   .open & {
     transform: none;
-    transition: .5s transform cubic-bezier(0.76, 0, 0.24, 1);
+    transition: .35s transform $ease-out;
   }
 }
 
@@ -255,16 +253,23 @@
     background: var(--header-bg);
     color: var(--header-fg);
     transform: translateX(-100%);
-    transition: .5s transform cubic-bezier(0.76, 0, 0.24, 1);
+    transition: .35s transform $ease-out .1s;
 
     .open & {
       transform: none;
-      transition: .5s transform cubic-bezier(0.76, 0, 0.24, 1) .2s;
+      transition: .35s transform $ease-out;
     }
 
     // .lang is hidden from tablet down in the bar; inside the menu it is shown.
     .lang {
       display: block;
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menuBackdrop,
+  .menu {
+    transition: none;
   }
 }
