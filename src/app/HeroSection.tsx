@@ -3,8 +3,9 @@
 import { useRef } from "react"
 import Image from "next/image"
 import gsap from "gsap"
-import { useGSAP } from "@gsap/react"
 import LocalTime from "@/components/LocalTime"
+import RollText from "@/components/RollText"
+import { useHoverAnimation } from "@/hooks/useHoverAnimation"
 import style from "@/styles/homepage/hero.module.scss"
 
 
@@ -39,55 +40,27 @@ const LINES: Token[][] = [
 const HeroSection = () => {
   const root = useRef<HTMLElement>(null)
 
-  useGSAP(() => {
-    const mm = gsap.matchMedia()
+  useHoverAnimation(root, `.${style.line}`, (line) => {
+    const chip = line.querySelector<HTMLElement>(`.${style.chip}`)
+    if (!chip) return null
 
-    mm.add(
-      "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
-      () => {
-        const cleanups = gsap.utils
-          .toArray<HTMLElement>(`.${style.line}`, root.current)
-          .flatMap((line) => {
-            const chip = line.querySelector<HTMLElement>(`.${style.chip}`)
-            if (!chip) return []
-
-            const tween = gsap.fromTo(
-              chip,
-              {
-                width: 0,
-                marginLeft: gsap.getProperty(chip, "marginLeft"),
-                marginRight: gsap.getProperty(chip, "marginRight"),
-              },
-              {
-                width: "auto",
-                marginLeft: 0,
-                marginRight: 0,
-                duration: 0.45,
-                ease: "power3.inOut",
-                paused: true,
-              }
-            )
-
-            const enter = () => {
-              tween.invalidate()
-              tween.play()
-            }
-            const leave = () => tween.reverse()
-            line.addEventListener("mouseenter", enter)
-            line.addEventListener("mouseleave", leave)
-
-            return [
-              () => {
-                line.removeEventListener("mouseenter", enter)
-                line.removeEventListener("mouseleave", leave)
-              },
-            ]
-          })
-
-        return () => cleanups.forEach((fn) => fn())
+    return gsap.fromTo(
+      chip,
+      {
+        width: 0,
+        marginLeft: gsap.getProperty(chip, "marginLeft"),
+        marginRight: gsap.getProperty(chip, "marginRight"),
+      },
+      {
+        width: "auto",
+        marginLeft: 0,
+        marginRight: 0,
+        duration: 0.45,
+        ease: "power3.inOut",
+        paused: true,
       }
     )
-  }, { scope: root })
+  })
 
   return (
     <section className={style.hero} id="intro" data-section="Intro" data-progress-weight="0.5" ref={root}>
@@ -131,12 +104,12 @@ const HeroSection = () => {
       </h1>
       <div className={style.meta}>
         <div className={style.metaCol}>
-          <span>/ São Paulo /  <LocalTime /></span>
-          <span>/ Currently Front end developer @ WPPCommerce</span>
+          <span><RollText>{"/ São Paulo / "}</RollText> <LocalTime /></span>
+          <span><RollText duration={0.2} stagger={0.009}>{"/ Currently Front end developer @ WPPCommerce"}</RollText></span>
         </div>
         <div className={style.metaCol}>
-          <span>UI/UX DESIGNER /</span>
-          <span>WEB DEVELOPER /</span>
+          <span><RollText>{"UI/UX DESIGNER /"}</RollText></span>
+          <span><RollText>{"WEB DEVELOPER /"}</RollText></span>
         </div>
       </div>
     </section>
