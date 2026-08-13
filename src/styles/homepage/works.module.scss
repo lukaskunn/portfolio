@@ -64,11 +64,6 @@
   grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
-  row-gap: $space-md;
-
-  @include respond-to(tablet) {
-    row-gap: 0;
-  }
 
   li {
     &:last-child {
@@ -84,13 +79,15 @@
   color: inherit;
   text-decoration: none;
   letter-spacing: -0.02em;
+  background-image: none;
 
   &:focus-visible {
     @include focus-visible;
   }
 
   &.mobileRow {
-    display: none
+    display: none;
+    background-image: none;
   }
 
   &.desktopRow {
@@ -103,6 +100,8 @@
     color: inherit;
     text-align: left;
     width: 100%;
+    height: 32px;
+    align-items: center;
     cursor: pointer;
   }
 
@@ -225,17 +224,20 @@
 
   .goToProjectButton {
     @include label-contrast-xl;
+    font-size: 12px;
+    font-weight: 500;
+    background-image: none;
     grid-column: 1 / span 2;
     width: 100%;
     background: $black-100;
     color: $white-100;
-    height: 40px;
+    height: 36px;
     align-self: flex-end;
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    transition: .2s background ease-in-out;
+    transition: .2s background ease;
 
     &:hover {
       background: #292929
@@ -287,6 +289,75 @@
     transition: height 450ms ease, visibility 0s;
   }
 
+  .desktopRow {
+    position: relative;
+
+    // Absolutely positioned, so it is out of flow and never becomes a grid item
+    // of the 12-column row.
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0 -12px;
+      z-index: 0;
+      background: $color-bg-invert;
+      transform: scaleY(0);
+      transform-origin: var(--wipe-origin, top);
+    }
+
+    // Text spans are static; a positioned ::before would paint over them.
+    // position: relative puts them after it in paint order — no z-index needed.
+    > span {
+      position: relative;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .desktopRow::before {
+      transition: transform 0.2s $ease-standard;
+    }
+
+    .desktopRow {
+      transition: color 0s linear 0.1s;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .desktopRow:hover {
+      color: $color-text-invert;
+
+      &::before {
+        transform: scaleY(1);
+      }
+    }
+  }
+
+  // Replaces the highlight marker as the rows' only focus indicator —
+  // `.row:focus-visible` resolves to the focus-visible mixin, which is outline: none.
+  .desktopRow:focus-visible {
+    color: $color-text-invert;
+    transition: none;
+
+    &::before {
+      transform: scaleY(1);
+      transition: none;
+    }
+  }
+
+  .slot {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 300ms $ease-out, transform 300ms $ease-out;
+  }
+
+  .rowOpen .slot {
+    opacity: 1;
+    transform: none;
+
+    &:nth-child(3) { transition-delay: 60ms; }
+    &:nth-child(4) { transition-delay: 120ms; }
+    &:nth-child(5) { transition-delay: 150ms; }
+  }
+
   .cta {
     grid-column: 1 / span 3;
     align-self: end;
@@ -299,13 +370,14 @@
 
   .list>li {
     position: sticky;
-    top: calc(96px + var(--i) * 40px);
+    top: calc(96px + var(--i) * 32px + var(--shift, 0) * 201px);
     background: $color-bg-base;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .strip {
+  .strip,
+  .slot {
     transition: none;
   }
 }
