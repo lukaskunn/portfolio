@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, type CSSProperties } from "react"
+import { useState, type CSSProperties, type MouseEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -16,6 +16,14 @@ const WorksSection = () => {
 
   const handleDesktopRowClick = (index: number) => () => {
     setOpenIndex(openIndex === index ? null : index)
+  }
+
+  // Origin = the row edge the pointer is nearest, so the plate always grows/retreats
+  // toward the cursor. mouseenter fires at a row boundary, so the leave of one row
+  // and the enter of the next read as one black band being handed over.
+  const setWipeOrigin = (e: MouseEvent<HTMLButtonElement>) => {
+    const { top, height } = e.currentTarget.getBoundingClientRect()
+    e.currentTarget.style.setProperty("--wipe-origin", e.clientY - top < height / 2 ? "top" : "bottom")
   }
 
   return (
@@ -35,7 +43,10 @@ const WorksSection = () => {
           {WORKS.map((project, index) => (
             <li
               key={project.slug}
-              style={{ "--i": index } as CSSProperties}
+              style={{
+                "--i": index,
+                "--shift": openIndex !== null && index > openIndex ? 1 : 0,
+              } as CSSProperties}
               className={openIndex === index ? style.rowOpen : ""}
             >
               <button
@@ -44,6 +55,8 @@ const WorksSection = () => {
                 aria-expanded={openIndex === index}
                 aria-controls={`strip-${project.slug}`}
                 onClick={handleDesktopRowClick(index)}
+                onMouseEnter={setWipeOrigin}
+                onMouseLeave={setWipeOrigin}
               >
                 <span className={style.name}>{project.name}</span>
                 <span className={style.type}>{project.type}</span>

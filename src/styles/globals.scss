@@ -120,6 +120,10 @@ body {
   line-height: $line-height-label;
 }
 
+a {
+  @include hover-underline;
+}
+
 ol,
 ul {
   list-style: none;

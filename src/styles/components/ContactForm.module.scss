@@ -131,6 +131,7 @@
   border-radius: $radius-none;
   padding: 0;
   height: 32px;
+  transition: border-bottom-color 150ms ease;
 
   &[aria-invalid="true"] {
     border-bottom-color: $color-danger;
@@ -156,6 +157,17 @@
   text-transform: uppercase;
   color: $color-bg-base;
   cursor: pointer;
+  transition: background-color 200ms ease, transform 140ms ease-out, opacity 200ms ease;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      background: #292929; // ponytail: literal, matches .goToProjectButton
+    }
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
 
   &:disabled {
     opacity: 0.6;
@@ -163,20 +175,33 @@
   }
 }
 
-.error {
-  font-family: $font-contrast;
-  font-weight: 500;
-  font-size: 12px;
-  color: $color-danger;
-  margin-top: $space-2xs;
-}
-
+.error,
 .success {
   font-family: $font-contrast;
   font-weight: 500;
   font-size: 12px;
-  color: $color-text-primary;
   margin-top: $space-2xs;
+  transition: opacity 260ms $ease-out;
+
+  @starting-style {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 260ms $ease-out, transform 260ms $ease-out;
+
+    @starting-style {
+      transform: translateY(6px);
+    }
+  }
+}
+
+.error {
+  color: $color-danger;
+}
+
+.success {
+  color: $color-text-primary;
 }
 
 .optionalToggle {
@@ -184,6 +209,10 @@
 }
 
 .optional {
+  display: contents;
+}
+
+.optionalInner {
   display: contents;
 }
 
@@ -283,13 +312,37 @@
   }
 
   .optional {
-    display: none;
+    display: grid;
+    grid-template-rows: 0fr;
     order: 4;
+    // ponytail: cancels the .fields row-gap while collapsed — a 0fr grid row is
+    // still a flex item and would leave 32px of dead space under the toggle.
+    margin-top: -$space-2xl;
+    transition: grid-template-rows 250ms $ease-standard, margin-top 250ms $ease-standard;
 
     &.open {
-      display: flex;
-      flex-direction: column;
-      gap: $space-xl;
+      grid-template-rows: 1fr;
+      margin-top: 0;
+
+      .optionalInner {
+        visibility: visible;
+        transition: visibility 0s;
+      }
     }
+  }
+
+  .optionalInner {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xl;
+    overflow: hidden;
+    visibility: hidden;
+    transition: visibility 0s linear 250ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .optional {
+    transition: none;
   }
 }

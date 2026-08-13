@@ -93,48 +93,50 @@ const ContactForm = () => {
               id={optionalId}
               className={showOptional ? `${style.optional} ${style.open}` : style.optional}
             >
-              <div className={style.field}>
-                <label htmlFor={`${uid}-businessName`} className={style.label}>
-                  your business name (optional)
-                </label>
-                <input
-                  id={`${uid}-businessName`}
-                  name="businessName"
-                  type="text"
-                  defaultValue={state.values?.businessName}
-                  autoComplete="organization"
-                  className={style.input}
-                  aria-invalid={!!state.fieldErrors?.businessName}
-                  aria-describedby={
-                    state.fieldErrors?.businessName ? `${uid}-businessName-error` : undefined
-                  }
-                />
-                {state.fieldErrors?.businessName && (
-                  <p className={style.error} id={`${uid}-businessName-error`}>
-                    {state.fieldErrors.businessName}
-                  </p>
-                )}
-              </div>
+              <div className={style.optionalInner}>
+                <div className={style.field}>
+                  <label htmlFor={`${uid}-businessName`} className={style.label}>
+                    your business name (optional)
+                  </label>
+                  <input
+                    id={`${uid}-businessName`}
+                    name="businessName"
+                    type="text"
+                    defaultValue={state.values?.businessName}
+                    autoComplete="organization"
+                    className={style.input}
+                    aria-invalid={!!state.fieldErrors?.businessName}
+                    aria-describedby={
+                      state.fieldErrors?.businessName ? `${uid}-businessName-error` : undefined
+                    }
+                  />
+                  {state.fieldErrors?.businessName && (
+                    <p className={style.error} id={`${uid}-businessName-error`}>
+                      {state.fieldErrors.businessName}
+                    </p>
+                  )}
+                </div>
 
-              <div className={style.field}>
-                <label htmlFor={`${uid}-phone`} className={style.label}>
-                  your phone number (optional)
-                </label>
-                <input
-                  id={`${uid}-phone`}
-                  name="phone"
-                  type="tel"
-                  defaultValue={state.values?.phone}
-                  autoComplete="tel"
-                  className={style.input}
-                  aria-invalid={!!state.fieldErrors?.phone}
-                  aria-describedby={state.fieldErrors?.phone ? `${uid}-phone-error` : undefined}
-                />
-                {state.fieldErrors?.phone && (
-                  <p className={style.error} id={`${uid}-phone-error`}>
-                    {state.fieldErrors.phone}
-                  </p>
-                )}
+                <div className={style.field}>
+                  <label htmlFor={`${uid}-phone`} className={style.label}>
+                    your phone number (optional)
+                  </label>
+                  <input
+                    id={`${uid}-phone`}
+                    name="phone"
+                    type="tel"
+                    defaultValue={state.values?.phone}
+                    autoComplete="tel"
+                    className={style.input}
+                    aria-invalid={!!state.fieldErrors?.phone}
+                    aria-describedby={state.fieldErrors?.phone ? `${uid}-phone-error` : undefined}
+                  />
+                  {state.fieldErrors?.phone && (
+                    <p className={style.error} id={`${uid}-phone-error`}>
+                      {state.fieldErrors.phone}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
 
