@@ -1,4 +1,8 @@
+@use "references" as *;
+
 .copy {
+  @include hover-underline;
+
   background: none;
   border: 0;
   padding: 0;

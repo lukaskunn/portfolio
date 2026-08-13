@@ -115,10 +115,12 @@
   }
 }
 
-@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+.highlight {
+  @include hover-highlight($white-100, $color-text-primary);
+}
 
-  .bio,
-  .bio .highlight {
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  .bio {
     transition: color 0.25s ease;
   }
 
@@ -127,7 +129,7 @@
   }
 
   .bio:hover .highlight {
-    color: $color-text-invert;
+    @include hover-highlight-on;
   }
 }
 
