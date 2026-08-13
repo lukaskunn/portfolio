@@ -29,10 +29,32 @@
   height: 36px
 }
 
+.pin {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  @include respond-to(mobile) {
+    position: static;
+  }
+}
+
+.backdrop {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 100svh;
+  opacity: 0.35;
+  z-index: -1;
+}
+
 .title {
   @include heading-1;
   text-transform: uppercase;
   color: $color-text-primary;
+  // mix-blend-mode: difference;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,7 +62,7 @@
   @include respond-to(mobile) {
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     column-gap: $space-xs;
     row-gap: $space-2xs;

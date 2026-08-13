@@ -1,40 +1,37 @@
 @use "references" as *;
 
-// Every colour the header uses is a local custom property, so the inverted
-// (/about) variant is a single block of overrides instead of a duplicated tree.
+// Colours are local custom properties. The bar uses mix-blend-mode:
+// difference on .inner to auto-invert against any background, so a fixed
+// palette here (white-on-anything) is enough — no /about override needed.
 .header {
   --header-bg: #{$color-bg-base};
+  --header-fg: #{$white-100};
+  --header-fg-muted: #{$white-100-muted};
+  --header-btn-bg: #{$white-100};
+  --header-btn-fg: #{$black-100};
+
+  width: 100%;
+  color: var(--header-fg);
+}
+
+.home {
   --header-fg: #{$color-text-primary};
   --header-fg-muted: #{$color-text-primary-muted};
   --header-btn-bg: #{$color-bg-invert};
   --header-btn-fg: #{$color-bg-base};
 
-  position: fixed;
-  z-index: 2; // above #main-content's stacking plate, for the fixed mobile menu
-  width: 100%;
-  // background: var(--header-bg);
-  color: var(--header-fg);
-}
-
-.inverted {
-  --header-bg: #{$color-bg-invert};
-  --header-fg: #{$color-text-invert};
-  --header-fg-muted: #{$color-text-invert-muted};
-  --header-btn-bg: #{$color-text-invert};
-  --header-btn-fg: #{$color-text-primary};
-
-  .burger {
-    color: $color-text-invert;
-  }
-
-  .menuBackdrop {
-    background: $color-bg-base;
-  }
+  .inner { mix-blend-mode: normal; }
 }
 
 // ponytail: same 12-col grid as Footer .inner — the right group lands on the
 // footer's 9 / span 4 column.
 .inner {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  z-index: 2; // above #main-content's stacking plate, for the fixed mobile menu
+  mix-blend-mode: difference;
+
   max-width: 1440px;
   margin-inline: auto;
   padding: $page-margin $page-margin 0;
@@ -165,7 +162,7 @@
   transform: rotate(-45deg);
 }
 
-.burguer {
+.burger {
   color: inherit;
 }
 
@@ -220,6 +217,7 @@
 
 .menuBackdrop {
   position: fixed;
+  z-index: 3;
   width: 100%;
   height: 100vh;
   top: 0;
@@ -237,7 +235,13 @@
   display: none;
 
   @include respond-to(mobile) {
+    --header-fg: #{$color-text-primary};
+    --header-fg-muted: #{$color-text-primary-muted};
+    --header-btn-bg: #{$color-bg-invert};
+    --header-btn-fg: #{$color-bg-base};
+
     position: fixed;
+    z-index: 3;
     width: 100%;
     height: 100vh;
     top: 0;

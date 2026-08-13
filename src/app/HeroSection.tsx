@@ -63,7 +63,7 @@ const HeroSection = () => {
                 marginLeft: 0,
                 marginRight: 0,
                 duration: 0.45,
-                ease: "power3.out",
+                ease: "power3.inOut",
                 paused: true,
               }
             )
@@ -90,7 +90,7 @@ const HeroSection = () => {
   }, { scope: root })
 
   return (
-    <section className={style.hero} id="intro" data-section="Intro" ref={root}>
+    <section className={style.hero} id="intro" data-section="Intro" data-progress-weight="0.5" ref={root}>
       <div className={style.headerHeight} />
       <h1
         className={style.title}

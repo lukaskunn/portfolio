@@ -10,10 +10,14 @@
   opacity: 0;
   transform: translateY(-50%) translateX(8px);
   mix-blend-mode: difference;
-  transition: opacity 400ms ease-in, transform 400ms ease-in;
+  transition: opacity 400ms ease-in-out, transform 400ms ease-in-out;
   padding-right: 40px;
   right: 0;
-  width: 50px;
+  width: 40px;
+
+  @include respond-to(tablet){
+
+  }
 
   @include respond-to(mobile) {
     display: none;
