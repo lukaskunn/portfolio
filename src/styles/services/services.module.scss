@@ -285,7 +285,6 @@ $process-item-h-mobile: 580px;
   aspect-ratio: 16 / 9;
   // top: $sticky-top;
   align-self: start;
-  animation: top .2s ease-in-out;
 
   @include respond-to(mobile) {
     display: none;
