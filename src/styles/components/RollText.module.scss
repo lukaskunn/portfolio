@@ -1,0 +1,28 @@
+@use "../references" as *;
+
+.clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.track {
+  position: relative;
+  display: block;
+}
+
+.layer {
+  display: block;
+  white-space: pre;
+}
+
+.copy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(100%);
+}
+
+.char {
+  display: inline-block;
+}
