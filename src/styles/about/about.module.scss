@@ -80,6 +80,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: $gutter;
+  width: 100%;
 
   @include respond-to(tablet) {
     grid-template-columns: repeat(2, 1fr);
