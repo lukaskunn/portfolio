@@ -52,9 +52,9 @@ export default async function ProjectPage({ params }: PageProps<"/project/[slug]
 
           <div className={style.content}>
             <div className={style.projectInformation}>
-              <h1 className={style.title}>{project.name}</h1>
+              <h1 className={style.title} data-reveal="lines" data-reveal-now>{project.name}</h1>
 
-              <div className={style.detailsGroup}>
+              <div className={style.detailsGroup} data-reveal-group data-reveal-now>
                 {details.map(({ label, value }) => (
                   <div key={label} className={style.row}>
                     <span className={style.label}>{label}</span>
@@ -72,7 +72,7 @@ export default async function ProjectPage({ params }: PageProps<"/project/[slug]
               </div>
 
 
-              <div className={style.mobileImage}>
+              <div className={style.mobileImage} data-reveal="curtain" data-reveal-now>
                 <Image
                   src={leadImage}
                   alt=""
@@ -84,23 +84,25 @@ export default async function ProjectPage({ params }: PageProps<"/project/[slug]
               </div>
 
               <div className={`${style.row} ${style.rowDescription}`}>
-                <span className={style.label}>Description</span>
+                <span className={style.label} data-reveal="up" data-reveal-now>Description</span>
                 <div className={`${style.value} ${style.description}`}>
                   {project.description.map((paragraph, index) => (
-                    <p key={index} className={style.descriptionBody}>{paragraph}</p>
+                    <p key={index} className={style.descriptionBody} data-reveal="lines" data-reveal-now>
+                      {paragraph}
+                    </p>
                   ))}
                 </div>
               </div>
 
               {restImages.map((src, index) => (
-                <div key={index} className={style.mobileImage}>
+                <div key={index} className={style.mobileImage} data-reveal="curtain" data-reveal-now>
                   <Image src={src} alt="" fill style={{ objectFit: "cover" }} sizes="100vw" />
                 </div>
               ))}
             </div>
 
-            <div className={style.nav}>
-              <Link href="/#works" className={style.navLink}>← Return</Link>
+            <div className={style.nav} data-reveal-group data-reveal-now>
+              <Link href="/#works" transitionTypes={["nav-reveal"]} className={style.navLink}>← Return</Link>
               <Link href={`/project/${next.slug}`} className={style.navLink}>Next Project →</Link>
             </div>
           </div>

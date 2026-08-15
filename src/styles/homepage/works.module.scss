@@ -64,6 +64,8 @@
   grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
+  --reveal-spread: 24px;
+  overflow: clip;
 
   li {
     &:last-child {
@@ -316,8 +318,10 @@
       transition: transform 0.2s $ease-standard;
     }
 
+    // Matches ::before exactly. An instant swap on a delay hard-flips the text
+    // while the plate is still mid-sweep, which reads as a blink on fast hover.
     .desktopRow {
-      transition: color 0s linear 0.1s;
+      transition: color 0.2s $ease-standard;
     }
   }
 
@@ -383,6 +387,10 @@
 }
 
 @include respond-to(tablet) {
+  .list {
+    --reveal-spread: 12px;
+  }
+
   .strip {
     display: none;
   }

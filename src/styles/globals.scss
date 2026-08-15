@@ -294,3 +294,302 @@ body {
     padding: 0 0 0;
   }
 }
+
+// ============================================
+// Route transitions
+// Triggered by src/components/RouteTransition.tsx. Everything animates on the
+// `root` snapshot: it is the only one clipped to the viewport, and it keeps
+// the header's mix-blend-mode: difference intact.
+// ============================================
+
+// The sentinel exists only to make React start the transition. It gets an
+// auto-generated name, so it is matched by class instead.
+::view-transition-group(.route-tick) {
+  display: none;
+}
+
+// Kill the UA crossfade's plus-lighter blending so the two snapshots stack as
+// opaque planes instead of adding together.
+::view-transition-image-pair(root) {
+  isolation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
+// Clicks mid-transition reach the live DOM, which is already the new page.
+::view-transition {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  // ponytail: the plane the outgoing page darkens against. Sits behind both
+  // snapshots, so fading the old one to 0.62 is a compositor-only multiply —
+  // same look as filter: brightness(0.62), without a full-viewport shader
+  // pass on the frames where the incoming WebGL canvas is booting.
+  // Occluded (and irrelevant) in reveal navigations (leaving /about or a
+  // project page), where the incoming page is opaque and static.
+  ::view-transition-group(root) {
+    background-color: $black-100;
+  }
+
+  // 520ms, not 680ms: past that the outgoing page is occluded and any further
+  // motion is invisible work.
+  ::view-transition-old(root) {
+    animation: 1000ms $ease-out both vt-recede;
+  }
+
+  // 60ms behind the old plane — the page underneath starts receding before the
+  // new one starts covering, which is what reads as depth rather than a wipe.
+  ::view-transition-new(root) {
+    animation: 1000ms 60ms $ease-slide both vt-cover;
+  }
+
+  // Reveal navigations (leaving /about or a project page) invert the layering:
+  // the destination is pinned and static, and the leaving page is the plane
+  // that moves, on top, dropping away to reveal it. z-index is what puts the
+  // old snapshot above the new one — by spec the new one paints last inside
+  // the image pair.
+  html:active-view-transition-type(nav-reveal)::view-transition-old(root) {
+    z-index: 1;
+    animation: 560ms $ease-standard both vt-reveal-exit;
+  }
+
+  // Explicit `none` — it cancels the UA's -ua-view-transition-fade-in, which
+  // would otherwise crossfade the page that is supposed to sit still.
+  html:active-view-transition-type(nav-reveal)::view-transition-new(root) {
+    z-index: 0;
+    animation: none;
+  }
+}
+
+// Gentler, not zero: keep the handoff legible, drop the travel.
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root) {
+    animation: none;
+  }
+
+  ::view-transition-new(root) {
+    animation: 150ms $ease-out both vt-fade-in;
+  }
+}
+
+@keyframes vt-recede {
+  to {
+    transform: scale(1.1);
+    opacity: 0.2;
+  }
+}
+
+// % not vh — the root snapshot is exactly viewport-sized, so this is precise
+// and immune to the mobile URL-bar vh/dvh mismatch.
+@keyframes vt-cover {
+  from {
+    transform: translateY(-100%);
+  }
+}
+
+// No opacity: it is uncovering an opaque page, and a fade would double-expose
+// the two planes on the way out.
+@keyframes vt-reveal-exit {
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+// ============================================
+// Scroll reveal — driven by src/components/RevealOnScroll.tsx.
+// Pre-states are plain CSS so they apply on first paint, before hydration;
+// the <noscript> block in layout.tsx cancels them when JS is off.
+// `animation`, not `transition`: these reveals are one-shot and never
+// interrupted mid-flight, and unlike transition, animation-delay never gets
+// clobbered by an unrelated `transition` shorthand (e.g. hover-underline's)
+// sharing the same element — so component files only ever need to set
+// --reveal-step / --reveal-unit, never restate the reveal itself.
+// ============================================
+:root {
+  --reveal-delay: 0s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  // E4 — stagger fade-up. Same 300ms / 12px as .slot in works.module.scss.
+  // :not([data-reveal]) lets a group child opt into curtain instead.
+  [data-reveal="up"],
+  [data-reveal-group] > *:not([data-reveal]) {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  [data-reveal="up"][data-reveal-in],
+  [data-reveal-group][data-reveal-in] > *:not([data-reveal]) {
+    animation: reveal-up 650ms $ease-slide both;
+    animation-delay: calc(var(--reveal-delay) + (var(--reveal-step, 0) + var(--reveal-i, 0)) * var(--reveal-unit, 80ms));
+  }
+
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  // E1 — line mask. .revealLine is SplitText's linesClass; SplitText's
+  // mask: "lines" clones each into an overflow: clip wrapper.
+  // The padding/margin pair gives descenders room inside that clip.
+  // The element's own opacity fades too: on mobile .line becomes
+  // display: contents, and a reverted split has nothing else to animate it.
+  [data-reveal="lines"],
+  [data-reveal="lines-static"] {
+    opacity: 0;
+  }
+
+  [data-reveal="lines"][data-reveal-in],
+  [data-reveal="lines-static"][data-reveal-in] {
+    animation: reveal-fade 400ms $ease-out both;
+    animation-delay: calc(var(--reveal-delay) + (var(--reveal-step, 0) + var(--reveal-i, 0)) * var(--reveal-unit, 80ms));
+  }
+
+  @keyframes reveal-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .revealLine {
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+    transform: translateY(100%);
+  }
+
+  [data-reveal-in] .revealLine {
+    animation: reveal-line 900ms $ease-slide both;
+    animation-delay: calc(var(--reveal-delay) + (var(--reveal-step, 0) + var(--reveal-i, 0)) * var(--reveal-unit, 80ms));
+  }
+
+  @keyframes reveal-line {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: none;
+    }
+  }
+
+  // E3 — curtain. clip-path is the sanctioned fourth property; the image
+  // settles 120ms behind the curtain edge so the two do not read as one plane.
+  [data-reveal="curtain"] {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  [data-reveal="curtain"] > img {
+    transform: scale(1.1);
+  }
+
+  [data-reveal="curtain"][data-reveal-in] {
+    animation: reveal-curtain 1000ms $ease-slide both;
+    animation-delay: calc(var(--reveal-delay) + (var(--reveal-step, 0) + var(--reveal-i, 0)) * var(--reveal-unit, 80ms));
+  }
+
+  [data-reveal="curtain"][data-reveal-in] > img {
+    animation: reveal-curtain-img 1100ms $ease-slide both;
+    animation-delay: calc(var(--reveal-delay) + (var(--reveal-step, 0) + var(--reveal-i, 0)) * var(--reveal-unit, 80ms) + 120ms);
+  }
+
+  @keyframes reveal-curtain {
+    from {
+      clip-path: inset(0 0 100% 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @keyframes reveal-curtain-img {
+    from {
+      transform: scale(1.1);
+    }
+    to {
+      transform: none;
+    }
+  }
+
+  // E5 — masked line-rise for content SplitText must not touch (interactive
+  // nodes, live-updating text). Same duration/curve/stagger as .revealLine.
+  [data-reveal="rise"] > * {
+    display: block;
+    overflow: clip;
+  }
+
+  [data-reveal="rise"] > * > * {
+    display: block;
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+    transform: translateY(100%);
+  }
+
+  [data-reveal="rise"][data-reveal-in] > * > * {
+    animation: reveal-line 900ms $ease-slide both;
+    animation-delay: calc(var(--reveal-delay) + (var(--reveal-step, 0) + var(--reveal-i, 0)) * var(--reveal-unit, 80ms));
+  }
+
+  // E6 — spread. gap is a layout property; animating it relayouts the whole
+  // row set every frame. This is the compositor-safe equivalent: a static
+  // gap plus a decreasing translateY offset per child. Opacity finishes at
+  // 72% of the timeline (650ms of the 900ms total) to match the old
+  // two-duration transition.
+  [data-reveal="spread"] > * {
+    opacity: 0;
+    transform: translateY(calc(var(--reveal-i, 0) * var(--reveal-spread, 24px)));
+  }
+
+  [data-reveal="spread"][data-reveal-in] > * {
+    animation: reveal-spread 900ms $ease-slide both;
+    animation-delay: calc(var(--reveal-delay) + (var(--reveal-step, 0) + var(--reveal-i, 0)) * var(--reveal-unit, 80ms));
+  }
+
+  @keyframes reveal-spread {
+    from {
+      opacity: 0;
+      transform: translateY(calc(var(--reveal-i, 0) * var(--reveal-spread, 24px)));
+    }
+    72% {
+      opacity: 1;
+    }
+    to {
+      // Restated: a property absent from `to` falls back to the underlying
+      // pre-state, which would fade the rows straight back out.
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+// Gentler, not zero: keep the arrival legible, drop all travel. No entrance
+// delay either — the reduced-motion page transition is only 150ms.
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal-group] > * {
+    opacity: 0;
+    transition: opacity 300ms $ease-out;
+  }
+
+  [data-reveal][data-reveal-in],
+  [data-reveal-group][data-reveal-in] > * {
+    opacity: 1;
+  }
+}
