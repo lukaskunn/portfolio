@@ -27,7 +27,7 @@ const FooterLocationBlock = () => {
   const mounted = useSyncExternalStore(subscribe, () => true, () => false)
 
   return (
-    <div data-cursor-popup={mounted ? offsetLabel() : undefined} style={{ display: "flex", flexDirection: "column" }}>
+    <div data-cursor-popup={mounted ? offsetLabel() : undefined} data-reveal-group style={{ display: "flex", flexDirection: "column" }}>
       <span className={`${style.muted} ${style.coords}`}>{COORDINATES}</span>
       <span>Remote from São Paulo / <LocalTime /></span>
     </div>

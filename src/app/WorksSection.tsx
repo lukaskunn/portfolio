@@ -28,10 +28,10 @@ const WorksSection = () => {
 
   return (
     <section className={style.section} id="works" data-section="Works" aria-labelledby="works-title">
-      <h2 id="works-title" className={style.title}>Curated works</h2>
+      <h2 id="works-title" className={style.title} data-reveal="lines">Curated works</h2>
 
       <div className={style.worksTable}>
-        <div className={style.head} aria-hidden="true">
+        <div className={style.head} aria-hidden="true" data-reveal="up">
           <span className={style.name}>Project name</span>
           <span className={style.type}>Type</span>
           <span className={style.client}>Client</span>
@@ -39,7 +39,7 @@ const WorksSection = () => {
           <span className={style.year}>Year</span>
         </div>
 
-        <ul className={style.list}>
+        <ul className={style.list} data-reveal="spread">
           {WORKS.map((project, index) => (
             <li
               key={project.slug}

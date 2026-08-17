@@ -80,6 +80,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: $gutter;
+  width: 100%;
 
   @include respond-to(tablet) {
     grid-template-columns: repeat(2, 1fr);
@@ -262,4 +263,54 @@
 .social a {
   color: $color-text-invert;
   text-decoration: none;
+}
+
+// All nine elements here carry data-reveal-now (item 4 is out of scope), so
+// with RevealOnScroll's flat --reveal-delay they need their own document-
+// order queue or they'd all fire together. h1 through .clientsList use the
+// default 80ms unit; the contact row keeps its own 100ms unit, offset by 6
+// to follow the content above it.
+@media (prefers-reduced-motion: no-preference) {
+  .page .hero .title {
+    --reveal-step: 0;
+  }
+
+  .page .hero .profileImage {
+    --reveal-step: 1;
+  }
+
+  .page .bio p:nth-of-type(1) {
+    --reveal-step: 2;
+  }
+
+  .page .bio p:nth-of-type(2) {
+    --reveal-step: 3;
+  }
+
+  .page .clientsLabel {
+    --reveal-step: 4;
+  }
+
+  .page .clientsList {
+    --reveal-step: 5;
+  }
+
+  .page .contact .getInTouch,
+  .page .contact .status,
+  .page .contact .social {
+    --reveal-unit: 100ms;
+  }
+
+  .page .contact .getInTouch > * {
+    --reveal-step: 6;
+  }
+
+  // ponytail: 3 = getInTouch's label + email + phone; 5 adds status' two lines.
+  .page .contact .status > * {
+    --reveal-step: 9;
+  }
+
+  .page .contact .social > * {
+    --reveal-step: 11;
+  }
 }

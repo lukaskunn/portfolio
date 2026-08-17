@@ -67,49 +67,53 @@ const HeroSection = () => {
       <div className={style.headerHeight} />
       <h1
         className={style.title}
+        data-reveal="lines-static"
+        data-reveal-now
         aria-label="Web developer based in São Paulo mixing creativity and engineering into awesome experiences"
       >
         {LINES.map((line, lineIndex) => (
           <span className={style.line} key={lineIndex}>
-            {line.map((token, tokenIndex) => {
-              if (token === BR) {
-                return <span className={style.break} key={tokenIndex} aria-hidden="true" />
-              }
+            <span className={style.lineInner}>
+              {line.map((token, tokenIndex) => {
+                if (token === BR) {
+                  return <span className={style.break} key={tokenIndex} aria-hidden="true" />
+                }
 
-              if (isChip(token)) {
-                return (
-                  <span
-                    className={style.chip}
-                    style={{ background: token.color }}
-                    aria-hidden="true"
-                    key={tokenIndex}
-                  >
-                    <span className={style.chipMedia}>
-                      <Image
-                        src={token.src}
-                        alt=""
-                        fill
-                        sizes="(max-width: 767.98px) 54px, (max-width: 1023.98px) 82px, 107px"
-                        style={{ objectFit: "cover", objectPosition: "center" }}
-                      />
+                if (isChip(token)) {
+                  return (
+                    <span
+                      className={style.chip}
+                      style={{ background: token.color }}
+                      aria-hidden="true"
+                      key={tokenIndex}
+                    >
+                      <span className={style.chipMedia}>
+                        <Image
+                          src={token.src}
+                          alt=""
+                          fill
+                          sizes="(max-width: 767.98px) 54px, (max-width: 1023.98px) 82px, 107px"
+                          style={{ objectFit: "cover", objectPosition: "center" }}
+                        />
+                      </span>
                     </span>
-                  </span>
-                )
-              }
+                  )
+                }
 
-              return <span key={tokenIndex}>{token}</span>
-            })}
+                return <span key={tokenIndex}>{token}</span>
+              })}
+            </span>
           </span>
         ))}
       </h1>
       <div className={style.meta}>
-        <div className={style.metaCol}>
-          <span><RollText>{"/ São Paulo / "}</RollText> <LocalTime /></span>
-          <span><RollText duration={0.2} stagger={0.009}>{"/ Currently Front end developer @ WPPCommerce"}</RollText></span>
+        <div className={style.metaCol} data-reveal="rise" data-reveal-now>
+          <span><span><RollText>{"/ São Paulo / "}</RollText> <LocalTime /></span></span>
+          <span><span><RollText duration={0.2} stagger={0.009}>{"/ Currently Front end developer @ WPPCommerce"}</RollText></span></span>
         </div>
-        <div className={style.metaCol}>
-          <span><RollText>{"UI/UX DESIGNER /"}</RollText></span>
-          <span><RollText>{"WEB DEVELOPER /"}</RollText></span>
+        <div className={style.metaCol} data-reveal="rise" data-reveal-now>
+          <span><span><RollText>{"UI/UX DESIGNER /"}</RollText></span></span>
+          <span><span><RollText>{"WEB DEVELOPER /"}</RollText></span></span>
         </div>
       </div>
     </section>

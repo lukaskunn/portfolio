@@ -5,6 +5,8 @@ import "lenis/dist/lenis.css";
 import { ReactLenis } from "lenis/react";
 import Header from "@/components/Header";
 import CursorFollower from "@/components/CursorFollower";
+import RouteTransition from "@/components/RouteTransition";
+import RevealOnScroll from "@/components/RevealOnScroll";
 import { ContactModalProvider } from "@/contexts/ContactModalContext";
 import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, SITE_URL } from "@/utils/contants";
 
@@ -104,10 +106,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${gabarito.variable} ${roboto.variable} ${robotoMono.variable}`}
+      style={{ viewTransitionName: "root"}}
     >
       <body>
         <ReactLenis root options={{ lerp: 0.1, smoothWheel: true, anchors: true }} />
         <CursorFollower />
+        <RouteTransition />
+        <RevealOnScroll />
+        <noscript>
+          {/* Pre-states are unconditional CSS so they land on first paint. */}
+          <style>{`[data-reveal],[data-reveal-group]>*,[data-reveal="rise"]>*>*,[data-reveal="spread"]>*{opacity:1!important;transform:none!important;clip-path:none!important;animation:none!important}`}</style>
+        </noscript>
         <ContactModalProvider>
           <Header />
           {children}

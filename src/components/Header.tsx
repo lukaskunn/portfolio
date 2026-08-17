@@ -1,9 +1,10 @@
 "use client"
 
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, useEffect, useState, type MouseEvent } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { FaArrowRight } from "react-icons/fa"
+import { useLenis } from "lenis/react"
 
 
 import { useContactModal } from "@/contexts/ContactModalContext"
@@ -25,6 +26,12 @@ const Header = () => {
   const onServices = pathname === "/services"
   const isHome = pathname === "/"
 
+  // Leaving /about or a project page is a "return" — the leaving page drops
+  // away over a pinned destination. Sibling project→project keeps the cover.
+  const reveal = pathname === "/about" || pathname.startsWith("/project/")
+  const transitionTypes = reveal ? ["nav-reveal"] : undefined
+  const lenis = useLenis()
+
   useEffect(() => {
     if (!open) return
 
@@ -40,6 +47,74 @@ const Header = () => {
   // otherwise the menu stays open on top of the page you just navigated to.
   const close = () => setOpen(false)
 
+  // Cross-route Work: Next's hash scroll (scroll={false}) would jump instantly
+  // under the transition snapshot, so it is suppressed and Lenis takes over
+  // once the snapshot is gone — see the durations in globals.scss.
+  const onWorksClick = () => {
+    close()
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const delay = reduced ? 200 : reveal ? 620 : 1120
+
+    window.setTimeout(() => {
+      // ponytail: no timer ref — Header never unmounts, and this bails if the
+      // user navigated somewhere else in the meantime.
+      if (window.location.pathname === "/") lenis?.scrollTo("#works")
+    }, delay)
+  }
+
+  const linkProps = (href: string) => {
+    const current = href === pathname
+
+    return {
+      href,
+      transitionTypes,
+      "aria-current": current ? ("page" as const) : undefined,
+      onClick: (event: MouseEvent<HTMLAnchorElement>) => {
+        if (current) event.preventDefault()
+        close()
+      },
+    }
+  }
+
+  // On the homepage the Work link is an in-page jump, not a route change —
+  // Lenis (anchors: true) smooth-scrolls a plain hash anchor for free.
+  const renderNav = (withSeparators: boolean) =>
+    NAV.map(({ href, label }, index) => {
+      const isWorks = href === "/#works"
+      const link = !isWorks ? (
+        <Link key={href} {...linkProps(href)} className={style.navLink}>
+          {label}
+        </Link>
+      ) : isHome ? (
+        <a key={href} href="#works" className={style.navLink} onClick={close}>
+          {label}
+        </a>
+      ) : (
+        <Link
+          key={href}
+          {...linkProps(href)}
+          scroll={false}
+          onClick={onWorksClick}
+          className={style.navLink}
+        >
+          {label}
+        </Link>
+      )
+
+      if (!withSeparators) return link
+
+      return (
+        <Fragment key={href}>
+          {index > 0 && (
+            <span className={style.sep} aria-hidden="true">
+              /
+            </span>
+          )}
+          {link}
+        </Fragment>
+      )
+    })
+
   const className = [style.header, open && style.open, isHome && style.home]
     .filter(Boolean)
     .join(" ")
@@ -54,39 +129,30 @@ const Header = () => {
   return (
     <header className={className}>
       <div className={style.inner}>
-        <Link href="/" className={style.logo} onClick={close}>
+        <Link {...linkProps("/")} className={style.logo} data-reveal="up">
           Lucas Oliveira
         </Link>
 
         <div className={style.actions}>
-          <nav className={style.nav} aria-label="Main">
-            {NAV.map(({ href, label }, index) => (
-              <Fragment key={href}>
-                {index > 0 && (
-                  <span className={style.sep} aria-hidden="true">
-                    /
-                  </span>
-                )}
-                <Link href={href} className={style.navLink}>
-                  {label}
-                </Link>
-              </Fragment>
-            ))}
+          <nav className={style.nav} aria-label="Main" data-reveal-group>
+            {renderNav(true)}
           </nav>
 
           {/* ponytail: static placeholder — no i18n wiring yet */}
-          <span className={style.lang}>
+          <span className={style.lang} data-reveal="up">
             <span className={style.langMuted}>PT</span> / EN
           </span>
 
           {onServices ? (
-            <a href="#contact" className={`${style.contact} ${style.contactButtonDesktop}`}>
+            <a href="#contact" className={`${style.contact} ${style.contactButtonDesktop}`}
+              data-reveal="up">
               {contactLabel}
             </a>
           ) : (
             <button
               type="button"
               className={`${style.contact} ${style.contactButtonDesktop}`}
+              data-reveal="up"
               onClick={openContactModal}
             >
               {contactLabel}
@@ -97,6 +163,7 @@ const Header = () => {
         <button
           type="button"
           className={style.burger}
+          data-reveal="up"
           aria-expanded={open}
           aria-controls="header-menu"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -123,11 +190,7 @@ const Header = () => {
         </button>
         <div className={style.menuList}>
 
-          {NAV.map(({ href, label }) => (
-            <Link key={href} href={href} className={style.navLink} onClick={close}>
-              {label}
-            </Link>
-          ))}
+          {renderNav(false)}
           <span className={style.lang}>
             <span className={style.langMuted}>PT</span> / EN
           </span>

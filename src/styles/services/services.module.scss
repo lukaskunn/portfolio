@@ -122,6 +122,16 @@ $process-item-h-mobile: 580px;
   bottom: 10%
 }
 
+// Waits out the hero title: 900ms line rise + 80ms per extra line.
+// --reveal-lines is set by RevealOnScroll's SplitText pass on the section
+// ([data-section]), so this tracks the title's actual wrap count instead of
+// assuming a fixed breakpoint.
+@media (prefers-reduced-motion: no-preference) {
+  .hero .scrollCue {
+    animation-delay: calc(var(--reveal-delay) + 900ms + var(--reveal-lines, 3) * 80ms);
+  }
+}
+
 .heroTitle {
   @include heading-1;
 
@@ -288,6 +298,7 @@ $process-item-h-mobile: 580px;
 
   @include respond-to(mobile) {
     display: none;
+    clip-path: none;
   }
 }
 

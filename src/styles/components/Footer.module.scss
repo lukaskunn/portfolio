@@ -140,6 +140,11 @@
   }
 }
 
+.titleLine {
+  display: block;
+  overflow: clip;
+}
+
 .block {
   display: flex;
   flex-direction: column;
@@ -147,6 +152,15 @@
   font-size: 18px;
   width: fit-content;
   cursor: pointer;
+}
+
+// 100ms per line. The aside block's group sits on FooterLocationBlock's own
+// wrapper, so the selector matches both nesting depths.
+@media (prefers-reduced-motion: no-preference) {
+  .footer .block [data-reveal-group] > *,
+  .footer .block[data-reveal-group] > * {
+    --reveal-unit: 100ms;
+  }
 }
 
 // The coordinates are the one 16px line in the pair; its sibling stays 18px.
@@ -191,6 +205,14 @@
   }
 }
 
+// 100ms stagger; +1 so the "Sitemap" label leads.
+@media (prefers-reduced-motion: no-preference) {
+  .footer .sitemap .sitemapLinks > * {
+    --reveal-step: 1;
+    --reveal-unit: 100ms;
+  }
+}
+
 .social {
   display: flex;
   flex-direction: row;
@@ -206,6 +228,12 @@
 
   @include respond-to(mobile) {
     gap: $space-lg;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .footer .bottom .social > * {
+    --reveal-unit: 100ms;
   }
 }
 

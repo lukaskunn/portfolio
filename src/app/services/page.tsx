@@ -64,10 +64,10 @@ export default function ServicesPage() {
               />
             </div>
             <section className={style.hero} id="intro" data-section="Intro">
-              <h1 className={style.heroTitle}>
+              <h1 className={style.heroTitle} data-reveal="lines">
                 Transform your digital presence into awesome experience that connect your business to your audience
               </h1>
-              <a href="#what-i-do" className={style.scrollCue}>
+              <a href="#what-i-do" className={style.scrollCue} data-reveal="up">
                 Scroll to explore<FaArrowDown size={14} aria-hidden="true" focusable="false" />
               </a>
             </section>
@@ -76,8 +76,8 @@ export default function ServicesPage() {
 
           <div className={style.scrollOver}>
             <section className={style.help} id="what-i-do" data-section="what i do">
-              <h2 className={style.helpTitle}>I can help you with:</h2>
-              <div className={style.helpGrid}>
+              <h2 className={style.helpTitle} data-reveal="lines">I can help you with:</h2>
+              <div className={style.helpGrid} data-reveal-group>
                 {SERVICES.map(({ title, body }) => (
                   <div key={title} className={style.card}>
                     <h3 className={style.cardTitle}>{title}</h3>
@@ -87,17 +87,17 @@ export default function ServicesPage() {
               </div>
             </section>
             <section className={style.services} id="services" data-section="Services">
-              <h2 className={style.servicesTitle}>Services</h2>
+              <h2 className={style.servicesTitle} data-reveal="lines">Services</h2>
               <ul className={style.servicesList}>
                 {SERVICE_GROUPS.map(({ title, items, image, size }) => (
-                  <li key={title} className={style.serviceRow}>
+                  <li key={title} className={style.serviceRow} data-reveal-group>
                     <h3 className={style.serviceTitle}>{title}</h3>
                     <ul className={style.serviceItems}>
                       {items.map((item, index) => (
                         <li key={`${item}-${index}`}>{item}</li>
                       ))}
                     </ul>
-                    <div className={`${style.serviceImage} ${IMAGE_SIZE[size].className}`}>
+                    <div className={`${style.serviceImage} ${IMAGE_SIZE[size].className}`} data-reveal="curtain">
                       <Image
                         src={image}
                         alt=""
@@ -112,11 +112,11 @@ export default function ServicesPage() {
             </section>
 
             <section className={style.process} id="process" data-section="Process">
-              <h2 className={style.processTitle}>Process</h2>
+              <h2 className={style.processTitle} data-reveal="lines">Process</h2>
               <ol className={style.processList}>
                 {PROCESS.map(({ title, body }) => (
                   <li key={title} className={style.processItem}>
-                    <div className={style.processContent}>
+                    <div className={style.processContent} data-reveal-group>
                       <h3 className={style.processItemTitle}>{title}</h3>
                       <p className={style.processBody}>{body}</p>
                     </div>
