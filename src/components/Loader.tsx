@@ -87,7 +87,7 @@ const Loader = () => {
     }
   }, [])
 
-  // if (done) return null
+  if (done) return null
 
   return (
     <div ref={overlayRef} className={styles.overlay} aria-hidden="true">
