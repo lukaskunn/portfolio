@@ -29,27 +29,6 @@
   height: 36px
 }
 
-.pin {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-
-  @include respond-to(mobile) {
-    position: static;
-  }
-}
-
-.backdrop {
-  position: absolute;
-  inset-inline: 0;
-  top: 0;
-  height: 100svh;
-  opacity: 0.35;
-  z-index: -1;
-}
-
 .title {
   @include heading-1;
   text-transform: uppercase;

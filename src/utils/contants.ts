@@ -1,3 +1,5 @@
+import type { Project } from "@/types/project"
+
 export const SITE_URL = "https://lucasoliveira.io"
 export const SITE_NAME = "Lucas Oliveira"
 export const DEFAULT_TITLE = "Lucas Oliveira — Creative Web Developer & Software Engineer"
@@ -8,6 +10,14 @@ export const OG_IMAGE = "/website_open_graph_cover.png"
 // WORKS points at the homepage section — /work will never be a real route.
 export const SITEMAP = [
   { href: "/#works", label: "Works" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About" },
+] as const
+
+// Work points at the homepage section (/#works — mirrors SITEMAP); the
+// rest do not exist yet — they 404 until the pages land.
+export const NAV = [
+  { href: "/#works", label: "Work" },
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
 ] as const
@@ -63,19 +73,6 @@ export const PROCESS = [
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi porta eu massa quis eleifend. Nam at euismod enim. Praesent vitae nunc vel est molestie tincidunt in nec urna. Nunc sollicitudin euismod nibh, faucibus consectetur lorem finibus vitae. Aliquam eu risus sit amet massa pulvinar sagittis eget id magna. Nam a cursus nisl. Donec pretium, tellus eget hendrerit venenatis.",
   },
 ] as const
-
-export type Project = {
-  slug: string
-  name: string
-  client: string
-  type: string
-  industry: string
-  role: string
-  year: string
-  technologies: readonly string[]
-  description: readonly string[]
-  images: readonly string[]
-}
 
 // ponytail: placeholder art — one project's real photos reused across every
 // entry. Slot geometry lives in CSS, not here.
@@ -149,6 +146,18 @@ export const WORKS: readonly Project[] = [
     images: [IMAGE_A, IMAGE_B, IMAGE_A],
   },
 ] as const
+
+// UI chrome for /project/[slug] — moves to the locale dictionary once i18n lands.
+export const PROJECT_LABELS = {
+  year: "Year",
+  role: "Role",
+  type: "Type",
+  industry: "Industry",
+  technologies: "Technologies",
+  description: "Description",
+  back: "Return",
+  next: "Next Project",
+} as const
 
 export const SERVICE_GROUPS = [
   {

@@ -1,19 +1,10 @@
 "use client"
 
 import { useActionState, useId, useState } from "react"
-import { useFormStatus } from "react-dom"
 import { submitContact } from "@/app/actions"
 import EmailAndPhoneNumberBlock from "./EmailAndPhoneNumberBlock"
+import ContactSubmitBlock from "./ContactSubmitBlock"
 import style from "@/styles/components/ContactForm.module.scss"
-const SubmitButton = () => {
-  const { pending } = useFormStatus()
-
-  return (
-    <button type="submit" className={style.submit} disabled={pending}>
-      {pending ? "Sending…" : "Send message"}
-    </button>
-  )
-}
 
 const ContactForm = () => {
   const [state, formAction] = useActionState(submitContact, { status: "idle" as const })
@@ -50,19 +41,7 @@ const ContactForm = () => {
               </div>
             </div>
 
-            <div className={`${style.submitBlock} ${style.submitBlockDesktop}`}>
-              <SubmitButton />
-              {state.status === "success" && (
-                <p className={style.success} role="status" aria-live="polite">
-                  Message sent — I&apos;ll get back to you soon.
-                </p>
-              )}
-              {state.status === "error" && state.message && (
-                <p className={style.error} role="alert">
-                  {state.message}
-                </p>
-              )}
-            </div>
+            <ContactSubmitBlock state={state} variant="desktop" />
           </div>
 
           <div className={style.fields}>
@@ -194,19 +173,7 @@ const ContactForm = () => {
               + add business name & phone (optional)
             </button>
           </div>
-          <div className={`${style.submitBlock} ${style.submitBlockMobile}`}>
-            <SubmitButton />
-            {state.status === "success" && (
-              <p className={style.success} role="status" aria-live="polite">
-                Message sent — I&apos;ll get back to you soon.
-              </p>
-            )}
-            {state.status === "error" && state.message && (
-              <p className={style.error} role="alert">
-                {state.message}
-              </p>
-            )}
-          </div>
+          <ContactSubmitBlock state={state} variant="mobile" />
         </div>
       </form>
     </section>

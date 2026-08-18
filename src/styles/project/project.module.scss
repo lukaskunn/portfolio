@@ -1,7 +1,5 @@
 @use "references" as *;
 
-$sticky-top: calc(var(--page-margin) + 60px);
-
 .page {
   max-width: 1440px;
   width: 100%;
@@ -36,45 +34,13 @@ $sticky-top: calc(var(--page-margin) + 60px);
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: $gutter;
   flex: 1;
+  width: 100%;
 
   @include respond-to(mobile) {
     display: flex;
     flex-direction: column;
     gap: $space-4xl;
   }
-}
-
-// Absolute track decouples the marquee's intrinsic height from the grid row —
-// row height is driven by .content, images overflow the row on purpose.
-.gallery {
-  grid-column: span 6;
-  position: sticky;
-  top: $sticky-top;
-  align-self: start;
-  height: calc(100dvh - #{$sticky-top} - var(--page-margin));
-  overflow: hidden;
-
-  @media (prefers-reduced-motion: reduce) {
-    overflow-y: auto;
-  }
-
-  @include respond-to(mobile) {
-    display: none;
-  }
-}
-
-.track {
-  position: absolute;
-  inset: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: $gutter;
-}
-
-.trackImage {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
 }
 
 .content {
@@ -93,150 +59,18 @@ $sticky-top: calc(var(--page-margin) + 60px);
     flex-direction: column;
     gap: $section-gap;
 
-    .detailsGroup {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
     @include respond-to(tablet) {
       gap: 40px;
     }
   }
 }
 
-.row {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  column-gap: $gutter;
-
-  @include respond-to(tablet) {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid $color-border-default;
-    padding-block: $space-sm;
-
-    &:has(.description) {
-      border-bottom: none;
-    }
-  }
-
-  @include respond-to(mobile) {
-    &:has(.description) {
-      padding: 0;
-    }
-  }
-}
-
-.rowDescription {
-
-  @include respond-to(tablet) {
-    .label {
-      display: none;
-    }
-
-    .value {
-      max-width: none;
-      text-align: left;
-    }
-  }
-}
-
-.label {
-  grid-column: span 2;
-  font-family: $font-contrast;
-  font-weight: $font-weight-light;
-  font-size: var(--fs-label);
-  line-height: $line-height-label;
-  letter-spacing: -0.04em;
-  color: $color-text-primary-muted;
-}
-
-.value {
-  grid-column: span 4;
-  display: flex;
-  flex-direction: column;
-  font-family: $font-heading;
-  font-weight: $font-weight-bold;
-  font-size: $font-size-base;
-  line-height: $line-height-label;
-  color: $color-text-primary;
-
-  @include respond-to(tablet) {
-    font-family: $font-contrast;
-    font-weight: $font-weight-semibold;
-    font-size: var(--fs-label);
-    text-align: right;
-    max-width: 180px;
-  }
-}
-
-.technologies {
-  @include respond-to(tablet) {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-
-    span:not(:last-child)::after {
-      content: ", ";
-    }
-  }
-}
-
-.description {
-  display: flex;
-  flex-direction: column;
-  gap: $space-lg;
-}
-
-.descriptionBody {
-  font-family: $font-label;
-  font-weight: $font-weight-regular;
-  font-size: $font-size-base;
-  line-height: $line-height-label;
-  letter-spacing: -0.02em;
-  color: $color-text-primary;
-}
-
-.mobileImage {
-  display: none;
-
-  @include respond-to(mobile) {
-    display: block;
-    position: relative;
-    aspect-ratio: 16 / 9;
-    margin-inline: calc(#{$page-margin} * -1);
-  }
-}
-
-.nav {
-  display: flex;
-  justify-content: space-between;
-  margin-top: auto;
-
-  @include respond-to(mobile) {
-    border-top: 1px solid $color-border-default;
-    padding-block: $space-md;
-  }
-}
-
-.navLink {
-  font-family: $font-contrast;
-  font-weight: $font-weight-semibold;
-  font-size: var(--fs-label);
-  line-height: $line-height-label;
-  text-decoration: none;
-  color: inherit;
-
-  &:focus-visible {
-    @include focus-visible;
-  }
-}
-
 // Every element here carries data-reveal-now (item 4 is out of scope), so
 // with RevealOnScroll's flat --reveal-delay they need their own document-
 // order queue or they'd all fire together. 100ms per step, page-wide; the
-// nav waits out the description above it.
+// nav waits out the description above it. Steps live with their markup:
+// 0 here, 1 ProjectDetails, 6 ProjectMobileImage, 7/8/9 ProjectDescription,
+// 10 ProjectNav. --reveal-unit stays on .page and inherits into all of them.
 @media (prefers-reduced-motion: no-preference) {
   .page {
     --reveal-unit: 100ms;
@@ -244,29 +78,5 @@ $sticky-top: calc(var(--page-margin) + 60px);
 
   .page .title {
     --reveal-step: 0;
-  }
-
-  .page .detailsGroup > * {
-    --reveal-step: 1;
-  }
-
-  .page .mobileImage {
-    --reveal-step: 6;
-  }
-
-  .page .rowDescription .label {
-    --reveal-step: 7;
-  }
-
-  .page .description p:nth-of-type(1) {
-    --reveal-step: 8;
-  }
-
-  .page .description p:nth-of-type(2) {
-    --reveal-step: 9;
-  }
-
-  .page .nav > * {
-    --reveal-step: 10;
   }
 }

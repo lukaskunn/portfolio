@@ -5,9 +5,9 @@ import Image from "next/image"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 
-import style from "@/styles/project/project.module.scss"
+import style from "@/styles/components/ProjectGallery.module.scss"
 
-type ProjectGalleryProps = {
+export interface ProjectGalleryProps {
   images: readonly string[]
   alt: string
 }

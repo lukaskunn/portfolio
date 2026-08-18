@@ -3,20 +3,13 @@
 import { Fragment, useEffect, useState, type MouseEvent } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FaArrowRight } from "react-icons/fa"
 import { useLenis } from "lenis/react"
 
 
 import { useContactModal } from "@/contexts/ContactModalContext"
+import HeaderContactButton from "./HeaderContactButton"
+import { NAV } from "@/utils/contants"
 import style from "@/styles/components/Header.module.scss"
-
-// Work points at the homepage section (/#works — mirrors Footer.tsx); the
-// rest do not exist yet — they 404 until the pages land.
-const NAV = [
-  { href: "/#works", label: "Work" },
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
-] as const
 
 const Header = () => {
   const pathname = usePathname()
@@ -119,13 +112,6 @@ const Header = () => {
     .filter(Boolean)
     .join(" ")
 
-  const contactLabel = (
-    <>
-      Contact
-      <FaArrowRight size={14} className={style.icon} aria-hidden="true" focusable="false" />
-    </>
-  )
-
   return (
     <header className={className}>
       <div className={style.inner}>
@@ -143,21 +129,12 @@ const Header = () => {
             <span className={style.langMuted}>PT</span> / EN
           </span>
 
-          {onServices ? (
-            <a href="#contact" className={`${style.contact} ${style.contactButtonDesktop}`}
-              data-reveal="up">
-              {contactLabel}
-            </a>
-          ) : (
-            <button
-              type="button"
-              className={`${style.contact} ${style.contactButtonDesktop}`}
-              data-reveal="up"
-              onClick={openContactModal}
-            >
-              {contactLabel}
-            </button>
-          )}
+          <HeaderContactButton
+            className={`${style.contact} ${style.contactButtonDesktop}`}
+            onOpen={openContactModal}
+            onServices={onServices}
+            reveal
+          />
         </div>
 
         <button
@@ -195,25 +172,12 @@ const Header = () => {
             <span className={style.langMuted}>PT</span> / EN
           </span>
         </div>
-        {onServices ? (
-          <a
-            href="#contact"
-            className={`${style.contact} ${style.contactButtonMobile}`}
-            onClick={close}
-          >
-            {contactLabel}
-          </a>
-        ) : (
-          <button
-            type="button"
-            className={`${style.contact} ${style.contactButtonMobile}`}
-            onClick={() => {
-              openContactModal()
-            }}
-          >
-            {contactLabel}
-          </button>
-        )}
+        <HeaderContactButton
+          className={`${style.contact} ${style.contactButtonMobile}`}
+          onOpen={openContactModal}
+          onServices={onServices}
+          onNavigate={close}
+        />
       </div>
 
     </header>

@@ -6,7 +6,7 @@ import gsap from "gsap"
 import LocalTime from "@/components/LocalTime"
 import RollText from "@/components/RollText"
 import { useHoverAnimation } from "@/hooks/useHoverAnimation"
-import style from "@/styles/homepage/hero.module.scss"
+import style from "@/styles/components/HeroSection.module.scss"
 
 
 

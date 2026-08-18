@@ -4,7 +4,7 @@ import { useState, type CSSProperties, type MouseEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
-import style from "@/styles/homepage/works.module.scss"
+import style from "@/styles/components/WorksSection.module.scss"
 import { WORKS } from "@/utils/contants"
 
 // Strip has 4 fixed slots (CSS geometry), WORKS carries 3 images per project —

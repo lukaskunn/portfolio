@@ -20,6 +20,45 @@
   @include respond-to(mobile) {
     display: none;
   }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: $space-xs;
+
+    .item {
+      position: relative;
+
+      .link {
+        position: relative;
+        display: block;
+        height: 100%;
+        padding-left: 16px;
+        text-decoration: none;
+        background-image: none;
+
+        .bar {
+          display: block;
+          margin-left: auto;
+          width: 4px;
+          height: 100%;
+          border-radius: $radius-sm;
+          background: $white-100-muted;
+          overflow: hidden;
+
+          .fill {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: $white-100;
+            transform: scaleY(var(--p, 0));
+            transform-origin: top;
+          }
+        }
+      }
+    }
+  }
 }
 
 .visible {
@@ -49,26 +88,8 @@
   }
 }
 
-.list {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  gap: $space-xs;
-}
-
-.item {
-  position: relative;
-}
-
-.link {
-  position: relative;
-  display: block;
-  height: 100%;
-  padding-left: 16px;
-  text-decoration: none;
-  background-image: none;
-}
-
+// Kept at top level: its own rules reference .link and .persistentLabel as
+// ancestors, so nesting it under .link would double the .link in the selector.
 .label {
   position: absolute;
   right: calc(100% + 5px);
@@ -93,23 +114,4 @@
   .persistentLabel .link[aria-current] & {
     opacity: 1;
   }
-}
-
-.bar {
-  display: block;
-  margin-left: auto;
-  width: 4px;
-  height: 100%;
-  border-radius: $radius-sm;
-  background: $white-100-muted;
-  overflow: hidden;
-}
-
-.fill {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background: $white-100;
-  transform: scaleY(var(--p, 0));
-  transform-origin: top;
 }

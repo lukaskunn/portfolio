@@ -11,51 +11,51 @@
   :global(html[data-intro]) & {
     display: block;
   }
+
+  .track {
+    position: absolute;
+    top: $page-margin;
+    bottom: $page-margin;
+    right: $page-margin;
+    width: 2px;
+    background: $white-100-muted;
+    z-index: 999;
+
+    .fill {
+      position: absolute;
+      inset: 0;
+      background: $white-100;
+      transform-origin: bottom center;
+      transform: scaleY(var(--p));
+      will-change: transform;
+    }
+
+    // Sibling of .fill, not a child — a scaling parent would squash the label.
+    // Inverted against --p so the label rises with the fill; 1em is the counter's
+    // own height (line-height: 1), so it sits flush at both ends.
+    .rider {
+      position: absolute;
+      top: 0;
+      right: 100%;
+      height: 100%;
+      margin-right: $space-xs;
+      pointer-events: none;
+      transform: translateY(calc((1 - var(--p)) * (100% - 1em)));
+
+      .counter {
+        @include label-contrast-rg;
+        font-size: 24px;
+        color: $color-text-invert;
+        font-variant-numeric: tabular-nums;
+        display: inline-block;
+        width: 3ch;
+        line-height: 1;
+        text-align: right;
+      }
+    }
+  }
 }
 
 :global(html[data-intro="playing"]) {
   overflow: hidden;
-}
-
-.track {
-  position: absolute;
-  top: $page-margin;
-  bottom: $page-margin;
-  right: $page-margin;
-  width: 2px;
-  background: $white-100-muted;
-  z-index: 999;
-}
-
-.fill {
-  position: absolute;
-  inset: 0;
-  background: $white-100;
-  transform-origin: bottom center;
-  transform: scaleY(var(--p));
-  will-change: transform;
-}
-
-// Sibling of .fill, not a child — a scaling parent would squash the label.
-// Inverted against --p so the label rises with the fill; 1em is the counter's
-// own height (line-height: 1), so it sits flush at both ends.
-.rider {
-  position: absolute;
-  top: 0;
-  right: 100%;
-  height: 100%;
-  margin-right: $space-xs;
-  pointer-events: none;
-  transform: translateY(calc((1 - var(--p)) * (100% - 1em)));
-}
-
-.counter {
-  @include label-contrast-rg;
-  font-size: 24px;
-  color: $color-text-invert;
-  font-variant-numeric: tabular-nums;
-  display: inline-block;
-  width: 3ch;
-  line-height: 1;
-  text-align: right;
 }

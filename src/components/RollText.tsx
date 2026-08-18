@@ -8,7 +8,7 @@ import gsap from "gsap"
 import { useHoverAnimation } from "@/hooks/useHoverAnimation"
 import style from "@/styles/components/RollText.module.scss"
 
-type RollTextProps = {
+export interface RollTextProps {
   children: string
   className?: string
   duration?: number

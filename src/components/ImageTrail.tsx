@@ -28,7 +28,7 @@ const ENTRANCE_DURATION = 0.05
 // ~17 alive at once. Raise it if fast cursors visibly recycle a live image.
 const POOL_SIZE = 20
 
-type ImageTrailProps = {
+export interface ImageTrailProps {
   images?: string[]
 }
 

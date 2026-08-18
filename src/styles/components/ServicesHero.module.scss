@@ -1,0 +1,61 @@
+@use "references" as *;
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 140px $page-margin calc(200px - 64px);
+  position: relative;
+  flex: 1;
+
+  @include respond-to(tablet) {
+    align-items: center;
+    padding: 36px 0 0;
+  }
+
+  @include respond-to(mobile) {
+    align-items: center;
+  }
+
+  .heroTitle {
+    @include heading-1;
+
+    text-align: center;
+    letter-spacing: -0.02em;
+    max-width: 1027px;
+
+    @include respond-to(mobile) {
+      font-size: var(--fs-h2);
+      text-align: center;
+      max-width: none;
+    }
+  }
+
+  .scrollCue {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2xs;
+    font-family: $font-contrast;
+    font-weight: $font-weight-semibold;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: $color-text-primary;
+    text-decoration: none;
+    align-self: center;
+    position: absolute;
+    bottom: 10%
+  }
+}
+
+// Waits out the hero title: 900ms line rise + 80ms per extra line.
+// --reveal-lines is set by RevealOnScroll's SplitText pass on the section
+// ([data-section]), so this tracks the title's actual wrap count instead of
+// assuming a fixed breakpoint.
+@media (prefers-reduced-motion: no-preference) {
+  .hero .scrollCue {
+    animation-delay: calc(var(--reveal-delay) + 900ms + var(--reveal-lines, 3) * 80ms);
+  }
+}

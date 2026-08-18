@@ -1,0 +1,103 @@
+@use "references" as *;
+
+$sticky-top: calc(var(--page-margin) + 30px);
+
+.services {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xl;
+  padding: $page-margin 0;
+
+  .servicesTitle {
+    @include heading-2;
+
+    letter-spacing: -0.02em;
+  }
+
+  .servicesList {
+    display: flex;
+    flex-direction: column;
+
+    .serviceRow {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: $gutter;
+      border-top: 1px solid $color-text-primary-muted;
+      padding-block: $space-xs $space-2xl;
+
+      @include respond-to(tablet) {
+        padding-block: $space-xl;
+      }
+
+      @include respond-to(mobile) {
+        grid-template-columns: 1fr;
+        row-gap: $space-sm;
+        padding-block: $space-lg;
+        position: static;
+      }
+
+      .serviceTitle {
+        @include heading-3-lg;
+
+        grid-column: span 4;
+        // position: sticky;
+        top: $sticky-top;
+        align-self: start;
+        letter-spacing: -0.02em;
+
+        @include respond-to(mobile) {
+          grid-column: auto;
+          position: static;
+        }
+      }
+
+      .serviceItems {
+        grid-column: span 4;
+        display: flex;
+        flex-direction: column;
+        gap: $space-xs;
+        list-style: disc;
+        padding-inline-start: 36px;
+        font-family: $font-label;
+        font-weight: $font-weight-bold;
+        font-size: 24px;
+        color: $color-text-primary;
+
+        @include respond-to(tablet) {
+          font-size: var(--fs-label);
+          gap: $space-2xs;
+        }
+
+        @include respond-to(mobile) {
+          grid-column: auto;
+          font-size: var(--fs-label);
+          gap: $space-2xs;
+        }
+      }
+
+      .serviceImage {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        // top: $sticky-top;
+        align-self: start;
+
+        @include respond-to(mobile) {
+          display: none;
+          clip-path: none;
+        }
+      }
+
+      .imageBig {
+        grid-column: span 4 / -1;
+      }
+
+      .imageMedium {
+        grid-column: span 3 / -1;
+      }
+
+      .imageSmall {
+        grid-column: span 2 / -1;
+      }
+    }
+  }
+}

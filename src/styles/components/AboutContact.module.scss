@@ -1,0 +1,121 @@
+@use "references" as *;
+
+// Owns --reveal-step 6–11 of the /about page-wide reveal queue.
+
+.contact {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: $gutter;
+  row-gap: $space-xs;
+  width: 100%;
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: $space-md;
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    row-gap: $space-md;
+  }
+
+  .getInTouch {
+    grid-column: 1 / span 4;
+    display: flex;
+    flex-direction: column;
+    font-family: $font-heading;
+    font-weight: $font-weight-bold;
+    font-size: 16px;
+
+    @include respond-to(tablet) {
+      grid-column: 1 / -1;
+    }
+
+    @include respond-to(mobile) {
+      grid-column: 1 / -1;
+      margin-bottom: calc(48px - 8px);
+    }
+
+    .getInTouchLabel {
+      font-family: $font-heading;
+      font-weight: $font-weight-bold;
+      color: $color-text-invert-muted;
+      font-size: 18px;
+
+      @include respond-to(tablet) {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .status {
+    grid-column: 1 / span 6;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: $font-heading;
+    font-weight: $font-weight-bold;
+    font-size: 22px;
+
+    @include respond-to(tablet) {
+      grid-column: auto;
+      font-size: 16px;
+    }
+
+    @include respond-to(mobile) {
+      grid-column: 1 / -1;
+    }
+
+    .statusMuted {
+      color: $color-text-invert-muted;
+    }
+  }
+
+  .social {
+    grid-column: 9 / span 4;
+    display: flex;
+    justify-content: flex-start;
+    gap: $space-2xl;
+    font-family: $font-heading;
+    font-weight: $font-weight-bold;
+    font-size: 16px;
+    text-transform: uppercase;
+
+    @include respond-to(tablet) {
+      grid-column: auto;
+      justify-content: flex-start;
+      gap: $space-xl;
+    }
+
+    @include respond-to(mobile) {
+      grid-column: 1 / -1;
+      gap: $space-lg;
+    }
+
+    a {
+      color: $color-text-invert;
+      text-decoration: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contact .getInTouch,
+  .contact .status,
+  .contact .social {
+    --reveal-unit: 100ms;
+  }
+
+  .contact .getInTouch > * {
+    --reveal-step: 6;
+  }
+
+  // ponytail: 3 = getInTouch's label + email + phone; 5 adds status' two lines.
+  .contact .status > * {
+    --reveal-step: 9;
+  }
+
+  .contact .social > * {
+    --reveal-step: 11;
+  }
+}

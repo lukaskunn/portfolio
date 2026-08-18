@@ -1,0 +1,62 @@
+@use "references" as *;
+
+// Owns --reveal-step 0–1 of the /about page-wide reveal queue.
+
+.hero {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: $gutter;
+  width: 100%;
+
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+    row-gap: $space-4xl;
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    row-gap: $space-4xl;
+  }
+
+  .title {
+    @include heading-1;
+    letter-spacing: -0.02em;
+    grid-column: 1 / span 8;
+
+    @include respond-to(tablet) {
+      grid-column: 1 / -1;
+    }
+
+    @include respond-to(mobile) {
+      grid-column: 1 / -1;
+      font-size: 32px;
+    }
+  }
+
+  .profileImage {
+    position: relative;
+    grid-column: 9 / span 3;
+    max-width: 252px;
+    aspect-ratio: 700 / 718;
+
+    @include respond-to(tablet) {
+      display: none;
+    }
+
+    @include respond-to(mobile) {
+      display: block;
+      grid-column: 1 / -1;
+      max-width: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero .title {
+    --reveal-step: 0;
+  }
+
+  .hero .profileImage {
+    --reveal-step: 1;
+  }
+}

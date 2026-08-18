@@ -1,0 +1,18 @@
+@use "references" as *;
+
+.mobileImage {
+  display: none;
+
+  @include respond-to(mobile) {
+    display: block;
+    position: relative;
+    aspect-ratio: 16 / 9;
+    margin-inline: calc(#{$page-margin} * -1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mobileImage {
+    --reveal-step: 6;
+  }
+}

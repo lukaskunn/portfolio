@@ -5,7 +5,7 @@ import { FaXmark } from "react-icons/fa6"
 import ContactForm from "@/components/ContactForm"
 import style from "@/styles/components/ContactModal.module.scss"
 
-type ContactModalProps = {
+export interface ContactModalProps {
   open: boolean
   onClose: () => void
 }
