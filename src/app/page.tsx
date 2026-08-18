@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer"
 import ScrollProgress from "@/components/ScrollProgress"
+import Loader from "@/components/Loader"
 import { buildMetadata } from "@/utils/metadata"
 import HeroSection from "./HeroSection";
 import WorksSection from "./WorksSection";
@@ -11,6 +12,7 @@ export const metadata = buildMetadata({ path: "/" })
 export default function Home() {
   return (
     <>
+      <Loader />
       <main id="main-content">
         <div className={heroStyle.pin}>
           <div className={heroStyle.backdrop}>

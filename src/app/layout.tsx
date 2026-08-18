@@ -107,8 +107,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${gabarito.variable} ${roboto.variable} ${robotoMono.variable}`}
       style={{ viewTransitionName: "root"}}
+      // The intro gate script sets data-intro before hydration, so the server
+      // HTML and the client DOM differ on this element by design.
+      suppressHydrationWarning
     >
       <body>
+        <script
+          // Blocking, so the intro decision lands before first paint — no flash either direction.
+          dangerouslySetInnerHTML={{
+            __html: `try{var s=sessionStorage;if(!s.getItem("intro")){s.setItem("intro","1");if(location.pathname==="/"&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.dataset.intro="playing"}}catch(e){}`,
+          }}
+        />
         <ReactLenis root options={{ lerp: 0.1, smoothWheel: true, anchors: true }} />
         <CursorFollower />
         <RouteTransition />
