@@ -105,6 +105,16 @@
     height: 32px;
     align-items: center;
     cursor: pointer;
+
+    &:hover {
+      .name {
+        padding-left: 8px;
+      }
+
+      .year {
+        padding-right: 8px;
+      }
+    }
   }
 
   @include respond-to(tablet) {
@@ -198,6 +208,7 @@
   .client,
   .role,
   .year {
+    transition: all ease-in-out .2s;
     font-family: $font-label;
     font-weight: $font-weight-bold;
     font-size: 16px;

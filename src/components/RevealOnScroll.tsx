@@ -10,9 +10,12 @@ gsap.registerPlugin(SplitText)
 // Above-the-fold reveals wait out the page transition running over them
 // (globals.scss: 1000ms cover, 560ms reveal-exit). try/catch because
 // :active-view-transition-type() throws SyntaxError in browsers without it.
+const INTRO_DURATION = 6.6
+
 const entranceDelay = () => {
   try {
     const el = document.documentElement
+    if (el.dataset.intro === "playing") return INTRO_DURATION
     if (el.matches(":active-view-transition-type(nav-reveal)")) return 0.34
     if (el.matches(":active-view-transition")) return 0.55
   } catch {
