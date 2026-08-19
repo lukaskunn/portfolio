@@ -22,7 +22,9 @@
   --header-btn-bg-hover: #292929;
   --header-btn-fg: #{$color-bg-base};
 
-  .inner { mix-blend-mode: normal; }
+  .inner {
+    mix-blend-mode: normal;
+  }
 }
 
 // ponytail: same 12-col grid as Footer .inner — the right group lands on the
@@ -127,19 +129,26 @@
 .lang {
   @include menu-items;
 
+  a {
+    text-decoration: none;
+    color: $black-100;
+
+    &.langMuted {
+      color: var(--header-fg-muted);
+    }
+  }
+
+
   // Absent from the tablet and mobile frames; it reappears inside the menu.
   @include respond-to(tablet) {
     display: none;
   }
 }
 
-.langMuted {
-  color: var(--header-fg-muted);
-}
-
 .contact {
   @include heading-5;
   font-size: 16px;
+  line-height: 1;
 
   display: inline-flex;
   align-items: center;
@@ -197,7 +206,7 @@
     --reveal-unit: 50ms;
   }
 
-  .header .nav > * {
+  .header .nav>* {
     --reveal-step: 1;
   }
 
@@ -299,6 +308,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .menuBackdrop,
   .menu {
     transition: none;
