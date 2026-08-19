@@ -130,6 +130,13 @@ export const settings = defineType({
     defineField({ name: "closeMenuLabel", type: "localeString", group: "header" }),
     defineField({ name: "contactModalLabel", type: "localeString", group: "header" }),
     defineField({ name: "closeContactFormLabel", type: "localeString", group: "header" }),
+    defineField({
+      name: "switchLanguageLabel",
+      title: "Language switcher popup",
+      description: "Each value is the popup shown on the link that switches to that language, written in that language.",
+      type: "localeString",
+      group: "header",
+    }),
 
     // Footer
     defineField({ name: "ctaTitle", type: "localeText", group: "footer" }),

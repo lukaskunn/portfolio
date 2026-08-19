@@ -802,6 +802,14 @@
         },
         "optional": true
       },
+      "switchLanguageLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "localeString"
+        },
+        "optional": true
+      },
       "ctaTitle": {
         "type": "objectAttribute",
         "value": {

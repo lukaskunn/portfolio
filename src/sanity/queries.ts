@@ -162,6 +162,7 @@ export const settingsQuery = defineQuery(`
     "closeMenuLabel": coalesce(closeMenuLabel[$lang], closeMenuLabel.pt),
     "contactModalLabel": coalesce(contactModalLabel[$lang], contactModalLabel.pt),
     "closeContactFormLabel": coalesce(closeContactFormLabel[$lang], closeContactFormLabel.pt),
+    switchLanguageLabel { pt, en },
     "ctaTitle": coalesce(ctaTitle[$lang], ctaTitle.pt),
     "ctaPopupLabel": coalesce(ctaPopupLabel[$lang], ctaPopupLabel.pt),
     latitude,

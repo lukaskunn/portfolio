@@ -1,5 +1,6 @@
 import type { PortableTextBlock } from "@portabletext/react"
 import type { SEO } from "@/utils/metadata"
+import type { Lang } from "@/utils/locale"
 
 // Hand-written against the projections in src/sanity/queries.ts — sanity.types.ts
 // types every localised field as `Array<localeString> | string | null` since
@@ -76,6 +77,7 @@ export type Settings = {
   closeMenuLabel?: string
   contactModalLabel?: string
   closeContactFormLabel?: string
+  switchLanguageLabel?: Partial<Record<Lang, string>>
   ctaTitle?: string
   ctaPopupLabel?: string
   latitude?: number

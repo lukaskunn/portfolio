@@ -126,14 +126,19 @@ const Header = ({ settings }: HeaderProps) => {
     LOCALES.map((locale, index) => (
       <Fragment key={locale}>
         {index > 0 && " / "}
-        <Link
-          href={withLang(route, locale)}
-          hrefLang={locale}
-          className={locale === lang ? undefined : style.langMuted}
-          onClick={close}
-        >
-          {locale.toUpperCase()}
-        </Link>
+        {locale === lang ? (
+          <span aria-current="true">{locale.toUpperCase()}</span>
+        ) : (
+          <Link
+            href={withLang(route, locale)}
+            hrefLang={locale}
+            className={style.langMuted}
+            data-cursor-popup={settings.switchLanguageLabel?.[locale]}
+            onClick={close}
+          >
+            {locale.toUpperCase()}
+          </Link>
+        )}
       </Fragment>
     ))
 
