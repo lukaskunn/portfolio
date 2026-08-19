@@ -83,8 +83,8 @@ const Footer = ({ settings }: FooterProps) => {
               <span>{settings.available ? settings.availableLabel : settings.unavailableLabel}</span>
             </div>
             <nav className={style.social} aria-label="Social" data-reveal-group data-reveal-now>
-              {(settings.social ?? []).map(({ href, label }) => (
-                <a key={href} href={href} target="_blank" rel="noopener noreferrer">
+              {(settings.social ?? []).map(({ href, label, popupLabel }) => (
+                <a key={href} href={href} target="_blank" rel="noopener noreferrer" data-cursor-popup={popupLabel}>
                   {label}
                 </a>
               ))}
