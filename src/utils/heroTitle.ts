@@ -14,7 +14,9 @@ export const parseHeroTitle = (text: string): Token[][] =>
     line
       .split(MARKER)
       .map((part): Token | null => {
-        if (part === "") return null
+        // Whitespace-only parts (the gap around a marker) would render as an
+        // empty flex item and collect the row gap twice.
+        if (part.trim() === "") return null
         if (part === "|") return { type: "break" }
         const chipMatch = /^\[(\d+)\]$/.exec(part)
         if (chipMatch) return { type: "chip", index: Number(chipMatch[1]) }
