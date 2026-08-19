@@ -48,6 +48,9 @@ export const useCursorFollower = (ref: RefObject<HTMLDivElement | null>, popupRe
 
       const hide = () => {
         trigger = null
+        // overwrite:"auto" doesn't kill a tween still in its delay, so a quick
+        // hover-in/out would fade back in after hiding
+        gsap.killTweensOf(popup, "autoAlpha")
         gsap.to(popup, { autoAlpha: 0, duration: 0.15, overwrite: "auto" })
       }
 
