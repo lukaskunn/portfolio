@@ -94,6 +94,14 @@ export type Settings = {
     alt?: string;
     _type: "image";
   };
+  loaderImages?: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
   pages?: Array<{
     label?: LocaleString;
     action?: "link" | "contact";
@@ -134,7 +142,8 @@ export type Settings = {
   closeContactFormLabel?: LocaleString;
   ctaTitle?: LocaleText;
   ctaPopupLabel?: LocaleString;
-  coordinates?: string;
+  latitude?: number;
+  longitude?: number;
   remoteFromLabel?: LocaleString;
   timeZone?: string;
   fieldLabels?: {
@@ -342,7 +351,6 @@ export type HomePage = {
       alt?: string;
       _type: "image";
     };
-    color?: string;
     _type: "heroChip";
     _key: string;
   }>;
@@ -771,7 +779,7 @@ export type ProjectSlugsQueryResult = Array<string | null>;
 
 // Source: src/sanity/queries.ts
 // Variable: homePageQuery
-// Query: *[_id == "homePage"][0] {      seo {    "metaTitle": coalesce(metaTitle[$lang], metaTitle.pt),    "metaDescription": coalesce(metaDescription[$lang], metaDescription.pt),    ogImage { alt, asset-> { url, metadata { dimensions } } }  },    "heroTitle": coalesce(heroTitle[$lang], heroTitle.pt),    heroChips[] { image, color },    "heroSectionLabel": coalesce(heroSectionLabel[$lang], heroSectionLabel.pt),    "heroLocationLabel": coalesce(heroLocationLabel[$lang], heroLocationLabel.pt),    "heroCurrentRole": coalesce(heroCurrentRole[$lang], heroCurrentRole.pt),    "heroRoles": heroRoles[] { "value": coalesce(@[$lang], @.pt) }.value,    "worksTitle": coalesce(worksTitle[$lang], worksTitle.pt),    "worksSectionLabel": coalesce(worksSectionLabel[$lang], worksSectionLabel.pt)  }
+// Query: *[_id == "homePage"][0] {      seo {    "metaTitle": coalesce(metaTitle[$lang], metaTitle.pt),    "metaDescription": coalesce(metaDescription[$lang], metaDescription.pt),    ogImage { alt, asset-> { url, metadata { dimensions } } }  },    "heroTitle": coalesce(heroTitle[$lang], heroTitle.pt),    heroChips[] { image },    "heroSectionLabel": coalesce(heroSectionLabel[$lang], heroSectionLabel.pt),    "heroLocationLabel": coalesce(heroLocationLabel[$lang], heroLocationLabel.pt),    "heroCurrentRole": coalesce(heroCurrentRole[$lang], heroCurrentRole.pt),    "heroRoles": heroRoles[] { "value": coalesce(@[$lang], @.pt) }.value,    "worksTitle": coalesce(worksTitle[$lang], worksTitle.pt),    "worksSectionLabel": coalesce(worksSectionLabel[$lang], worksSectionLabel.pt)  }
 export type HomePageQueryResult =
   | {
       seo: null;
@@ -961,7 +969,6 @@ export type HomePageQueryResult =
           alt?: string;
           _type: "image";
         } | null;
-        color: string | null;
       }> | null;
       heroSectionLabel:
         | Array<{
@@ -1573,12 +1580,13 @@ export type ProjectPageQueryResult =
 
 // Source: src/sanity/queries.ts
 // Variable: settingsQuery
-// Query: *[_id == "settings"][0] {    "defaultTitle": coalesce(defaultTitle[$lang], defaultTitle.pt),    "defaultDescription": coalesce(defaultDescription[$lang], defaultDescription.pt),    ogImage { alt, asset-> { url, metadata { dimensions } } },    pages[] {      "label": coalesce(label[$lang], label.pt),      action,      href,      showInHeader,      showInFooter    },    "sitemapLabel": coalesce(sitemapLabel[$lang], sitemapLabel.pt),    logoName,    "contactLabel": coalesce(contactLabel[$lang], contactLabel.pt),    "sendMessageLabel": coalesce(sendMessageLabel[$lang], sendMessageLabel.pt),    fieldLabels {      "projectName": coalesce(projectName[$lang], projectName.pt),      "client": coalesce(client[$lang], client.pt),      "type": coalesce(type[$lang], type.pt),      "role": coalesce(role[$lang], role.pt),      "year": coalesce(year[$lang], year.pt),      "industry": coalesce(industry[$lang], industry.pt),      "technologies": coalesce(technologies[$lang], technologies.pt),      "description": coalesce(description[$lang], description.pt)    },    "viewProjectLabel": coalesce(viewProjectLabel[$lang], viewProjectLabel.pt),    "viewLiveProjectLabel": coalesce(viewLiveProjectLabel[$lang], viewLiveProjectLabel.pt),    "scrollToExploreLabel": coalesce(scrollToExploreLabel[$lang], scrollToExploreLabel.pt),    "roleLabel": coalesce(roleLabel[$lang], roleLabel.pt),    available,    "availableLabel": coalesce(availableLabel[$lang], availableLabel.pt),    "unavailableLabel": coalesce(unavailableLabel[$lang], unavailableLabel.pt),    "email": coalesce(email[$lang], email.pt),    "copyEmailLabel": coalesce(copyEmailLabel[$lang], copyEmailLabel.pt),    "emailCopiedLabel": coalesce(emailCopiedLabel[$lang], emailCopiedLabel.pt),    phone,    "copyPhoneLabel": coalesce(copyPhoneLabel[$lang], copyPhoneLabel.pt),    "phoneCopiedLabel": coalesce(phoneCopiedLabel[$lang], phoneCopiedLabel.pt),    social[] { label, href, popupLabel },    "socialLabel": coalesce(socialLabel[$lang], socialLabel.pt),    "menuLabel": coalesce(menuLabel[$lang], menuLabel.pt),    "closeMenuLabel": coalesce(closeMenuLabel[$lang], closeMenuLabel.pt),    "contactModalLabel": coalesce(contactModalLabel[$lang], contactModalLabel.pt),    "closeContactFormLabel": coalesce(closeContactFormLabel[$lang], closeContactFormLabel.pt),    "ctaTitle": coalesce(ctaTitle[$lang], ctaTitle.pt),    "ctaPopupLabel": coalesce(ctaPopupLabel[$lang], ctaPopupLabel.pt),    coordinates,    "remoteFromLabel": coalesce(remoteFromLabel[$lang], remoteFromLabel.pt),    timeZone  }
+// Query: *[_id == "settings"][0] {    "defaultTitle": coalesce(defaultTitle[$lang], defaultTitle.pt),    "defaultDescription": coalesce(defaultDescription[$lang], defaultDescription.pt),    ogImage { alt, asset-> { url, metadata { dimensions } } },    loaderImages,    pages[] {      "label": coalesce(label[$lang], label.pt),      action,      href,      showInHeader,      showInFooter    },    "sitemapLabel": coalesce(sitemapLabel[$lang], sitemapLabel.pt),    logoName,    "contactLabel": coalesce(contactLabel[$lang], contactLabel.pt),    "sendMessageLabel": coalesce(sendMessageLabel[$lang], sendMessageLabel.pt),    fieldLabels {      "projectName": coalesce(projectName[$lang], projectName.pt),      "client": coalesce(client[$lang], client.pt),      "type": coalesce(type[$lang], type.pt),      "role": coalesce(role[$lang], role.pt),      "year": coalesce(year[$lang], year.pt),      "industry": coalesce(industry[$lang], industry.pt),      "technologies": coalesce(technologies[$lang], technologies.pt),      "description": coalesce(description[$lang], description.pt)    },    "viewProjectLabel": coalesce(viewProjectLabel[$lang], viewProjectLabel.pt),    "viewLiveProjectLabel": coalesce(viewLiveProjectLabel[$lang], viewLiveProjectLabel.pt),    "scrollToExploreLabel": coalesce(scrollToExploreLabel[$lang], scrollToExploreLabel.pt),    "roleLabel": coalesce(roleLabel[$lang], roleLabel.pt),    available,    "availableLabel": coalesce(availableLabel[$lang], availableLabel.pt),    "unavailableLabel": coalesce(unavailableLabel[$lang], unavailableLabel.pt),    "email": coalesce(email[$lang], email.pt),    "copyEmailLabel": coalesce(copyEmailLabel[$lang], copyEmailLabel.pt),    "emailCopiedLabel": coalesce(emailCopiedLabel[$lang], emailCopiedLabel.pt),    phone,    "copyPhoneLabel": coalesce(copyPhoneLabel[$lang], copyPhoneLabel.pt),    "phoneCopiedLabel": coalesce(phoneCopiedLabel[$lang], phoneCopiedLabel.pt),    social[] { label, href, popupLabel },    "socialLabel": coalesce(socialLabel[$lang], socialLabel.pt),    "menuLabel": coalesce(menuLabel[$lang], menuLabel.pt),    "closeMenuLabel": coalesce(closeMenuLabel[$lang], closeMenuLabel.pt),    "contactModalLabel": coalesce(contactModalLabel[$lang], contactModalLabel.pt),    "closeContactFormLabel": coalesce(closeContactFormLabel[$lang], closeContactFormLabel.pt),    "ctaTitle": coalesce(ctaTitle[$lang], ctaTitle.pt),    "ctaPopupLabel": coalesce(ctaPopupLabel[$lang], ctaPopupLabel.pt),    latitude,    longitude,    "remoteFromLabel": coalesce(remoteFromLabel[$lang], remoteFromLabel.pt),    timeZone  }
 export type SettingsQueryResult =
   | {
       defaultTitle: null;
       defaultDescription: null;
       ogImage: null;
+      loaderImages: null;
       pages: null;
       sitemapLabel: null;
       logoName: null;
@@ -1606,7 +1614,8 @@ export type SettingsQueryResult =
       closeContactFormLabel: null;
       ctaTitle: null;
       ctaPopupLabel: null;
-      coordinates: null;
+      latitude: null;
+      longitude: null;
       remoteFromLabel: null;
       timeZone: null;
     }
@@ -1636,6 +1645,14 @@ export type SettingsQueryResult =
           } | null;
         } | null;
       } | null;
+      loaderImages: Array<{
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }> | null;
       pages: Array<{
         label:
           | Array<{
@@ -1892,7 +1909,8 @@ export type SettingsQueryResult =
           }>
         | string
         | null;
-      coordinates: string | null;
+      latitude: number | null;
+      longitude: number | null;
       remoteFromLabel:
         | Array<{
             _type: "localeString";
@@ -2159,11 +2177,11 @@ declare module "@sanity/client" {
     '\n  *[_type == "project"] | order(order asc, year desc) {\n    "slug": slug.current,\n    name,\n    client,\n    year,\n    technologies,\n    "type": coalesce(type[$lang], type.pt),\n    "industry": coalesce(industry[$lang], industry.pt),\n    "role": coalesce(role[$lang], role.pt),\n    "description": coalesce(description[$lang], description.pt),\n    images,\n    \n  seo {\n    "metaTitle": coalesce(metaTitle[$lang], metaTitle.pt),\n    "metaDescription": coalesce(metaDescription[$lang], metaDescription.pt),\n    ogImage { alt, asset-> { url, metadata { dimensions } } }\n  }\n\n  }\n': ProjectsQueryResult;
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    "slug": slug.current,\n    name,\n    client,\n    year,\n    technologies,\n    showLiveLink,\n    liveUrl,\n    "type": coalesce(type[$lang], type.pt),\n    "industry": coalesce(industry[$lang], industry.pt),\n    "role": coalesce(role[$lang], role.pt),\n    "description": coalesce(description[$lang], description.pt),\n    images,\n    \n  seo {\n    "metaTitle": coalesce(metaTitle[$lang], metaTitle.pt),\n    "metaDescription": coalesce(metaDescription[$lang], metaDescription.pt),\n    ogImage { alt, asset-> { url, metadata { dimensions } } }\n  }\n\n  }\n': ProjectBySlugQueryResult;
     '\n  *[_type == "project" && defined(slug.current)].slug.current\n': ProjectSlugsQueryResult;
-    '\n  *[_id == "homePage"][0] {\n    \n  seo {\n    "metaTitle": coalesce(metaTitle[$lang], metaTitle.pt),\n    "metaDescription": coalesce(metaDescription[$lang], metaDescription.pt),\n    ogImage { alt, asset-> { url, metadata { dimensions } } }\n  }\n,\n    "heroTitle": coalesce(heroTitle[$lang], heroTitle.pt),\n    heroChips[] { image, color },\n    "heroSectionLabel": coalesce(heroSectionLabel[$lang], heroSectionLabel.pt),\n    "heroLocationLabel": coalesce(heroLocationLabel[$lang], heroLocationLabel.pt),\n    "heroCurrentRole": coalesce(heroCurrentRole[$lang], heroCurrentRole.pt),\n    "heroRoles": heroRoles[] { "value": coalesce(@[$lang], @.pt) }.value,\n    "worksTitle": coalesce(worksTitle[$lang], worksTitle.pt),\n    "worksSectionLabel": coalesce(worksSectionLabel[$lang], worksSectionLabel.pt)\n  }\n': HomePageQueryResult;
+    '\n  *[_id == "homePage"][0] {\n    \n  seo {\n    "metaTitle": coalesce(metaTitle[$lang], metaTitle.pt),\n    "metaDescription": coalesce(metaDescription[$lang], metaDescription.pt),\n    ogImage { alt, asset-> { url, metadata { dimensions } } }\n  }\n,\n    "heroTitle": coalesce(heroTitle[$lang], heroTitle.pt),\n    heroChips[] { image },\n    "heroSectionLabel": coalesce(heroSectionLabel[$lang], heroSectionLabel.pt),\n    "heroLocationLabel": coalesce(heroLocationLabel[$lang], heroLocationLabel.pt),\n    "heroCurrentRole": coalesce(heroCurrentRole[$lang], heroCurrentRole.pt),\n    "heroRoles": heroRoles[] { "value": coalesce(@[$lang], @.pt) }.value,\n    "worksTitle": coalesce(worksTitle[$lang], worksTitle.pt),\n    "worksSectionLabel": coalesce(worksSectionLabel[$lang], worksSectionLabel.pt)\n  }\n': HomePageQueryResult;
     '\n  *[_id == "servicesPage"][0] {\n    \n  seo {\n    "metaTitle": coalesce(metaTitle[$lang], metaTitle.pt),\n    "metaDescription": coalesce(metaDescription[$lang], metaDescription.pt),\n    ogImage { alt, asset-> { url, metadata { dimensions } } }\n  }\n,\n    "heroTitle": coalesce(heroTitle[$lang], heroTitle.pt),\n    "heroSectionLabel": coalesce(heroSectionLabel[$lang], heroSectionLabel.pt),\n    "scrollCueLabel": coalesce(scrollCueLabel[$lang], scrollCueLabel.pt),\n    "helpTitle": coalesce(helpTitle[$lang], helpTitle.pt),\n    "helpSectionLabel": coalesce(helpSectionLabel[$lang], helpSectionLabel.pt),\n    "servicesTitle": coalesce(servicesTitle[$lang], servicesTitle.pt),\n    "servicesSectionLabel": coalesce(servicesSectionLabel[$lang], servicesSectionLabel.pt),\n    services[] {\n      "title": coalesce(title[$lang], title.pt),\n      "body": coalesce(body[$lang], body.pt)\n    },\n    serviceGroups[] {\n      "title": coalesce(title[$lang], title.pt),\n      "items": items[] { "value": coalesce(@[$lang], @.pt) }.value,\n      image,\n      size\n    },\n    "processTitle": coalesce(processTitle[$lang], processTitle.pt),\n    "processSectionLabel": coalesce(processSectionLabel[$lang], processSectionLabel.pt),\n    process[] {\n      "title": coalesce(title[$lang], title.pt),\n      "body": coalesce(body[$lang], body.pt)\n    },\n    "contactSectionLabel": coalesce(contactSectionLabel[$lang], contactSectionLabel.pt)\n  }\n': ServicesPageQueryResult;
     '\n  *[_id == "aboutPage"][0] {\n    \n  seo {\n    "metaTitle": coalesce(metaTitle[$lang], metaTitle.pt),\n    "metaDescription": coalesce(metaDescription[$lang], metaDescription.pt),\n    ogImage { alt, asset-> { url, metadata { dimensions } } }\n  }\n,\n    "heroTitle": coalesce(heroTitle[$lang], heroTitle.pt),\n    "bio": coalesce(bio[$lang], bio.pt),\n    clients,\n    "clientsLabel": coalesce(clientsLabel[$lang], clientsLabel.pt),\n    profileImage\n  }\n': AboutPageQueryResult;
     '\n  *[_id == "projectPage"][0] {\n    "backLabel": coalesce(backLabel[$lang], backLabel.pt),\n    "nextLabel": coalesce(nextLabel[$lang], nextLabel.pt)\n  }\n': ProjectPageQueryResult;
-    '\n  *[_id == "settings"][0] {\n    "defaultTitle": coalesce(defaultTitle[$lang], defaultTitle.pt),\n    "defaultDescription": coalesce(defaultDescription[$lang], defaultDescription.pt),\n    ogImage { alt, asset-> { url, metadata { dimensions } } },\n    pages[] {\n      "label": coalesce(label[$lang], label.pt),\n      action,\n      href,\n      showInHeader,\n      showInFooter\n    },\n    "sitemapLabel": coalesce(sitemapLabel[$lang], sitemapLabel.pt),\n    logoName,\n    "contactLabel": coalesce(contactLabel[$lang], contactLabel.pt),\n    "sendMessageLabel": coalesce(sendMessageLabel[$lang], sendMessageLabel.pt),\n    fieldLabels {\n      "projectName": coalesce(projectName[$lang], projectName.pt),\n      "client": coalesce(client[$lang], client.pt),\n      "type": coalesce(type[$lang], type.pt),\n      "role": coalesce(role[$lang], role.pt),\n      "year": coalesce(year[$lang], year.pt),\n      "industry": coalesce(industry[$lang], industry.pt),\n      "technologies": coalesce(technologies[$lang], technologies.pt),\n      "description": coalesce(description[$lang], description.pt)\n    },\n    "viewProjectLabel": coalesce(viewProjectLabel[$lang], viewProjectLabel.pt),\n    "viewLiveProjectLabel": coalesce(viewLiveProjectLabel[$lang], viewLiveProjectLabel.pt),\n    "scrollToExploreLabel": coalesce(scrollToExploreLabel[$lang], scrollToExploreLabel.pt),\n    "roleLabel": coalesce(roleLabel[$lang], roleLabel.pt),\n    available,\n    "availableLabel": coalesce(availableLabel[$lang], availableLabel.pt),\n    "unavailableLabel": coalesce(unavailableLabel[$lang], unavailableLabel.pt),\n    "email": coalesce(email[$lang], email.pt),\n    "copyEmailLabel": coalesce(copyEmailLabel[$lang], copyEmailLabel.pt),\n    "emailCopiedLabel": coalesce(emailCopiedLabel[$lang], emailCopiedLabel.pt),\n    phone,\n    "copyPhoneLabel": coalesce(copyPhoneLabel[$lang], copyPhoneLabel.pt),\n    "phoneCopiedLabel": coalesce(phoneCopiedLabel[$lang], phoneCopiedLabel.pt),\n    social[] { label, href, popupLabel },\n    "socialLabel": coalesce(socialLabel[$lang], socialLabel.pt),\n    "menuLabel": coalesce(menuLabel[$lang], menuLabel.pt),\n    "closeMenuLabel": coalesce(closeMenuLabel[$lang], closeMenuLabel.pt),\n    "contactModalLabel": coalesce(contactModalLabel[$lang], contactModalLabel.pt),\n    "closeContactFormLabel": coalesce(closeContactFormLabel[$lang], closeContactFormLabel.pt),\n    "ctaTitle": coalesce(ctaTitle[$lang], ctaTitle.pt),\n    "ctaPopupLabel": coalesce(ctaPopupLabel[$lang], ctaPopupLabel.pt),\n    coordinates,\n    "remoteFromLabel": coalesce(remoteFromLabel[$lang], remoteFromLabel.pt),\n    timeZone\n  }\n': SettingsQueryResult;
+    '\n  *[_id == "settings"][0] {\n    "defaultTitle": coalesce(defaultTitle[$lang], defaultTitle.pt),\n    "defaultDescription": coalesce(defaultDescription[$lang], defaultDescription.pt),\n    ogImage { alt, asset-> { url, metadata { dimensions } } },\n    loaderImages,\n    pages[] {\n      "label": coalesce(label[$lang], label.pt),\n      action,\n      href,\n      showInHeader,\n      showInFooter\n    },\n    "sitemapLabel": coalesce(sitemapLabel[$lang], sitemapLabel.pt),\n    logoName,\n    "contactLabel": coalesce(contactLabel[$lang], contactLabel.pt),\n    "sendMessageLabel": coalesce(sendMessageLabel[$lang], sendMessageLabel.pt),\n    fieldLabels {\n      "projectName": coalesce(projectName[$lang], projectName.pt),\n      "client": coalesce(client[$lang], client.pt),\n      "type": coalesce(type[$lang], type.pt),\n      "role": coalesce(role[$lang], role.pt),\n      "year": coalesce(year[$lang], year.pt),\n      "industry": coalesce(industry[$lang], industry.pt),\n      "technologies": coalesce(technologies[$lang], technologies.pt),\n      "description": coalesce(description[$lang], description.pt)\n    },\n    "viewProjectLabel": coalesce(viewProjectLabel[$lang], viewProjectLabel.pt),\n    "viewLiveProjectLabel": coalesce(viewLiveProjectLabel[$lang], viewLiveProjectLabel.pt),\n    "scrollToExploreLabel": coalesce(scrollToExploreLabel[$lang], scrollToExploreLabel.pt),\n    "roleLabel": coalesce(roleLabel[$lang], roleLabel.pt),\n    available,\n    "availableLabel": coalesce(availableLabel[$lang], availableLabel.pt),\n    "unavailableLabel": coalesce(unavailableLabel[$lang], unavailableLabel.pt),\n    "email": coalesce(email[$lang], email.pt),\n    "copyEmailLabel": coalesce(copyEmailLabel[$lang], copyEmailLabel.pt),\n    "emailCopiedLabel": coalesce(emailCopiedLabel[$lang], emailCopiedLabel.pt),\n    phone,\n    "copyPhoneLabel": coalesce(copyPhoneLabel[$lang], copyPhoneLabel.pt),\n    "phoneCopiedLabel": coalesce(phoneCopiedLabel[$lang], phoneCopiedLabel.pt),\n    social[] { label, href, popupLabel },\n    "socialLabel": coalesce(socialLabel[$lang], socialLabel.pt),\n    "menuLabel": coalesce(menuLabel[$lang], menuLabel.pt),\n    "closeMenuLabel": coalesce(closeMenuLabel[$lang], closeMenuLabel.pt),\n    "contactModalLabel": coalesce(contactModalLabel[$lang], contactModalLabel.pt),\n    "closeContactFormLabel": coalesce(closeContactFormLabel[$lang], closeContactFormLabel.pt),\n    "ctaTitle": coalesce(ctaTitle[$lang], ctaTitle.pt),\n    "ctaPopupLabel": coalesce(ctaPopupLabel[$lang], ctaPopupLabel.pt),\n    latitude,\n    longitude,\n    "remoteFromLabel": coalesce(remoteFromLabel[$lang], remoteFromLabel.pt),\n    timeZone\n  }\n': SettingsQueryResult;
     '\n  *[_id == "settings"][0].contactForm {\n    "eyebrowLabel": coalesce(eyebrowLabel[$lang], eyebrowLabel.pt),\n    "titleMuted": coalesce(titleMuted[$lang], titleMuted.pt),\n    "title": coalesce(title[$lang], title.pt),\n    "optionalSuffixLabel": coalesce(optionalSuffixLabel[$lang], optionalSuffixLabel.pt),\n    "addOptionalLabel": coalesce(addOptionalLabel[$lang], addOptionalLabel.pt),\n    "submitLabel": coalesce(submitLabel[$lang], submitLabel.pt),\n    "sendingLabel": coalesce(sendingLabel[$lang], sendingLabel.pt),\n    "successMessage": coalesce(successMessage[$lang], successMessage.pt),\n    "fixFieldsMessage": coalesce(fixFieldsMessage[$lang], fixFieldsMessage.pt),\n    "rateLimitMessage": coalesce(rateLimitMessage[$lang], rateLimitMessage.pt),\n    "sendFailureMessage": coalesce(sendFailureMessage[$lang], sendFailureMessage.pt),\n    name {\n      "label": coalesce(label[$lang], label.pt),\n      required,\n      errors {\n        "requiredError": coalesce(requiredError[$lang], requiredError.pt),\n        "minError": coalesce(minError[$lang], minError.pt),\n        "maxError": coalesce(maxError[$lang], maxError.pt)\n      }\n    },\n    businessName {\n      "label": coalesce(label[$lang], label.pt),\n      required,\n      errors {\n        "maxError": coalesce(maxError[$lang], maxError.pt)\n      }\n    },\n    phone {\n      "label": coalesce(label[$lang], label.pt),\n      required,\n      errors {\n        "maxError": coalesce(maxError[$lang], maxError.pt),\n        "invalidError": coalesce(invalidError[$lang], invalidError.pt)\n      }\n    },\n    email {\n      "label": coalesce(label[$lang], label.pt),\n      required,\n      errors {\n        "invalidError": coalesce(invalidError[$lang], invalidError.pt),\n        "maxError": coalesce(maxError[$lang], maxError.pt)\n      }\n    },\n    message {\n      "label": coalesce(label[$lang], label.pt),\n      required,\n      errors {\n        "requiredError": coalesce(requiredError[$lang], requiredError.pt),\n        "minError": coalesce(minError[$lang], minError.pt),\n        "maxError": coalesce(maxError[$lang], maxError.pt)\n      }\n    }\n  }\n': ContactMessagesQueryResult;
   }
 }

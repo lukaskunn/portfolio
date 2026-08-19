@@ -74,6 +74,15 @@ export const settings = defineType({
       group: "general",
     }),
 
+    defineField({
+      name: "loaderImages",
+      title: "Loader images",
+      description: "Images trailing the cursor during the intro loader.",
+      type: "array",
+      of: [defineArrayMember({ type: "image", options: { hotspot: true } })],
+      group: "general",
+    }),
+
     // Navigation
     navItem,
     defineField({ name: "sitemapLabel", type: "localeString", group: "navigation" }),
@@ -125,7 +134,20 @@ export const settings = defineType({
     // Footer
     defineField({ name: "ctaTitle", type: "localeText", group: "footer" }),
     defineField({ name: "ctaPopupLabel", type: "localeString", group: "footer" }),
-    defineField({ name: "coordinates", title: "Coordinates", type: "string", group: "footer" }),
+    defineField({
+      name: "latitude",
+      title: "Latitude",
+      type: "number",
+      validation: (rule) => rule.min(-90).max(90),
+      group: "footer",
+    }),
+    defineField({
+      name: "longitude",
+      title: "Longitude",
+      type: "number",
+      validation: (rule) => rule.min(-180).max(180),
+      group: "footer",
+    }),
     defineField({ name: "remoteFromLabel", type: "localeString", group: "footer" }),
     defineField({
       name: "timeZone",

@@ -58,7 +58,7 @@ export const homePageQuery = defineQuery(`
   *[_id == "homePage"][0] {
     ${seoProjection},
     "heroTitle": coalesce(heroTitle[$lang], heroTitle.pt),
-    heroChips[] { image, color },
+    heroChips[] { image },
     "heroSectionLabel": coalesce(heroSectionLabel[$lang], heroSectionLabel.pt),
     "heroLocationLabel": coalesce(heroLocationLabel[$lang], heroLocationLabel.pt),
     "heroCurrentRole": coalesce(heroCurrentRole[$lang], heroCurrentRole.pt),
@@ -121,6 +121,7 @@ export const settingsQuery = defineQuery(`
     "defaultTitle": coalesce(defaultTitle[$lang], defaultTitle.pt),
     "defaultDescription": coalesce(defaultDescription[$lang], defaultDescription.pt),
     ogImage { alt, asset-> { url, metadata { dimensions } } },
+    loaderImages,
     pages[] {
       "label": coalesce(label[$lang], label.pt),
       action,
@@ -163,7 +164,8 @@ export const settingsQuery = defineQuery(`
     "closeContactFormLabel": coalesce(closeContactFormLabel[$lang], closeContactFormLabel.pt),
     "ctaTitle": coalesce(ctaTitle[$lang], ctaTitle.pt),
     "ctaPopupLabel": coalesce(ctaPopupLabel[$lang], ctaPopupLabel.pt),
-    coordinates,
+    latitude,
+    longitude,
     "remoteFromLabel": coalesce(remoteFromLabel[$lang], remoteFromLabel.pt),
     timeZone
   }

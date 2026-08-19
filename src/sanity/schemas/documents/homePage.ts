@@ -42,7 +42,6 @@ export const homePage = defineType({
               validation: (rule) => rule.required(),
               fields: [defineField({ name: "alt", type: "string", validation: (rule) => rule.required() })],
             }),
-            defineField({ name: "color", type: "string" }),
           ],
           preview: { select: { media: "image" } },
         }),
