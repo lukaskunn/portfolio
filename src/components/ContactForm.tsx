@@ -2,6 +2,7 @@
 
 import { useActionState, useId, useState } from "react"
 import { submitContact } from "@/app/actions"
+import { useLocale } from "@/hooks/useLocale"
 import EmailAndPhoneNumberBlock from "./EmailAndPhoneNumberBlock"
 import ContactSubmitBlock from "./ContactSubmitBlock"
 import style from "@/styles/components/ContactForm.module.scss"
@@ -10,6 +11,7 @@ const ContactForm = () => {
   const [state, formAction] = useActionState(submitContact, { status: "idle" as const })
   const uid = useId()
   const [showOptional, setShowOptional] = useState(false)
+  const lang = useLocale()
 
 
 
@@ -20,6 +22,7 @@ const ContactForm = () => {
     <section className={style.section}>
       <p className={style.eyebrow}>Contact</p>
       <form action={formAction}>
+        <input type="hidden" name="lang" value={lang} />
         <input
           type="text"
           name="website"
