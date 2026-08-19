@@ -9,19 +9,23 @@ import { useLenis } from "lenis/react"
 import { useContactModal } from "@/contexts/ContactModalContext"
 import HeaderContactButton from "./HeaderContactButton"
 import { NAV } from "@/utils/contants"
+import { useLocale } from "@/hooks/useLocale"
+import { LOCALES, stripLang, withLang } from "@/utils/locale"
 import style from "@/styles/components/Header.module.scss"
 
 const Header = () => {
   const pathname = usePathname()
+  const lang = useLocale()
+  const route = stripLang(pathname)
   const [open, setOpen] = useState(false)
   const openContactModal = useContactModal()
 
-  const onServices = pathname === "/services"
-  const isHome = pathname === "/"
+  const onServices = route === "/services"
+  const isHome = route === "/"
 
   // Leaving /about or a project page is a "return" — the leaving page drops
   // away over a pinned destination. Sibling project→project keeps the cover.
-  const reveal = pathname === "/about" || pathname.startsWith("/project/")
+  const reveal = route === "/about" || route.startsWith("/project/")
   const transitionTypes = reveal ? ["nav-reveal"] : undefined
   const lenis = useLenis()
 
@@ -51,7 +55,7 @@ const Header = () => {
     window.setTimeout(() => {
       // ponytail: no timer ref — Header never unmounts, and this bails if the
       // user navigated somewhere else in the meantime.
-      if (window.location.pathname === "/") lenis?.scrollTo("#works")
+      if (stripLang(window.location.pathname) === "/") lenis?.scrollTo("#works")
     }, delay)
   }
 
@@ -74,8 +78,9 @@ const Header = () => {
   const renderNav = (withSeparators: boolean) =>
     NAV.map(({ href, label }, index) => {
       const isWorks = href === "/#works"
+      const localised = isWorks ? `/${lang}#works` : withLang(href, lang)
       const link = !isWorks ? (
-        <Link key={href} {...linkProps(href)} className={style.navLink}>
+        <Link key={href} {...linkProps(localised)} className={style.navLink}>
           {label}
         </Link>
       ) : isHome ? (
@@ -85,7 +90,7 @@ const Header = () => {
       ) : (
         <Link
           key={href}
-          {...linkProps(href)}
+          {...linkProps(localised)}
           scroll={false}
           onClick={onWorksClick}
           className={style.navLink}
@@ -108,6 +113,23 @@ const Header = () => {
       )
     })
 
+  // Same route, other locale. Crosses no root-layout boundary, so it stays a
+  // client-side navigation.
+  const renderLangSwitcher = () =>
+    LOCALES.map((locale, index) => (
+      <Fragment key={locale}>
+        {index > 0 && " / "}
+        <Link
+          href={withLang(route, locale)}
+          hrefLang={locale}
+          className={locale === lang ? undefined : style.langMuted}
+          onClick={close}
+        >
+          {locale.toUpperCase()}
+        </Link>
+      </Fragment>
+    ))
+
   const className = [style.header, open && style.open, isHome && style.home]
     .filter(Boolean)
     .join(" ")
@@ -115,7 +137,7 @@ const Header = () => {
   return (
     <header className={className}>
       <div className={style.inner}>
-        <Link {...linkProps("/")} className={style.logo} data-reveal="up">
+        <Link {...linkProps(withLang("/", lang))} className={style.logo} data-reveal="up">
           Lucas Oliveira
         </Link>
 
@@ -124,9 +146,8 @@ const Header = () => {
             {renderNav(true)}
           </nav>
 
-          {/* ponytail: static placeholder — no i18n wiring yet */}
           <span className={style.lang} data-reveal="up">
-            <span className={style.langMuted}>PT</span> / EN
+            {renderLangSwitcher()}
           </span>
 
           <HeaderContactButton
@@ -169,7 +190,7 @@ const Header = () => {
 
           {renderNav(false)}
           <span className={style.lang}>
-            <span className={style.langMuted}>PT</span> / EN
+            {renderLangSwitcher()}
           </span>
         </div>
         <HeaderContactButton

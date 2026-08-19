@@ -6,6 +6,7 @@ import Link from "next/link"
 
 import style from "@/styles/components/WorksSection.module.scss"
 import { WORKS } from "@/utils/contants"
+import { useLocale } from "@/hooks/useLocale"
 
 // Strip has 4 fixed slots (CSS geometry), WORKS carries 3 images per project —
 // cycle them with index % length instead of storing a 4th duplicate.
@@ -13,6 +14,7 @@ const STRIP_SLOTS = 4
 
 const WorksSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const lang = useLocale()
 
   const handleDesktopRowClick = (index: number) => () => {
     setOpenIndex(openIndex === index ? null : index)
@@ -69,7 +71,7 @@ const WorksSection = () => {
                 never fire until hover. Revisit when real per-project images land:
                 switch to lazy + a mouseenter preload. */}
               <span className={style.strip} id={`strip-${project.slug}`}>
-                <Link href={`/project/${project.slug}`} className={style.goToProjectButton}>View project</Link>
+                <Link href={`/${lang}/project/${project.slug}`} className={style.goToProjectButton}>View project</Link>
                 {Array.from({ length: STRIP_SLOTS }, (_, index) => (
                   <span className={style.slot} key={index}>
                     <Image
@@ -84,7 +86,7 @@ const WorksSection = () => {
                   </span>
                 ))}
               </span>
-              <Link href={`/project/${project.slug}`} className={`${style.row} ${style.mobileRow}`}>
+              <Link href={`/${lang}/project/${project.slug}`} className={`${style.row} ${style.mobileRow}`}>
                 <div className={style.rowTop}>
                   <span className={style.name}>{project.name}</span>
                   <span className={style.year}>{project.year}</span>

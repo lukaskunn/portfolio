@@ -6,9 +6,13 @@ import { useContactModal } from "@/contexts/ContactModalContext"
 import style from "@/styles/components/Footer.module.scss"
 import EmailAndPhoneNumberBlock from "@/components/EmailAndPhoneNumberBlock"
 import { SITEMAP, SOCIAL } from "@/utils/contants"
+import { useLocale } from "@/hooks/useLocale"
+import { withLang } from "@/utils/locale"
 
 const Footer = () => {
   const openContactModal = useContactModal()
+  const lang = useLocale()
+
   return (
     <>
       <div className={style.spacer} aria-hidden="true" />
@@ -33,7 +37,7 @@ const Footer = () => {
               <span data-reveal="up">Sitemap</span>
               <div className={style.sitemapLinks} data-reveal-group>
                 {SITEMAP.map(({ href, label }) => (
-                  <Link key={href} href={href} className={style.mutedLink}>
+                  <Link key={href} href={href === "/#works" ? `/${lang}#works` : withLang(href, lang)} className={style.mutedLink}>
                     {label}
                   </Link>
                 ))}
