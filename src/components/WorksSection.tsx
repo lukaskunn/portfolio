@@ -5,14 +5,23 @@ import Image from "next/image"
 import Link from "next/link"
 
 import style from "@/styles/components/WorksSection.module.scss"
-import { WORKS } from "@/utils/contants"
 import { useLocale } from "@/hooks/useLocale"
+import { imageUrl } from "@/sanity/image"
+import type { FieldLabels, ProjectListItem } from "@/types/content"
 
-// Strip has 4 fixed slots (CSS geometry), WORKS carries 3 images per project —
-// cycle them with index % length instead of storing a 4th duplicate.
+export interface WorksSectionProps {
+  title: string
+  sectionLabel: string
+  labels: FieldLabels
+  viewProjectLabel: string
+  projects: ProjectListItem[]
+}
+
+// Strip has 4 fixed slots (CSS geometry) — cycle project images with
+// index % length instead of requiring exactly 4 per project.
 const STRIP_SLOTS = 4
 
-const WorksSection = () => {
+const WorksSection = ({ title, sectionLabel, labels, viewProjectLabel, projects }: WorksSectionProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const lang = useLocale()
 
@@ -29,80 +38,88 @@ const WorksSection = () => {
   }
 
   return (
-    <section className={style.section} id="works" data-section="Works" aria-labelledby="works-title">
-      <h2 id="works-title" className={style.title} data-reveal="lines">Curated works</h2>
+    <section className={style.section} id="works" data-section={sectionLabel} aria-labelledby="works-title">
+      <h2 id="works-title" className={style.title} data-reveal="lines">{title}</h2>
 
       <div className={style.worksTable}>
         <div className={style.head} aria-hidden="true" data-reveal="up">
-          <span className={style.name}>Project name</span>
-          <span className={style.type}>Type</span>
-          <span className={style.client}>Client</span>
-          <span className={style.role}>Role</span>
-          <span className={style.year}>Year</span>
+          <span className={style.name}>{labels.projectName}</span>
+          <span className={style.type}>{labels.type}</span>
+          <span className={style.client}>{labels.client}</span>
+          <span className={style.role}>{labels.role}</span>
+          <span className={style.year}>{labels.year}</span>
         </div>
 
         <ul className={style.list} data-reveal="spread">
-          {WORKS.map((project, index) => (
-            <li
-              key={project.slug}
-              style={{
-                "--i": index,
-                "--shift": openIndex !== null && index > openIndex ? 1 : 0,
-              } as CSSProperties}
-              className={openIndex === index ? style.rowOpen : ""}
-            >
-              <button
-                type="button"
-                className={`${style.row} ${style.desktopRow}`}
-                aria-expanded={openIndex === index}
-                aria-controls={`strip-${project.slug}`}
-                onClick={handleDesktopRowClick(index)}
-                onMouseEnter={setWipeOrigin}
-                onMouseLeave={setWipeOrigin}
+          {projects.map((project, index) => {
+            const images = project.images ?? []
+
+            return (
+              <li
+                key={project.slug}
+                style={{
+                  "--i": index,
+                  "--shift": openIndex !== null && index > openIndex ? 1 : 0,
+                } as CSSProperties}
+                className={openIndex === index ? style.rowOpen : ""}
               >
-                <span className={style.name}>{project.name}</span>
-                <span className={style.type}>{project.type}</span>
-                <span className={style.client}>{project.client}</span>
-                <span className={style.role}>{project.role}</span>
-                <span className={style.year}>{project.year}</span>
-              </button>
-
-              {/* ponytail: eager-loaded — inside a height:0 box, lazy loading would
-                never fire until hover. Revisit when real per-project images land:
-                switch to lazy + a mouseenter preload. */}
-              <span className={style.strip} id={`strip-${project.slug}`}>
-                <Link href={`/${lang}/project/${project.slug}`} className={style.goToProjectButton}>View project</Link>
-                {Array.from({ length: STRIP_SLOTS }, (_, index) => (
-                  <span className={style.slot} key={index}>
-                    <Image
-                      src={project.images[index % project.images.length]}
-                      alt=""
-                      fill
-                      sizes="320px"
-                      draggable={false}
-                      loading="eager"
-                      style={{ objectFit: "cover" }}
-                    />
-                  </span>
-                ))}
-              </span>
-              <Link href={`/${lang}/project/${project.slug}`} className={`${style.row} ${style.mobileRow}`}>
-                <div className={style.rowTop}>
+                <button
+                  type="button"
+                  className={`${style.row} ${style.desktopRow}`}
+                  aria-expanded={openIndex === index}
+                  aria-controls={`strip-${project.slug}`}
+                  onClick={handleDesktopRowClick(index)}
+                  onMouseEnter={setWipeOrigin}
+                  onMouseLeave={setWipeOrigin}
+                >
                   <span className={style.name}>{project.name}</span>
-                  <span className={style.year}>{project.year}</span>
-
-                </div>
-                <div className={style.rowBottom}>
                   <span className={style.type}>{project.type}</span>
-                  <div className={style.separator} />
                   <span className={style.client}>{project.client}</span>
-                  <div className={style.separator} />
                   <span className={style.role}>{project.role}</span>
-                </div>
-              </Link>
+                  <span className={style.year}>{project.year}</span>
+                </button>
 
-            </li>
-          ))}
+                <span className={style.strip} id={`strip-${project.slug}`}>
+                  <Link href={`/${lang}/project/${project.slug}`} className={style.goToProjectButton}>{viewProjectLabel}</Link>
+                  {images.length > 0 &&
+                    Array.from({ length: STRIP_SLOTS }, (_, slotIndex) => {
+                      const image = images[slotIndex % images.length]
+                      const src = imageUrl(image, 320)
+                      if (!src) return null
+
+                      return (
+                        <span className={style.slot} key={slotIndex}>
+                          <Image
+                            src={src}
+                            alt=""
+                            fill
+                            sizes="320px"
+                            draggable={false}
+                            loading="eager"
+                            style={{ objectFit: "cover" }}
+                          />
+                        </span>
+                      )
+                    })}
+                </span>
+                <Link href={`/${lang}/project/${project.slug}`} className={`${style.row} ${style.mobileRow}`}>
+                  <div className={style.rowTop}>
+                    <span className={style.name}>{project.name}</span>
+                    <span className={style.year}>{project.year}</span>
+
+                  </div>
+                  <div className={style.rowBottom}>
+                    <span className={style.type}>{project.type}</span>
+                    <div className={style.separator} />
+                    <span className={style.client}>{project.client}</span>
+                    <div className={style.separator} />
+                    <span className={style.role}>{project.role}</span>
+                  </div>
+                </Link>
+
+              </li>
+            )
+          })}
         </ul>
       </div>
     </section>

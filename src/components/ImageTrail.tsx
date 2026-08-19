@@ -33,7 +33,8 @@ export interface ImageTrailProps {
 }
 
 // Mounting this starts the ticker, so mount it only while the trail should run.
-const ImageTrail = ({ images = DEFAULT_IMAGES }: ImageTrailProps) => {
+const ImageTrail = ({ images }: ImageTrailProps) => {
+  const trail = images?.length ? images : DEFAULT_IMAGES
   const poolRef = useRef<(HTMLImageElement | null)[]>([])
   const mouse = useMousePosition()
 
@@ -102,7 +103,7 @@ const ImageTrail = ({ images = DEFAULT_IMAGES }: ImageTrailProps) => {
 
   return (
     <>
-      {Array.from({ length: POOL_SIZE }, (_, i) => images[i % images.length]).map((src, i) => (
+      {Array.from({ length: POOL_SIZE }, (_, i) => trail[i % trail.length]).map((src, i) => (
         // eslint-disable-next-line @next/next/no-img-element -- fixed decorative pool, no layout participation, GSAP-transformed
         <img
           key={i}

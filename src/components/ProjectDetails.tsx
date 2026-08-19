@@ -1,17 +1,17 @@
 import style from "@/styles/components/ProjectDetails.module.scss"
-import type { Project } from "@/types/project"
-import { PROJECT_LABELS } from "@/utils/contants"
+import type { FieldLabels, ProjectDetail } from "@/types/content"
 
 export interface ProjectDetailsProps {
-  project: Project
+  project: ProjectDetail
+  labels: FieldLabels
 }
 
-const ProjectDetails = ({ project }: ProjectDetailsProps) => {
+const ProjectDetails = ({ project, labels }: ProjectDetailsProps) => {
   const details = [
-    { label: PROJECT_LABELS.year, value: project.year },
-    { label: PROJECT_LABELS.role, value: project.role },
-    { label: PROJECT_LABELS.type, value: project.type },
-    { label: PROJECT_LABELS.industry, value: project.industry },
+    { label: labels.year, value: project.year },
+    { label: labels.role, value: project.role },
+    { label: labels.type, value: project.type },
+    { label: labels.industry, value: project.industry },
   ] as const
 
   return (
@@ -23,9 +23,9 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
         </div>
       ))}
       <div className={style.row}>
-        <span className={style.label}>{PROJECT_LABELS.technologies}</span>
+        <span className={style.label}>{labels.technologies}</span>
         <span className={`${style.value} ${style.technologies}`}>
-          {project.technologies.map((tech) => (
+          {(project.technologies ?? []).map((tech) => (
             <span key={tech}>{tech}</span>
           ))}
         </span>

@@ -1,9 +1,12 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import style from "@/styles/project/project.module.scss"
-import { WORKS } from "@/utils/contants"
 import { LOCALES, langFromPathname } from "@/utils/locale"
-import { buildMetadata, truncate } from "@/utils/metadata"
+import { buildMetadata } from "@/utils/metadata"
+import { sanityFetch } from "@/sanity/client"
+import { imageUrl } from "@/sanity/image"
+import { projectBySlugQuery, projectSlugsQuery, projectPageQuery, settingsQuery } from "@/sanity/queries"
+import type { ProjectDetail, ProjectPageLabels, Settings } from "@/types/content"
 import ProjectDescription from "@/components/ProjectDescription"
 import ProjectDetails from "@/components/ProjectDetails"
 import ProjectGallery from "@/components/ProjectGallery"
@@ -11,18 +14,19 @@ import ProjectMobileImage from "@/components/ProjectMobileImage"
 import ProjectNav from "@/components/ProjectNav"
 
 export async function generateStaticParams() {
-  return LOCALES.flatMap((lang) => WORKS.map(({ slug }) => ({ lang, slug })))
+  const slugs = (await sanityFetch<string[]>(projectSlugsQuery)) ?? []
+  return LOCALES.flatMap((lang) => slugs.map((slug) => ({ lang, slug })))
 }
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/project/[slug]">): Promise<Metadata> {
   const { lang, slug } = await params
-  const project = WORKS.find((work) => work.slug === slug)
+  const project = await sanityFetch<ProjectDetail | null>(projectBySlugQuery, { lang, slug })
 
   if (!project) return buildMetadata({ title: "Project", path: `/${lang}/project/${slug}` })
 
   return buildMetadata({
+    seo: project.seo,
     title: project.name,
-    description: truncate(project.description[0]),
     path: `/${lang}/project/${slug}`,
     type: "article",
   })
@@ -30,39 +34,54 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/project/[s
 
 export default async function ProjectPage({ params }: PageProps<"/[lang]/project/[slug]">) {
   const { lang, slug } = await params
-  const index = WORKS.findIndex((work) => work.slug === slug)
 
-  if (index === -1) notFound()
+  const [project, slugs, projectPage, settings] = await Promise.all([
+    sanityFetch<ProjectDetail | null>(projectBySlugQuery, { lang, slug }),
+    sanityFetch<string[]>(projectSlugsQuery),
+    sanityFetch<ProjectPageLabels | null>(projectPageQuery, { lang }),
+    sanityFetch<Settings | null>(settingsQuery, { lang }),
+  ])
 
-  const project = WORKS[index]
-  const next = WORKS[(index + 1) % WORKS.length]
+  if (!project) notFound()
 
-  const [leadImage, ...restImages] = project.images
+  const index = slugs.indexOf(slug)
+  const nextSlug = index === -1 ? slug : slugs[(index + 1) % slugs.length]
+
+  const images = (project.images ?? []).map((image) => ({
+    url: imageUrl(image, 700),
+    alt: image.alt ?? "",
+  }))
+  const galleryImages = images.filter((image): image is { url: string; alt: string } => !!image.url)
+  const [leadImage, ...restImages] = galleryImages
 
   return (
     <>
       <main id="main-content" className={`${style.page} projectPage`}>
         <div className={style.headerSpace} aria-hidden="true" />
         <div className={style.split}>
-          <ProjectGallery images={project.images} alt={project.name} />
+          <ProjectGallery images={galleryImages} />
 
           <div className={style.content}>
             <div className={style.projectInformation}>
               <h1 className={style.title} data-reveal="lines" data-reveal-now>{project.name}</h1>
 
-              <ProjectDetails project={project} />
+              <ProjectDetails project={project} labels={settings?.fieldLabels ?? {}} />
 
+              {leadImage && <ProjectMobileImage url={leadImage.url} alt={leadImage.alt} loading="eager" />}
 
-              <ProjectMobileImage src={leadImage} loading="eager" />
+              <ProjectDescription value={project.description} label={settings?.fieldLabels?.description ?? ""} />
 
-              <ProjectDescription paragraphs={project.description} />
-
-              {restImages.map((src, index) => (
-                <ProjectMobileImage key={index} src={src} />
+              {restImages.map((image, index) => (
+                <ProjectMobileImage key={index} url={image.url} alt={image.alt} />
               ))}
             </div>
 
-            <ProjectNav nextSlug={next.slug} lang={langFromPathname(`/${lang}`)} />
+            <ProjectNav
+              nextSlug={nextSlug}
+              lang={langFromPathname(`/${lang}`)}
+              backLabel={projectPage?.backLabel}
+              nextLabel={projectPage?.nextLabel}
+            />
           </div>
         </div>
       </main>

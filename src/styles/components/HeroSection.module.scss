@@ -64,6 +64,14 @@
   justify-content: center;
   gap: $space-md;
 
+  .tokenIndex {
+    display: none;
+
+     @include respond-to(mobile){
+      display: block;
+     }
+  }
+
   @include respond-to(tablet) {
     gap: $space-sm;
   }
@@ -137,6 +145,20 @@
     display: block;
     flex-basis: 100%;
     height: 0;
+  }
+}
+
+// The slash trails the role on desktop and leads it on mobile, where the
+// column flips to left alignment.
+.role {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25em;
+
+  .slash {
+    @include respond-to(mobile) {
+      order: -1;
+    }
   }
 }
 

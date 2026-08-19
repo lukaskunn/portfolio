@@ -10,6 +10,7 @@ export interface HeaderContactButtonProps {
   className: string
   onOpen: () => void
   onServices: boolean
+  label: string
   reveal?: boolean
   onNavigate?: () => void
 }
@@ -18,12 +19,13 @@ const HeaderContactButton = ({
   className,
   onOpen,
   onServices,
+  label: labelText,
   reveal,
   onNavigate,
 }: HeaderContactButtonProps) => {
   const label = (
     <>
-      Contact
+      {labelText}
       <FaArrowRight size={14} className={style.icon} aria-hidden="true" focusable="false" />
     </>
   )

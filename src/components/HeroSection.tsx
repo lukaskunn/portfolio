@@ -6,39 +6,28 @@ import gsap from "gsap"
 import LocalTime from "@/components/LocalTime"
 import RollText from "@/components/RollText"
 import { useHoverAnimation } from "@/hooks/useHoverAnimation"
+import { parseHeroTitle, heroAriaLabel } from "@/utils/heroTitle"
 import style from "@/styles/components/HeroSection.module.scss"
 
+export interface HeroChip {
+  url?: string
+  alt?: string
+}
 
+export interface HeroSectionProps {
+  title: string
+  chips: HeroChip[]
+  sectionLabel: string
+  locationLabel: string
+  currentRole: string
+  roles: string[]
+  timeZone: string
+}
 
-// Chip slots, in visual order: red (line 2) / pink (line 3) / yellow (line 5).
-// Swap or reorder these three URLs to change which photo lands in which slot.
-const CHIP_IMAGES = [
-  "https://res.cloudinary.com/dpk0cuwnf/image/upload/v1783909595/IMG_5521_nultho.jpg",
-  "https://res.cloudinary.com/dpk0cuwnf/image/upload/v1783909609/IMG_5534_wrstqs.jpg",
-  "https://res.cloudinary.com/dpk0cuwnf/image/upload/v1783909609/IMG_5550_eovgrg.jpg",
-] as const
-
-const RED = { src: CHIP_IMAGES[0], color: "#d90d0d" }
-const PINK = { src: CHIP_IMAGES[1], color: "#f5b8c2" }
-const YELLOW = { src: CHIP_IMAGES[2], color: "#fad40d" }
-
-const BR = "BR" as const
-
-type Chip = { src: string; color: string }
-type Token = string | Chip | typeof BR
-
-const isChip = (token: Token): token is Chip => typeof token === "object"
-
-const LINES: Token[][] = [
-  ["WEB DEVELOPER"],
-  ["BASED IN", RED, "SÃO", BR, "PAULO"],
-  ["MIXING", PINK, BR, "CREATIVITY"],
-  ["AND", BR, "ENGINEERING", BR, "INTO"],
-  ["AWESOME", YELLOW, BR, "EXPERIENCES"],
-]
-
-const HeroSection = () => {
+const HeroSection = ({ title, chips, sectionLabel, locationLabel, currentRole, roles, timeZone }: HeroSectionProps) => {
   const root = useRef<HTMLElement>(null)
+  const lines = parseHeroTitle(title)
+  const ariaLabel = heroAriaLabel(title)
 
   useHoverAnimation(root, `.${style.line}`, (line) => {
     const chip = line.querySelector<HTMLElement>(`.${style.chip}`)
@@ -63,33 +52,37 @@ const HeroSection = () => {
   })
 
   return (
-    <section className={style.hero} id="intro" data-section="Intro" data-progress-weight="0.5" ref={root}>
+    <section className={style.hero} id="intro" data-section={sectionLabel} data-progress-weight="0.5" ref={root}>
       <div className={style.headerHeight} />
       <h1
         className={style.title}
         data-reveal="lines-static"
         data-reveal-now
-        aria-label="Web developer based in São Paulo mixing creativity and engineering into awesome experiences"
+        aria-label={ariaLabel}
       >
-        {LINES.map((line, lineIndex) => (
+        {lines.map((line, lineIndex) => (
           <span className={style.line} key={lineIndex}>
             <span className={style.lineInner}>
               {line.map((token, tokenIndex) => {
-                if (token === BR) {
+                if (token.type === "break") {
                   return <span className={style.break} key={tokenIndex} aria-hidden="true" />
                 }
 
-                if (isChip(token)) {
+                if (token.type === "chip") {
+                  const chip = chips[token.index - 1]
+                  // No image means no flex item at all — an empty chip would
+                  // sit between two gaps and double the space between words.
+                  if (!chip?.url) return null
+
                   return (
                     <span
                       className={style.chip}
-                      style={{ background: token.color }}
                       aria-hidden="true"
                       key={tokenIndex}
                     >
                       <span className={style.chipMedia}>
                         <Image
-                          src={token.src}
+                          src={chip.url}
                           alt=""
                           fill
                           sizes="(max-width: 767.98px) 54px, (max-width: 1023.98px) 82px, 107px"
@@ -100,7 +93,7 @@ const HeroSection = () => {
                   )
                 }
 
-                return <span key={tokenIndex}>{token}</span>
+                return <span key={tokenIndex}>{token.value}</span>
               })}
             </span>
           </span>
@@ -108,12 +101,18 @@ const HeroSection = () => {
       </h1>
       <div className={style.meta}>
         <div className={style.metaCol} data-reveal="rise" data-reveal-now>
-          <span><span><RollText>{"/ São Paulo / "}</RollText> <LocalTime /></span></span>
-          <span><span><RollText duration={0.2} stagger={0.009}>{"/ Currently Front end developer @ WPPCommerce"}</RollText></span></span>
+          <span><span><RollText>{`/ ${locationLabel} / `}</RollText> <LocalTime timeZone={timeZone} /></span></span>
+          <span><span><RollText duration={0.2} stagger={0.009}>{`/ ${currentRole}`}</RollText></span></span>
         </div>
         <div className={style.metaCol} data-reveal="rise" data-reveal-now>
-          <span><span><RollText>{"UI/UX DESIGNER /"}</RollText></span></span>
-          <span><span><RollText>{"WEB DEVELOPER /"}</RollText></span></span>
+          {roles.map((role, index) => (
+            <span key={index}>
+              <span className={style.role}>
+                <RollText>{role}</RollText>
+                <span className={style.slash} aria-hidden="true">/</span>
+              </span>
+            </span>
+          ))}
         </div>
       </div>
     </section>

@@ -1,19 +1,17 @@
+import type { PortableTextBlock } from "@portabletext/react"
+import RichText from "@/components/RichText"
 import style from "@/styles/components/ProjectDescription.module.scss"
-import { PROJECT_LABELS } from "@/utils/contants"
 
 export interface ProjectDescriptionProps {
-  paragraphs: readonly string[]
+  value: PortableTextBlock[]
+  label: string
 }
 
-const ProjectDescription = ({ paragraphs }: ProjectDescriptionProps) => (
+const ProjectDescription = ({ value, label }: ProjectDescriptionProps) => (
   <div className={style.rowDescription}>
-    <span className={style.label} data-reveal="up" data-reveal-now>{PROJECT_LABELS.description}</span>
+    <span className={style.label} data-reveal="up" data-reveal-now>{label}</span>
     <div className={`${style.value} ${style.description}`}>
-      {paragraphs.map((paragraph, index) => (
-        <p key={index} className={style.descriptionBody} data-reveal="lines" data-reveal-now>
-          {paragraph}
-        </p>
-      ))}
+      <RichText value={value} paragraphClass={style.descriptionBody} revealNow />
     </div>
   </div>
 )

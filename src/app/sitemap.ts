@@ -1,9 +1,12 @@
 import type { MetadataRoute } from "next"
-import { SITE_URL, WORKS } from "@/utils/contants"
+import { SITE_URL } from "@/utils/contants"
 import { HREFLANG, LOCALES } from "@/utils/locale"
+import { sanityFetch } from "@/sanity/client"
+import { projectSlugsQuery } from "@/sanity/queries"
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/services", "/about", ...WORKS.map((work) => `/project/${work.slug}`)]
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const slugs = (await sanityFetch<string[]>(projectSlugsQuery)) ?? []
+  const routes = ["", "/services", "/about", ...slugs.map((slug) => `/project/${slug}`)]
 
   return LOCALES.flatMap((lang) =>
     routes.map((route) => ({

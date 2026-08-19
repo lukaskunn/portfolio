@@ -6,25 +6,58 @@ import HeroSection from "@/components/HeroSection";
 import WorksSection from "@/components/WorksSection";
 import HomeBackdrop from "@/components/HomeBackdrop";
 import style from "@/styles/homepage/home.module.scss";
+import { sanityFetch } from "@/sanity/client"
+import { imageUrl } from "@/sanity/image"
+import { homePageQuery, settingsQuery, projectsQuery } from "@/sanity/queries"
+import type { HomePage, Settings, ProjectListItem } from "@/types/content"
 
 export async function generateMetadata({ params }: PageProps<"/[lang]">) {
   const { lang } = await params
-  return buildMetadata({ path: `/${lang}` })
+  const homePage = await sanityFetch<HomePage | null>(homePageQuery, { lang })
+  return buildMetadata({ seo: homePage?.seo, path: `/${lang}` })
 }
 
-export default function Home() {
+export default async function Home({ params }: PageProps<"/[lang]">) {
+  const { lang } = await params
+  const [homePage, settings, projects] = await Promise.all([
+    sanityFetch<HomePage | null>(homePageQuery, { lang }),
+    sanityFetch<Settings | null>(settingsQuery, { lang }),
+    sanityFetch<ProjectListItem[]>(projectsQuery, { lang }),
+  ])
+
+  const loaderImages = (settings?.loaderImages ?? [])
+    .map((image) => imageUrl(image, 240))
+    .filter((url): url is string => Boolean(url))
+
   return (
     <>
-      <Loader />
+      <Loader images={loaderImages} />
       <main id="main-content">
         <div className={style.pin}>
           <HomeBackdrop />
-          <HeroSection />
+          <HeroSection
+            title={homePage?.heroTitle ?? ""}
+            chips={(homePage?.heroChips ?? []).map((chip) => ({
+              url: imageUrl(chip.image, 214),
+              alt: chip.image?.alt,
+            }))}
+            sectionLabel={homePage?.heroSectionLabel ?? ""}
+            locationLabel={homePage?.heroLocationLabel ?? ""}
+            currentRole={homePage?.heroCurrentRole ?? ""}
+            roles={homePage?.heroRoles ?? []}
+            timeZone={settings?.timeZone ?? "America/Sao_Paulo"}
+          />
         </div>
-        <WorksSection />
+        <WorksSection
+          title={homePage?.worksTitle ?? ""}
+          sectionLabel={homePage?.worksSectionLabel ?? ""}
+          labels={settings?.fieldLabels ?? {}}
+          viewProjectLabel={settings?.viewProjectLabel ?? ""}
+          projects={projects ?? []}
+        />
       </main>
       <ScrollProgress />
-      <Footer />
+      <Footer settings={settings ?? { defaultTitle: "", defaultDescription: "" }} />
     </>
   );
 }

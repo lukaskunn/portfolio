@@ -5,22 +5,28 @@ import { submitContact } from "@/app/actions"
 import { useLocale } from "@/hooks/useLocale"
 import EmailAndPhoneNumberBlock from "./EmailAndPhoneNumberBlock"
 import ContactSubmitBlock from "./ContactSubmitBlock"
+import type { ContactMessages } from "@/utils/contactForm"
+import type { ContactInfo } from "@/types/content"
 import style from "@/styles/components/ContactForm.module.scss"
 
-const ContactForm = () => {
+export interface ContactFormProps {
+  messages: ContactMessages
+  contactInfo: ContactInfo
+}
+
+const ContactForm = ({ messages, contactInfo }: ContactFormProps) => {
   const [state, formAction] = useActionState(submitContact, { status: "idle" as const })
   const uid = useId()
   const [showOptional, setShowOptional] = useState(false)
   const lang = useLocale()
 
-
-
-
   const optionalId = `${uid}-optional`
+  const optionalSuffix = (required: boolean) =>
+    required ? "" : ` ${messages.optionalSuffixLabel ?? ""}`
 
   return (
     <section className={style.section}>
-      <p className={style.eyebrow}>Contact</p>
+      <p className={style.eyebrow}>{messages.eyebrowLabel}</p>
       <form action={formAction}>
         <input type="hidden" name="lang" value={lang} />
         <input
@@ -36,29 +42,32 @@ const ContactForm = () => {
           <div className={style.left}>
             <div className={style.titleBlock}>
               <h2 className={style.title}>
-                <span className={style.titleMuted}>Any idea in mind?</span>
-                <span>Lets create together</span>
+                <span className={style.titleMuted}>{messages.titleMuted}</span>
+                <span>{messages.title}</span>
               </h2>
               <div className={style.info}>
-                <EmailAndPhoneNumberBlock />
+                <EmailAndPhoneNumberBlock info={contactInfo} />
               </div>
             </div>
 
-            <ContactSubmitBlock state={state} variant="desktop" />
+            <ContactSubmitBlock state={state} variant="desktop" messages={messages} />
           </div>
 
           <div className={style.fields}>
             <div className={style.field}>
               <label htmlFor={`${uid}-name`} className={style.label}>
-                your name <span aria-hidden="true" className={style.required}>*</span>
+                {messages.name.label}
+                {messages.name.required && (
+                  <span aria-hidden="true" className={style.required}>*</span>
+                )}
               </label>
               <input
                 id={`${uid}-name`}
                 name="name"
                 type="text"
                 defaultValue={state.values?.name}
-                required
-                aria-required="true"
+                required={messages.name.required}
+                aria-required={messages.name.required}
                 autoComplete="name"
                 className={style.input}
                 aria-invalid={!!state.fieldErrors?.name}
@@ -78,13 +87,16 @@ const ContactForm = () => {
               <div className={style.optionalInner}>
                 <div className={style.field}>
                   <label htmlFor={`${uid}-businessName`} className={style.label}>
-                    your business name (optional)
+                    {messages.businessName.label}
+                    {optionalSuffix(messages.businessName.required)}
                   </label>
                   <input
                     id={`${uid}-businessName`}
                     name="businessName"
                     type="text"
                     defaultValue={state.values?.businessName}
+                    required={messages.businessName.required}
+                    aria-required={messages.businessName.required}
                     autoComplete="organization"
                     className={style.input}
                     aria-invalid={!!state.fieldErrors?.businessName}
@@ -101,13 +113,16 @@ const ContactForm = () => {
 
                 <div className={style.field}>
                   <label htmlFor={`${uid}-phone`} className={style.label}>
-                    your phone number (optional)
+                    {messages.phone.label}
+                    {optionalSuffix(messages.phone.required)}
                   </label>
                   <input
                     id={`${uid}-phone`}
                     name="phone"
                     type="tel"
                     defaultValue={state.values?.phone}
+                    required={messages.phone.required}
+                    aria-required={messages.phone.required}
                     autoComplete="tel"
                     className={style.input}
                     aria-invalid={!!state.fieldErrors?.phone}
@@ -124,15 +139,18 @@ const ContactForm = () => {
 
             <div className={style.field}>
               <label htmlFor={`${uid}-email`} className={style.label}>
-                your email <span aria-hidden="true" className={style.required}>*</span>
+                {messages.email.label}
+                {messages.email.required && (
+                  <span aria-hidden="true" className={style.required}>*</span>
+                )}
               </label>
               <input
                 id={`${uid}-email`}
                 name="email"
                 type="email"
                 defaultValue={state.values?.email}
-                required
-                aria-required="true"
+                required={messages.email.required}
+                aria-required={messages.email.required}
                 autoComplete="email"
                 className={style.input}
                 aria-invalid={!!state.fieldErrors?.email}
@@ -147,14 +165,17 @@ const ContactForm = () => {
 
             <div className={style.field}>
               <label htmlFor={`${uid}-message`} className={style.label}>
-                your project idea <span aria-hidden="true" className={style.required}>*</span>
+                {messages.message.label}
+                {messages.message.required && (
+                  <span aria-hidden="true" className={style.required}>*</span>
+                )}
               </label>
               <textarea
                 id={`${uid}-message`}
                 name="message"
                 defaultValue={state.values?.message}
-                required
-                aria-required="true"
+                required={messages.message.required}
+                aria-required={messages.message.required}
                 className={style.textarea}
                 aria-invalid={!!state.fieldErrors?.message}
                 aria-describedby={state.fieldErrors?.message ? `${uid}-message-error` : undefined}
@@ -173,10 +194,10 @@ const ContactForm = () => {
               aria-controls={optionalId}
               onClick={() => setShowOptional((value) => !value)}
             >
-              + add business name & phone (optional)
+              {messages.addOptionalLabel}
             </button>
           </div>
-          <ContactSubmitBlock state={state} variant="mobile" />
+          <ContactSubmitBlock state={state} variant="mobile" messages={messages} />
         </div>
       </form>
     </section>

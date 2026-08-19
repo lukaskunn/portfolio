@@ -10,7 +10,12 @@ import CursorFollower from "@/components/CursorFollower";
 import RouteTransition from "@/components/RouteTransition";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { ContactModalProvider } from "@/contexts/ContactModalContext";
-import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, SITE_URL } from "@/utils/contants";
+import { SITE_URL } from "@/utils/contants";
+import { sanityFetch } from "@/sanity/client";
+import { settingsQuery, contactMessagesQuery } from "@/sanity/queries";
+import { buildMetadata } from "@/utils/metadata";
+import { CONTACT_MESSAGES_FALLBACK, type ContactMessages } from "@/utils/contactForm";
+import type { Settings } from "@/types/content";
 
 const gabarito = localFont({
   variable: "--font-gabarito",
@@ -71,13 +76,8 @@ const robotoMono = localFont({
   ],
 });
 
-export const metadata: Metadata = {
+const STATIC_METADATA: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: {
-    default: DEFAULT_TITLE,
-    template: "%s — Lucas Oliveira",
-  },
-  description: DEFAULT_DESCRIPTION,
   authors: [{ name: "Lucas Oliveira", url: SITE_URL }],
   creator: "Lucas Oliveira",
   publisher: "Lucas Oliveira",
@@ -103,6 +103,30 @@ export const metadata: Metadata = {
   },
 };
 
+const INTRO_GATE = `<script>try{var s=sessionStorage;if(!s.getItem("intro")){s.setItem("intro","1");if(/^\\/(pt|en)\\/?$/.test(location.pathname)&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.dataset.intro="playing"}}catch(e){}</script>`;
+
+export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLang(lang)) return STATIC_METADATA;
+
+  let settings: Settings | null = null;
+  try {
+    settings = await sanityFetch<Settings | null>(settingsQuery, { lang });
+  } catch (error: unknown) {
+    console.error("Failed to fetch settings for metadata:", error);
+  }
+
+  return {
+    ...STATIC_METADATA,
+    ...(settings &&
+      buildMetadata({
+        seo: { metaTitle: settings.defaultTitle, metaDescription: settings.defaultDescription, ogImage: settings.ogImage },
+        path: `/${lang}`,
+      })),
+    title: settings ? { default: settings.defaultTitle, template: "%s — Lucas Oliveira" } : undefined,
+  };
+}
+
 export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }));
 }
@@ -111,6 +135,22 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const { lang } = await params;
 
   if (!isLang(lang)) notFound();
+
+  let settings: Settings = { defaultTitle: "", defaultDescription: "" };
+  let messages: ContactMessages = CONTACT_MESSAGES_FALLBACK;
+
+  try {
+    settings = (await sanityFetch<Settings | null>(settingsQuery, { lang })) ?? settings;
+  } catch (error: unknown) {
+    console.error("Failed to fetch settings:", error);
+  }
+
+  try {
+    const fetched = await sanityFetch<Partial<ContactMessages> | null>(contactMessagesQuery, { lang });
+    if (fetched) messages = { ...CONTACT_MESSAGES_FALLBACK, ...fetched };
+  } catch (error: unknown) {
+    console.error("Failed to fetch contact messages:", error);
+  }
 
   return (
     <html
@@ -122,12 +162,12 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       suppressHydrationWarning
     >
       <body>
-        <script
-          // Blocking, so the intro decision lands before first paint — no flash either direction.
-          dangerouslySetInnerHTML={{
-            __html: `try{var s=sessionStorage;if(!s.getItem("intro")){s.setItem("intro","1");if(/^\\/(pt|en)\\/?$/.test(location.pathname)&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.dataset.intro="playing"}}catch(e){}`,
-          }}
-        />
+        {/* Blocking, so the intro decision lands before first paint — no flash
+            either direction. Wrapped in innerHTML rather than rendered as a
+            <script> element: React never executes a script it creates on the
+            client, and warns about it. Only the parser-inserted server HTML
+            runs this, which is exactly the once we need. */}
+        <div dangerouslySetInnerHTML={{ __html: INTRO_GATE }} />
         <ReactLenis root options={{ lerp: 0.1, smoothWheel: true, anchors: true }} />
         <CursorFollower />
         <RouteTransition />
@@ -136,8 +176,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           {/* Pre-states are unconditional CSS so they land on first paint. */}
           <style>{`[data-reveal],[data-reveal-group]>*,[data-reveal="rise"]>*>*,[data-reveal="spread"]>*{opacity:1!important;transform:none!important;clip-path:none!important;animation:none!important}`}</style>
         </noscript>
-        <ContactModalProvider>
-          <Header />
+        <ContactModalProvider settings={settings} messages={messages}>
+          <Header settings={settings} />
           {children}
         </ContactModalProvider>
       </body>

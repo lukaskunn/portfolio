@@ -7,15 +7,21 @@ import { useGSAP } from "@gsap/react"
 
 import style from "@/styles/components/ProjectGallery.module.scss"
 
-export interface ProjectGalleryProps {
-  images: readonly string[]
+export interface ProjectGalleryImage {
+  url: string
   alt: string
 }
 
-const ProjectGallery = ({ images, alt }: ProjectGalleryProps) => {
+export interface ProjectGalleryProps {
+  images: ProjectGalleryImage[]
+}
+
+const ProjectGallery = ({ images }: ProjectGalleryProps) => {
   const root = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
+    if (images.length === 0) return
+
     const mm = gsap.matchMedia()
 
     mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
@@ -57,11 +63,11 @@ const ProjectGallery = ({ images, alt }: ProjectGalleryProps) => {
   return (
     <div ref={root} className={style.gallery}>
       <div className={style.track}>
-        {[...images, ...images].map((src, index) => (
+        {[...images, ...images].map((image, index) => (
           <div key={index} className={style.trackImage} aria-hidden={index >= images.length}>
             <Image
-              src={src}
-              alt={index < images.length ? alt : ""}
+              src={image.url}
+              alt={index < images.length ? image.alt : ""}
               fill
               style={{ objectFit: "cover" }}
               sizes="(max-width: 1023.98px) 45vw, 668px"

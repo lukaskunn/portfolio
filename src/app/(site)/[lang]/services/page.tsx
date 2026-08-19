@@ -8,18 +8,30 @@ import ServicesHero from "@/components/ServicesHero"
 import ServicesHelp from "@/components/ServicesHelp"
 import ServicesList from "@/components/ServicesList"
 import ServicesProcess from "@/components/ServicesProcess"
+import { sanityFetch } from "@/sanity/client"
+import { servicesPageQuery, settingsQuery, contactMessagesQuery } from "@/sanity/queries"
+import type { ServicesPage as ServicesPageContent, Settings } from "@/types/content"
+import { CONTACT_MESSAGES_FALLBACK, type ContactMessages } from "@/utils/contactForm"
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/services">) {
   const { lang } = await params
-  return buildMetadata({
-    title: "Services",
-    description:
-      "Design, development, or the full package. Research, art direction, interaction and build for brands that want a site that does more than just load fast.",
-    path: `/${lang}/services`,
-  })
+  const servicesPage = await sanityFetch<ServicesPageContent | null>(servicesPageQuery, { lang })
+  return buildMetadata({ seo: servicesPage?.seo, title: "Services", path: `/${lang}/services` })
 }
 
-export default function ServicesPage() {
+export default async function ServicesPage({ params }: PageProps<"/[lang]/services">) {
+  const { lang } = await params
+
+  const [servicesPage, settings, contactMessages] = await Promise.all([
+    sanityFetch<ServicesPageContent | null>(servicesPageQuery, { lang }),
+    sanityFetch<Settings | null>(settingsQuery, { lang }),
+    sanityFetch<Partial<ContactMessages> | null>(contactMessagesQuery, { lang }),
+  ])
+
+  const messages: ContactMessages = contactMessages
+    ? { ...CONTACT_MESSAGES_FALLBACK, ...contactMessages }
+    : CONTACT_MESSAGES_FALLBACK
+
   return (
     <>
       <main id="main-content" className="servicePage">
@@ -27,22 +39,48 @@ export default function ServicesPage() {
           <div className={style.headerSpace} />
           <div className={style.backdropRegion}>
             <ServicesBackdrop />
-            <ServicesHero />
+            <ServicesHero
+              title={servicesPage?.heroTitle ?? ""}
+              sectionLabel={servicesPage?.heroSectionLabel ?? ""}
+              scrollCueLabel={servicesPage?.scrollCueLabel ?? ""}
+            />
           </div>
 
           <div className={style.scrollOver}>
-            <ServicesHelp />
-            <ServicesList />
-            <ServicesProcess />
+            <ServicesHelp
+              title={servicesPage?.helpTitle ?? ""}
+              sectionLabel={servicesPage?.helpSectionLabel ?? ""}
+              services={servicesPage?.services ?? []}
+            />
+            <ServicesList
+              title={servicesPage?.servicesTitle ?? ""}
+              sectionLabel={servicesPage?.servicesSectionLabel ?? ""}
+              serviceGroups={servicesPage?.serviceGroups ?? []}
+            />
+            <ServicesProcess
+              title={servicesPage?.processTitle ?? ""}
+              sectionLabel={servicesPage?.processSectionLabel ?? ""}
+              process={servicesPage?.process ?? []}
+            />
 
-            <section id="contact" data-section="Contact" className={style.contact}>
-              <ContactForm />
+            <section id="contact" data-section={servicesPage?.contactSectionLabel ?? ""} className={style.contact}>
+              <ContactForm
+                messages={messages}
+                contactInfo={{
+                  email: settings?.email,
+                  phone: settings?.phone,
+                  copyEmailLabel: settings?.copyEmailLabel,
+                  emailCopiedLabel: settings?.emailCopiedLabel,
+                  copyPhoneLabel: settings?.copyPhoneLabel,
+                  phoneCopiedLabel: settings?.phoneCopiedLabel,
+                }}
+              />
             </section>
           </div>
         </div>
       </main>
       <ScrollProgress />
-      <Footer />
+      <Footer settings={settings ?? { defaultTitle: "", defaultDescription: "" }} />
     </>
   )
 }

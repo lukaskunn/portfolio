@@ -1,20 +1,22 @@
-import { CLIENTS } from "@/utils/contants"
+import type { PortableTextBlock } from "@portabletext/react"
+import RichText from "@/components/RichText"
 import style from "@/styles/components/AboutBio.module.scss"
 
-const AboutBio = () => (
+export interface AboutBioProps {
+  bio: PortableTextBlock[]
+  clients?: string[]
+  clientsLabel?: string
+}
+
+const AboutBio = ({ bio, clients, clientsLabel }: AboutBioProps) => (
   <div className={style.bioRow}>
     <div className={style.bio}>
-      <p data-reveal="lines" data-reveal-now>
-        Hi, I'm Lucas. A <span className={style.highlight}>creative developer</span> and software engineer focusing on web design, motion and to create awesome experiences
-      </p>
-      <p data-reveal="lines" data-reveal-now>
-        As a <span className={style.highlight}>creative developer</span>, I help individuals and companies to create awesome digital experiences and grow their business through design and engineering
-      </p>
+      <RichText value={bio} highlightClass={style.highlight} revealNow />
     </div>
     <div className={style.clients}>
-      <span className={style.clientsLabel} data-reveal="up" data-reveal-now>clients i worked on</span>
+      <span className={style.clientsLabel} data-reveal="up" data-reveal-now>{clientsLabel}</span>
       <div className={style.clientsList} data-reveal="rise" data-reveal-now>
-        {CLIENTS.map((client) => (
+        {(clients ?? []).map((client) => (
           <span key={client} className={style.clientName}>
             <span>{client}</span>
           </span>

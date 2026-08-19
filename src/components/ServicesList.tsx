@@ -1,45 +1,62 @@
 import Image from "next/image"
-import { SERVICE_GROUPS } from "@/utils/contants"
+import { imageUrl } from "@/sanity/image"
+import type { ServiceGroup } from "@/types/content"
 import style from "@/styles/components/ServicesList.module.scss"
+
+export interface ServicesListProps {
+  title: string
+  sectionLabel: string
+  serviceGroups: ServiceGroup[]
+}
 
 const IMAGE_SIZE = {
   big: {
     className: style.imageBig,
     sizes: "(max-width: 767.98px) 1px, (max-width: 1023.98px) 320px, 437px",
+    width: 437,
   },
   medium: {
     className: style.imageMedium,
     sizes: "(max-width: 767.98px) 1px, (max-width: 1023.98px) 240px, 325px",
+    width: 325,
   },
   small: {
     className: style.imageSmall,
     sizes: "(max-width: 767.98px) 1px, (max-width: 1023.98px) 160px, 213px",
+    width: 213,
   },
 }
 
-const ServicesList = () => (
-  <section className={style.services} id="services" data-section="Services">
-    <h2 className={style.servicesTitle} data-reveal="lines">Services</h2>
+const ServicesList = ({ title, sectionLabel, serviceGroups }: ServicesListProps) => (
+  <section className={style.services} id="services" data-section={sectionLabel}>
+    <h2 className={style.servicesTitle} data-reveal="lines">{title}</h2>
     <ul className={style.servicesList}>
-      {SERVICE_GROUPS.map(({ title, items, image, size }) => (
-        <li key={title} className={style.serviceRow} data-reveal-group>
-          <h3 className={style.serviceTitle}>{title}</h3>
-          <ul className={style.serviceItems}>
-            {items.map((item, index) => (
-              <li key={`${item}-${index}`}>{item}</li>
-            ))}
-          </ul>
-          <div className={`${style.serviceImage} ${IMAGE_SIZE[size].className}`} data-reveal="curtain">
-            <Image
-              src={image}
-              alt=""
-              fill
-              style={{ objectFit: "cover" }}
-              sizes={IMAGE_SIZE[size].sizes}
-            />
-          </div>
-        </li>
-      ))}
+      {serviceGroups.map(({ title, items, image, size }) => {
+        const imageSize = IMAGE_SIZE[size]
+        const src = imageUrl(image, imageSize.width)
+
+        return (
+          <li key={title} className={style.serviceRow} data-reveal-group>
+            <h3 className={style.serviceTitle}>{title}</h3>
+            <ul className={style.serviceItems}>
+              {(items ?? []).map((item, index) => (
+                <li key={`${item}-${index}`}>{item}</li>
+              ))}
+            </ul>
+            {src && (
+              <div className={`${style.serviceImage} ${imageSize.className}`} data-reveal="curtain">
+                <Image
+                  src={src}
+                  alt={image?.alt ?? ""}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  sizes={imageSize.sizes}
+                />
+              </div>
+            )}
+          </li>
+        )
+      })}
     </ul>
   </section>
 )

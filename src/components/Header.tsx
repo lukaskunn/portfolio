@@ -8,12 +8,16 @@ import { useLenis } from "lenis/react"
 
 import { useContactModal } from "@/contexts/ContactModalContext"
 import HeaderContactButton from "./HeaderContactButton"
-import { NAV } from "@/utils/contants"
 import { useLocale } from "@/hooks/useLocale"
 import { LOCALES, stripLang, withLang } from "@/utils/locale"
+import type { Settings } from "@/types/content"
 import style from "@/styles/components/Header.module.scss"
 
-const Header = () => {
+export interface HeaderProps {
+  settings: Settings
+}
+
+const Header = ({ settings }: HeaderProps) => {
   const pathname = usePathname()
   const lang = useLocale()
   const route = stripLang(pathname)
@@ -22,6 +26,9 @@ const Header = () => {
 
   const onServices = route === "/services"
   const isHome = route === "/"
+
+  const navPages = (settings.pages ?? []).filter((page) => page.action === "link" && page.showInHeader)
+  const contactPage = (settings.pages ?? []).find((page) => page.action === "contact")
 
   // Leaving /about or a project page is a "return" — the leaving page drops
   // away over a pinned destination. Sibling project→project keeps the cover.
@@ -76,9 +83,9 @@ const Header = () => {
   // On the homepage the Work link is an in-page jump, not a route change —
   // Lenis (anchors: true) smooth-scrolls a plain hash anchor for free.
   const renderNav = (withSeparators: boolean) =>
-    NAV.map(({ href, label }, index) => {
+    navPages.map(({ href, label }, index) => {
       const isWorks = href === "/#works"
-      const localised = isWorks ? `/${lang}#works` : withLang(href, lang)
+      const localised = isWorks ? `/${lang}#works` : withLang(href ?? "/", lang)
       const link = !isWorks ? (
         <Link key={href} {...linkProps(localised)} className={style.navLink}>
           {label}
@@ -138,7 +145,7 @@ const Header = () => {
     <header className={className}>
       <div className={style.inner}>
         <Link {...linkProps(withLang("/", lang))} className={style.logo} data-reveal="up">
-          Lucas Oliveira
+          {settings.logoName ?? ""}
         </Link>
 
         <div className={style.actions}>
@@ -154,6 +161,7 @@ const Header = () => {
             className={`${style.contact} ${style.contactButtonDesktop}`}
             onOpen={openContactModal}
             onServices={onServices}
+            label={contactPage?.label ?? ""}
             reveal
           />
         </div>
@@ -164,7 +172,7 @@ const Header = () => {
           data-reveal="up"
           aria-expanded={open}
           aria-controls="header-menu"
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? settings.closeMenuLabel : settings.menuLabel}
           onClick={() => setOpen(true)}
         >
           Menu
@@ -181,7 +189,7 @@ const Header = () => {
           className={style.closeMenuButton}
           aria-expanded={open}
           aria-controls="header-menu"
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? settings.closeMenuLabel : settings.menuLabel}
           onClick={() => setOpen(false)}
         >
           Close
@@ -197,6 +205,7 @@ const Header = () => {
           className={`${style.contact} ${style.contactButtonMobile}`}
           onOpen={openContactModal}
           onServices={onServices}
+          label={contactPage?.label ?? ""}
           onNavigate={close}
         />
       </div>
