@@ -28,32 +28,42 @@ type BuildMetadataParams = {
   type?: "website" | "article"
 }
 
-// seo is accepted but not read yet — it's the Sanity seam for a future pass.
 export function buildMetadata(params: BuildMetadataParams): Metadata {
   const {
+    seo,
     title,
     description = DEFAULT_DESCRIPTION,
     path,
     type = "website",
   } = params
+  const resolvedTitle = seo?.metaTitle || title
+  const resolvedDescription = seo?.metaDescription || description
+  const ogImageUrl = seo?.ogImage?.asset?.url || OG_IMAGE
+  const ogImageDimensions = seo?.ogImage?.asset?.metadata?.dimensions
   return {
-    ...(title ? { title } : {}),
-    description,
+    ...(resolvedTitle ? { title: resolvedTitle } : {}),
+    description: resolvedDescription,
     alternates: { canonical: path },
     openGraph: {
-      title,
-      description,
+      title: resolvedTitle,
+      description: resolvedDescription,
       url: path,
       siteName: SITE_NAME,
       type,
-      images: [{ url: OG_IMAGE, width: 1810, height: 956 }],
+      images: [
+        {
+          url: ogImageUrl,
+          width: ogImageDimensions?.width ?? 1810,
+          height: ogImageDimensions?.height ?? 956,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
+      title: resolvedTitle,
+      description: resolvedDescription,
       creator: "@http_lucaso",
-      images: [OG_IMAGE],
+      images: [ogImageUrl],
     },
   }
 }

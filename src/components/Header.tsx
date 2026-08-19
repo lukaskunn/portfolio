@@ -3,32 +3,36 @@
 import { Fragment, useEffect, useState, type MouseEvent } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FaArrowRight } from "react-icons/fa"
 import { useLenis } from "lenis/react"
 
 
 import { useContactModal } from "@/contexts/ContactModalContext"
+import HeaderContactButton from "./HeaderContactButton"
+import { useLocale } from "@/hooks/useLocale"
+import { LOCALES, stripLang, withLang } from "@/utils/locale"
+import type { Settings } from "@/types/content"
 import style from "@/styles/components/Header.module.scss"
 
-// Work points at the homepage section (/#works — mirrors Footer.tsx); the
-// rest do not exist yet — they 404 until the pages land.
-const NAV = [
-  { href: "/#works", label: "Work" },
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
-] as const
+export interface HeaderProps {
+  settings: Settings
+}
 
-const Header = () => {
+const Header = ({ settings }: HeaderProps) => {
   const pathname = usePathname()
+  const lang = useLocale()
+  const route = stripLang(pathname)
   const [open, setOpen] = useState(false)
   const openContactModal = useContactModal()
 
-  const onServices = pathname === "/services"
-  const isHome = pathname === "/"
+  const onServices = route === "/services"
+  const isHome = route === "/"
+
+  const navPages = (settings.pages ?? []).filter((page) => page.action === "link" && page.showInHeader)
+  const contactPage = (settings.pages ?? []).find((page) => page.action === "contact")
 
   // Leaving /about or a project page is a "return" — the leaving page drops
   // away over a pinned destination. Sibling project→project keeps the cover.
-  const reveal = pathname === "/about" || pathname.startsWith("/project/")
+  const reveal = route === "/about" || route.startsWith("/project/")
   const transitionTypes = reveal ? ["nav-reveal"] : undefined
   const lenis = useLenis()
 
@@ -58,7 +62,7 @@ const Header = () => {
     window.setTimeout(() => {
       // ponytail: no timer ref — Header never unmounts, and this bails if the
       // user navigated somewhere else in the meantime.
-      if (window.location.pathname === "/") lenis?.scrollTo("#works")
+      if (stripLang(window.location.pathname) === "/") lenis?.scrollTo("#works")
     }, delay)
   }
 
@@ -79,10 +83,11 @@ const Header = () => {
   // On the homepage the Work link is an in-page jump, not a route change —
   // Lenis (anchors: true) smooth-scrolls a plain hash anchor for free.
   const renderNav = (withSeparators: boolean) =>
-    NAV.map(({ href, label }, index) => {
+    navPages.map(({ href, label }, index) => {
       const isWorks = href === "/#works"
+      const localised = isWorks ? `/${lang}#works` : withLang(href ?? "/", lang)
       const link = !isWorks ? (
-        <Link key={href} {...linkProps(href)} className={style.navLink}>
+        <Link key={href} {...linkProps(localised)} className={style.navLink}>
           {label}
         </Link>
       ) : isHome ? (
@@ -92,7 +97,7 @@ const Header = () => {
       ) : (
         <Link
           key={href}
-          {...linkProps(href)}
+          {...linkProps(localised)}
           scroll={false}
           onClick={onWorksClick}
           className={style.navLink}
@@ -115,22 +120,32 @@ const Header = () => {
       )
     })
 
+  // Same route, other locale. Crosses no root-layout boundary, so it stays a
+  // client-side navigation.
+  const renderLangSwitcher = () =>
+    LOCALES.map((locale, index) => (
+      <Fragment key={locale}>
+        {index > 0 && " / "}
+        <Link
+          href={withLang(route, locale)}
+          hrefLang={locale}
+          className={locale === lang ? undefined : style.langMuted}
+          onClick={close}
+        >
+          {locale.toUpperCase()}
+        </Link>
+      </Fragment>
+    ))
+
   const className = [style.header, open && style.open, isHome && style.home]
     .filter(Boolean)
     .join(" ")
 
-  const contactLabel = (
-    <>
-      Contact
-      <FaArrowRight size={14} className={style.icon} aria-hidden="true" focusable="false" />
-    </>
-  )
-
   return (
     <header className={className}>
       <div className={style.inner}>
-        <Link {...linkProps("/")} className={style.logo} data-reveal="up">
-          Lucas Oliveira
+        <Link {...linkProps(withLang("/", lang))} className={style.logo} data-reveal="up">
+          {settings.logoName ?? ""}
         </Link>
 
         <div className={style.actions}>
@@ -138,26 +153,17 @@ const Header = () => {
             {renderNav(true)}
           </nav>
 
-          {/* ponytail: static placeholder — no i18n wiring yet */}
           <span className={style.lang} data-reveal="up">
-            <span className={style.langMuted}>PT</span> / EN
+            {renderLangSwitcher()}
           </span>
 
-          {onServices ? (
-            <a href="#contact" className={`${style.contact} ${style.contactButtonDesktop}`}
-              data-reveal="up">
-              {contactLabel}
-            </a>
-          ) : (
-            <button
-              type="button"
-              className={`${style.contact} ${style.contactButtonDesktop}`}
-              data-reveal="up"
-              onClick={openContactModal}
-            >
-              {contactLabel}
-            </button>
-          )}
+          <HeaderContactButton
+            className={`${style.contact} ${style.contactButtonDesktop}`}
+            onOpen={openContactModal}
+            onServices={onServices}
+            label={contactPage?.label ?? ""}
+            reveal
+          />
         </div>
 
         <button
@@ -166,7 +172,7 @@ const Header = () => {
           data-reveal="up"
           aria-expanded={open}
           aria-controls="header-menu"
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? settings.closeMenuLabel : settings.menuLabel}
           onClick={() => setOpen(true)}
         >
           Menu
@@ -183,7 +189,7 @@ const Header = () => {
           className={style.closeMenuButton}
           aria-expanded={open}
           aria-controls="header-menu"
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? settings.closeMenuLabel : settings.menuLabel}
           onClick={() => setOpen(false)}
         >
           Close
@@ -192,28 +198,16 @@ const Header = () => {
 
           {renderNav(false)}
           <span className={style.lang}>
-            <span className={style.langMuted}>PT</span> / EN
+            {renderLangSwitcher()}
           </span>
         </div>
-        {onServices ? (
-          <a
-            href="#contact"
-            className={`${style.contact} ${style.contactButtonMobile}`}
-            onClick={close}
-          >
-            {contactLabel}
-          </a>
-        ) : (
-          <button
-            type="button"
-            className={`${style.contact} ${style.contactButtonMobile}`}
-            onClick={() => {
-              openContactModal()
-            }}
-          >
-            {contactLabel}
-          </button>
-        )}
+        <HeaderContactButton
+          className={`${style.contact} ${style.contactButtonMobile}`}
+          onOpen={openContactModal}
+          onServices={onServices}
+          label={contactPage?.label ?? ""}
+          onNavigate={close}
+        />
       </div>
 
     </header>

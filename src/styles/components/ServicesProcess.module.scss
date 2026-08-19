@@ -1,0 +1,141 @@
+@use "references" as *;
+
+// ponytail: approximate item height, used only to centre the stack in the
+// viewport. Items are equal height so they stay aligned with each other
+// regardless — tune these if the stack sits visibly off-centre.
+$process-item-h: 248px;
+$process-item-h-tablet: 268px;
+$process-item-h-mobile: 580px;
+
+.process {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  padding-block: $page-margin;
+  padding-inline: calc(#{$page-margin} + max(0px, (100vw - 1440px) * 0.5));
+  background: $color-bg-invert;
+  color: $color-text-invert;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+
+  @include respond-to(tablet) {
+    padding-block: $space-6xl;
+    gap: 40px;
+  }
+
+  @include respond-to(mobile) {
+    padding-block: $space-4xl;
+    gap: 40px;
+  }
+
+  .processTitle {
+    @include heading-2;
+
+    // ponytail: 64px is off the type ramp (--fs-h2 is 48px), single call site —
+    // promote to a --fs-* token if a second one shows up.
+    font-size: 64px;
+    letter-spacing: -0.02em;
+
+    @include respond-to(tablet) {
+      font-size: var(--fs-h2);
+    }
+
+    @include respond-to(mobile) {
+      font-size: var(--fs-h2);
+    }
+  }
+
+  .processList {
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: $space-6xl;
+
+    @include respond-to(tablet) {
+      gap: 40px;
+    }
+
+    @include respond-to(mobile) {
+      gap: 40px;
+    }
+
+    // ponytail: full coverage while stacking assumes equal item heights (true for
+    // this copy). If bodies ever differ in length, give this a shared min-height.
+    .processItem {
+      counter-increment: step;
+      position: sticky;
+      top: calc(50dvh - #{$process-item-h} / 2);
+      background: $color-bg-invert;
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: $gutter;
+      padding-block: $space-xl;
+      height: 600px;
+
+      @include respond-to(tablet) {
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+        top: calc(50dvh - #{$process-item-h-tablet} / 2);
+
+      }
+
+      @include respond-to(mobile) {
+        // position: static;
+        display: flex;
+        flex-direction: column;
+        gap: $space-xs;
+        top: calc(50dvh - #{$process-item-h-mobile} / 2);
+        height: 400px;
+      }
+
+      &::before {
+        content: counter(step, decimal-leading-zero);
+        @include heading-2;
+
+        grid-column: span 4;
+
+        @include respond-to(tablet) {
+          grid-column: span 3;
+        }
+
+        @include respond-to(mobile) {
+          @include heading-4;
+
+          color: $color-text-invert-muted;
+        }
+      }
+
+      .processContent {
+        grid-column: 5 / span 5;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+
+        @include respond-to(tablet) {
+          grid-column: 4 / span 4;
+          gap: $space-xs;
+        }
+
+        @include respond-to(mobile) {
+          grid-column: auto;
+          gap: $space-xs;
+        }
+
+        .processItemTitle {
+          @include heading-2;
+
+          letter-spacing: -0.02em;
+        }
+
+        .processBody {
+          font-family: $font-label;
+          font-weight: $font-weight-regular;
+          font-size: $font-size-base;
+          line-height: $line-height-label;
+          letter-spacing: -0.02em;
+          color: $color-text-invert-muted;
+        }
+      }
+    }
+  }
+}

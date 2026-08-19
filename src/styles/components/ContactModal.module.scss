@@ -51,40 +51,40 @@
         overlay 0.5s allow-discrete;
     }
   }
-}
 
-.inner {
-  position: relative;
-  max-width: 1440px;
-  margin-inline: auto;
-  padding: $page-margin;
-  overflow-y: auto;
-  max-height: 90dvh;
-}
+  .inner {
+    position: relative;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: $page-margin;
+    overflow-y: auto;
+    max-height: 90dvh;
 
-.close {
-  position: absolute;
-  top: $page-margin;
-  right: $page-margin;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: $color-text-primary;
-  cursor: pointer;
-  transition: opacity 150ms ease;
+    .close {
+      position: absolute;
+      top: $page-margin;
+      right: $page-margin;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: $color-text-primary;
+      cursor: pointer;
+      transition: opacity 150ms ease;
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      opacity: 0.6;
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+
+      &:active {
+        transform: scale(0.94);
+      }
     }
-  }
-
-  &:active {
-    transform: scale(0.94);
   }
 }

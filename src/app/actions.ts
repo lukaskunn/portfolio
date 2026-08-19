@@ -3,6 +3,15 @@
 import { headers } from "next/headers"
 import { Resend } from "resend"
 import { z } from "zod"
+import { sanityFetch } from "@/sanity/client"
+import { contactMessagesQuery } from "@/sanity/queries"
+import { DEFAULT_LANG, isLang, type Lang } from "@/utils/locale"
+import {
+  buildContactSchema,
+  CONTACT_MESSAGES_FALLBACK,
+  mergeFieldMessages,
+  type ContactMessages,
+} from "@/utils/contactForm"
 
 export type ContactField = "name" | "businessName" | "phone" | "email" | "message"
 
@@ -12,32 +21,6 @@ export type ContactState = {
   fieldErrors?: Partial<Record<ContactField, string>>
   values?: Partial<Record<ContactField, string>>
 }
-
-const optionalString = (max: number, label: string) =>
-  z
-    .string()
-    .max(max, `Keep your ${label} under ${max} characters`)
-    .nullish()
-    .transform((value) => (value?.trim() ? value.trim() : undefined))
-
-const contactSchema = z.object({
-  name: z
-    .string({ error: "Please enter your name" })
-    .trim()
-    .min(2, "Your name needs at least 2 characters")
-    .max(100, "Keep your name under 100 characters"),
-  businessName: optionalString(100, "business name"),
-  phone: optionalString(30, "phone number").refine(
-    (value) => !value || /^[\d\s()+-]{6,}$/.test(value),
-    "Enter a valid phone number"
-  ),
-  email: z.email({ error: "Enter a valid email address" }).max(200, "Enter a valid email address"),
-  message: z
-    .string({ error: "Please enter your project idea" })
-    .trim()
-    .min(10, "Tell me a bit more — at least 10 characters")
-    .max(2000, "Keep your message under 2000 characters"),
-})
 
 // In-memory and per-instance: resets on cold start. Swap for a shared store if abuse shows up.
 const rateLimitHits = new Map<string, number[]>()
@@ -242,6 +225,35 @@ const buildEmailHtml = ({
 `
 }
 
+const getContactMessages = async (lang: Lang): Promise<ContactMessages> => {
+  try {
+    const messages = await sanityFetch<Partial<ContactMessages> | null>(contactMessagesQuery, { lang })
+    if (!messages) return CONTACT_MESSAGES_FALLBACK
+
+    return {
+      eyebrowLabel: messages.eyebrowLabel || CONTACT_MESSAGES_FALLBACK.eyebrowLabel,
+      titleMuted: messages.titleMuted || CONTACT_MESSAGES_FALLBACK.titleMuted,
+      title: messages.title || CONTACT_MESSAGES_FALLBACK.title,
+      optionalSuffixLabel: messages.optionalSuffixLabel || CONTACT_MESSAGES_FALLBACK.optionalSuffixLabel,
+      addOptionalLabel: messages.addOptionalLabel || CONTACT_MESSAGES_FALLBACK.addOptionalLabel,
+      submitLabel: messages.submitLabel || CONTACT_MESSAGES_FALLBACK.submitLabel,
+      sendingLabel: messages.sendingLabel || CONTACT_MESSAGES_FALLBACK.sendingLabel,
+      successMessage: messages.successMessage || CONTACT_MESSAGES_FALLBACK.successMessage,
+      fixFieldsMessage: messages.fixFieldsMessage || CONTACT_MESSAGES_FALLBACK.fixFieldsMessage,
+      rateLimitMessage: messages.rateLimitMessage || CONTACT_MESSAGES_FALLBACK.rateLimitMessage,
+      sendFailureMessage: messages.sendFailureMessage || CONTACT_MESSAGES_FALLBACK.sendFailureMessage,
+      name: mergeFieldMessages(messages.name, CONTACT_MESSAGES_FALLBACK.name),
+      businessName: mergeFieldMessages(messages.businessName, CONTACT_MESSAGES_FALLBACK.businessName),
+      phone: mergeFieldMessages(messages.phone, CONTACT_MESSAGES_FALLBACK.phone),
+      email: mergeFieldMessages(messages.email, CONTACT_MESSAGES_FALLBACK.email),
+      message: mergeFieldMessages(messages.message, CONTACT_MESSAGES_FALLBACK.message),
+    }
+  } catch (error: unknown) {
+    console.error("Failed to fetch contact form messages:", error)
+    return CONTACT_MESSAGES_FALLBACK
+  }
+}
+
 export const submitContact = async (
   prevState: ContactState,
   formData: FormData
@@ -254,6 +266,10 @@ export const submitContact = async (
     message: formData.get("message")?.toString() ?? "",
   }
 
+  const langValue = formData.get("lang")?.toString()
+  const lang: Lang = isLang(langValue) ? langValue : DEFAULT_LANG
+  const messages = await getContactMessages(lang)
+
   try {
     if (formData.get("website")) {
       return { status: "success" }
@@ -263,7 +279,7 @@ export const submitContact = async (
     if (isRateLimited(`ip:${ip}`)) {
       return {
         status: "error",
-        message: "Too many messages. Try again in a few minutes.",
+        message: messages.rateLimitMessage,
         values,
       }
     }
@@ -271,12 +287,12 @@ export const submitContact = async (
     if (isGlobalBurstLimited()) {
       return {
         status: "error",
-        message: "Too many messages. Try again in a few minutes.",
+        message: messages.rateLimitMessage,
         values,
       }
     }
 
-    const result = contactSchema.safeParse({
+    const result = buildContactSchema(messages).safeParse({
       name: formData.get("name"),
       businessName: formData.get("businessName"),
       phone: formData.get("phone"),
@@ -288,7 +304,7 @@ export const submitContact = async (
       const fieldErrors = z.flattenError(result.error).fieldErrors
       return {
         status: "error",
-        message: "Please fix the highlighted fields.",
+        message: messages.fixFieldsMessage,
         fieldErrors: {
           name: fieldErrors.name?.[0],
           businessName: fieldErrors.businessName?.[0],
@@ -305,14 +321,14 @@ export const submitContact = async (
     if (isRateLimited(`email:${email.toLowerCase()}`)) {
       return {
         status: "error",
-        message: "Too many messages. Try again in a few minutes.",
+        message: messages.rateLimitMessage,
         values,
       }
     }
 
     if (!process.env.RESEND_API_KEY || !process.env.CONTACT_TO_EMAIL) {
       console.error("Missing RESEND_API_KEY or CONTACT_TO_EMAIL environment variable")
-      return { status: "error", message: "Failed to send message. Please try again.", values }
+      return { status: "error", message: messages.sendFailureMessage, values }
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY)
@@ -327,7 +343,7 @@ export const submitContact = async (
 
     if (error) {
       console.error("Resend send failed:", error)
-      return { status: "error", message: "Failed to send message. Please try again.", values }
+      return { status: "error", message: messages.sendFailureMessage, values }
     }
 
     recordSubmission(`ip:${ip}`)
@@ -337,6 +353,6 @@ export const submitContact = async (
     return { status: "success" }
   } catch (error: unknown) {
     console.error("Failed to send contact email:", error)
-    return { status: "error", message: "Failed to send message. Please try again.", values }
+    return { status: "error", message: messages.sendFailureMessage, values }
   }
 }

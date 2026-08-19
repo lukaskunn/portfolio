@@ -22,16 +22,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/',
-  //       destination: '/home',
-  //       permanent: true,
-  //       basePath: false,
-  //     },
-  //   ];
-  // },
+  // Portuguese is the primary locale; both locales are prefixed, so `/` has no
+  // page of its own.
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/pt',
+        permanent: true,
+      },
+    ];
+  },
   experimental: {
     optimizePackageImports: ['gsap', 'framer-motion', 'react-icons'],
   }

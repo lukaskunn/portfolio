@@ -5,56 +5,85 @@ import FooterLocationBlock from "./FooterLocationBlock"
 import { useContactModal } from "@/contexts/ContactModalContext"
 import style from "@/styles/components/Footer.module.scss"
 import EmailAndPhoneNumberBlock from "@/components/EmailAndPhoneNumberBlock"
-import { SITEMAP, SOCIAL } from "@/utils/contants"
+import { useLocale } from "@/hooks/useLocale"
+import { withLang } from "@/utils/locale"
+import type { Settings } from "@/types/content"
 
-const Footer = () => {
+export interface FooterProps {
+  settings: Settings
+}
+
+const Footer = ({ settings }: FooterProps) => {
   const openContactModal = useContactModal()
+  const lang = useLocale()
+
+  const titleLines = (settings.ctaTitle ?? "").split("\n")
+  const footerPages = (settings.pages ?? []).filter((page) => page.action === "link" && page.showInFooter)
+  const contactPage = (settings.pages ?? []).find((page) => page.action === "contact")
+
   return (
     <>
       <div className={style.spacer} aria-hidden="true" />
       <footer className={style.footer}>
         <div className={style.inner}>
           <div className={style.intro}>
-            <h2 className={style.title} onClick={openContactModal} data-cursor-popup="Click to open contact form" data-reveal="rise">
-              <span className={style.titleLine}><span>{"Let’s craft"}</span></span>
-              <span className={style.titleLine}><span>Something?</span></span>
+            <h2 className={style.title} onClick={openContactModal} data-cursor-popup={settings.ctaPopupLabel} data-reveal="rise">
+              {titleLines.map((line, index) => (
+                <span className={style.titleLine} key={index}><span>{line}</span></span>
+              ))}
             </h2>
             <div className={style.block} data-reveal-group>
-              <span className={style.muted}>Send a message</span>
-              <EmailAndPhoneNumberBlock />
+              <span className={style.muted}>{settings.sendMessageLabel}</span>
+              <EmailAndPhoneNumberBlock
+                info={{
+                  email: settings.email,
+                  phone: settings.phone,
+                  copyEmailLabel: settings.copyEmailLabel,
+                  emailCopiedLabel: settings.emailCopiedLabel,
+                  copyPhoneLabel: settings.copyPhoneLabel,
+                  phoneCopiedLabel: settings.phoneCopiedLabel,
+                }}
+              />
             </div>
           </div>
 
           <div className={style.aside}>
             <div className={style.block}>
-              <FooterLocationBlock />
+              <FooterLocationBlock
+                latitude={settings.latitude}
+                longitude={settings.longitude}
+                remoteFromLabel={settings.remoteFromLabel}
+                timeZone={settings.timeZone ?? "America/Sao_Paulo"}
+              />
             </div>
             <nav className={style.sitemap} aria-label="Footer">
-              <span data-reveal="up">Sitemap</span>
+              <span data-reveal="up">{settings.sitemapLabel}</span>
               <div className={style.sitemapLinks} data-reveal-group>
-                {SITEMAP.map(({ href, label }) => (
-                  <Link key={href} href={href} className={style.mutedLink}>
+                {footerPages.map(({ href, label }) => (
+                  <Link key={href} href={href === "/#works" ? `/${lang}#works` : withLang(href ?? "/", lang)} className={style.mutedLink}>
                     {label}
                   </Link>
                 ))}
-                <button
-                  type="button"
-                  className={`${style.mutedLink} ${style.linkButton}`}
-                  onClick={openContactModal}
-                >
-                  Contact me
-                </button>
+                {contactPage && (
+                  <button
+                    type="button"
+                    className={`${style.mutedLink} ${style.linkButton}`}
+                    onClick={openContactModal}
+                  >
+                    {contactPage.label}
+                  </button>
+                )}
               </div>
             </nav>
           </div>
 
           <div className={style.bottom}>
             <div className={style.status} data-reveal-group data-reveal-now>
-              <span className={style.muted}>Creative developer</span>
-              <span>Available for freelancing</span>
+              <span className={style.muted}>{settings.roleLabel}</span>
+              <span>{settings.available ? settings.availableLabel : settings.unavailableLabel}</span>
             </div>
             <nav className={style.social} aria-label="Social" data-reveal-group data-reveal-now>
-              {SOCIAL.map(({ href, label }) => (
+              {(settings.social ?? []).map(({ href, label }) => (
                 <a key={href} href={href} target="_blank" rel="noopener noreferrer">
                   {label}
                 </a>

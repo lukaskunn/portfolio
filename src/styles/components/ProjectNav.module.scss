@@ -1,0 +1,31 @@
+@use "references" as *;
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+
+  @include respond-to(mobile) {
+    border-top: 1px solid $color-border-default;
+    padding-block: $space-md;
+  }
+}
+
+.navLink {
+  font-family: $font-contrast;
+  font-weight: $font-weight-semibold;
+  font-size: var(--fs-label);
+  line-height: $line-height-label;
+  text-decoration: none;
+  color: inherit;
+
+  &:focus-visible {
+    @include focus-visible;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nav > * {
+    --reveal-step: 10;
+  }
+}

@@ -1,0 +1,36 @@
+@use "references" as *;
+
+$sticky-top: calc(var(--page-margin) + 60px);
+
+// Absolute track decouples the marquee's intrinsic height from the grid row —
+// row height is driven by .content, images overflow the row on purpose.
+.gallery {
+  grid-column: span 6;
+  position: sticky;
+  top: $sticky-top;
+  align-self: start;
+  height: calc(100dvh - #{$sticky-top} - var(--page-margin));
+  overflow: hidden;
+
+  @media (prefers-reduced-motion: reduce) {
+    overflow-y: auto;
+  }
+
+  @include respond-to(mobile) {
+    display: none;
+  }
+}
+
+.track {
+  position: absolute;
+  inset: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: $gutter;
+}
+
+.trackImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}

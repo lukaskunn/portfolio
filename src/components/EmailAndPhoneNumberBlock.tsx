@@ -1,12 +1,18 @@
 'use client'
 import { useState, useRef, useEffect } from "react"
-import { EMAIL, PHONE } from "@/utils/contants"
 import copyTextToClipBoard from "@/utils/copyTextToClipboard"
+import type { ContactInfo } from "@/types/content"
 import style from "@/styles/components/EmailAndPhoneNumberBlock.module.scss"
 
-const EmailAndPhoneNumberBlock = () => {
+export interface EmailAndPhoneNumberBlockProps {
+  info: ContactInfo
+}
+
+const EmailAndPhoneNumberBlock = ({ info }: EmailAndPhoneNumberBlockProps) => {
   const [copied, setCopied] = useState<"email" | "phone" | null>(null)
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const email = info.email ?? ""
+  const phone = info.phone ?? ""
 
   const handleCopyTextToClipBoard = async (type: "email" | "phone", text: string) => {
     if (!(await copyTextToClipBoard(text))) return
@@ -22,24 +28,24 @@ const EmailAndPhoneNumberBlock = () => {
       <button
         type="button"
         className={style.copy}
-        data-cursor-popup={copied === "email" ? "Email copied to clipboard" : "copy email to clipboard!"}
-        aria-label={`Copy email address ${EMAIL}`}
+        data-cursor-popup={copied === "email" ? info.emailCopiedLabel : info.copyEmailLabel}
+        aria-label={`Copy email address ${email}`}
         onClick={() => {
-          void handleCopyTextToClipBoard("email", EMAIL)
+          void handleCopyTextToClipBoard("email", email)
         }}
       >
-        {EMAIL}
+        {email}
       </button>
       <button
         type="button"
         className={style.copy}
-        data-cursor-popup={copied === "phone" ? "Phone number copied to clipboard" : "copy phone number to clipboard!"}
-        aria-label={`Copy phone number ${PHONE}`}
+        data-cursor-popup={copied === "phone" ? info.phoneCopiedLabel : info.copyPhoneLabel}
+        aria-label={`Copy phone number ${phone}`}
         onClick={() => {
-          void handleCopyTextToClipBoard("phone", PHONE)
+          void handleCopyTextToClipBoard("phone", phone)
         }}
       >
-        {PHONE}
+        {phone}
       </button>
     </>
   )

@@ -1,0 +1,12 @@
+@use "references" as *;
+
+.location {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-label);
+
+  // --footer-fg-muted is declared on .footer and inherits down to here.
+  .coords {
+    color: var(--footer-fg-muted);
+  }
+}

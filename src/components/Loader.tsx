@@ -28,7 +28,11 @@ const BAR_EASE = "power2.inOut"
 // finds the signal gone and skips the intro.
 let completed = false
 
-const Loader = () => {
+export interface LoaderProps {
+  images?: string[]
+}
+
+const Loader = ({ images }: LoaderProps) => {
   const overlayRef = useRef<HTMLDivElement>(null)
   const counterRef = useRef<HTMLSpanElement>(null)
   const [playing, setPlaying] = useState(false)
@@ -99,7 +103,7 @@ const Loader = () => {
           </span>
         </span>
       </div>
-      {playing && <ImageTrail />}
+      {playing && <ImageTrail images={images} />}
     </div>
   )
 }

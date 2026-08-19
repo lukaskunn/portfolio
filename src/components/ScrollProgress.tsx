@@ -1,36 +1,14 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { docTop, progressAt } from "@/utils/scrollProgress"
 import style from "@/styles/components/ScrollProgress.module.scss"
 
 type Section = { el: HTMLElement; id: string; label: string; top: number; height: number; weight: number }
 
 const IDLE_MS = 2000
 
-// offsetTop is relative to offsetParent, not the document — walk the
-// offsetParent chain to get a true document-space top (sticky ancestors and
-// positioned wrappers like .scrollOver would otherwise report ~0).
-const docTop = (el: HTMLElement) => {
-  let top = 0
-  for (let node: HTMLElement | null = el; node; node = node.offsetParent as HTMLElement | null) {
-    top += node.offsetTop
-  }
-  return top
-}
-
-export const progressAt = (
-  playhead: number,
-  sections: Pick<Section, "top" | "height">[]
-): number => {
-  const clamp = (value: number) => Math.min(1, Math.max(0, value))
-  const progresses = sections.map(({ top, height }) =>
-    height > 0 ? clamp((playhead - top) / height) : 0
-  )
-  const activeIndex = progresses.findIndex((p) => p < 1)
-  return activeIndex === -1 ? progresses.length - 1 : activeIndex
-}
-
-type ScrollProgressProps = {
+export interface ScrollProgressProps {
   alwaysShowLabel?: boolean
 }
 
