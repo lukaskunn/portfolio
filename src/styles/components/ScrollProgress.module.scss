@@ -8,7 +8,7 @@
   opacity: 0;
   transform: translateY(-50%) translateX(8px);
   mix-blend-mode: difference;
-  transition: opacity 400ms ease-in-out, transform 400ms ease-in-out;
+  transition: opacity 260ms $ease-out, transform 260ms $ease-out;
   padding-right: 40px;
   right: 0;
   width: 40px;
@@ -64,14 +64,12 @@
 .visible {
   opacity: 1;
   transform: translateY(-50%) translateX(0);
-  transition: opacity 260ms ease-out, transform 260ms ease-out;
 }
 
 .rail:hover,
 .rail:focus-within {
   opacity: 1;
   transform: translateY(-50%) translateX(0);
-  transition: opacity 260ms ease-out, transform 260ms ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -97,7 +95,7 @@
   transform: translateY(-50%);
   white-space: nowrap;
   opacity: 0;
-  transition: opacity 500ms ease-out;
+  transition: opacity 200ms $ease-out;
   pointer-events: none;
 
   font-family: $font-contrast;
