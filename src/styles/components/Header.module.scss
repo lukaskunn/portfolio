@@ -168,9 +168,20 @@
   // `scale`, not transform: the reveal owns transform on this button.
   transition: background-color 200ms $ease-out, scale 140ms $ease-out;
 
+  .icon {
+    transform: rotate(-45deg);
+    transition: transform 0.6s $ease-out;
+  }
+
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       background: var(--header-btn-bg-hover);
+    }
+  }
+
+  &:hover {
+    .icon {
+      transform: rotate(0deg);
     }
   }
 
@@ -193,9 +204,7 @@
   }
 }
 
-.icon {
-  transform: rotate(-45deg);
-}
+
 
 // Logo leads, then every other item 50ms apart. --reveal-step is the item's
 // position in that queue; nav children add their own --reveal-i on top of
