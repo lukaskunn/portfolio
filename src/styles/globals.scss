@@ -344,8 +344,6 @@ body {
     background-color: $black-100;
   }
 
-  // 520ms, not 680ms: past that the outgoing page is occluded and any further
-  // motion is invisible work.
   ::view-transition-old(root) {
     animation: 1000ms $ease-out both vt-recede;
   }

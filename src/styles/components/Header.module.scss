@@ -166,7 +166,7 @@
   text-decoration: none;
   background-image: none;
   // `scale`, not transform: the reveal owns transform on this button.
-  transition: background-color 200ms ease, scale 140ms ease-out;
+  transition: background-color 200ms $ease-out, scale 140ms $ease-out;
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {

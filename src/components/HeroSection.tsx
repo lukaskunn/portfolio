@@ -44,8 +44,8 @@ const HeroSection = ({ title, chips, sectionLabel, locationLabel, currentRole, r
         width: "auto",
         marginLeft: 0,
         marginRight: 0,
-        duration: 0.45,
-        ease: "power3.inOut",
+        duration: 0.4,
+        ease: "power3.out",
         paused: true,
       }
     )
