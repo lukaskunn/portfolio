@@ -102,7 +102,7 @@ const HeroSection = ({ title, chips, sectionLabel, locationLabel, currentRole, r
       <div className={style.meta}>
         <div className={style.metaCol} data-reveal="rise" data-reveal-now>
           <span><span><RollText>{`/ ${locationLabel} / `}</RollText> <LocalTime timeZone={timeZone} /></span></span>
-          <span><span><RollText duration={0.2} stagger={0.009}>{`/ ${currentRole}`}</RollText></span></span>
+          <span><span><RollText>{`/ ${currentRole}`}</RollText></span></span>
         </div>
         <div className={style.metaCol} data-reveal="rise" data-reveal-now>
           {roles.map((role, index) => (

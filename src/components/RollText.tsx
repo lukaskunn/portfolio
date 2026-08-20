@@ -21,8 +21,8 @@ const RollText = ({
   children,
   className,
   duration = 0.4,
-  stagger = 0.025,
-  ease = "power3.inOut",
+  stagger = 0.12,
+  ease = "power3.out",
   direction = "up",
 }: RollTextProps) => {
   const root = useRef<HTMLSpanElement>(null)
@@ -44,8 +44,8 @@ const RollText = ({
 
       return gsap
         .timeline({ paused: true })
-        .to(topLayer.querySelectorAll(`.${style.char}`), { yPercent, duration, ease, stagger }, 0)
-        .to(bottomLayer.querySelectorAll(`.${style.char}`), { yPercent, duration, ease, stagger }, 0)
+        .to(topLayer.querySelectorAll(`.${style.char}`), { yPercent, duration, ease, stagger: { amount: stagger } }, 0)
+        .to(bottomLayer.querySelectorAll(`.${style.char}`), { yPercent, duration, ease, stagger: { amount: stagger } }, 0)
     },
     { resetOnLeave: true }
   )
