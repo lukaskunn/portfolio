@@ -1,43 +1,44 @@
 @use "references" as *;
 
-.cursor {
+@mixin layer {
   position: fixed;
   top: 0;
   left: 0;
+  box-sizing: border-box;
   width: 24px;
   height: 24px;
   border-radius: $radius-full;
+  pointer-events: none;
+  z-index: 3;
+  will-change: transform;
+
+  @include respond-to(tablet) {
+    display: none;
+  }
+}
+
+.dot {
+  @include layer;
   background: $white-100;
   mix-blend-mode: difference;
-  pointer-events: none;
-  z-index: 3;
-  will-change: transform;
-
-  @include respond-to(tablet) {
-    display: none;
-  }
 }
 
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  max-width: 220px;
+.pill {
+  @include layer;
+  background: $white-100;
   padding: $space-xs $space-sm;
-  border-radius: $radius-md;
-  background: $color-bg-invert;
-  color: $color-text-invert;
-  // @include label-xl;
-  @include label-contrast-xs;
-  letter-spacing: -2%;
-  // text-transform: uppercase;
-  pointer-events: none;
-  z-index: 3;
-  will-change: transform;
-  text-align: center;
+  max-width: 220px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  @include respond-to(tablet) {
-    display: none;
+  .label {
+    @include label-contrast-xs;
+    letter-spacing: -2%;
+    text-align: center;
+    color: $color-bg-invert;
+    visibility: hidden;
+    opacity: 0;
   }
 }
-

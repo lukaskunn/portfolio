@@ -6,14 +6,17 @@ import { useCursorFollower } from "@/hooks/useCursorFollower"
 import style from "@/styles/components/CursorFollower.module.scss"
 
 const CursorFollower = () => {
-  const ref = useRef<HTMLDivElement>(null)
-  const popupRef = useRef<HTMLDivElement>(null)
-  useCursorFollower(ref, popupRef)
+  const dotRef = useRef<HTMLSpanElement>(null)
+  const pillRef = useRef<HTMLDivElement>(null)
+  const labelRef = useRef<HTMLSpanElement>(null)
+  useCursorFollower(dotRef, pillRef, labelRef)
 
   return (
     <>
-      <div ref={ref} className={style.cursor} aria-hidden="true" />
-      <div ref={popupRef} className={style.popup} aria-hidden="true" />
+      <span ref={dotRef} className={style.dot} aria-hidden="true" />
+      <div ref={pillRef} className={style.pill} aria-hidden="true">
+        <span ref={labelRef} className={style.label} />
+      </div>
     </>
   )
 }

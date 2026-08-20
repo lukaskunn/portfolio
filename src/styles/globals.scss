@@ -124,6 +124,15 @@ a {
   @include hover-underline;
 }
 
+// Doubled attribute so it outranks the `cursor: pointer` the component modules
+// put on these same triggers — the follower pill stands in for the pointer.
+@media (hover: hover) and (pointer: fine) {
+  [data-cursor-popup][data-cursor-popup],
+  [data-cursor-popup][data-cursor-popup] * {
+    cursor: none;
+  }
+}
+
 ol,
 ul {
   list-style: none;
