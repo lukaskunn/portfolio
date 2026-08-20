@@ -36,7 +36,7 @@
     margin-top: auto;
     display: inline-flex;
     align-items: center;
-    gap: $space-2xs;
+    gap: $space-md;
     font-family: $font-contrast;
     font-weight: $font-weight-semibold;
     font-size: 14px;
@@ -46,7 +46,39 @@
     text-decoration: none;
     align-self: center;
     position: absolute;
-    bottom: 10%
+    bottom: 10%;
+    transition: background-size 0.32s, gap 0.6s $ease-out;;
+    // background-size: 0 0;
+
+    // &:hover {
+    //   gap: $space-md;
+    // }
+
+    .cueIcon {
+      display: block;
+      overflow: hidden;
+      height: 24px;
+      margin-top: -2px;
+
+      // content-box so the padding grows the copy instead of shrinking the
+      // glyph — it is the headroom the ease's overshoot travels into.
+      svg {
+        display: block;
+        box-sizing: content-box;
+        padding-block: 4px;
+      }
+    }
+  }
+}
+
+@keyframes cue-roll {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  12.5%,
+  100% {
+    transform: translateY(0);
   }
 }
 
@@ -57,5 +89,10 @@
 @media (prefers-reduced-motion: no-preference) {
   .hero .scrollCue {
     animation-delay: calc(var(--reveal-delay) + 900ms + var(--reveal-lines, 3) * 80ms);
+
+    .cueIcon svg {
+      animation: cue-roll 4s cubic-bezier(1, -0.653, 0.243, 0.995) infinite;
+      animation-delay: calc(var(--reveal-delay) + 900ms + var(--reveal-lines, 3) * 80ms);
+    }
   }
 }

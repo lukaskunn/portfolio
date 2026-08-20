@@ -13,7 +13,11 @@ const ServicesHero = ({ title, sectionLabel, scrollCueLabel }: ServicesHeroProps
       {title}
     </h1>
     <a href="#what-i-do" className={style.scrollCue} data-reveal="up">
-      {scrollCueLabel}<FaArrowDown size={14} aria-hidden="true" focusable="false" />
+      {scrollCueLabel}
+      <span className={style.cueIcon} aria-hidden="true">
+        <FaArrowDown size={16} focusable="false" />
+        <FaArrowDown size={16} focusable="false" />
+      </span>
     </a>
   </section>
 )
