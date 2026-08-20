@@ -102,7 +102,11 @@ const WorksSection = ({ title, sectionLabel, labels, viewProjectLabel, projects 
                       )
                     })}
                 </span>
-                <Link href={`/${lang}/project/${project.slug}`} className={`${style.row} ${style.mobileRow}`}>
+                <Link
+                  href={`/${lang}/project/${project.slug}`}
+                  className={`${style.row} ${style.mobileRow}`}
+                  data-reveal-rule
+                >
                   <div className={style.rowTop}>
                     <span className={style.name}>{project.name}</span>
                     <span className={style.year}>{project.year}</span>

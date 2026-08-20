@@ -441,6 +441,18 @@ body {
     animation-delay: calc(var(--reveal-delay) + (var(--reveal-step, 0) + var(--reveal-i, 0)) * var(--reveal-unit, 80ms));
   }
 
+  // The step index is a counter ::before, so the observer can never mark it —
+  // :has picks up the sibling group's flag instead. No --reveal-delay: it would
+  // inherit :root's intro delay rather than the element's own entrance.
+  [data-reveal-index]::before {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  [data-reveal-index]:has([data-reveal-in])::before {
+    animation: reveal-up 650ms $ease-slide both;
+  }
+
   @keyframes reveal-up {
     from {
       opacity: 0;
@@ -582,6 +594,27 @@ body {
       // pre-state, which would fade the rows straight back out.
       opacity: 1;
       transform: none;
+    }
+  }
+
+  [data-reveal-rule]::before,
+  [data-reveal-rule]::after {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  [data-reveal-in] [data-reveal-rule]::before,
+  [data-reveal-in] [data-reveal-rule]::after {
+    animation: reveal-rule 900ms $ease-slide both;
+    animation-delay: calc(var(--reveal-delay) + (var(--reveal-step, 0) + var(--reveal-i, 0)) * var(--reveal-unit, 80ms));
+  }
+
+  @keyframes reveal-rule {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
     }
   }
 }

@@ -412,6 +412,7 @@
     position: sticky;
     top: calc(96px + var(--i) * 32px + var(--shift, 0) * 201px);
     background: $color-bg-base;
+    transition: top 400ms $ease-standard;
   }
 }
 
@@ -453,8 +454,20 @@
   }
 
   .row {
-    border-top: 1px solid $color-border-default;
     padding-block: $space-lg;
+
+    &.mobileRow {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        inset-inline: 0;
+        height: 1px;
+        background: $color-border-default;
+      }
+    }
 
     .name {
       @include heading-4;

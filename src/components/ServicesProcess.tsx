@@ -12,7 +12,7 @@ const ServicesProcess = ({ title, sectionLabel, process }: ServicesProcessProps)
     <h2 className={style.processTitle} data-reveal="lines">{title}</h2>
     <ol className={style.processList}>
       {process.map(({ title, body }) => (
-        <li key={title} className={style.processItem}>
+        <li key={title} className={style.processItem} data-reveal-index>
           <div className={style.processContent} data-reveal-group>
             <h3 className={style.processItemTitle}>{title}</h3>
             <p className={style.processBody}>{body}</p>
