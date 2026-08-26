@@ -38,7 +38,7 @@
     }
 
     .panelFront {
-      animation: 700ms 60ms $ease-slide both lang-curtain-in;
+      animation: 700ms 90ms $ease-slide both lang-curtain-in;
     }
   }
 
@@ -50,7 +50,7 @@
     }
 
     .panelBack {
-      animation: 620ms 240ms $ease-slide both lang-curtain-out;
+      animation: 1000ms 120ms $ease-slide both lang-curtain-out;
     }
   }
 }
