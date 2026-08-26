@@ -6,7 +6,7 @@ import { projectSlugsQuery } from "@/sanity/queries"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const slugs = (await sanityFetch<string[]>(projectSlugsQuery)) ?? []
-  const routes = ["", "/services", "/about", ...slugs.map((slug) => `/project/${slug}`)]
+  const routes = ["", "/services", "/about", "/contact", ...slugs.map((slug) => `/project/${slug}`)]
 
   return LOCALES.flatMap((lang) =>
     routes.map((route) => ({
