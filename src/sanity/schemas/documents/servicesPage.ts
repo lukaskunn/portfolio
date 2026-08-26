@@ -23,7 +23,7 @@ export const servicesPage = defineType({
           name: "service",
           fields: [
             defineField({ name: "title", type: "localeString", validation: (rule) => rule.required() }),
-            defineField({ name: "body", type: "localeText", validation: (rule) => rule.required() }),
+            defineField({ name: "body", type: "localeBlock", validation: (rule) => rule.required() }),
           ],
           preview: { select: { title: "title.pt" } },
         }),
@@ -72,7 +72,7 @@ export const servicesPage = defineType({
           name: "processStep",
           fields: [
             defineField({ name: "title", type: "localeString", validation: (rule) => rule.required() }),
-            defineField({ name: "body", type: "localeText", validation: (rule) => rule.required() }),
+            defineField({ name: "body", type: "localeBlock", validation: (rule) => rule.required() }),
           ],
           preview: { select: { title: "title.pt" } },
         }),

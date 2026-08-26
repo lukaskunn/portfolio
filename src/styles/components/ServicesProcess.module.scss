@@ -133,7 +133,29 @@ $process-item-h-mobile: 580px;
           font-size: $font-size-base;
           line-height: $line-height-label;
           letter-spacing: -0.02em;
-          color: $color-text-invert-muted;
+          color: $color-text-invert;
+
+          .highlight {
+            @include hover-highlight($white-100, $color-text-primary);
+          }
+        }
+
+        // Nested rather than written flat at the root: the base rules above sit
+        // six levels deep, so a top-level `.processContent:hover .highlight`
+        // loses on specificity and only the hovered span would light up.
+        @media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+          .processBody {
+            transition: color 1s $ease-out;
+          }
+
+          &:hover .processBody {
+            color: $color-text-invert-muted;
+            transition: color 0.6s $ease-out;
+
+            .highlight {
+              @include hover-highlight-on;
+            }
+          }
         }
       }
     }

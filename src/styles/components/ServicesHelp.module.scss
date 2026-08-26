@@ -54,6 +54,14 @@
 
         color: $color-text-primary;
         letter-spacing: -0.02em;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .cardTitleIcon {
+          flex-shrink: 0;
+        }
       }
 
       .cardBody {
@@ -62,7 +70,29 @@
         font-size: $font-size-base;
         line-height: $line-height-label;
         letter-spacing: -0.02em;
-        color: $color-text-primary-muted;
+        color: $color-text-primary;
+
+        .highlight {
+          @include hover-highlight;
+        }
+      }
+
+      // Nested rather than written flat at the root: the base rules above sit
+      // five levels deep, so a top-level `.card:hover .highlight` loses on
+      // specificity and only the individually hovered span would light up.
+      @media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+        .cardBody {
+          transition: color 1s $ease-out;
+        }
+
+        &:hover .cardBody {
+          color: $color-text-primary-muted;
+          transition: color 0.6s $ease-out;
+
+          .highlight {
+            @include hover-highlight-on;
+          }
+        }
       }
     }
   }

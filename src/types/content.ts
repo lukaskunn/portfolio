@@ -110,7 +110,7 @@ export type HomePage = {
 
 export type ServiceCard = {
   title: string
-  body: string
+  body: PortableTextBlock[]
 }
 
 export type ServiceGroup = {
@@ -122,7 +122,7 @@ export type ServiceGroup = {
 
 export type ProcessStep = {
   title: string
-  body: string
+  body: PortableTextBlock[]
 }
 
 export type ServicesPage = {
