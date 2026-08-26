@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { FaArrowRight } from "react-icons/fa"
 import FooterLocationBlock from "./FooterLocationBlock"
 import { useContactModal } from "@/contexts/ContactModalContext"
 import style from "@/styles/components/Footer.module.scss"
@@ -90,6 +91,7 @@ const Footer = ({ settings }: FooterProps) => {
               {(settings.social ?? []).map(({ href, label, popupLabel }) => (
                 <a key={href} href={href} target="_blank" rel="noopener noreferrer" data-cursor-popup={popupLabel}>
                   {label}
+                  <FaArrowRight size={16} className={style.socialIcon} aria-hidden="true" focusable="false" />
                 </a>
               ))}
             </nav>

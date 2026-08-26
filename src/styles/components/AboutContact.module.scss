@@ -95,6 +95,27 @@
     a {
       color: $color-text-invert;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: $space-2xs;
+
+      .socialIcon {
+        transform: rotate(-45deg);
+
+        @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+          transition: transform 0.6s $ease-out;
+        }
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover .socialIcon {
+          transform: rotate(-45deg) translateX(3px);
+        }
+      }
+
+      &:focus-visible .socialIcon {
+        transform: rotate(-45deg) translateX(3px);
+      }
     }
   }
 }
