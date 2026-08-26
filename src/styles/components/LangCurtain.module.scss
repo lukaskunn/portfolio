@@ -1,0 +1,74 @@
+@use "references" as *;
+
+// Above #main-content (1), Header (2) and CursorFollower (3) — the panels
+// cover the PT/EN switcher, which is the point of the cover.
+.curtain {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 4;
+
+  .panelBack,
+  .panelFront {
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+  }
+
+  .panelBack {
+    z-index: 1;
+    background-color: $white-100;
+  }
+
+  .panelFront {
+    z-index: 2;
+    background-color: $black-100;
+  }
+
+  // One curve in both directions. $ease-slide is the long-travel curve — it
+  // leaves without a snap and settles over a long tail, which is what reads as
+  // smooth across a full viewport. $ease-standard on the exit was the problem:
+  // being an ease-in-out, the panel hesitated before it left.
+  //
+  // `both` throughout: the panels must hold at 0 between enter and exit,
+  // otherwise they snap off-screen and flash the old language.
+  &[data-state="enter"] {
+    .panelBack {
+      animation: 700ms $ease-slide both lang-curtain-in;
+    }
+
+    .panelFront {
+      animation: 700ms 60ms $ease-slide both lang-curtain-in;
+    }
+  }
+
+  // Reverse orchestration — the top panel leaves first, continuing off the
+  // right edge so the sweep never reverses direction.
+  &[data-state="exit"] {
+    .panelFront {
+      animation: 620ms $ease-slide both lang-curtain-out;
+    }
+
+    .panelBack {
+      animation: 620ms 240ms $ease-slide both lang-curtain-out;
+    }
+  }
+}
+
+@keyframes lang-curtain-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes lang-curtain-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}

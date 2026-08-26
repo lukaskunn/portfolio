@@ -2,13 +2,14 @@
 
 import { Fragment, useEffect, useState, type MouseEvent } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useLenis } from "lenis/react"
 import type Lenis from "lenis"
 
 
 import { useContactModal } from "@/contexts/ContactModalContext"
 import HeaderContactButton from "./HeaderContactButton"
+import { runLangCurtain } from "@/lib/langCurtain"
 import { useLocale } from "@/hooks/useLocale"
 import { LOCALES, stripLang, withLang } from "@/utils/locale"
 import type { Settings } from "@/types/content"
@@ -39,6 +40,7 @@ const scrollToWorks = (lenis: Lenis) => {
 
 const Header = ({ settings }: HeaderProps) => {
   const pathname = usePathname()
+  const router = useRouter()
   const lang = useLocale()
   const route = stripLang(pathname)
   const [open, setOpen] = useState(false)
@@ -153,24 +155,38 @@ const Header = ({ settings }: HeaderProps) => {
   // Same route, other locale. Crosses no root-layout boundary, so it stays a
   // client-side navigation.
   const renderLangSwitcher = () =>
-    LOCALES.map((locale, index) => (
-      <Fragment key={locale}>
-        {index > 0 && " / "}
-        {locale === lang ? (
-          <span aria-current="true">{locale.toUpperCase()}</span>
-        ) : (
-          <Link
-            href={withLang(route, locale)}
-            hrefLang={locale}
-            className={style.langMuted}
-            data-cursor-popup={settings.switchLanguageLabel?.[locale]}
-            onClick={close}
-          >
-            {locale.toUpperCase()}
-          </Link>
-        )}
-      </Fragment>
-    ))
+    LOCALES.map((locale, index) => {
+      const href = withLang(route, locale)
+
+      // Reduced motion skips the curtain entirely — the plain <Link> falls
+      // through to the 150ms fade in globals.scss.
+      const onLangClick = (event: MouseEvent<HTMLAnchorElement>) => {
+        close()
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
+        event.preventDefault()
+        runLangCurtain(() => router.push(href, { scroll: false, transitionTypes: ["lang-switch"] }))
+      }
+
+      return (
+        <Fragment key={locale}>
+          {index > 0 && " / "}
+          {locale === lang ? (
+            <span aria-current="true">{locale.toUpperCase()}</span>
+          ) : (
+            <Link
+              href={href}
+              hrefLang={locale}
+              className={style.langMuted}
+              data-cursor-popup={settings.switchLanguageLabel?.[locale]}
+              onClick={onLangClick}
+            >
+              {locale.toUpperCase()}
+            </Link>
+          )}
+        </Fragment>
+      )
+    })
 
   const className = [style.header, open && style.open, isHome && style.home]
     .filter(Boolean)

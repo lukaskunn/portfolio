@@ -374,6 +374,14 @@ body {
     z-index: 0;
     animation: none;
   }
+
+  // The locale switch is covered by LangCurtain, a real DOM overlay. The
+  // ::view-transition tree paints above it, so the snapshots must not animate
+  // or they'd hide the panels for the first second.
+  html:active-view-transition-type(lang-switch)::view-transition-old(root),
+  html:active-view-transition-type(lang-switch)::view-transition-new(root) {
+    animation: none;
+  }
 }
 
 // Gentler, not zero: keep the handoff legible, drop the travel.
