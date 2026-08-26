@@ -46,6 +46,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             currentRole={homePage?.heroCurrentRole ?? ""}
             roles={homePage?.heroRoles ?? []}
             timeZone={settings?.timeZone ?? "America/Sao_Paulo"}
+            timeOffsetAheadLabel={settings?.timeOffsetAheadLabel}
+            timeOffsetBehindLabel={settings?.timeOffsetBehindLabel}
+            timeOffsetSameLabel={settings?.timeOffsetSameLabel}
           />
         </div>
         <WorksSection
@@ -53,6 +56,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           sectionLabel={homePage?.worksSectionLabel ?? ""}
           labels={settings?.fieldLabels ?? {}}
           viewProjectLabel={settings?.viewProjectLabel ?? ""}
+          expandRowLabel={homePage?.expandRowLabel ?? ""}
+          collapseRowLabel={homePage?.collapseRowLabel ?? ""}
           projects={projects ?? []}
         />
       </main>

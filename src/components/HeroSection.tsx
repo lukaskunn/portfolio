@@ -1,12 +1,13 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useSyncExternalStore } from "react"
 import Image from "next/image"
 import gsap from "gsap"
 import LocalTime from "@/components/LocalTime"
 import RollText from "@/components/RollText"
 import { useHoverAnimation } from "@/hooks/useHoverAnimation"
 import { parseHeroTitle, heroAriaLabel } from "@/utils/heroTitle"
+import { offsetLabel } from "@/utils/timezone"
 import style from "@/styles/components/HeroSection.module.scss"
 
 export interface HeroChip {
@@ -22,12 +23,36 @@ export interface HeroSectionProps {
   currentRole: string
   roles: string[]
   timeZone: string
+  timeOffsetAheadLabel?: string
+  timeOffsetBehindLabel?: string
+  timeOffsetSameLabel?: string
 }
 
-const HeroSection = ({ title, chips, sectionLabel, locationLabel, currentRole, roles, timeZone }: HeroSectionProps) => {
+const subscribe = () => () => {}
+
+const HeroSection = ({
+  title,
+  chips,
+  sectionLabel,
+  locationLabel,
+  currentRole,
+  roles,
+  timeZone,
+  timeOffsetAheadLabel,
+  timeOffsetBehindLabel,
+  timeOffsetSameLabel,
+}: HeroSectionProps) => {
   const root = useRef<HTMLElement>(null)
   const lines = parseHeroTitle(title)
   const ariaLabel = heroAriaLabel(title)
+  const mounted = useSyncExternalStore(subscribe, () => true, () => false)
+  const locationPopupLabel = mounted
+    ? offsetLabel(timeZone, {
+        ahead: timeOffsetAheadLabel ?? "",
+        behind: timeOffsetBehindLabel ?? "",
+        same: timeOffsetSameLabel ?? "",
+      })
+    : undefined
 
   useHoverAnimation(root, `.${style.line}`, (line) => {
     const chip = line.querySelector<HTMLElement>(`.${style.chip}`)
@@ -44,8 +69,8 @@ const HeroSection = ({ title, chips, sectionLabel, locationLabel, currentRole, r
         width: "auto",
         marginLeft: 0,
         marginRight: 0,
-        duration: 0.45,
-        ease: "power3.inOut",
+        duration: 0.4,
+        ease: "power3.out",
         paused: true,
       }
     )
@@ -101,8 +126,8 @@ const HeroSection = ({ title, chips, sectionLabel, locationLabel, currentRole, r
       </h1>
       <div className={style.meta}>
         <div className={style.metaCol} data-reveal="rise" data-reveal-now>
-          <span><span><RollText>{`/ ${locationLabel} / `}</RollText> <LocalTime timeZone={timeZone} /></span></span>
-          <span><span><RollText duration={0.2} stagger={0.009}>{`/ ${currentRole}`}</RollText></span></span>
+          <span data-cursor-popup={locationPopupLabel}><span><RollText>{`/ ${locationLabel} / `}</RollText> <LocalTime timeZone={timeZone} /></span></span>
+          <span><span><RollText>{`/ ${currentRole}`}</RollText></span></span>
         </div>
         <div className={style.metaCol} data-reveal="rise" data-reveal-now>
           {roles.map((role, index) => (

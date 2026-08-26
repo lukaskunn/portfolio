@@ -82,11 +82,12 @@
 
 @media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
   .bio {
-    transition: color 0.25s ease;
+    transition: color 1s $ease-out;
   }
 
   .bio:hover {
     color: $color-text-invert-muted;
+    transition: color 0.6s $ease-out;
   }
 
   .bio:hover .highlight {

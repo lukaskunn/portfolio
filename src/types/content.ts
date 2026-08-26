@@ -1,5 +1,6 @@
 import type { PortableTextBlock } from "@portabletext/react"
 import type { SEO } from "@/utils/metadata"
+import type { Lang } from "@/utils/locale"
 
 // Hand-written against the projections in src/sanity/queries.ts — sanity.types.ts
 // types every localised field as `Array<localeString> | string | null` since
@@ -76,12 +77,17 @@ export type Settings = {
   closeMenuLabel?: string
   contactModalLabel?: string
   closeContactFormLabel?: string
+  switchLanguageLabel?: Partial<Record<Lang, string>>
   ctaTitle?: string
   ctaPopupLabel?: string
   latitude?: number
   longitude?: number
   remoteFromLabel?: string
   timeZone?: string
+  logoPopupLabel?: string
+  timeOffsetAheadLabel?: string
+  timeOffsetBehindLabel?: string
+  timeOffsetSameLabel?: string
 }
 
 export type HeroChip = {
@@ -98,11 +104,13 @@ export type HomePage = {
   heroRoles?: string[]
   worksTitle?: string
   worksSectionLabel?: string
+  expandRowLabel?: string
+  collapseRowLabel?: string
 }
 
 export type ServiceCard = {
   title: string
-  body: string
+  body: PortableTextBlock[]
 }
 
 export type ServiceGroup = {
@@ -114,7 +122,7 @@ export type ServiceGroup = {
 
 export type ProcessStep = {
   title: string
-  body: string
+  body: PortableTextBlock[]
 }
 
 export type ServicesPage = {
@@ -165,4 +173,9 @@ export type ProjectListItem = {
 export type ProjectDetail = ProjectListItem & {
   showLiveLink?: boolean
   liveUrl?: string
+}
+
+export type ProjectNavItem = {
+  slug: string
+  name: string
 }

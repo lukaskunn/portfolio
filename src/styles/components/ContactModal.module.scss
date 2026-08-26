@@ -11,9 +11,9 @@
 
   translate: 0 0;
   transition:
-    translate 0.5s $ease-out,
-    display 0.5s allow-discrete,
-    overlay 0.5s allow-discrete;
+    translate 0.45s $ease-slide,
+    display 0.45s allow-discrete,
+    overlay 0.45s allow-discrete;
 
   &:not([open]) {
     translate: 0 100%;
@@ -34,6 +34,10 @@
       overlay 0.5s allow-discrete;
   }
 
+  &:not([open])::backdrop {
+    opacity: 0;
+  }
+
   &[open]::backdrop {
     @starting-style {
       opacity: 0;
@@ -42,13 +46,31 @@
 
   @media (prefers-reduced-motion: reduce) {
     transition:
-      display 0.5s allow-discrete,
-      overlay 0.5s allow-discrete;
+      opacity 200ms $ease-out,
+      display 200ms allow-discrete,
+      overlay 200ms allow-discrete;
+
+    &:not([open]) {
+      translate: 0;
+      opacity: 0;
+    }
+
+    @starting-style {
+      &[open] {
+        translate: 0;
+        opacity: 0;
+      }
+    }
 
     &::backdrop {
       transition:
-        display 0.5s allow-discrete,
-        overlay 0.5s allow-discrete;
+        opacity 200ms $ease-out,
+        display 200ms allow-discrete,
+        overlay 200ms allow-discrete;
+    }
+
+    &:not([open])::backdrop {
+      opacity: 0;
     }
   }
 
@@ -74,7 +96,7 @@
       background: none;
       color: $color-text-primary;
       cursor: pointer;
-      transition: opacity 150ms ease;
+      transition: opacity 150ms $ease-out;
 
       @media (hover: hover) and (pointer: fine) {
         &:hover {

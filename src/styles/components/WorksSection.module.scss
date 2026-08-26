@@ -7,8 +7,7 @@
   max-width: none;
   width: 100vw;
   margin-inline: calc(50% - 50vw);
-  padding-block: 40px;
-  padding-inline: calc(#{$page-margin} + max(0px, (100vw - 1440px) * 0.5));
+  padding: $page-margin calc(#{$page-margin} + max(0px, (100vw - 1440px) * 0.5)) 0;
   display: grid;
   gap: 42px;
 
@@ -68,9 +67,23 @@
   overflow: clip;
 
   li {
+    display: flex;
+    flex-direction: column;
+
+    &.rowOpen {
+      gap: 8px
+    }
+
     &:last-child {
       .mobileRow {
-        border-bottom: 1px solid #111;
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          inset-inline: 0;
+          height: 1px;
+          background: $color-border-default;
+        }
       }
     }
   }
@@ -208,7 +221,6 @@
   .client,
   .role,
   .year {
-    transition: all ease-in-out .2s;
     font-family: $font-label;
     font-weight: $font-weight-bold;
     font-size: 16px;
@@ -290,7 +302,7 @@
     height: 0;
     overflow: hidden;
     visibility: hidden;
-    transition: height 450ms ease, visibility 0s linear 450ms;
+    transition: height 400ms $ease-standard, visibility 0s linear 400ms;
   }
 
   .rowOpen .strip {
@@ -299,7 +311,7 @@
     // transition.
     height: 201px;
     visibility: visible;
-    transition: height 450ms ease, visibility 0s;
+    transition: height 400ms $ease-standard, visibility 0s;
   }
 
   .desktopRow {
@@ -334,6 +346,11 @@
     .desktopRow {
       transition: color 0.2s $ease-standard;
     }
+
+    .name,
+    .year {
+      transition: padding 0.2s $ease-out;
+    }
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -358,19 +375,26 @@
     }
   }
 
+  // Exit leads the collapse: no delay, and done well before the strip's
+  // visibility flips at 400ms.
   .slot {
     opacity: 0;
     transform: translateY(12px);
-    transition: opacity 300ms $ease-out, transform 300ms $ease-out;
+    transition: opacity 200ms $ease-out, transform 200ms $ease-out;
   }
 
+  // Held until the clip has opened enough to show them — fading while the
+  // strip is still growing is what read as a blink.
   .rowOpen .slot {
     opacity: 1;
     transform: none;
+    transition: opacity 260ms $ease-out, transform 260ms $ease-out;
 
-    &:nth-child(3) { transition-delay: 60ms; }
-    &:nth-child(4) { transition-delay: 120ms; }
-    &:nth-child(5) { transition-delay: 150ms; }
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i}) {
+        transition-delay: 120ms + ($i - 1) * 40ms;
+      }
+    }
   }
 
   .cta {
@@ -387,12 +411,14 @@
     position: sticky;
     top: calc(96px + var(--i) * 32px + var(--shift, 0) * 201px);
     background: $color-bg-base;
+    transition: top 400ms $ease-standard;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .strip,
-  .slot {
+  .slot,
+  .list > li {
     transition: none;
   }
 }
@@ -427,8 +453,20 @@
   }
 
   .row {
-    border-top: 1px solid $color-border-default;
     padding-block: $space-lg;
+
+    &.mobileRow {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        inset-inline: 0;
+        height: 1px;
+        background: $color-border-default;
+      }
+    }
 
     .name {
       @include heading-4;

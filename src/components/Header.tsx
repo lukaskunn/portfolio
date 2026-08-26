@@ -2,12 +2,14 @@
 
 import { Fragment, useEffect, useState, type MouseEvent } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useLenis } from "lenis/react"
+import type Lenis from "lenis"
 
 
 import { useContactModal } from "@/contexts/ContactModalContext"
 import HeaderContactButton from "./HeaderContactButton"
+import { runLangCurtain } from "@/lib/langCurtain"
 import { useLocale } from "@/hooks/useLocale"
 import { LOCALES, stripLang, withLang } from "@/utils/locale"
 import type { Settings } from "@/types/content"
@@ -17,8 +19,28 @@ export interface HeaderProps {
   settings: Settings
 }
 
+// Works lands bottom-aligned — its last row rests on the viewport floor instead
+// of its heading sitting under the header. Passing a raw position rather than
+// the element sidesteps the section's scroll-margin-top, which is start-edge
+// padding and would push the bottom edge below the fold.
+const scrollToWorks = (lenis: Lenis) => {
+  const works = document.getElementById("works")
+  if (!works) return
+
+  const rect = works.getBoundingClientRect()
+
+  // Taller than the viewport, so both edges can't land at once — top wins.
+  if (rect.height > window.innerHeight) {
+    lenis.scrollTo(works)
+    return
+  }
+
+  lenis.scrollTo(rect.bottom + lenis.actualScroll - window.innerHeight + 60)
+}
+
 const Header = ({ settings }: HeaderProps) => {
   const pathname = usePathname()
+  const router = useRouter()
   const lang = useLocale()
   const route = stripLang(pathname)
   const [open, setOpen] = useState(false)
@@ -62,7 +84,7 @@ const Header = ({ settings }: HeaderProps) => {
     window.setTimeout(() => {
       // ponytail: no timer ref — Header never unmounts, and this bails if the
       // user navigated somewhere else in the meantime.
-      if (stripLang(window.location.pathname) === "/") lenis?.scrollTo("#works")
+      if (stripLang(window.location.pathname) === "/" && lenis) scrollToWorks(lenis)
     }, delay)
   }
 
@@ -80,8 +102,18 @@ const Header = ({ settings }: HeaderProps) => {
     }
   }
 
-  // On the homepage the Work link is an in-page jump, not a route change —
-  // Lenis (anchors: true) smooth-scrolls a plain hash anchor for free.
+  // On the homepage the Work link is an in-page jump, not a route change.
+  // Lenis's own anchors:true handler listens on window and ignores
+  // defaultPrevented, so it needs stopPropagation to keep it from re-running
+  // this as a plain top-aligned scroll.
+  const onWorksAnchorClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!lenis) return
+    event.preventDefault()
+    event.stopPropagation()
+    close()
+    scrollToWorks(lenis)
+  }
+
   const renderNav = (withSeparators: boolean) =>
     navPages.map(({ href, label }, index) => {
       const isWorks = href === "/#works"
@@ -91,7 +123,7 @@ const Header = ({ settings }: HeaderProps) => {
           {label}
         </Link>
       ) : isHome ? (
-        <a key={href} href="#works" className={style.navLink} onClick={close}>
+        <a key={href} href="#works" className={style.navLink} onClick={onWorksAnchorClick}>
           {label}
         </a>
       ) : (
@@ -123,19 +155,38 @@ const Header = ({ settings }: HeaderProps) => {
   // Same route, other locale. Crosses no root-layout boundary, so it stays a
   // client-side navigation.
   const renderLangSwitcher = () =>
-    LOCALES.map((locale, index) => (
-      <Fragment key={locale}>
-        {index > 0 && " / "}
-        <Link
-          href={withLang(route, locale)}
-          hrefLang={locale}
-          className={locale === lang ? undefined : style.langMuted}
-          onClick={close}
-        >
-          {locale.toUpperCase()}
-        </Link>
-      </Fragment>
-    ))
+    LOCALES.map((locale, index) => {
+      const href = withLang(route, locale)
+
+      // Reduced motion skips the curtain entirely — the plain <Link> falls
+      // through to the 150ms fade in globals.scss.
+      const onLangClick = (event: MouseEvent<HTMLAnchorElement>) => {
+        close()
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
+        event.preventDefault()
+        runLangCurtain(() => router.push(href, { scroll: false, transitionTypes: ["lang-switch"] }))
+      }
+
+      return (
+        <Fragment key={locale}>
+          {index > 0 && " / "}
+          {locale === lang ? (
+            <span aria-current="true">{locale.toUpperCase()}</span>
+          ) : (
+            <Link
+              href={href}
+              hrefLang={locale}
+              className={style.langMuted}
+              data-cursor-popup={settings.switchLanguageLabel?.[locale]}
+              onClick={onLangClick}
+            >
+              {locale.toUpperCase()}
+            </Link>
+          )}
+        </Fragment>
+      )
+    })
 
   const className = [style.header, open && style.open, isHome && style.home]
     .filter(Boolean)
@@ -144,7 +195,12 @@ const Header = ({ settings }: HeaderProps) => {
   return (
     <header className={className}>
       <div className={style.inner}>
-        <Link {...linkProps(withLang("/", lang))} className={style.logo} data-reveal="up">
+        <Link
+          {...linkProps(withLang("/", lang))}
+          className={style.logo}
+          data-reveal="up"
+          data-cursor-popup={settings.logoPopupLabel}
+        >
           {settings.logoName ?? ""}
         </Link>
 
@@ -162,6 +218,7 @@ const Header = ({ settings }: HeaderProps) => {
             onOpen={openContactModal}
             onServices={onServices}
             label={contactPage?.label ?? ""}
+            popupLabel={settings.ctaPopupLabel}
             reveal
           />
         </div>
@@ -206,6 +263,7 @@ const Header = ({ settings }: HeaderProps) => {
           onOpen={openContactModal}
           onServices={onServices}
           label={contactPage?.label ?? ""}
+          popupLabel={settings.ctaPopupLabel}
           onNavigate={close}
         />
       </div>

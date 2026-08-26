@@ -5,13 +5,18 @@ export interface RichTextProps {
   highlightClass?: string
   paragraphClass?: string
   revealNow?: boolean
+  reveal?: boolean
 }
 
-const RichText = ({ value, highlightClass, paragraphClass, revealNow }: RichTextProps) => {
+const RichText = ({ value, highlightClass, paragraphClass, revealNow, reveal = true }: RichTextProps) => {
   const components: PortableTextComponents = {
     block: {
       normal: ({ children }) => (
-        <p className={paragraphClass} data-reveal="lines" data-reveal-now={revealNow ? true : undefined}>
+        <p
+          className={paragraphClass}
+          data-reveal={reveal ? "lines" : undefined}
+          data-reveal-now={reveal && revealNow ? true : undefined}
+        >
           {children}
         </p>
       ),

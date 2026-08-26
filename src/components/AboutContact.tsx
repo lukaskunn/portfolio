@@ -1,3 +1,4 @@
+import { FaArrowRight } from "react-icons/fa"
 import EmailAndPhoneNumberBlock from "@/components/EmailAndPhoneNumberBlock"
 import type { ContactInfo, SocialLink } from "@/types/content"
 import style from "@/styles/components/AboutContact.module.scss"
@@ -36,6 +37,7 @@ const AboutContact = ({
           data-cursor-popup={popupLabel}
         >
           {label}
+          <FaArrowRight size={12} className={style.socialIcon} aria-hidden="true" focusable="false" />
         </a>
       ))}
     </nav>

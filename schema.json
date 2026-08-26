@@ -802,6 +802,22 @@
         },
         "optional": true
       },
+      "switchLanguageLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "localeString"
+        },
+        "optional": true
+      },
+      "logoPopupLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "localeString"
+        },
+        "optional": true
+      },
       "ctaTitle": {
         "type": "objectAttribute",
         "value": {
@@ -833,6 +849,30 @@
         "optional": true
       },
       "remoteFromLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "localeString"
+        },
+        "optional": true
+      },
+      "timeOffsetAheadLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "localeString"
+        },
+        "optional": true
+      },
+      "timeOffsetBehindLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "localeString"
+        },
+        "optional": true
+      },
+      "timeOffsetSameLabel": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
@@ -1852,7 +1892,7 @@
                 "type": "objectAttribute",
                 "value": {
                   "type": "inline",
-                  "name": "localeText"
+                  "name": "localeBlock"
                 },
                 "optional": true
               },
@@ -2049,7 +2089,7 @@
                 "type": "objectAttribute",
                 "value": {
                   "type": "inline",
-                  "name": "localeText"
+                  "name": "localeBlock"
                 },
                 "optional": true
               },
@@ -2276,6 +2316,22 @@
         "optional": true
       },
       "worksSectionLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "localeString"
+        },
+        "optional": true
+      },
+      "expandRowLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "localeString"
+        },
+        "optional": true
+      },
+      "collapseRowLabel": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",

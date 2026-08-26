@@ -1,0 +1,24 @@
+@use "../references" as *;
+
+.page {
+  max-width: 1440px;
+  width: 100%;
+  // min-height, not height: a short viewport lets the form scroll instead of clipping.
+  min-height: 100dvh;
+  display: grid;
+  align-content: center;
+  // top clears the fixed header; bottom keeps the form off the viewport floor.
+  // #main-content's own 64px bottom padding is zeroed in globals.scss so 100dvh
+  // does not create a phantom scrollbar.
+  padding: 96px $page-margin 40px !important;
+  max-width: 1440px;
+  justify-content: center;
+
+  @include respond-to(tablet) {
+    padding-block: 80px 32px;
+  }
+
+  @include respond-to(mobile) {
+    padding-block: 72px 24px;
+  }
+}

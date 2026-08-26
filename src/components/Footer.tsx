@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { FaArrowRight } from "react-icons/fa"
 import FooterLocationBlock from "./FooterLocationBlock"
 import { useContactModal } from "@/contexts/ContactModalContext"
 import style from "@/styles/components/Footer.module.scss"
@@ -54,6 +55,9 @@ const Footer = ({ settings }: FooterProps) => {
                 longitude={settings.longitude}
                 remoteFromLabel={settings.remoteFromLabel}
                 timeZone={settings.timeZone ?? "America/Sao_Paulo"}
+                timeOffsetAheadLabel={settings.timeOffsetAheadLabel}
+                timeOffsetBehindLabel={settings.timeOffsetBehindLabel}
+                timeOffsetSameLabel={settings.timeOffsetSameLabel}
               />
             </div>
             <nav className={style.sitemap} aria-label="Footer">
@@ -68,6 +72,7 @@ const Footer = ({ settings }: FooterProps) => {
                   <button
                     type="button"
                     className={`${style.mutedLink} ${style.linkButton}`}
+                    data-cursor-popup={settings.ctaPopupLabel}
                     onClick={openContactModal}
                   >
                     {contactPage.label}
@@ -83,9 +88,10 @@ const Footer = ({ settings }: FooterProps) => {
               <span>{settings.available ? settings.availableLabel : settings.unavailableLabel}</span>
             </div>
             <nav className={style.social} aria-label="Social" data-reveal-group data-reveal-now>
-              {(settings.social ?? []).map(({ href, label }) => (
-                <a key={href} href={href} target="_blank" rel="noopener noreferrer">
+              {(settings.social ?? []).map(({ href, label, popupLabel }) => (
+                <a key={href} href={href} target="_blank" rel="noopener noreferrer" data-cursor-popup={popupLabel}>
                   {label}
+                  <FaArrowRight size={16} className={style.socialIcon} aria-hidden="true" focusable="false" />
                 </a>
               ))}
             </nav>

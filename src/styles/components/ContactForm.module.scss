@@ -161,7 +161,7 @@
           border-radius: $radius-none;
           padding: 0;
           height: 32px;
-          transition: border-bottom-color 150ms ease;
+          transition: border-bottom-color 150ms $ease-out;
 
           &[aria-invalid="true"] {
             border-bottom-color: $color-danger;

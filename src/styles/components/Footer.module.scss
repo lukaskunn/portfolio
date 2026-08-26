@@ -154,15 +154,6 @@
   cursor: pointer;
 }
 
-// 100ms per line. The aside block's group sits on FooterLocationBlock's own
-// wrapper, so the selector matches both nesting depths.
-@media (prefers-reduced-motion: no-preference) {
-  .footer .block [data-reveal-group] > *,
-  .footer .block[data-reveal-group] > * {
-    --reveal-unit: 100ms;
-  }
-}
-
 // The coordinates are the one 16px line in the pair; its sibling stays 18px.
 .status {
   display: flex;
@@ -205,7 +196,6 @@
 @media (prefers-reduced-motion: no-preference) {
   .footer .sitemap .sitemapLinks > * {
     --reveal-step: 1;
-    --reveal-unit: 100ms;
   }
 }
 
@@ -225,11 +215,19 @@
   @include respond-to(mobile) {
     gap: $space-lg;
   }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .footer .bottom .social > * {
-    --reveal-unit: 100ms;
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2xs;
+
+    .socialIcon {
+      transform: rotate(-45deg);
+
+      @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+        transition: transform 0.6s $ease-out;
+      }
+    }
   }
 }
 
@@ -255,7 +253,7 @@
   width: fit-content;
 
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    transition: background-size 0.35s ease, color 150ms ease;
+    transition: background-size 0.35s $ease-out, color 150ms $ease-out;
   }
 
   &:hover {
@@ -281,7 +279,7 @@
   text-decoration: none;
 
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    transition: background-size 0.35s ease, color 150ms ease;
+    transition: background-size 0.35s $ease-out, color 150ms $ease-out;
   }
 
   &:hover {

@@ -5,8 +5,8 @@ import { LOCALES, langFromPathname } from "@/utils/locale"
 import { buildMetadata } from "@/utils/metadata"
 import { sanityFetch } from "@/sanity/client"
 import { imageUrl } from "@/sanity/image"
-import { projectBySlugQuery, projectSlugsQuery, projectPageQuery, settingsQuery } from "@/sanity/queries"
-import type { ProjectDetail, ProjectPageLabels, Settings } from "@/types/content"
+import { projectBySlugQuery, projectSlugsQuery, projectNavItemsQuery, projectPageQuery, settingsQuery } from "@/sanity/queries"
+import type { ProjectDetail, ProjectNavItem, ProjectPageLabels, Settings } from "@/types/content"
 import ProjectDescription from "@/components/ProjectDescription"
 import ProjectDetails from "@/components/ProjectDetails"
 import ProjectGallery from "@/components/ProjectGallery"
@@ -35,17 +35,18 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/project/[s
 export default async function ProjectPage({ params }: PageProps<"/[lang]/project/[slug]">) {
   const { lang, slug } = await params
 
-  const [project, slugs, projectPage, settings] = await Promise.all([
+  const [project, navItems, projectPage, settings] = await Promise.all([
     sanityFetch<ProjectDetail | null>(projectBySlugQuery, { lang, slug }),
-    sanityFetch<string[]>(projectSlugsQuery),
+    sanityFetch<ProjectNavItem[]>(projectNavItemsQuery),
     sanityFetch<ProjectPageLabels | null>(projectPageQuery, { lang }),
     sanityFetch<Settings | null>(settingsQuery, { lang }),
   ])
 
   if (!project) notFound()
 
-  const index = slugs.indexOf(slug)
-  const nextSlug = index === -1 ? slug : slugs[(index + 1) % slugs.length]
+  const index = navItems.findIndex((item) => item.slug === slug)
+  const nextItem = index === -1 ? undefined : navItems[(index + 1) % navItems.length]
+  const nextSlug = nextItem?.slug ?? slug
 
   const images = (project.images ?? []).map((image) => ({
     url: imageUrl(image, 700),
@@ -78,6 +79,7 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
 
             <ProjectNav
               nextSlug={nextSlug}
+              nextName={nextItem?.name}
               lang={langFromPathname(`/${lang}`)}
               backLabel={projectPage?.backLabel}
               nextLabel={projectPage?.nextLabel}

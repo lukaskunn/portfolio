@@ -130,6 +130,14 @@ export const settings = defineType({
     defineField({ name: "closeMenuLabel", type: "localeString", group: "header" }),
     defineField({ name: "contactModalLabel", type: "localeString", group: "header" }),
     defineField({ name: "closeContactFormLabel", type: "localeString", group: "header" }),
+    defineField({
+      name: "switchLanguageLabel",
+      title: "Language switcher popup",
+      description: "Each value is the popup shown on the link that switches to that language, written in that language.",
+      type: "localeString",
+      group: "header",
+    }),
+    defineField({ name: "logoPopupLabel", title: "Logo popup label", type: "localeString", group: "header" }),
 
     // Footer
     defineField({ name: "ctaTitle", type: "localeText", group: "footer" }),
@@ -149,6 +157,21 @@ export const settings = defineType({
       group: "footer",
     }),
     defineField({ name: "remoteFromLabel", type: "localeString", group: "footer" }),
+    defineField({
+      name: "timeOffsetAheadLabel",
+      title: "Time offset (ahead) label",
+      description: "{h} is replaced by the offset, unit included (\"4h\", \"4h30\") — do not add your own h. E.g. \"you are {h} ahead\".",
+      type: "localeString",
+      group: "footer",
+    }),
+    defineField({
+      name: "timeOffsetBehindLabel",
+      title: "Time offset (behind) label",
+      description: "{h} is replaced by the offset, unit included (\"4h\", \"4h30\") — do not add your own h. E.g. \"you are {h} behind\".",
+      type: "localeString",
+      group: "footer",
+    }),
+    defineField({ name: "timeOffsetSameLabel", title: "Time offset (same timezone) label", type: "localeString", group: "footer" }),
     defineField({
       name: "timeZone",
       title: "Time zone",

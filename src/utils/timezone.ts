@@ -9,8 +9,16 @@ const zoneOffset = (timeZone: string, at: Date) => {
 
 const hm = (min: number) => `${Math.floor(min / 60)}h${min % 60 ? String(min % 60).padStart(2, "0") : ""}`
 
-export const offsetLabel = (timeZone: string = DEFAULT_TIME_ZONE) => {
+export interface OffsetLabels {
+  ahead: string
+  behind: string
+  same: string
+}
+
+// ahead/behind labels carry a "{h}" placeholder the hour count is substituted into.
+export const offsetLabel = (timeZone: string = DEFAULT_TIME_ZONE, labels: OffsetLabels) => {
   const now = new Date()
   const diff = -now.getTimezoneOffset() - zoneOffset(timeZone, now)
-  return diff === 0 ? "we're in the same timezone" : `you are ${hm(Math.abs(diff))} ${diff > 0 ? "ahead" : "behind"}`
+  if (diff === 0) return labels.same
+  return (diff > 0 ? labels.ahead : labels.behind).replace("{h}", hm(Math.abs(diff)))
 }

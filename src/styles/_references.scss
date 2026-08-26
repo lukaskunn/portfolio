@@ -98,11 +98,10 @@ $radius-full: 9999px;
 // ============================================
 // Motion
 // ponytail: one curve, already used verbatim in ContactModal and Header.
-// No duration tokens — the three durations in play (0.35s hover, 0.2s button,
-// 0.45s strip) have one call site each.
+// Durations stay literal on purpose — no duration tokens.
 // ============================================
 $ease-standard: cubic-bezier(0.76, 0, 0.24, 1);
-$ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
 // Long-travel slides: keeps velocity across a full-viewport move, where
 // $ease-out finishes its travel in the first 40% and holds.
@@ -243,7 +242,7 @@ $ease-slide: cubic-bezier(0.32, 0.72, 0, 1);
   padding-bottom: 0.1em;
 
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    transition: background-size 0.35s ease;
+    transition: background-size 0.35s $ease-out;
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -279,7 +278,7 @@ $ease-slide: cubic-bezier(0.32, 0.72, 0, 1);
   margin-inline: -0.15em;
 
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    transition: background-size 0.35s ease, color 0.35s ease;
+    transition: background-size 0.6s $ease-out, color 0.6s $ease-out;
   }
 
   @media (hover: hover) and (pointer: fine) {

@@ -54,6 +54,13 @@ export const projectSlugsQuery = defineQuery(`
   *[_type == "project" && defined(slug.current)].slug.current
 `)
 
+export const projectNavItemsQuery = defineQuery(`
+  *[_type == "project" && defined(slug.current)] | order(order asc, year desc) {
+    "slug": slug.current,
+    name
+  }
+`)
+
 export const homePageQuery = defineQuery(`
   *[_id == "homePage"][0] {
     ${seoProjection},
@@ -64,7 +71,9 @@ export const homePageQuery = defineQuery(`
     "heroCurrentRole": coalesce(heroCurrentRole[$lang], heroCurrentRole.pt),
     "heroRoles": heroRoles[] { "value": coalesce(@[$lang], @.pt) }.value,
     "worksTitle": coalesce(worksTitle[$lang], worksTitle.pt),
-    "worksSectionLabel": coalesce(worksSectionLabel[$lang], worksSectionLabel.pt)
+    "worksSectionLabel": coalesce(worksSectionLabel[$lang], worksSectionLabel.pt),
+    "expandRowLabel": coalesce(expandRowLabel[$lang], expandRowLabel.pt),
+    "collapseRowLabel": coalesce(collapseRowLabel[$lang], collapseRowLabel.pt)
   }
 `)
 
@@ -162,12 +171,17 @@ export const settingsQuery = defineQuery(`
     "closeMenuLabel": coalesce(closeMenuLabel[$lang], closeMenuLabel.pt),
     "contactModalLabel": coalesce(contactModalLabel[$lang], contactModalLabel.pt),
     "closeContactFormLabel": coalesce(closeContactFormLabel[$lang], closeContactFormLabel.pt),
+    switchLanguageLabel { pt, en },
+    "logoPopupLabel": coalesce(logoPopupLabel[$lang], logoPopupLabel.pt),
     "ctaTitle": coalesce(ctaTitle[$lang], ctaTitle.pt),
     "ctaPopupLabel": coalesce(ctaPopupLabel[$lang], ctaPopupLabel.pt),
     latitude,
     longitude,
     "remoteFromLabel": coalesce(remoteFromLabel[$lang], remoteFromLabel.pt),
-    timeZone
+    timeZone,
+    "timeOffsetAheadLabel": coalesce(timeOffsetAheadLabel[$lang], timeOffsetAheadLabel.pt),
+    "timeOffsetBehindLabel": coalesce(timeOffsetBehindLabel[$lang], timeOffsetBehindLabel.pt),
+    "timeOffsetSameLabel": coalesce(timeOffsetSameLabel[$lang], timeOffsetSameLabel.pt)
   }
 `)
 

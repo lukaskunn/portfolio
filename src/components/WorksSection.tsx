@@ -14,6 +14,8 @@ export interface WorksSectionProps {
   sectionLabel: string
   labels: FieldLabels
   viewProjectLabel: string
+  expandRowLabel: string
+  collapseRowLabel: string
   projects: ProjectListItem[]
 }
 
@@ -21,7 +23,15 @@ export interface WorksSectionProps {
 // index % length instead of requiring exactly 4 per project.
 const STRIP_SLOTS = 4
 
-const WorksSection = ({ title, sectionLabel, labels, viewProjectLabel, projects }: WorksSectionProps) => {
+const WorksSection = ({
+  title,
+  sectionLabel,
+  labels,
+  viewProjectLabel,
+  expandRowLabel,
+  collapseRowLabel,
+  projects,
+}: WorksSectionProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const lang = useLocale()
 
@@ -54,6 +64,8 @@ const WorksSection = ({ title, sectionLabel, labels, viewProjectLabel, projects 
           {projects.map((project, index) => {
             const images = project.images ?? []
 
+            const rowPopupLabel = openIndex === index ? collapseRowLabel : expandRowLabel
+
             return (
               <li
                 key={project.slug}
@@ -68,6 +80,7 @@ const WorksSection = ({ title, sectionLabel, labels, viewProjectLabel, projects 
                   className={`${style.row} ${style.desktopRow}`}
                   aria-expanded={openIndex === index}
                   aria-controls={`strip-${project.slug}`}
+                  data-cursor-popup={rowPopupLabel}
                   onClick={handleDesktopRowClick(index)}
                   onMouseEnter={setWipeOrigin}
                   onMouseLeave={setWipeOrigin}
@@ -102,7 +115,11 @@ const WorksSection = ({ title, sectionLabel, labels, viewProjectLabel, projects 
                       )
                     })}
                 </span>
-                <Link href={`/${lang}/project/${project.slug}`} className={`${style.row} ${style.mobileRow}`}>
+                <Link
+                  href={`/${lang}/project/${project.slug}`}
+                  className={`${style.row} ${style.mobileRow}`}
+                  data-reveal-rule
+                >
                   <div className={style.rowTop}>
                     <span className={style.name}>{project.name}</span>
                     <span className={style.year}>{project.year}</span>

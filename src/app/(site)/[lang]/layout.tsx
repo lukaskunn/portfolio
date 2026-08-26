@@ -174,7 +174,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         <RevealOnScroll />
         <noscript>
           {/* Pre-states are unconditional CSS so they land on first paint. */}
-          <style>{`[data-reveal],[data-reveal-group]>*,[data-reveal="rise"]>*>*,[data-reveal="spread"]>*{opacity:1!important;transform:none!important;clip-path:none!important;animation:none!important}`}</style>
+          <style>{`[data-reveal],[data-reveal-group]>*,[data-reveal="rise"]>*>*,[data-reveal="spread"]>*{opacity:1!important;transform:none!important;clip-path:none!important;animation:none!important}[data-reveal-rule]::before,[data-reveal-rule]::after{transform:none!important;animation:none!important}[data-reveal-index]::before{opacity:1!important;transform:none!important;animation:none!important}`}</style>
         </noscript>
         <ContactModalProvider settings={settings} messages={messages}>
           <Header settings={settings} />
