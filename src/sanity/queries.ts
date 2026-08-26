@@ -54,6 +54,13 @@ export const projectSlugsQuery = defineQuery(`
   *[_type == "project" && defined(slug.current)].slug.current
 `)
 
+export const projectNavItemsQuery = defineQuery(`
+  *[_type == "project" && defined(slug.current)] | order(order asc, year desc) {
+    "slug": slug.current,
+    name
+  }
+`)
+
 export const homePageQuery = defineQuery(`
   *[_id == "homePage"][0] {
     ${seoProjection},

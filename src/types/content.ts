@@ -174,3 +174,8 @@ export type ProjectDetail = ProjectListItem & {
   showLiveLink?: boolean
   liveUrl?: string
 }
+
+export type ProjectNavItem = {
+  slug: string
+  name: string
+}
