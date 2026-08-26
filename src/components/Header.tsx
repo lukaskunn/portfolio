@@ -4,6 +4,7 @@ import { Fragment, useEffect, useState, type MouseEvent } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useLenis } from "lenis/react"
+import type Lenis from "lenis"
 
 
 import { useContactModal } from "@/contexts/ContactModalContext"
@@ -15,6 +16,25 @@ import style from "@/styles/components/Header.module.scss"
 
 export interface HeaderProps {
   settings: Settings
+}
+
+// Works lands bottom-aligned — its last row rests on the viewport floor instead
+// of its heading sitting under the header. Passing a raw position rather than
+// the element sidesteps the section's scroll-margin-top, which is start-edge
+// padding and would push the bottom edge below the fold.
+const scrollToWorks = (lenis: Lenis) => {
+  const works = document.getElementById("works")
+  if (!works) return
+
+  const rect = works.getBoundingClientRect()
+
+  // Taller than the viewport, so both edges can't land at once — top wins.
+  if (rect.height > window.innerHeight) {
+    lenis.scrollTo(works)
+    return
+  }
+
+  lenis.scrollTo(rect.bottom + lenis.actualScroll - window.innerHeight + 60)
 }
 
 const Header = ({ settings }: HeaderProps) => {
@@ -62,7 +82,7 @@ const Header = ({ settings }: HeaderProps) => {
     window.setTimeout(() => {
       // ponytail: no timer ref — Header never unmounts, and this bails if the
       // user navigated somewhere else in the meantime.
-      if (stripLang(window.location.pathname) === "/") lenis?.scrollTo("#works")
+      if (stripLang(window.location.pathname) === "/" && lenis) scrollToWorks(lenis)
     }, delay)
   }
 
@@ -80,8 +100,18 @@ const Header = ({ settings }: HeaderProps) => {
     }
   }
 
-  // On the homepage the Work link is an in-page jump, not a route change —
-  // Lenis (anchors: true) smooth-scrolls a plain hash anchor for free.
+  // On the homepage the Work link is an in-page jump, not a route change.
+  // Lenis's own anchors:true handler listens on window and ignores
+  // defaultPrevented, so it needs stopPropagation to keep it from re-running
+  // this as a plain top-aligned scroll.
+  const onWorksAnchorClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!lenis) return
+    event.preventDefault()
+    event.stopPropagation()
+    close()
+    scrollToWorks(lenis)
+  }
+
   const renderNav = (withSeparators: boolean) =>
     navPages.map(({ href, label }, index) => {
       const isWorks = href === "/#works"
@@ -91,7 +121,7 @@ const Header = ({ settings }: HeaderProps) => {
           {label}
         </Link>
       ) : isHome ? (
-        <a key={href} href="#works" className={style.navLink} onClick={close}>
+        <a key={href} href="#works" className={style.navLink} onClick={onWorksAnchorClick}>
           {label}
         </a>
       ) : (
