@@ -149,7 +149,12 @@ const Header = ({ settings }: HeaderProps) => {
   return (
     <header className={className}>
       <div className={style.inner}>
-        <Link {...linkProps(withLang("/", lang))} className={style.logo} data-reveal="up">
+        <Link
+          {...linkProps(withLang("/", lang))}
+          className={style.logo}
+          data-reveal="up"
+          data-cursor-popup={settings.logoPopupLabel}
+        >
           {settings.logoName ?? ""}
         </Link>
 
@@ -167,6 +172,7 @@ const Header = ({ settings }: HeaderProps) => {
             onOpen={openContactModal}
             onServices={onServices}
             label={contactPage?.label ?? ""}
+            popupLabel={settings.ctaPopupLabel}
             reveal
           />
         </div>
@@ -211,6 +217,7 @@ const Header = ({ settings }: HeaderProps) => {
           onOpen={openContactModal}
           onServices={onServices}
           label={contactPage?.label ?? ""}
+          popupLabel={settings.ctaPopupLabel}
           onNavigate={close}
         />
       </div>

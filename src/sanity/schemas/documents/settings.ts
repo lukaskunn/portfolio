@@ -137,6 +137,7 @@ export const settings = defineType({
       type: "localeString",
       group: "header",
     }),
+    defineField({ name: "logoPopupLabel", title: "Logo popup label", type: "localeString", group: "header" }),
 
     // Footer
     defineField({ name: "ctaTitle", type: "localeText", group: "footer" }),
@@ -156,6 +157,21 @@ export const settings = defineType({
       group: "footer",
     }),
     defineField({ name: "remoteFromLabel", type: "localeString", group: "footer" }),
+    defineField({
+      name: "timeOffsetAheadLabel",
+      title: "Time offset (ahead) label",
+      description: "{h} is replaced by the offset, unit included (\"4h\", \"4h30\") — do not add your own h. E.g. \"you are {h} ahead\".",
+      type: "localeString",
+      group: "footer",
+    }),
+    defineField({
+      name: "timeOffsetBehindLabel",
+      title: "Time offset (behind) label",
+      description: "{h} is replaced by the offset, unit included (\"4h\", \"4h30\") — do not add your own h. E.g. \"you are {h} behind\".",
+      type: "localeString",
+      group: "footer",
+    }),
+    defineField({ name: "timeOffsetSameLabel", title: "Time offset (same timezone) label", type: "localeString", group: "footer" }),
     defineField({
       name: "timeZone",
       title: "Time zone",

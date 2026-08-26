@@ -54,6 +54,9 @@ const Footer = ({ settings }: FooterProps) => {
                 longitude={settings.longitude}
                 remoteFromLabel={settings.remoteFromLabel}
                 timeZone={settings.timeZone ?? "America/Sao_Paulo"}
+                timeOffsetAheadLabel={settings.timeOffsetAheadLabel}
+                timeOffsetBehindLabel={settings.timeOffsetBehindLabel}
+                timeOffsetSameLabel={settings.timeOffsetSameLabel}
               />
             </div>
             <nav className={style.sitemap} aria-label="Footer">
@@ -68,6 +71,7 @@ const Footer = ({ settings }: FooterProps) => {
                   <button
                     type="button"
                     className={`${style.mutedLink} ${style.linkButton}`}
+                    data-cursor-popup={settings.ctaPopupLabel}
                     onClick={openContactModal}
                   >
                     {contactPage.label}

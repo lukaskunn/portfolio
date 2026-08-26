@@ -9,6 +9,9 @@ export interface FooterLocationBlockProps {
   longitude?: number
   remoteFromLabel?: string
   timeZone: string
+  timeOffsetAheadLabel?: string
+  timeOffsetBehindLabel?: string
+  timeOffsetSameLabel?: string
 }
 
 const subscribe = () => () => {}
@@ -22,15 +25,30 @@ const dms = (value: number, positive: string, negative: string) => {
   return `${deg}°${min}′${sec}″ ${value >= 0 ? positive : negative}`
 }
 
-const FooterLocationBlock = ({ latitude, longitude, remoteFromLabel, timeZone }: FooterLocationBlockProps) => {
+const FooterLocationBlock = ({
+  latitude,
+  longitude,
+  remoteFromLabel,
+  timeZone,
+  timeOffsetAheadLabel,
+  timeOffsetBehindLabel,
+  timeOffsetSameLabel,
+}: FooterLocationBlockProps) => {
   const mounted = useSyncExternalStore(subscribe, () => true, () => false)
   const coords =
     latitude != null && longitude != null
       ? `${dms(latitude, "N", "S")} / ${dms(longitude, "E", "W")}`
       : ""
+  const popupLabel = mounted
+    ? offsetLabel(timeZone, {
+        ahead: timeOffsetAheadLabel ?? "",
+        behind: timeOffsetBehindLabel ?? "",
+        same: timeOffsetSameLabel ?? "",
+      })
+    : undefined
 
   return (
-    <div className={style.location} data-cursor-popup={mounted ? offsetLabel(timeZone) : undefined} data-reveal-group>
+    <div className={style.location} data-cursor-popup={popupLabel} data-reveal-group>
       <span className={style.coords}>{coords}</span>
       <span>{remoteFromLabel ?? ""} <LocalTime timeZone={timeZone} /></span>
     </div>

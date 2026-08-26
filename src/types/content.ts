@@ -84,6 +84,10 @@ export type Settings = {
   longitude?: number
   remoteFromLabel?: string
   timeZone?: string
+  logoPopupLabel?: string
+  timeOffsetAheadLabel?: string
+  timeOffsetBehindLabel?: string
+  timeOffsetSameLabel?: string
 }
 
 export type HeroChip = {
@@ -100,6 +104,8 @@ export type HomePage = {
   heroRoles?: string[]
   worksTitle?: string
   worksSectionLabel?: string
+  expandRowLabel?: string
+  collapseRowLabel?: string
 }
 
 export type ServiceCard = {

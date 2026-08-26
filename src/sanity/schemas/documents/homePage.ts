@@ -60,6 +60,8 @@ export const homePage = defineType({
     }),
     defineField({ name: "worksTitle", type: "localeString", initialValue: { pt: "Curated works" } }),
     defineField({ name: "worksSectionLabel", title: "Works section label", type: "localeString", initialValue: { pt: "Works" } }),
+    defineField({ name: "expandRowLabel", title: "Expand row label", type: "localeString" }),
+    defineField({ name: "collapseRowLabel", title: "Collapse row label", type: "localeString" }),
   ],
   preview: { prepare: () => ({ title: "Home page" }) },
 })
