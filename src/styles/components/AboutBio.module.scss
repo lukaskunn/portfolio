@@ -1,0 +1,119 @@
+@use "references" as *;
+
+// Owns --reveal-step 2–5 of the /about page-wide reveal queue.
+
+.bioRow {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: $gutter;
+  width: 100%;
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: $space-4xl;
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    row-gap: $space-4xl;
+  }
+
+  .bio {
+    grid-column: 1 / span 5;
+    display: flex;
+    flex-direction: column;
+    gap: $space-xl;
+    color: $color-text-invert;
+
+    font-family: $font-label;
+    font-weight: $font-weight-bold;
+    font-size: var(--fs-h5);
+    letter-spacing: -0.02em;
+
+    @include respond-to(tablet) {
+      grid-column: auto;
+      font-size: 16px;
+    }
+
+    @include respond-to(mobile) {
+      grid-column: 1 / -1;
+      font-size: 16px;
+    }
+
+    .highlight {
+      @include hover-highlight($white-100, $color-text-primary);
+    }
+  }
+
+  .clients {
+    grid-column: 9 / span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    @include respond-to(tablet) {
+      grid-column: auto;
+    }
+
+    @include respond-to(mobile) {
+      grid-column: 1 / -1;
+    }
+
+    .clientsLabel {
+      font-family: $font-heading;
+      font-weight: $font-weight-bold;
+      font-size: 18px;
+      color: $color-text-invert-muted;
+    }
+
+    .clientsList {
+      display: flex;
+      flex-direction: column;
+
+      .clientName {
+        font-family: $font-heading;
+        font-weight: $font-weight-bold;
+        font-size: 16px;
+        color: $color-text-invert;
+      }
+    }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  .bio {
+    transition: color 1s $ease-out;
+  }
+
+  .bio:hover {
+    color: $color-text-invert-muted;
+    transition: color 0.6s $ease-out;
+  }
+
+  .bio:hover .highlight {
+    @include hover-highlight-on;
+  }
+}
+
+// All nine elements on /about carry data-reveal-now (item 4 is out of scope),
+// so with RevealOnScroll's flat --reveal-delay they need their own document-
+// order queue or they'd all fire together. This block must stay LAST in the
+// file: .clientsLabel / .clientsList here match their base rules' specificity
+// and win by source order only.
+@media (prefers-reduced-motion: no-preference) {
+  .bio p:nth-of-type(1) {
+    --reveal-step: 2;
+  }
+
+  .bio p:nth-of-type(2) {
+    --reveal-step: 3;
+  }
+
+  .clientsLabel {
+    --reveal-step: 4;
+  }
+
+  .clientsList {
+    --reveal-step: 5;
+  }
+}

@@ -1,0 +1,30 @@
+@use "../references" as *;
+
+.clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+
+  .track {
+    position: relative;
+    display: block;
+
+    .layer {
+      display: block;
+      white-space: pre;
+    }
+
+    // Applied alongside .layer on the same element, so it must stay a sibling
+    // rule at equal specificity and win by source order.
+    .copy {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateY(100%);
+    }
+
+    .char {
+      display: inline-block;
+    }
+  }
+}

@@ -1,0 +1,99 @@
+@use "references" as *;
+
+.help {
+  display: flex;
+  flex-direction: column;
+  gap: $gutter;
+  padding: 64px 0;
+
+  @include respond-to(tablet) {
+    gap: $space-2xl;
+  }
+
+  @include respond-to(mobile) {
+    gap: $space-2xl;
+  }
+
+  .helpTitle {
+    @include heading-2;
+
+    letter-spacing: -0.02em;
+  }
+
+  .helpGrid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: $gutter;
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: $space-2xl;
+    }
+
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+      row-gap: $space-2xl;
+    }
+
+    .card {
+      grid-column: span 4;
+      display: flex;
+      flex-direction: column;
+      gap: $space-xs;
+
+      @include respond-to(tablet) {
+        grid-column: auto;
+      }
+
+      @include respond-to(mobile) {
+        grid-column: auto;
+      }
+
+      .cardTitle {
+        @include heading-3-lg;
+
+        color: $color-text-primary;
+        letter-spacing: -0.02em;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .cardTitleIcon {
+          flex-shrink: 0;
+        }
+      }
+
+      .cardBody {
+        font-family: $font-label;
+        font-weight: $font-weight-semibold;
+        font-size: $font-size-base;
+        line-height: $line-height-label;
+        letter-spacing: -0.02em;
+        color: $color-text-primary;
+
+        .highlight {
+          @include hover-highlight;
+        }
+      }
+
+      // Nested rather than written flat at the root: the base rules above sit
+      // five levels deep, so a top-level `.card:hover .highlight` loses on
+      // specificity and only the individually hovered span would light up.
+      @media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+        .cardBody {
+          transition: color 1s $ease-out;
+        }
+
+        &:hover .cardBody {
+          color: $color-text-primary-muted;
+          transition: color 0.6s $ease-out;
+
+          .highlight {
+            @include hover-highlight-on;
+          }
+        }
+      }
+    }
+  }
+}

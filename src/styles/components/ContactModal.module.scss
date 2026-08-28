@@ -1,0 +1,112 @@
+@use "references" as *;
+
+.dialog {
+  margin: auto auto 0;
+  width: 100%;
+  max-width: 100%;
+  border: 0;
+  padding: 0;
+  background: $color-bg-base;
+  max-height: 90dvh;
+
+  translate: 0 0;
+  transition:
+    translate 0.45s $ease-slide,
+    display 0.45s allow-discrete,
+    overlay 0.45s allow-discrete;
+
+  &:not([open]) {
+    translate: 0 100%;
+  }
+
+  @starting-style {
+    &[open] {
+      translate: 0 100%;
+    }
+  }
+
+  &::backdrop {
+    background: rgba(17, 17, 17, 0.6);
+    opacity: 1;
+    transition:
+      opacity 0.5s $ease-out,
+      display 0.5s allow-discrete,
+      overlay 0.5s allow-discrete;
+  }
+
+  &:not([open])::backdrop {
+    opacity: 0;
+  }
+
+  &[open]::backdrop {
+    @starting-style {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition:
+      opacity 200ms $ease-out,
+      display 200ms allow-discrete,
+      overlay 200ms allow-discrete;
+
+    &:not([open]) {
+      translate: 0;
+      opacity: 0;
+    }
+
+    @starting-style {
+      &[open] {
+        translate: 0;
+        opacity: 0;
+      }
+    }
+
+    &::backdrop {
+      transition:
+        opacity 200ms $ease-out,
+        display 200ms allow-discrete,
+        overlay 200ms allow-discrete;
+    }
+
+    &:not([open])::backdrop {
+      opacity: 0;
+    }
+  }
+
+  .inner {
+    position: relative;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: $page-margin;
+    overflow-y: auto;
+    max-height: 90dvh;
+
+    .close {
+      position: absolute;
+      top: $page-margin;
+      right: $page-margin;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: $color-text-primary;
+      cursor: pointer;
+      transition: opacity 150ms $ease-out;
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+
+      &:active {
+        transform: scale(0.94);
+      }
+    }
+  }
+}

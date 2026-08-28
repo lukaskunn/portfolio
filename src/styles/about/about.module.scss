@@ -1,0 +1,32 @@
+@use "../references" as *;
+
+// The page's three blocks own their own styles and their own slice of the
+// --reveal-step queue: AboutHero (0–1), AboutBio (2–5), AboutContact (6–11)
+// in src/styles/components/.
+
+.page {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: $page-margin !important;
+  padding-bottom: 0;
+  background: $black-100;
+  color: $color-text-invert;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100svh;
+
+  @include respond-to(tablet) {
+    justify-content: flex-start;
+    gap: $space-7xl;
+  }
+
+  @include respond-to(mobile) {
+    gap: $space-4xl;
+  }
+}
+
+.headerSpacer {
+  height: 36px;
+}

@@ -1,0 +1,94 @@
+@use "references" as *;
+
+.submitBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-xs;
+
+  &.submitBlockDesktop {
+    display: flex;
+  }
+
+  &.submitBlockMobile {
+    display: none;
+  }
+
+  @include respond-to(mobile){
+    &.submitBlockDesktop {
+      display: none;
+    }
+
+    &.submitBlockMobile {
+      display: flex;
+    }
+  }
+}
+
+.submit {
+  background: $color-bg-invert;
+  border: 1px solid $color-border-default;
+  padding: $space-sm $space-3xl;
+  border-radius: $radius-none;
+  font-family: $font-heading;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: $color-bg-base;
+  cursor: pointer;
+  transition: background-color 200ms $ease-out, transform 140ms $ease-out, opacity 200ms $ease-out;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      background: #292929; // ponytail: literal, matches .goToProjectButton
+    }
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  @include respond-to(tablet) {
+    padding: $space-md $space-2xl;
+  }
+
+  @include respond-to(mobile) {
+    width: 100%;
+    padding: $space-md;
+  }
+}
+
+.error,
+.success {
+  font-family: $font-contrast;
+  font-weight: 500;
+  font-size: 12px;
+  margin-top: $space-2xs;
+  transition: opacity 260ms $ease-out;
+
+  @starting-style {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 260ms $ease-out, transform 260ms $ease-out;
+
+    @starting-style {
+      transform: translateY(6px);
+    }
+  }
+}
+
+.error {
+  color: $color-danger;
+}
+
+.success {
+  color: $color-text-primary;
+}

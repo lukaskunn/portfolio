@@ -1,0 +1,64 @@
+@use "references" as *;
+
+$sticky-top: calc(var(--page-margin) + 30px);
+
+.page {
+  max-width: 1440px;
+  width: 100%;
+  padding-inline: $page-margin;
+  gap: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.headerSpace {
+  height: 72px;
+  display: none;
+}
+
+.backdropRegion {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  padding: $page-margin 0;
+  background: $color-bg-base;
+
+  @include respond-to(tablet) {
+    gap: 80px;
+  }
+
+  @include respond-to(mobile) {
+    gap: 48px;
+    position: static;
+    background: none;
+  }
+}
+
+.scrollOver {
+  position: relative;
+  z-index: 1;
+  background: $color-bg-base;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  padding: $page-margin calc(#{$page-margin} + max(0px, (100vw - 1440px) * 0.5)) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+
+  @include respond-to(tablet) {
+    gap: 80px;
+  }
+
+  @include respond-to(mobile) {
+    gap: 48px;
+  }
+}
+
+.contact {
+  width: 100%;
+  scroll-margin-top: $sticky-top;
+}

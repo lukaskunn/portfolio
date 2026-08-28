@@ -1,0 +1,44 @@
+@use "references" as *;
+
+@mixin layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-radius: $radius-full;
+  pointer-events: none;
+  z-index: 3;
+  will-change: transform;
+
+  @include respond-to(tablet) {
+    display: none;
+  }
+}
+
+.dot {
+  @include layer;
+  background: $white-100;
+  mix-blend-mode: difference;
+}
+
+.pill {
+  @include layer;
+  background: $white-100;
+  padding: $space-xs $space-sm;
+  max-width: 220px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .label {
+    @include label-contrast-xs;
+    letter-spacing: -2%;
+    text-align: center;
+    color: $color-bg-invert;
+    visibility: hidden;
+    opacity: 0;
+  }
+}

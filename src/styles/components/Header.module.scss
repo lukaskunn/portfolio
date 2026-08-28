@@ -1,0 +1,325 @@
+@use "references" as *;
+
+// Colours are local custom properties. The bar uses mix-blend-mode:
+// difference on .inner to auto-invert against any background, so a fixed
+// palette here (white-on-anything) is enough — no /about override needed.
+.header {
+  --header-bg: #{$color-bg-base};
+  --header-fg: #{$white-100};
+  --header-fg-muted: #{$white-100-muted};
+  --header-btn-bg: #{$white-100};
+  --header-btn-bg-hover: #e6e6e6;
+  --header-btn-fg: #{$black-100};
+
+  width: 100%;
+  color: var(--header-fg);
+}
+
+.home {
+  --header-fg: #{$color-text-primary};
+  --header-fg-muted: #{$color-text-primary-muted};
+  --header-btn-bg: #{$color-bg-invert};
+  --header-btn-bg-hover: #292929;
+  --header-btn-fg: #{$color-bg-base};
+
+  .inner {
+    mix-blend-mode: normal;
+  }
+}
+
+// ponytail: same 12-col grid as Footer .inner — the right group lands on the
+// footer's 9 / span 4 column.
+.inner {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  z-index: 2; // above #main-content's stacking plate, for the fixed mobile menu
+  mix-blend-mode: difference;
+
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: $page-margin $page-margin 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: $gutter;
+  align-items: center;
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(mobile) {
+    padding-block: $space-md;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.logo {
+  @include heading-5;
+
+  grid-column: 1 / span 7;
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-image: none;
+
+  width: fit-content;
+
+  &[aria-current="page"] {
+    cursor: default;
+  }
+
+  @include respond-to(tablet) {
+    grid-column: auto;
+  }
+}
+
+// ponytail: overflows column 9 if a fourth nav item lands — widen to 8 / span 5 then.
+.actions {
+  grid-column: 9 / span 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+
+  @include respond-to(tablet) {
+    grid-column: auto;
+  }
+
+  @include respond-to(mobile) {
+    display: none;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  white-space: nowrap;
+
+  @include respond-to(mobile) {
+    display: none;
+  }
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.navLink {
+  @include menu-items;
+
+  color: inherit;
+  text-decoration: none;
+
+  &[aria-current="page"] {
+    cursor: default;
+  }
+}
+
+.sep {
+  @include label-xl;
+
+  color: var(--header-fg-muted);
+}
+
+.lang {
+  @include menu-items;
+
+  a {
+    text-decoration: none;
+    color: $black-100;
+
+    &.langMuted {
+      color: var(--header-fg-muted);
+    }
+  }
+
+
+  // Absent from the tablet and mobile frames; it reappears inside the menu.
+  @include respond-to(tablet) {
+    display: none;
+  }
+}
+
+.contact {
+  @include heading-5;
+  font-size: 16px;
+  line-height: 1;
+
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2xs;
+  padding: 6px $space-md; // ponytail: 6px has no token
+  // ponytail: border == fill in both variants (#111 border on #1d1d1d reads as
+  // one shape), so a single rule covers normal and inverted.
+  border: 1px solid var(--header-btn-bg);
+  border-radius: $radius-none;
+  background: var(--header-btn-bg);
+  color: var(--header-btn-fg);
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  background-image: none;
+  // `scale`, not transform: the reveal owns transform on this button.
+  transition: background-color 200ms $ease-out, scale 140ms $ease-out;
+
+  .icon {
+    transform: rotate(-45deg);
+    transition: transform 0.6s $ease-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--header-btn-bg-hover);
+    }
+  }
+
+  &:hover {
+    .icon {
+      transform: rotate(0deg);
+    }
+  }
+
+  &:active {
+    scale: 0.98;
+  }
+
+  &.contactButtonMobile {
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 1024) and (max-width: 1350px) {
+    font-size: 14px;
+  }
+
+  &.contactButtonDesktop {
+    @include respond-to(mobile) {
+      display: none;
+    }
+  }
+}
+
+
+
+// Logo leads, then every other item 50ms apart. --reveal-step is the item's
+// position in that queue; nav children add their own --reveal-i on top of
+// the base. ponytail: 6 assumes NAV's 3 links + 2 separators — bump it if
+// NAV grows.
+@media (prefers-reduced-motion: no-preference) {
+  .header {
+    --reveal-unit: 50ms;
+  }
+
+  .header .nav>* {
+    --reveal-step: 1;
+  }
+
+  .header .lang {
+    --reveal-step: 6;
+  }
+
+  .header .contact,
+  .header .burger {
+    --reveal-step: 7;
+  }
+}
+
+.burger {
+  color: inherit;
+}
+
+.burger,
+.closeMenuButton {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+
+  @include menu-items;
+  // line-height: 16px;
+  line-height: $font-size-base;
+
+  @include respond-to(mobile) {
+    display: flex;
+  }
+}
+
+.closeMenuButton {
+  position: absolute;
+  right: 24;
+  top: 10;
+}
+
+.menuBackdrop {
+  position: fixed;
+  z-index: 3;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  background: $black-200;
+  transform: translateX(-100%);
+  transition: .35s transform $ease-out .1s;
+
+  .open & {
+    transform: none;
+    transition: .35s transform $ease-out;
+  }
+}
+
+.menu {
+  display: none;
+
+  @include respond-to(mobile) {
+    --header-fg: #{$color-text-primary};
+    --header-fg-muted: #{$color-text-primary-muted};
+    --header-btn-bg: #{$color-bg-invert};
+    --header-btn-fg: #{$color-bg-base};
+
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: $space-md;
+    padding: $space-lg $page-margin;
+    background: var(--header-bg);
+    color: var(--header-fg);
+    transform: translateX(-100%);
+    transition: .35s transform $ease-out .1s;
+
+    .open & {
+      transform: none;
+      transition: .35s transform $ease-out;
+    }
+
+    // .lang is hidden from tablet down in the bar; inside the menu it is shown.
+    .lang {
+      display: block;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .menuBackdrop,
+  .menu {
+    transition: none;
+  }
+}

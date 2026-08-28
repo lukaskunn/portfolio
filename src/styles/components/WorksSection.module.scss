@@ -1,0 +1,538 @@
+@use "references" as *;
+
+.section {
+  position: relative;
+  z-index: 1;
+  background: $color-bg-base;
+  max-width: none;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  padding: $page-margin calc(#{$page-margin} + max(0px, (100vw - 1440px) * 0.5)) 0;
+  display: grid;
+  gap: 42px;
+
+  scroll-margin-top: 30px;
+
+  @include respond-to(tablet) {
+    row-gap: $space-xl;
+    width: 100%;
+  }
+}
+
+.title {
+  @include heading-1;
+
+  grid-column: 1 / -1;
+  letter-spacing: -0.02em;
+
+  @include respond-to(tablet) {
+    font-size: var(--fs-h2);
+  }
+}
+
+.worksTable {
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+
+  @include respond-to(tablet) {
+    gap: 0;
+  }
+}
+
+.head,
+.row {
+  display: grid;
+  // minmax(0, 1fr) instead of 1fr: 1fr alone means minmax(auto, 1fr), whose
+  // floor is the item's min-content width. Unbreakable words like
+  // "DEVELOPMENT" in .role would then refuse to shrink and steal space from
+  // the other tracks, drifting the whole row out of alignment with .head.
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: $gutter;
+}
+
+.head {
+  grid-column: 1 / -1;
+
+  @include respond-to(mobile) {
+    display: none;
+  }
+}
+
+.list {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  --reveal-spread: 24px;
+  overflow: clip;
+
+  li {
+    display: flex;
+    flex-direction: column;
+
+    &.rowOpen {
+      gap: 8px
+    }
+
+    &:last-child {
+      .mobileRow {
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          inset-inline: 0;
+          height: 1px;
+          background: $color-border-default;
+        }
+      }
+    }
+  }
+}
+
+.row {
+  grid-column: 1 / -1;
+  color: inherit;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  background-image: none;
+
+  &:focus-visible {
+    @include focus-visible;
+  }
+
+  &.mobileRow {
+    display: none;
+    background-image: none;
+  }
+
+  &.desktopRow {
+    display: grid;
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    width: 100%;
+    height: 32px;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      .name {
+        padding-left: 8px;
+      }
+
+      .year {
+        padding-right: 8px;
+      }
+    }
+  }
+
+  @include respond-to(tablet) {
+    &.mobileRow {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 4px;
+      padding: 16px 0;
+
+      .rowTop {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .rowBottom {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .role,
+        .type,
+        .client {
+          text-transform: uppercase;
+          font-family: $font-contrast;
+          font-weight: $font-weight-light;
+          font-size: 12px;
+        }
+
+        .role {
+          display: block;
+        }
+
+        .separator {
+          width: 2px;
+          height: 2px;
+          background: $black-200;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    &.desktopRow {
+      display: none;
+    }
+  }
+}
+
+.name {
+  grid-column: 1 / span 3;
+}
+
+.type {
+  grid-column: 4 / span 3;
+}
+
+.client {
+  grid-column: 7 / span 1;
+}
+
+.role {
+  grid-column: 9 / span 1;
+}
+
+.year {
+  grid-column: 11 / span 2;
+  text-align: right;
+}
+
+.head {
+
+  .name,
+  .type,
+  .client,
+  .role,
+  .year {
+    font-family: $font-contrast;
+    font-weight: $font-weight-light;
+    font-size: 12px;
+    line-height: $line-height-label;
+    letter-spacing: -2%;
+    text-transform: uppercase;
+  }
+}
+
+.row {
+
+  .name,
+  .type,
+  .client,
+  .role,
+  .year {
+    font-family: $font-label;
+    font-weight: $font-weight-bold;
+    font-size: 16px;
+    line-height: $line-height-label;
+  }
+
+  .client,
+  .role {
+    white-space: nowrap;
+  }
+}
+
+.meta {
+  display: none;
+}
+
+.top {
+  display: contents;
+}
+
+.strip {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: $gutter;
+
+  .goToProjectButton {
+    @include label-contrast-xl;
+    font-size: 12px;
+    font-weight: 500;
+    background-image: none;
+    grid-column: 1 / span 2;
+    width: 100%;
+    background: $black-100;
+    color: $white-100;
+    height: 36px;
+    align-self: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: .2s background ease;
+
+    &:hover {
+      background: #292929
+    }
+  }
+}
+
+.slot {
+  position: relative;
+  overflow: hidden;
+
+  // Slots sit under the type / client / role / year columns — the name column
+  // stays empty, as in Figma.
+  &:nth-child(2) {
+    grid-column: 4 / span 3;
+    height: 200px;
+  }
+
+  &:nth-child(3) {
+    grid-column: 7 / span 1;
+    height: 51px;
+  }
+
+  &:nth-child(4) {
+    grid-column: 9 / span 1;
+    height: 60px;
+  }
+
+  &:nth-child(5) {
+    grid-column: 10 / span 3;
+    height: 200px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .strip {
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: height 400ms $ease-standard, visibility 0s linear 400ms;
+  }
+
+  .rowOpen .strip {
+    // Coupled to the slot heights above (181/51/60/201px) — the strip's
+    // natural content height is 201px, hardcoded since height:auto can't
+    // transition.
+    height: 201px;
+    visibility: visible;
+    transition: height 400ms $ease-standard, visibility 0s;
+  }
+
+  .desktopRow {
+    position: relative;
+
+    // Absolutely positioned, so it is out of flow and never becomes a grid item
+    // of the 12-column row.
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0 -12px;
+      z-index: 0;
+      background: $color-bg-invert;
+      transform: scaleY(0);
+      transform-origin: var(--wipe-origin, top);
+    }
+
+    // Text spans are static; a positioned ::before would paint over them.
+    // position: relative puts them after it in paint order — no z-index needed.
+    > span {
+      position: relative;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .desktopRow::before {
+      transition: transform 0.2s $ease-standard;
+    }
+
+    // Matches ::before exactly. An instant swap on a delay hard-flips the text
+    // while the plate is still mid-sweep, which reads as a blink on fast hover.
+    .desktopRow {
+      transition: color 0.2s $ease-standard;
+    }
+
+    .name,
+    .year {
+      transition: padding 0.2s $ease-out;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .desktopRow:hover {
+      color: $color-text-invert;
+
+      &::before {
+        transform: scaleY(1);
+      }
+    }
+  }
+
+  // Replaces the highlight marker as the rows' only focus indicator —
+  // `.row:focus-visible` resolves to the focus-visible mixin, which is outline: none.
+  .desktopRow:focus-visible {
+    color: $color-text-invert;
+    transition: none;
+
+    &::before {
+      transform: scaleY(1);
+      transition: none;
+    }
+  }
+
+  // Exit leads the collapse: no delay, and done well before the strip's
+  // visibility flips at 400ms.
+  .slot {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 200ms $ease-out, transform 200ms $ease-out;
+  }
+
+  // Held until the clip has opened enough to show them — fading while the
+  // strip is still growing is what read as a blink.
+  .rowOpen .slot {
+    opacity: 1;
+    transform: none;
+    transition: opacity 260ms $ease-out, transform 260ms $ease-out;
+
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i}) {
+        transition-delay: 120ms + ($i - 1) * 40ms;
+      }
+    }
+  }
+
+  .cta {
+    grid-column: 1 / span 3;
+    align-self: end;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: $font-contrast;
+    font-weight: $font-weight-semibold;
+    font-size: 14px;
+  }
+
+  .list>li {
+    position: sticky;
+    top: calc(96px + var(--i) * 32px + var(--shift, 0) * 201px);
+    background: $color-bg-base;
+    transition: top 400ms $ease-standard;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strip,
+  .slot,
+  .list > li {
+    transition: none;
+  }
+}
+
+@include respond-to(tablet) {
+  .list {
+    --reveal-spread: 12px;
+  }
+
+  .strip {
+    display: none;
+  }
+
+  .role {
+    display: none;
+  }
+
+  .head,
+  .row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .name,
+  .type,
+  .client,
+  .year {
+    grid-column: auto;
+  }
+
+  .year {
+    text-align: right;
+  }
+
+  .row {
+    padding-block: $space-lg;
+
+    &.mobileRow {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        inset-inline: 0;
+        height: 1px;
+        background: $color-border-default;
+      }
+    }
+
+    .name {
+      @include heading-4;
+    }
+
+    .type,
+    .client,
+    .year {
+      font-family: $font-contrast;
+      font-weight: $font-weight-semibold;
+      font-size: 14px;
+      line-height: $line-height-label;
+    }
+  }
+
+  .head {
+
+    .name,
+    .type,
+    .client,
+    .year {
+      font-family: $font-contrast;
+      font-weight: $font-weight-light;
+      font-size: 14px;
+      line-height: $line-height-label;
+      padding-block: $space-xs;
+    }
+  }
+}
+
+@include respond-to(mobile) {
+  .head {
+    display: none;
+  }
+
+  .row {
+    display: grid;
+  }
+
+  .top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+
+    .name {
+      font-family: $font-heading;
+      font-weight: $font-weight-bold;
+      font-size: 18px;
+      line-height: $line-height-heading;
+    }
+
+    .year {
+      font-family: $font-contrast;
+      font-weight: $font-weight-semibold;
+      font-size: 12px;
+      line-height: $line-height-label;
+    }
+  }
+
+  .meta {
+    display: block;
+    font-family: $font-contrast;
+    font-weight: $font-weight-light;
+    font-size: 12px;
+    line-height: $line-height-label;
+    color: $color-text-primary-muted;
+    text-transform: uppercase;
+  }
+}

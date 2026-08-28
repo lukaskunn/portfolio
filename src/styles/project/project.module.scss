@@ -1,0 +1,82 @@
+@use "references" as *;
+
+.page {
+  max-width: 1440px;
+  width: 100%;
+  padding: 0 $page-margin $page-margin !important;
+  gap: $section-gap;
+  display: flex;
+  flex-direction: column;
+
+  @include respond-to(mobile) {
+    gap: $space-4xl;
+  }
+}
+
+// ponytail: Figma desktop content starts at y=116 vs the header's 72px — bump
+// desktop only, flagged for review.
+.headerSpace {
+  height: 36px;
+}
+
+.title {
+  @include heading-1;
+
+  letter-spacing: -0.02em;
+
+  @include respond-to(tablet) {
+    font-size: 36px;
+  }
+}
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: $gutter;
+  flex: 1;
+  width: 100%;
+
+  @include respond-to(mobile) {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4xl;
+  }
+}
+
+.content {
+  grid-column: span 6;
+  display: flex;
+  flex-direction: column;
+  gap: $section-gap;
+
+  @include respond-to(tablet) {
+    gap: 40px;
+  }
+
+  .projectInformation {
+    grid-column: span 6;
+    display: flex;
+    flex-direction: column;
+    gap: $section-gap;
+
+    @include respond-to(tablet) {
+      gap: 40px;
+    }
+  }
+}
+
+// Every element here carries data-reveal-now (item 4 is out of scope), so
+// with RevealOnScroll's flat --reveal-delay they need their own document-
+// order queue or they'd all fire together. 100ms per step, page-wide; the
+// nav waits out the description above it. Steps live with their markup:
+// 0 here, 1 ProjectDetails, 6 ProjectMobileImage, 7/8/9 ProjectDescription,
+// 10 ProjectNav. --reveal-unit stays on .page and inherits into all of them.
+@media (prefers-reduced-motion: no-preference) {
+  .page {
+    --reveal-unit: 100ms;
+  }
+
+  .page .title {
+    --reveal-step: 0;
+  }
+}

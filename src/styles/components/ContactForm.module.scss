@@ -1,0 +1,274 @@
+@use "references" as *;
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  width: 100%;
+  padding: 40px 0;
+
+  @include respond-to(mobile) {
+    gap: $space-2xl;
+  }
+
+  .eyebrow {
+    font-family: $font-heading;
+    font-weight: 500;
+    font-size: 36px;
+    letter-spacing: -0.02em;
+    color: $color-text-primary;
+
+    @include respond-to(tablet) {
+      font-size: 14px;
+    }
+
+    @include respond-to(mobile) {
+      font-size: 16px;
+    }
+  }
+
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .row {
+    display: flex;
+    gap: $gutter;
+    align-items: stretch;
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      gap: $space-2xl;
+    }
+
+    .left {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .titleBlock {
+        display: flex;
+        flex-direction: column;
+        gap: $section-gap;
+
+        @include respond-to(tablet) {
+          gap: $space-xs;
+        }
+
+        .title {
+          font-family: $font-heading;
+          font-weight: 500;
+          font-size: 56px;
+          line-height: 60px;
+          letter-spacing: -0.02em;
+          text-transform: uppercase;
+          display: flex;
+          flex-direction: column;
+          margin: 0;
+
+          @include respond-to(tablet) {
+            font-size: 28px;
+            line-height: $line-height-heading;
+          }
+
+          .titleMuted {
+            color: $color-text-primary-muted;
+          }
+        }
+
+        .info {
+          font-family: $font-heading;
+          font-weight: $font-weight-bold;
+          font-size: 18px;
+          letter-spacing: -0.02em;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          a {
+            color: $color-text-primary;
+            text-decoration: none;
+          }
+
+          @include respond-to(tablet) {
+            font-size: 14px;
+            gap: $space-2xs;
+          }
+
+          @include respond-to(mobile) {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .fields {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 44px; // literal — no token in Figma for this gap
+
+      @include respond-to(tablet) {
+        gap: $space-2xl;
+      }
+
+      // .fields direct children, in DOM order: 1 name, 2 optional, 3 email, 4 message, 5 toggle.
+      @include respond-to(mobile) {
+        & > *:nth-child(3) {
+          order: 1;
+        }
+
+        & > *:nth-child(4) {
+          order: 2;
+        }
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+
+        @include respond-to(tablet) {
+          gap: $space-xs;
+        }
+
+        .label {
+          font-family: $font-contrast;
+          font-weight: 500;
+          font-size: 12px;
+          letter-spacing: -0.04em;
+          color: $color-text-primary-muted;
+
+          .required {
+            color: $color-danger;
+          }
+        }
+
+        .input,
+        .textarea {
+          font-family: $font-label;
+          font-weight: $font-weight-bold;
+          font-size: 16px;
+          color: $color-text-primary;
+          width: 100%;
+          background: transparent;
+          border: 0;
+          border-bottom: 1px solid $color-border-default;
+          border-radius: $radius-none;
+          padding: 0;
+          height: 32px;
+          transition: border-bottom-color 150ms $ease-out;
+
+          &[aria-invalid="true"] {
+            border-bottom-color: $color-danger;
+          }
+        }
+
+        .input {
+          @include respond-to(mobile) {
+            height: 48px;
+            padding: 0;
+          }
+        }
+
+        .textarea {
+          height: 160px;
+          padding-top: $space-xs;
+          line-height: 24px;
+          resize: vertical;
+
+          @include respond-to(tablet) {
+            height: 96px;
+          }
+        }
+
+        .error {
+          font-family: $font-contrast;
+          font-weight: 500;
+          font-size: 12px;
+          margin-top: $space-2xs;
+          color: $color-danger;
+          transition: opacity 260ms $ease-out;
+
+          @starting-style {
+            opacity: 0;
+          }
+
+          @media (prefers-reduced-motion: no-preference) {
+            transition: opacity 260ms $ease-out, transform 260ms $ease-out;
+
+            @starting-style {
+              transform: translateY(6px);
+            }
+          }
+        }
+      }
+
+      .optional {
+        display: contents;
+
+        @include respond-to(mobile) {
+          display: grid;
+          grid-template-rows: 0fr;
+          order: 4;
+          // ponytail: cancels the .fields row-gap while collapsed — a 0fr grid row is
+          // still a flex item and would leave 32px of dead space under the toggle.
+          margin-top: -$space-2xl;
+          transition: grid-template-rows 250ms $ease-standard, margin-top 250ms $ease-standard;
+
+          &.open {
+            grid-template-rows: 1fr;
+            margin-top: 0;
+
+            .optionalInner {
+              visibility: visible;
+              transition: visibility 0s;
+            }
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          transition: none;
+        }
+
+        .optionalInner {
+          display: contents;
+
+          @include respond-to(mobile) {
+            display: flex;
+            flex-direction: column;
+            gap: $space-xl;
+            overflow: hidden;
+            visibility: hidden;
+            transition: visibility 0s linear 250ms;
+          }
+        }
+      }
+
+      .optionalToggle {
+        display: none;
+
+        @include respond-to(mobile) {
+          display: block;
+          font-family: $font-contrast;
+          font-weight: 600;
+          font-size: 12px;
+          color: $color-text-primary-muted;
+          padding-block: $space-sm;
+          background: none;
+          border: 0;
+          text-align: left;
+          cursor: pointer;
+          // .fields direct children in DOM order: name, optional, email, message, toggle.
+          // Reordered here so the toggle sits after the message field and the optional
+          // fields drop in right below it once opened.
+          order: 3;
+        }
+      }
+    }
+  }
+}

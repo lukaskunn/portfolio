@@ -1,0 +1,288 @@
+@use "references" as *;
+
+// ponytail: hardcoded per breakpoint — the copy is static so it cannot reflow.
+// Swap for a ResizeObserver setting --footer-h when it comes from Sanity.
+@mixin footer-height {
+  --footer-h: 550px;
+
+  @include respond-to(tablet) {
+    --footer-h: 432px;
+  }
+
+  @include respond-to(mobile) {
+    --footer-h: 620px;
+  }
+}
+
+.spacer {
+  @include footer-height;
+
+  width: 100%;
+  height: var(--footer-h);
+
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+}
+
+// ponytail: desktop's dark block ($black-100) wins at every breakpoint —
+// the tablet/mobile frames' lighter reading is ignored for one flat colour.
+.footer {
+  @include footer-height;
+
+  --footer-fg: #{$color-text-invert};
+  --footer-fg-muted: #{$color-text-invert-muted};
+
+  position: fixed;
+  inset: auto 0 0 0;
+  width: 100%;
+  height: fit-content;
+  z-index: 0;
+  background: $black-100;
+  color: var(--footer-fg);
+  font-family: $font-heading;
+  font-weight: $font-weight-bold;
+
+  @media (prefers-reduced-motion: reduce) {
+    position: static;
+    height: auto;
+  }
+}
+
+.inner {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: $page-margin;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: $gutter;
+  row-gap: 128px;
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: $space-5xl;
+    padding-block: $space-6xl;
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    row-gap: $space-4xl;
+    padding-block: $space-4xl;
+  }
+}
+
+.intro {
+  grid-column: 1 / span 7;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+
+  @include respond-to(tablet) {
+    grid-column: auto;
+    gap: $space-xl;
+  }
+
+  @include respond-to(mobile) {
+    gap: $space-4xl;
+  }
+}
+
+.aside {
+  grid-column: 9 / span 4;
+  display: flex;
+  flex-direction: column;
+  gap: $space-6xl;
+
+  @include respond-to(tablet) {
+    grid-column: auto;
+    gap: 40px; // ponytail: sits between $space-3xl and $space-4xl
+  }
+
+  @include respond-to(mobile) {
+    gap: $space-4xl;
+  }
+}
+
+.bottom {
+  grid-column: 1 / -1;
+  display: grid;
+  column-gap: var(--gutter);
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;
+  justify-content: space-between;
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(mobile) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-md;
+  }
+}
+
+.title {
+  font-size: 106px;
+  line-height: 112px;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  @include respond-to(tablet) {
+    font-size: var(--fs-h1);
+    line-height: $line-height-heading;
+  }
+
+  @media screen and (min-width: 1024px) and (max-width: 1145px) {
+    font-size: 92px;
+    line-height: 102px;
+  }
+}
+
+.titleLine {
+  display: block;
+  overflow: clip;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xs;
+  font-size: 18px;
+  width: fit-content;
+  cursor: pointer;
+}
+
+// The coordinates are the one 16px line in the pair; its sibling stays 18px.
+.status {
+  display: flex;
+  align-items: center;
+  gap: 17px; // ponytail: 17px has no token
+  font-size: 22px;
+  grid-column: 1 / span 7;
+
+  @include respond-to(tablet) {
+    grid-column: auto;
+  }
+
+  @include respond-to(mobile) {
+    gap: $space-xs;
+  }
+}
+
+.sitemap {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.sitemapLinks {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+
+  @include respond-to(mobile) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: $space-md;
+    row-gap: $space-xs;
+  }
+}
+
+// 100ms stagger; +1 so the "Sitemap" label leads.
+@media (prefers-reduced-motion: no-preference) {
+  .footer .sitemap .sitemapLinks > * {
+    --reveal-step: 1;
+  }
+}
+
+.social {
+  display: flex;
+  flex-direction: row;
+  gap: $space-2xl;
+  font-size: 16px;
+  text-transform: uppercase;
+  grid-column: 9 / span 4;
+
+  @include respond-to(tablet) {
+    gap: $space-xl;
+    grid-column: auto;
+  }
+
+  @include respond-to(mobile) {
+    gap: $space-lg;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2xs;
+
+    .socialIcon {
+      transform: rotate(-45deg);
+
+      @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+        transition: transform 0.6s $ease-out;
+      }
+    }
+  }
+}
+
+@include respond-to(tablet) {
+
+  .block,
+  .status,
+  .sitemap,
+  .social {
+    font-size: var(--fs-label);
+  }
+}
+
+.muted {
+  color: var(--footer-fg-muted);
+}
+
+// Scoped under .footer to outrank the `.footer a` reset below — the sitemap
+// entries are muted until hovered, everything else stays white.
+.footer .mutedLink {
+  color: var(--footer-fg-muted);
+  text-decoration: none;
+  width: fit-content;
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    transition: background-size 0.35s $ease-out, color 150ms $ease-out;
+  }
+
+  &:hover {
+    color: var(--footer-fg);
+  }
+}
+
+// Resets the CONTACT ME <button> back to plain-link looks.
+.linkButton {
+  @include hover-underline;
+
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  text-align: start;
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    transition: background-size 0.35s $ease-out, color 150ms $ease-out;
+  }
+
+  &:hover {
+    color: var(--footer-fg);
+  }
+}

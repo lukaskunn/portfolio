@@ -1,0 +1,69 @@
+import type { Metadata } from "next"
+import { DEFAULT_DESCRIPTION, OG_IMAGE, SITE_NAME } from "./contants"
+
+export type SEO = {
+  metaTitle?: string
+  metaDescription?: string
+  ogImage?: {
+    alt?: string
+    asset?: {
+      url?: string
+      metadata?: { dimensions?: { width: number; height: number } }
+    }
+  }
+}
+
+export function truncate(text: string, maxLength = 155): string {
+  if (text.length <= maxLength) return text
+  const sliced = text.slice(0, maxLength)
+  const lastSpace = sliced.lastIndexOf(" ")
+  return `${sliced.slice(0, lastSpace === -1 ? maxLength : lastSpace)}…`
+}
+
+type BuildMetadataParams = {
+  seo?: SEO
+  title?: string
+  description?: string
+  path: string
+  type?: "website" | "article"
+}
+
+export function buildMetadata(params: BuildMetadataParams): Metadata {
+  const {
+    seo,
+    title,
+    description = DEFAULT_DESCRIPTION,
+    path,
+    type = "website",
+  } = params
+  const resolvedTitle = seo?.metaTitle || title
+  const resolvedDescription = seo?.metaDescription || description
+  const ogImageUrl = seo?.ogImage?.asset?.url || OG_IMAGE
+  const ogImageDimensions = seo?.ogImage?.asset?.metadata?.dimensions
+  return {
+    ...(resolvedTitle ? { title: resolvedTitle } : {}),
+    description: resolvedDescription,
+    alternates: { canonical: path },
+    openGraph: {
+      title: resolvedTitle,
+      description: resolvedDescription,
+      url: path,
+      siteName: SITE_NAME,
+      type,
+      images: [
+        {
+          url: ogImageUrl,
+          width: ogImageDimensions?.width ?? 1810,
+          height: ogImageDimensions?.height ?? 956,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: resolvedTitle,
+      description: resolvedDescription,
+      creator: "@http_lucaso",
+      images: [ogImageUrl],
+    },
+  }
+}
