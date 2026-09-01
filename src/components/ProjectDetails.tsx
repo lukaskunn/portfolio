@@ -19,6 +19,7 @@ export interface ProjectDetailsProps {
 
 const ProjectDetails = ({ project, labels, liveLinkLabel }: ProjectDetailsProps) => {
   const details = [
+    { label: labels.client, value: project.client },
     { label: labels.year, value: project.year },
     { label: labels.role, value: project.role },
     { label: labels.type, value: project.type },
