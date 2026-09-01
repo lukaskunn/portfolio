@@ -26,6 +26,7 @@ type BuildMetadataParams = {
   description?: string
   path: string
   type?: "website" | "article"
+  generatedOgImage?: boolean
 }
 
 export function buildMetadata(params: BuildMetadataParams): Metadata {
@@ -35,11 +36,16 @@ export function buildMetadata(params: BuildMetadataParams): Metadata {
     description = DEFAULT_DESCRIPTION,
     path,
     type = "website",
+    generatedOgImage,
   } = params
   const resolvedTitle = seo?.metaTitle || title
   const resolvedDescription = seo?.metaDescription || description
   const ogImageUrl = seo?.ogImage?.asset?.url || OG_IMAGE
   const ogImageDimensions = seo?.ogImage?.asset?.metadata?.dimensions
+  // Leaving an `opengraph-image.tsx` route generate the image requires the
+  // segment's own metadata to NOT own an `images` key at all — Next only
+  // merges file-convention images in when the key is absent.
+  const useFileImage = generatedOgImage && !seo?.ogImage?.asset?.url
   return {
     ...(resolvedTitle ? { title: resolvedTitle } : {}),
     description: resolvedDescription,
@@ -50,20 +56,24 @@ export function buildMetadata(params: BuildMetadataParams): Metadata {
       url: path,
       siteName: SITE_NAME,
       type,
-      images: [
-        {
-          url: ogImageUrl,
-          width: ogImageDimensions?.width ?? 1810,
-          height: ogImageDimensions?.height ?? 956,
-        },
-      ],
+      ...(useFileImage
+        ? {}
+        : {
+            images: [
+              {
+                url: ogImageUrl,
+                width: ogImageDimensions?.width ?? 1810,
+                height: ogImageDimensions?.height ?? 956,
+              },
+            ],
+          }),
     },
     twitter: {
       card: "summary_large_image",
       title: resolvedTitle,
       description: resolvedDescription,
       creator: "@http_lucaso",
-      images: [ogImageUrl],
+      ...(useFileImage ? {} : { images: [ogImageUrl] }),
     },
   }
 }

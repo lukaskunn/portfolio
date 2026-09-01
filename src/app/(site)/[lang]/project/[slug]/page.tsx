@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/project/[s
     title: project.name,
     path: `/${lang}/project/${slug}`,
     type: "article",
+    generatedOgImage: true,
   })
 }
 
