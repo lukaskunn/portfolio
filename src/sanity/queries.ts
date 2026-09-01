@@ -45,7 +45,7 @@ export const projectBySlugQuery = defineQuery(`
     "industry": coalesce(industry[$lang], industry.pt),
     "role": coalesce(role[$lang], role.pt),
     "description": coalesce(description[$lang], description.pt),
-    images,
+    images[]{ alt, hotspot, crop, asset->{ _id, url, metadata { dimensions } } },
     ${seoProjection}
   }
 `)
@@ -121,7 +121,9 @@ export const aboutPageQuery = defineQuery(`
 export const projectPageQuery = defineQuery(`
   *[_id == "projectPage"][0] {
     "backLabel": coalesce(backLabel[$lang], backLabel.pt),
-    "nextLabel": coalesce(nextLabel[$lang], nextLabel.pt)
+    "nextLabel": coalesce(nextLabel[$lang], nextLabel.pt),
+    "openImageLabel": coalesce(openImageLabel[$lang], openImageLabel.pt),
+    "closeImageLabel": coalesce(closeImageLabel[$lang], closeImageLabel.pt)
   }
 `)
 
@@ -150,7 +152,8 @@ export const settingsQuery = defineQuery(`
       "year": coalesce(year[$lang], year.pt),
       "industry": coalesce(industry[$lang], industry.pt),
       "technologies": coalesce(technologies[$lang], technologies.pt),
-      "description": coalesce(description[$lang], description.pt)
+      "description": coalesce(description[$lang], description.pt),
+      "live": coalesce(live[$lang], live.pt)
     },
     "viewProjectLabel": coalesce(viewProjectLabel[$lang], viewProjectLabel.pt),
     "viewLiveProjectLabel": coalesce(viewLiveProjectLabel[$lang], viewLiveProjectLabel.pt),

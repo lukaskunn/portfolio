@@ -1,22 +1,21 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, type CSSProperties } from "react"
 import Image from "next/image"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 
+import { useProjectLightbox } from "@/components/ProjectLightbox"
+import type { ProjectImage } from "@/types/content"
 import style from "@/styles/components/ProjectGallery.module.scss"
 
-export interface ProjectGalleryImage {
-  url: string
-  alt: string
-}
-
 export interface ProjectGalleryProps {
-  images: ProjectGalleryImage[]
+  images: ProjectImage[]
+  openImageLabel?: string
 }
 
-const ProjectGallery = ({ images }: ProjectGalleryProps) => {
+const ProjectGallery = ({ images, openImageLabel }: ProjectGalleryProps) => {
+  const openLightbox = useProjectLightbox()
   const root = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
@@ -63,18 +62,33 @@ const ProjectGallery = ({ images }: ProjectGalleryProps) => {
   return (
     <div ref={root} className={style.gallery}>
       <div className={style.track}>
-        {[...images, ...images].map((image, index) => (
-          <div key={index} className={style.trackImage} aria-hidden={index >= images.length}>
-            <Image
-              src={image.url}
-              alt={index < images.length ? image.alt : ""}
-              fill
-              style={{ objectFit: "cover" }}
-              sizes="(max-width: 1023.98px) 45vw, 668px"
-              loading={index === 0 ? "eager" : "lazy"}
-            />
-          </div>
-        ))}
+        {[...images, ...images].map((image, index) => {
+          const isDuplicate = index >= images.length
+
+          return (
+            <button
+              key={index}
+              type="button"
+              className={style.trackImage}
+              aria-hidden={isDuplicate}
+              tabIndex={isDuplicate ? -1 : undefined}
+              aria-label={openImageLabel}
+              onClick={() => openLightbox(image)}
+              data-reveal="wipe"
+              data-reveal-now
+              style={{ "--reveal-i": index % images.length } as CSSProperties}
+            >
+              <Image
+                src={image.url}
+                alt={isDuplicate ? "" : image.alt}
+                width={image.width}
+                height={image.height}
+                sizes="(max-width: 1023.98px) 45vw, 668px"
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+            </button>
+          )
+        })}
       </div>
     </div>
   )

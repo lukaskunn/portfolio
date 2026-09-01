@@ -955,6 +955,14 @@
                 "name": "localeString"
               },
               "optional": true
+            },
+            "live": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "localeString"
+              },
+              "optional": true
             }
           }
         },
@@ -1306,6 +1314,22 @@
         "optional": true
       },
       "nextLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "localeString"
+        },
+        "optional": true
+      },
+      "openImageLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "localeString"
+        },
+        "optional": true
+      },
+      "closeImageLabel": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",

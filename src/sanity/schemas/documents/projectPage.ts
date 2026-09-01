@@ -10,6 +10,8 @@ export const projectPage = defineType({
   fields: [
     defineField({ name: "backLabel", type: "localeString" }),
     defineField({ name: "nextLabel", type: "localeString" }),
+    defineField({ name: "openImageLabel", title: "Open image label", type: "localeString" }),
+    defineField({ name: "closeImageLabel", title: "Close image label", type: "localeString" }),
   ],
   preview: { prepare: () => ({ title: "Project page" }) },
 })
