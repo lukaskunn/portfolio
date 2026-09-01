@@ -8,11 +8,13 @@ import { usePathname } from "next/navigation"
 // animated in globals.scss. It is keyed on the pathname because React's
 // `update` path only participates when an element's bounding rect changes; a
 // remount goes through enter/exit, which always participates.
+// `update="none"` keeps update commits (server actions, useActionState, any
+// startTransition) from ever triggering this route animation.
 const RouteTransition = () => {
   const pathname = usePathname()
 
   return (
-    <ViewTransition key={pathname} default="route-tick">
+    <ViewTransition key={pathname} default="route-tick" update="none">
       <span
         aria-hidden="true"
         style={{

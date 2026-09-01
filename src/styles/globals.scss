@@ -337,6 +337,11 @@ body {
   pointer-events: none;
 }
 
+::selection {
+  background: #ff5757;
+  color: #111;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   // ponytail: the plane the outgoing page darkens against. Sits behind both
   // snapshots, so fading the old one to 0.62 is a compositor-only multiply —
