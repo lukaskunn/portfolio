@@ -342,6 +342,19 @@ body {
   color: #111;
 }
 
+// Chrome, decoration and animation machinery aren't content — block text
+// selection on nav/header/buttons/labels and anything marked decorative.
+header,
+nav,
+button,
+label {
+  user-select: none;
+}
+
+dialog::backdrop {
+  user-select: none;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   // ponytail: the plane the outgoing page darkens against. Sits behind both
   // snapshots, so fading the old one to 0.62 is a compositor-only multiply —

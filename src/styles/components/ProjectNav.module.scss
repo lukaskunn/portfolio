@@ -4,6 +4,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: auto;
+  user-select: none;
 
   @include respond-to(mobile) {
     border-top: 1px solid $color-border-default;

@@ -3,6 +3,7 @@
 .copy {
   @include hover-underline;
 
+  user-select: text;
   background: none;
   border: 0;
   padding: 0;
