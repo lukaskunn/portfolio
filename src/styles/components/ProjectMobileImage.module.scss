@@ -5,9 +5,18 @@
 
   @include respond-to(mobile) {
     display: block;
-    position: relative;
-    aspect-ratio: 16 / 9;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    background: none;
+    cursor: pointer;
     margin-inline: calc(#{$page-margin} * -1);
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
   }
 }
 

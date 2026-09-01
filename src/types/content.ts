@@ -7,10 +7,18 @@ import type { Lang } from "@/utils/locale"
 // typegen can't narrow `coalesce(f[$lang], f.pt)`, so it's documentation only.
 
 export type SanityImage = {
-  asset?: { _ref?: string; url?: string }
+  asset?: { _ref?: string; _id?: string; url?: string; metadata?: { dimensions?: { width: number; height: number } } }
   hotspot?: unknown
   crop?: unknown
   alt?: string
+}
+
+export type ProjectImage = {
+  url: string
+  fullUrl: string
+  alt: string
+  width: number
+  height: number
 }
 
 export type ContactInfo = {
@@ -45,6 +53,7 @@ export type FieldLabels = {
   industry?: string
   technologies?: string
   description?: string
+  live?: string
 }
 
 export type Settings = {
@@ -154,6 +163,8 @@ export type AboutPage = {
 export type ProjectPageLabels = {
   backLabel?: string
   nextLabel?: string
+  openImageLabel?: string
+  closeImageLabel?: string
 }
 
 export type ProjectListItem = {

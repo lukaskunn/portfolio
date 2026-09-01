@@ -48,6 +48,27 @@
   }
 }
 
+.liveLink {
+  // Opts out of the global `a` hover-underline sweep — this one stays static.
+  background-image: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding-bottom: 0;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  .liveIcon {
+    transform: rotate(-45deg);
+  }
+
+  @include respond-to(tablet) {
+    align-self: flex-end;
+  }
+}
+
 .technologies {
   @include respond-to(tablet) {
     flex-direction: row;

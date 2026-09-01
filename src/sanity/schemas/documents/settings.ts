@@ -195,6 +195,7 @@ export const settings = defineType({
         defineField({ name: "industry", type: "localeString" }),
         defineField({ name: "technologies", type: "localeString" }),
         defineField({ name: "description", type: "localeString" }),
+        defineField({ name: "live", type: "localeString" }),
       ],
     }),
 

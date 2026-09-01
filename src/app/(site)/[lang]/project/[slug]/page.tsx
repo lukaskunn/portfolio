@@ -6,12 +6,13 @@ import { buildMetadata } from "@/utils/metadata"
 import { sanityFetch } from "@/sanity/client"
 import { imageUrl } from "@/sanity/image"
 import { projectBySlugQuery, projectSlugsQuery, projectNavItemsQuery, projectPageQuery, settingsQuery } from "@/sanity/queries"
-import type { ProjectDetail, ProjectNavItem, ProjectPageLabels, Settings } from "@/types/content"
+import type { ProjectDetail, ProjectImage, ProjectNavItem, ProjectPageLabels, Settings } from "@/types/content"
 import ProjectDescription from "@/components/ProjectDescription"
 import ProjectDetails from "@/components/ProjectDetails"
 import ProjectGallery from "@/components/ProjectGallery"
 import ProjectMobileImage from "@/components/ProjectMobileImage"
 import ProjectNav from "@/components/ProjectNav"
+import { ProjectLightboxProvider } from "@/components/ProjectLightbox"
 
 export async function generateStaticParams() {
   const slugs = (await sanityFetch<string[]>(projectSlugsQuery)) ?? []
@@ -48,44 +49,55 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
   const nextItem = index === -1 ? undefined : navItems[(index + 1) % navItems.length]
   const nextSlug = nextItem?.slug ?? slug
 
-  const images = (project.images ?? []).map((image) => ({
-    url: imageUrl(image, 700),
-    alt: image.alt ?? "",
-  }))
-  const galleryImages = images.filter((image): image is { url: string; alt: string } => !!image.url)
-  const [leadImage, ...restImages] = galleryImages
+  const images = (project.images ?? []).flatMap((image) => {
+    const url = imageUrl(image, 700)
+    const fullUrl = imageUrl(image, 1920)
+    const dimensions = image.asset?.metadata?.dimensions
+    if (!url || !fullUrl || !dimensions) return []
+    return [{ url, fullUrl, alt: image.alt ?? "", width: dimensions.width, height: dimensions.height }]
+  }) satisfies ProjectImage[]
+  const [leadImage, ...restImages] = images
 
   return (
     <>
       <main id="main-content" className={`${style.page} projectPage`}>
         <div className={style.headerSpace} aria-hidden="true" />
-        <div className={style.split}>
-          <ProjectGallery images={galleryImages} />
+        <ProjectLightboxProvider closeImageLabel={projectPage?.closeImageLabel}>
+          <div className={style.split}>
+            <ProjectGallery images={images} openImageLabel={projectPage?.openImageLabel} />
 
-          <div className={style.content}>
-            <div className={style.projectInformation}>
-              <h1 className={style.title} data-reveal="lines" data-reveal-now>{project.name}</h1>
+            <div className={style.content}>
+              <div className={style.projectInformation}>
+                <h1 className={style.title} data-reveal="lines" data-reveal-now>{project.name}</h1>
 
-              <ProjectDetails project={project} labels={settings?.fieldLabels ?? {}} />
+                <ProjectDetails project={project} labels={settings?.fieldLabels ?? {}} liveLinkLabel={settings?.viewLiveProjectLabel} />
 
-              {leadImage && <ProjectMobileImage url={leadImage.url} alt={leadImage.alt} loading="eager" />}
+                {leadImage && (
+                  <ProjectMobileImage image={leadImage} revealIndex={0} loading="eager" openImageLabel={projectPage?.openImageLabel} />
+                )}
 
-              <ProjectDescription value={project.description} label={settings?.fieldLabels?.description ?? ""} />
+                <ProjectDescription value={project.description} label={settings?.fieldLabels?.description ?? ""} />
 
-              {restImages.map((image, index) => (
-                <ProjectMobileImage key={index} url={image.url} alt={image.alt} />
-              ))}
+                {restImages.map((image, index) => (
+                  <ProjectMobileImage
+                    key={index}
+                    image={image}
+                    revealIndex={index + 1}
+                    openImageLabel={projectPage?.openImageLabel}
+                  />
+                ))}
+              </div>
+
+              <ProjectNav
+                nextSlug={nextSlug}
+                nextName={nextItem?.name}
+                lang={langFromPathname(`/${lang}`)}
+                backLabel={projectPage?.backLabel}
+                nextLabel={projectPage?.nextLabel}
+              />
             </div>
-
-            <ProjectNav
-              nextSlug={nextSlug}
-              nextName={nextItem?.name}
-              lang={langFromPathname(`/${lang}`)}
-              backLabel={projectPage?.backLabel}
-              nextLabel={projectPage?.nextLabel}
-            />
           </div>
-        </div>
+        </ProjectLightboxProvider>
       </main>
     </>
   )

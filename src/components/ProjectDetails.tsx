@@ -1,18 +1,32 @@
+import { FaArrowRight } from "react-icons/fa"
 import style from "@/styles/components/ProjectDetails.module.scss"
 import type { FieldLabels, ProjectDetail } from "@/types/content"
+
+const getHostname = (url?: string): string => {
+  if (!url) return ""
+  try {
+    return new URL(url).hostname
+  } catch {
+    return url
+  }
+}
 
 export interface ProjectDetailsProps {
   project: ProjectDetail
   labels: FieldLabels
+  liveLinkLabel?: string
 }
 
-const ProjectDetails = ({ project, labels }: ProjectDetailsProps) => {
+const ProjectDetails = ({ project, labels, liveLinkLabel }: ProjectDetailsProps) => {
   const details = [
     { label: labels.year, value: project.year },
     { label: labels.role, value: project.role },
     { label: labels.type, value: project.type },
     { label: labels.industry, value: project.industry },
   ] as const
+
+  const showLive = project.showLiveLink && !!project.liveUrl
+  const liveRowLabel = liveLinkLabel || labels.live
 
   return (
     <div className={style.detailsGroup} data-reveal-group data-reveal-now>
@@ -30,6 +44,17 @@ const ProjectDetails = ({ project, labels }: ProjectDetailsProps) => {
           ))}
         </span>
       </div>
+      {showLive && (
+        <div className={style.row}>
+          <span className={style.label}>{liveRowLabel}</span>
+          <span className={style.value}>
+            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={style.liveLink}>
+              {getHostname(project.liveUrl)}
+              <FaArrowRight size={16} className={style.liveIcon} aria-hidden="true" focusable="false" />
+            </a>
+          </span>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,0 +1,96 @@
+@use "references" as *;
+
+.dialog {
+  margin: auto;
+  width: auto;
+  max-width: 90dvw;
+  max-height: 90dvh;
+  border: 0;
+  padding: 0;
+  background: none;
+
+  opacity: 1;
+  transition:
+    opacity 0.3s $ease-out,
+    display 0.3s allow-discrete,
+    overlay 0.3s allow-discrete;
+
+  &:not([open]) {
+    opacity: 0;
+  }
+
+  @starting-style {
+    &[open] {
+      opacity: 0;
+    }
+  }
+
+  &::backdrop {
+    background: rgba(17, 17, 17, 0.85);
+    opacity: 1;
+    transition:
+      opacity 0.3s $ease-out,
+      display 0.3s allow-discrete,
+      overlay 0.3s allow-discrete;
+  }
+
+  &:not([open])::backdrop {
+    opacity: 0;
+  }
+
+  &[open]::backdrop {
+    @starting-style {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition:
+      opacity 200ms $ease-out,
+      display 200ms allow-discrete,
+      overlay 200ms allow-discrete;
+
+    &::backdrop {
+      transition:
+        opacity 200ms $ease-out,
+        display 200ms allow-discrete,
+        overlay 200ms allow-discrete;
+    }
+  }
+
+  .image {
+    display: block;
+    max-width: 90dvw;
+    max-height: 90dvh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .close {
+    position: fixed;
+    top: $page-margin;
+    right: $page-margin;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: $color-bg-base;
+    cursor: pointer;
+    transition: opacity 150ms $ease-out;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+
+    &:active {
+      transform: scale(0.94);
+    }
+  }
+}

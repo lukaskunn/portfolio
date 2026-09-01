@@ -577,6 +577,26 @@ dialog::backdrop {
     }
   }
 
+  // E7 — diagonal wipe. Same clip-path mechanism as curtain, angled corner
+  // to corner instead of top to bottom.
+  [data-reveal="wipe"] {
+    clip-path: polygon(0 0, 0 0, 0 0);
+  }
+
+  [data-reveal="wipe"][data-reveal-in] {
+    animation: reveal-wipe 900ms $ease-slide both;
+    animation-delay: calc(var(--reveal-delay) + (var(--reveal-step, 0) + var(--reveal-i, 0)) * var(--reveal-unit, 80ms));
+  }
+
+  @keyframes reveal-wipe {
+    from {
+      clip-path: polygon(0 0, 0 0, 0 0);
+    }
+    to {
+      clip-path: polygon(0 0, 200% 0, 0 200%);
+    }
+  }
+
   // E5 — masked line-rise for content SplitText must not touch (interactive
   // nodes, live-updating text). Same duration/curve/stagger as .revealLine.
   [data-reveal="rise"] > * {
