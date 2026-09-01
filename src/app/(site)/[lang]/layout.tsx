@@ -10,7 +10,8 @@ import CursorFollower from "@/components/CursorFollower";
 import RouteTransition from "@/components/RouteTransition";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { ContactModalProvider } from "@/contexts/ContactModalContext";
-import { SITE_URL } from "@/utils/contants";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { sanityFetch } from "@/sanity/client";
 import { settingsQuery, contactMessagesQuery } from "@/sanity/queries";
 import { buildMetadata } from "@/utils/metadata";
@@ -180,6 +181,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <Header settings={settings} />
           {children}
         </ContactModalProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
