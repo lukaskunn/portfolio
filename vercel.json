@@ -1,7 +1,7 @@
 {
   "git": {
     "deploymentEnabled": {
-      "*": false,
+      "feat/post-launch-changes": false,
       "master": true,
       "develop": true
     }
