@@ -1,11 +1,4 @@
 {
-  "git": {
-    "deploymentEnabled": {
-      "*": false,
-      "master": true,
-      "develop": true
-    }
-  },
   "redirects": [
     {
       "source": "/blog",
