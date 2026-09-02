@@ -45,7 +45,7 @@ const ImageTrail = ({ images }: ImageTrailProps) => {
       const pool = poolRef.current.filter((el): el is HTMLImageElement => Boolean(el))
       if (!pool.length) return
 
-      gsap.set(pool, { xPercent: -50, yPercent: -50 })
+      gsap.set(pool, { xPercent: -10, yPercent: -10 })
 
       const follow = (el: HTMLImageElement, prop: "x" | "y") =>
         gsap.quickTo(el, prop, { duration: FOLLOW_DURATION, ease: "power2.out" })
