@@ -67,14 +67,6 @@ export const settings = defineType({
       group: "general",
     }),
     defineField({
-      name: "ogImage",
-      title: "Open Graph image",
-      type: "image",
-      fields: [defineField({ name: "alt", type: "string" })],
-      group: "general",
-    }),
-
-    defineField({
       name: "loaderImages",
       title: "Loader images",
       description: "Images trailing the cursor during the intro loader.",

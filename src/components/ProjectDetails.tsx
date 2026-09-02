@@ -1,15 +1,6 @@
-import { FaArrowRight } from "react-icons/fa"
+import ProjectLiveLink from "./ProjectLiveLink"
 import style from "@/styles/components/ProjectDetails.module.scss"
 import type { FieldLabels, ProjectDetail } from "@/types/content"
-
-const getHostname = (url?: string): string => {
-  if (!url) return ""
-  try {
-    return new URL(url).hostname
-  } catch {
-    return url
-  }
-}
 
 export interface ProjectDetailsProps {
   project: ProjectDetail
@@ -19,13 +10,14 @@ export interface ProjectDetailsProps {
 
 const ProjectDetails = ({ project, labels, liveLinkLabel }: ProjectDetailsProps) => {
   const details = [
+    { label: labels.client, value: project.client },
     { label: labels.year, value: project.year },
     { label: labels.role, value: project.role },
     { label: labels.type, value: project.type },
     { label: labels.industry, value: project.industry },
   ] as const
 
-  const showLive = project.showLiveLink && !!project.liveUrl
+  const liveUrl = project.showLiveLink ? project.liveUrl : undefined
   const liveRowLabel = liveLinkLabel || labels.live
 
   return (
@@ -44,14 +36,11 @@ const ProjectDetails = ({ project, labels, liveLinkLabel }: ProjectDetailsProps)
           ))}
         </span>
       </div>
-      {showLive && (
+      {liveUrl && (
         <div className={style.row}>
           <span className={style.label}>{liveRowLabel}</span>
           <span className={style.value}>
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={style.liveLink}>
-              {getHostname(project.liveUrl)}
-              <FaArrowRight size={16} className={style.liveIcon} aria-hidden="true" focusable="false" />
-            </a>
+            <ProjectLiveLink href={liveUrl} slug={project.slug} />
           </span>
         </div>
       )}

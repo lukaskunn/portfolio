@@ -7,11 +7,5 @@ export const seo = defineType({
   fields: [
     defineField({ name: "metaTitle", type: "localeString" }),
     defineField({ name: "metaDescription", type: "localeText" }),
-    defineField({
-      name: "ogImage",
-      title: "Open Graph image",
-      type: "image",
-      fields: [defineField({ name: "alt", type: "string" })],
-    }),
   ],
 })

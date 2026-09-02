@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
-import { LOCALES, isLang } from "@/utils/locale";
+import { LOCALES, HREFLANG, isLang } from "@/utils/locale";
 import "@/styles/globals.scss";
 import "lenis/dist/lenis.css";
 import { ReactLenis } from "lenis/react";
@@ -9,8 +9,11 @@ import Header from "@/components/Header";
 import CursorFollower from "@/components/CursorFollower";
 import RouteTransition from "@/components/RouteTransition";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import JsonLd from "@/components/JsonLd";
 import { ContactModalProvider } from "@/contexts/ContactModalContext";
-import { SITE_URL } from "@/utils/contants";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SITE_URL, SITE_NAME, PERSON_ID } from "@/utils/contants";
 import { sanityFetch } from "@/sanity/client";
 import { settingsQuery, contactMessagesQuery } from "@/sanity/queries";
 import { buildMetadata } from "@/utils/metadata";
@@ -120,7 +123,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     ...STATIC_METADATA,
     ...(settings &&
       buildMetadata({
-        seo: { metaTitle: settings.defaultTitle, metaDescription: settings.defaultDescription, ogImage: settings.ogImage },
+        seo: { metaTitle: settings.defaultTitle, metaDescription: settings.defaultDescription },
         path: `/${lang}`,
       })),
     title: settings ? { default: settings.defaultTitle, template: "%s — Lucas Oliveira" } : undefined,
@@ -152,6 +155,32 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
     console.error("Failed to fetch contact messages:", error);
   }
 
+  const sameAs = (settings.social ?? []).map((s) => s.href).filter((href) => href.startsWith("http"));
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": PERSON_ID,
+        name: SITE_NAME,
+        url: `${SITE_URL}/${lang}`,
+        ...(settings.defaultDescription && { description: settings.defaultDescription }),
+        ...(settings.email && { email: settings.email }),
+        ...(settings.phone && { telephone: settings.phone }),
+        ...(sameAs.length && { sameAs }),
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: `${SITE_URL}/${lang}`,
+        name: settings.defaultTitle,
+        inLanguage: HREFLANG[lang],
+        publisher: { "@id": PERSON_ID },
+      },
+    ],
+  };
+
   return (
     <html
       lang={lang}
@@ -162,6 +191,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       suppressHydrationWarning
     >
       <body>
+        <JsonLd data={jsonLd} />
         {/* Blocking, so the intro decision lands before first paint — no flash
             either direction. Wrapped in innerHTML rather than rendered as a
             <script> element: React never executes a script it creates on the
@@ -180,6 +210,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <Header settings={settings} />
           {children}
         </ContactModalProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

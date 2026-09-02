@@ -15,7 +15,7 @@ const RetroEffect = wrapEffect(RetroEffectImpl) as ComponentType<{
 }>;
 
 interface WaveUniforms {
-  [key: string]: THREE.Uniform<any>;
+  [key: string]: THREE.IUniform<number | THREE.Vector2 | THREE.Color>;
   time: THREE.Uniform<number>;
   resolution: THREE.Uniform<THREE.Vector2>;
   waveSpeed: THREE.Uniform<number>;
@@ -65,6 +65,7 @@ function DitheredWaves({
     mousePos: new THREE.Uniform(new THREE.Vector2(0, 0)),
     enableMouseInteraction: new THREE.Uniform(enableMouseInteraction ? 1 : 0),
     mouseRadius: new THREE.Uniform(mouseRadius)
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- uniforms are created once; prop changes are applied in useFrame
   }), []);
 
   const prevColor = useRef([...waveColor]);

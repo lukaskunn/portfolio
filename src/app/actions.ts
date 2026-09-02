@@ -334,7 +334,7 @@ export const submitContact = async (
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     const { error } = await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
+      from: "Portfolio Contact <contact@lucasoliveira.io>",
       to: process.env.CONTACT_TO_EMAIL,
       replyTo: email,
       subject: `New Contact from ${name}`,

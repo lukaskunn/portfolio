@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import style from "@/styles/project/project.module.scss"
-import { LOCALES, langFromPathname } from "@/utils/locale"
+import { LOCALES, HREFLANG, langFromPathname } from "@/utils/locale"
 import { buildMetadata } from "@/utils/metadata"
 import { sanityFetch } from "@/sanity/client"
 import { imageUrl } from "@/sanity/image"
@@ -13,6 +13,8 @@ import ProjectGallery from "@/components/ProjectGallery"
 import ProjectMobileImage from "@/components/ProjectMobileImage"
 import ProjectNav from "@/components/ProjectNav"
 import { ProjectLightboxProvider } from "@/components/ProjectLightbox"
+import JsonLd from "@/components/JsonLd"
+import { SITE_URL, PERSON_ID } from "@/utils/contants"
 
 export async function generateStaticParams() {
   const slugs = (await sanityFetch<string[]>(projectSlugsQuery)) ?? []
@@ -58,8 +60,36 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
   }) satisfies ProjectImage[]
   const [leadImage, ...restImages] = images
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CreativeWork",
+        "@id": `${SITE_URL}/${lang}/project/${slug}#work`,
+        name: project.name,
+        url: `${SITE_URL}/${lang}/project/${slug}`,
+        inLanguage: HREFLANG[langFromPathname(`/${lang}`)],
+        ...(project.seo?.metaDescription && { description: project.seo.metaDescription }),
+        ...(images.length && { image: images.map((image) => image.fullUrl) }),
+        ...(project.technologies?.length && { keywords: project.technologies.join(", ") }),
+        genre: project.type,
+        about: project.industry,
+        creator: { "@id": PERSON_ID },
+        ...(/^\d{4}$/.test(project.year) && { datePublished: project.year }),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/${lang}` },
+          { "@type": "ListItem", position: 2, name: project.name, item: `${SITE_URL}/${lang}/project/${slug}` },
+        ],
+      },
+    ],
+  }
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <main id="main-content" className={`${style.page} projectPage`}>
         <div className={style.headerSpace} aria-hidden="true" />
         <ProjectLightboxProvider closeImageLabel={projectPage?.closeImageLabel}>

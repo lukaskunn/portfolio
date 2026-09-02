@@ -1,6 +1,7 @@
 "use client"
 
-import { useActionState, useId, useState } from "react"
+import { useActionState, useEffect, useId, useState } from "react"
+import { track } from "@vercel/analytics"
 import { submitContact } from "@/app/actions"
 import { useLocale } from "@/hooks/useLocale"
 import EmailAndPhoneNumberBlock from "./EmailAndPhoneNumberBlock"
@@ -23,6 +24,10 @@ const ContactForm = ({ messages, contactInfo }: ContactFormProps) => {
   const optionalId = `${uid}-optional`
   const optionalSuffix = (required: boolean) =>
     required ? "" : ` ${messages.optionalSuffixLabel ?? ""}`
+
+  useEffect(() => {
+    if (state.status === "success") track("contact_submitted")
+  }, [state])
 
   return (
     <section className={style.section}>
