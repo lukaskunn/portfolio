@@ -92,10 +92,11 @@
   position: absolute;
   right: calc(100% + 5px);
   top: clamp(0.6em, var(--p, 0) * 100%, calc(100% - 0.6em));
-  transform: translateY(-50%);
+  transform: translateY(-50%) translateX(4px);
   white-space: nowrap;
   opacity: 0;
-  transition: opacity 200ms $ease-out;
+  // fades out immediately, fades in only after the outgoing label is gone
+  transition: opacity 180ms $ease-out, transform 180ms $ease-out;
   pointer-events: none;
 
   font-family: $font-contrast;
@@ -107,9 +108,12 @@
   .link:hover &,
   .link:focus-visible & {
     opacity: 1;
+    transform: translateY(-50%) translateX(0);
   }
 
   .persistentLabel .link[aria-current] & {
     opacity: 1;
+    transform: translateY(-50%) translateX(0);
+    transition: opacity 260ms $ease-out 180ms, transform 260ms $ease-out 180ms;
   }
 }
