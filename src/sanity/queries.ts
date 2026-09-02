@@ -11,8 +11,7 @@ import { defineQuery } from "next-sanity"
 const seoProjection = `
   seo {
     "metaTitle": coalesce(metaTitle[$lang], metaTitle.pt),
-    "metaDescription": coalesce(metaDescription[$lang], metaDescription.pt),
-    ogImage { alt, asset-> { url, metadata { dimensions } } }
+    "metaDescription": coalesce(metaDescription[$lang], metaDescription.pt)
   }
 `
 
@@ -131,7 +130,6 @@ export const settingsQuery = defineQuery(`
   *[_id == "settings"][0] {
     "defaultTitle": coalesce(defaultTitle[$lang], defaultTitle.pt),
     "defaultDescription": coalesce(defaultDescription[$lang], defaultDescription.pt),
-    ogImage { alt, asset-> { url, metadata { dimensions } } },
     loaderImages,
     pages[] {
       "label": coalesce(label[$lang], label.pt),

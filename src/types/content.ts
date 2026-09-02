@@ -59,7 +59,6 @@ export type FieldLabels = {
 export type Settings = {
   defaultTitle: string
   defaultDescription: string
-  ogImage?: SanityImage
   loaderImages?: SanityImage[]
   pages?: NavItem[]
   sitemapLabel?: string

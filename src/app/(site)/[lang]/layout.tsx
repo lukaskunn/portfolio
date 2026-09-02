@@ -123,7 +123,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     ...STATIC_METADATA,
     ...(settings &&
       buildMetadata({
-        seo: { metaTitle: settings.defaultTitle, metaDescription: settings.defaultDescription, ogImage: settings.ogImage },
+        seo: { metaTitle: settings.defaultTitle, metaDescription: settings.defaultDescription },
         path: `/${lang}`,
       })),
     title: settings ? { default: settings.defaultTitle, template: "%s — Lucas Oliveira" } : undefined,
