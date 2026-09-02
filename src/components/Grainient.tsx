@@ -146,14 +146,14 @@ const Grainient = ({
     };
 
     const io = new IntersectionObserver(
-      ([entry]) => { isVisible = entry.isIntersecting; isVisible ? tryStart() : tryStop(); },
+      ([entry]) => { isVisible = entry.isIntersecting; if (isVisible) tryStart(); else tryStop(); },
       { threshold: 0 }
     );
     io.observe(container);
 
     const onVisibility = () => {
       isPageVisible = !document.hidden;
-      isPageVisible ? tryStart() : tryStop();
+      if (isPageVisible) tryStart(); else tryStop();
     };
     document.addEventListener('visibilitychange', onVisibility);
 
@@ -176,7 +176,7 @@ const Grainient = ({
     const ctx = ctxMap.get(container);
     if (!ctx) return;
     const { program } = ctx;
-    const u = program.uniforms as Record<string, { value: any }>;
+    const u = program.uniforms as Record<string, { value: number | Float32Array }>;
 
     u.uTimeSpeed.value = timeSpeed;
     u.uColorBalance.value = colorBalance;
